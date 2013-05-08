@@ -90,7 +90,7 @@ header {
         cursor: -webkit-grab;
     }
     .truck-heading {
-        background: @truck-heading-color url('../img/arrow.png') 320px 15px no-repeat;
+        background: @truck-heading-color url('../img/arrow.png') right 20px top 16px no-repeat;
         font-size: 14px;
         height: 40px;
         line-height: 40px;
@@ -98,7 +98,7 @@ header {
         cursor: hand;
         cursor: pointer;
         &.active {
-            background: @truck-heading-color url('../img/arrow-down.png') 317px 18px no-repeat;
+            background: @truck-heading-color url('../img/arrow-down.png') right 19px top 18px no-repeat;
         }
     }
     .truck-heading-border {
@@ -185,12 +185,15 @@ footer {
         li {
             float: left;
             margin: 0;
-            padding: 0 30px;
+            padding: 0 50px 0 30px;
             height: 40px;
             line-height: 40px;
             border-left: 1px solid @footer-divider;
             cursor: hand;
             cursor: pointer;
+            background-image: url('../img/arrow-up.png');
+            background-position: right 20px top 20px;
+            background-repeat: no-repeat;
             &:last-of-type {
                 border-right: 1px solid @footer-divider;
             }
