@@ -245,8 +245,8 @@ div.footer-popup {
 
 #mockup-popup {
     position: absolute;
-    right: 260px;
-    top: 220px;
+    right: 270px;
+    top: 230px;
     z-index: 1000;
     .user-select(none);
     .mockup-popup-tag {
@@ -261,11 +261,27 @@ div.footer-popup {
     }
     .mockup-popup-info {
         width: 300px;
-        height: 160px;
-        padding: 10px;
-        background-color: white;
         box-shadow: 0 8px 8px rgba(0,0,0,0.5);
         .user-select(text);
+        .mockup-popup-truck {
+            .truck-image {
+                // duplicated from #truck-info
+                height: 50px;
+                width: 50px;
+                float: left;
+                margin-right: 10px;
+                margin-top: 4px;
+                background-color: #f1f1f1;
+            }
+            padding: 10px;
+            background-color: white;
+            height: 80px;
+        }
+        .mockup-popup-location {
+            padding: 1px 10px;
+            background-color: @truck-heading-color;
+            color: white;
+        }
         h3 {
             margin: 0;
             padding: 0;
@@ -278,7 +294,7 @@ div.footer-popup {
         position: relative;
         left: 70px;
         top: -12px;
-        background-color: white;
+        background-color: @truck-heading-color;
         content: '';
         .rotate(45deg);
     }
