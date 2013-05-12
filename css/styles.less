@@ -11,7 +11,7 @@
 @clv-type:              #3f3f3f;
 @sidebar-background:    #444;
 @ui-index:              9000;
-@footer-background:     #33333f;
+@footer-background:     rgba(51,51,63,1);
 @footer-divider:        lighten(@footer-background, 10%);
 
 @container-width:       90%;
@@ -253,16 +253,19 @@ div.footer-popup {
     z-index: 1000;
     .user-select(none);
     .mockup-popup-tag {
-        width: 100px;
+        display: inline;
         height: 11px;
         line-height: 11px;
         background-color: @truck-heading-color;
         color: white;
         font-size: 11px;
-        padding: 8px 10px;
+        padding: 6px 10px;
         font-family: 'Edmondsans';
+        border-top-right-radius: 2px;
+        border-top-left-radius: 2px;
     }
     .mockup-popup-info {
+        margin-top: 4px;
         width: 300px;
         box-shadow: 0 8px 8px rgba(0,0,0,0.5);
         .user-select(text);
@@ -279,11 +282,14 @@ div.footer-popup {
             padding: 10px;
             background-color: white;
             height: 80px;
+            border-top-right-radius: 2px;
         }
         .mockup-popup-location {
             padding: 1px 10px;
             background-color: @truck-heading-color;
             color: white;
+            border-bottom-left-radius: 1px;
+            border-bottom-right-radius: 1px;
         }
         h3 {
             margin: 0;
