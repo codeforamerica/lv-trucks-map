@@ -11,7 +11,8 @@
             "properties": {
                 "name": "City Hall",
                 "address": "495 S. Main Street",
-                "location": "Lewis Avenue, between 1st and Main"
+                "location": "Lewis Avenue, between 1st and Main",
+                "status": "active"
             }
         },
         {
@@ -24,7 +25,8 @@
             "properties": {
                 "name": "Bonneville Transit Center",
                 "address": "101 E. Bonneville Ave.",
-                "location": "Bonneville and Casino Center"
+                "location": "Bonneville and Casino Center",
+                "status": "active"
             }
         },
         {
@@ -37,7 +39,22 @@
             "properties": {
                 "name": "Regional Justice Center",
                 "address": "200 Lewis Ave.",
-                "location": "South 3rd Street, between Clark and Lewis"
+                "location": "South 3rd Street, between Clark and Lewis",
+                "status": "active"
+            }
+        },
+        {
+            "id": 4,
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [-115.13941, 36.17173]
+            },
+            "properties": {
+                "name": "Zappo's Headquarters",
+                "address": "400 Stewart Avenue",
+                "location": "Corner of Stewart and Las Vegas Ave",
+                "status": "disabled"
             }
         }
     ]

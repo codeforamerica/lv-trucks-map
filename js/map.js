@@ -30,8 +30,19 @@ var calendar = data.calendar
 
 
 // Populate map with locations
+var markers = L.mapbox.markerLayer(locations, {
+    filter: function (feature) {
+        return feature.properties.status === 'active'
+    }
+}).addTo(map)
 
-map.markerLayer.setGeoJSON(locations);
+/*
+var markers = new L.GeoJSON(locations, {
+    onEachFeature: function (feature, layer) {
+        layer.bindPopup(feature.properties.name);
+    }
+}).bindPopup('Hello world!').addTo(map)
+*/
 /*
 var locationGroup = new L.FeatureGroup()
 var locationMarker = []
@@ -50,14 +61,16 @@ for (i = 0; i < locations.length; i++) {
 }
 
 locationGroup.addTo(map)
-*/
-// Set view based on locations
-map.fitBounds(locationGroup.getBounds().pad(0.10))
-
 
 locationGroup.on('click', function (e) {
     map.panTo(e.getLatLng())
 })
+
+*/
+// Set view based on locations
+map.fitBounds(markers.getBounds().pad(0.10))
+
+
 
 
 
