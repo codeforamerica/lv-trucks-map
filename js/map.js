@@ -55,6 +55,10 @@ markers.eachLayer(function (marker) {
         map.panTo(marker.getLatLng())
     })
 
+    // Some guidance about displaying information in another part of DOM apart from leaflet-generated popups.
+    // http://www.mapbox.com/mapbox.js/example/v1.0.0/marker-tooltips-outside-map/
+
+
 }).addTo(map)
 
 // Set view based on locations

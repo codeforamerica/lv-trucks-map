@@ -70,6 +70,18 @@ $(document).ready( function () {
         $(this).css('background-color', entryBgColor)
     })
 
+    // TRUCK ENTRY - Activate marker on click
+    $('#truck-info').on('click', '.truck-entry', function () {
+        $(this).css('background-color', '#fffff0')
+        var locationId = $(this).data('locationId')
+        markers.eachLayer( function (marker) {
+            if (marker.feature.id === locationId) {
+                map.panTo(marker.getLatLng())
+                marker.openPopup()
+            }
+        })
+    })
+
     // FOOTER POPUPS
     // Open / toggle
     $('#footer-trucks-link').click( function () { toggleFooterPopup('#footer-trucks') })
@@ -152,6 +164,7 @@ function displayTruckEntries(calendar, section) {
 
         for (k = 0; k < locations.features.length; k++) {
             if (locations.features[k].id == locationID) {
+                trucksObject.entries[i].id = locations.features[k].id
                 trucksObject.entries[i].location = locations.features[k].properties.name
                 trucksObject.entries[i].address = locations.features[k].properties.address
             }
