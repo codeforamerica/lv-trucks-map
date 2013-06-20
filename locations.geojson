@@ -37,7 +37,7 @@
                 "coordinates": [-115.145667,36.166047]
             },
             "properties": {
-                "name": "Regional Justice Center",
+                "name": "Regional Juice Center",
                 "address": "200 Lewis Ave.",
                 "location": "South 3rd Street, between Clark and Lewis",
                 "status": "active"
@@ -54,7 +54,7 @@
                 "name": "Zappo's Headquarters",
                 "address": "400 Stewart Avenue",
                 "location": "Corner of Stewart and Las Vegas Ave",
-                "status": "disabled"
+                "status": "inactive"
             }
         }
     ]

@@ -17,14 +17,14 @@ var truckMarker = L.icon({
 
     iconSize:     [70, 60], // size of the icon
     iconAnchor:   [35, 50], // point of the icon which will correspond to marker's location
-    popupAnchor:  [0, -50] // point from which the popup should open relative to the iconAnchor
+    popupAnchor:  [3, -55] // point from which the popup should open relative to the iconAnchor
 })
 
 // Get data
 var data = document.data()
 
 // This information is now also available back in main.js
-var locations = data.locations
+var locations = data.locations // this is a GeoJSON format
 var trucks = data.trucks
 var calendar = data.calendar
 
@@ -34,39 +34,29 @@ var markers = L.mapbox.markerLayer(locations, {
     filter: function (feature) {
         return feature.properties.status === 'active'
     }
-}).addTo(map)
-
-/*
-var markers = new L.GeoJSON(locations, {
-    onEachFeature: function (feature, layer) {
-        layer.bindPopup(feature.properties.name);
-    }
-}).bindPopup('Hello world!').addTo(map)
-*/
-/*
-var locationGroup = new L.FeatureGroup()
-var locationMarker = []
-
-for (i = 0; i < locations.length; i++) {
-    var lat = locations[i].lat
-    var lng = locations[i].lng
-    var locationID = locations[i].id
-
-    locationMarker[locationID] = new L.Marker([lat, lng], {
-        icon: truckMarker,
-        riseOnHover:  true,
-        title:        locations[i].name
-
-    }).addTo(locationGroup)
-}
-
-locationGroup.addTo(map)
-
-locationGroup.on('click', function (e) {
-    map.panTo(e.getLatLng())
 })
 
-*/
+// Marker + popup construction
+var locationMarker = []
+markers.eachLayer(function (marker) {
+
+    marker.options.icon = truckMarker
+    marker.options.riseOnHover = true
+
+    var markerProperties = marker.feature.properties
+
+    var popupHTML = '<strong>' + markerProperties.name + '</strong><br>' + markerProperties.address
+
+    marker.bindPopup(popupHTML, {
+        closeButton: false,
+        minWidth: 200
+    })
+    marker.on('click', function (e) {
+        map.panTo(marker.getLatLng())
+    })
+
+}).addTo(map)
+
 // Set view based on locations
 map.fitBounds(markers.getBounds().pad(0.10))
 
