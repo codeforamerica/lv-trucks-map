@@ -1,0 +1,166 @@
+{
+    "locations": [
+        {
+            "id": 1,
+            "name": "City Hall",
+            "address": "Lewis Avenue, between 1st and Main",
+            "lat": 36.167866,
+            "lng": -115.147866,
+            "geo": "{\"type\":\"Point\",\"coordinates\":[-122.40217,37.79505]}"    
+        },
+        {
+            "id": 2,
+            "name": "Bonneville Transit Center",
+            "address": "Bonneville and Casino Center",
+            "lat": 36.164973,
+            "lng": -115.148048,
+            "geo": "{\"type\":\"Point\",\"coordinates\":[-122.40217,37.79505]}"    
+        },
+        {
+            "id": 3,
+            "name": "Regional Justice Center",
+            "address": "South 3rd Street, between Clark and Lewis",
+            "lat": 36.166047,
+            "lng": -115.145667,
+            "geo": "{\"type\":\"Point\",\"coordinates\":[-122.40217,37.79505]}"    
+        }
+    ],
+    "trucks": [
+        {
+            "id": 1,
+            "name": "Roamin' Dough",
+            "cuisine": "Armenian",
+            "logo_url": null,
+            "contact": "Lisa Popovsky",
+            "website": "http://www.roamindough.com",
+            "phone": "702-372-2641",
+            "mobile": null,
+            "email": "roamindough@gmail.com"
+        },
+        {
+            "id": 2,
+            "name": "Rusty Pickle",
+            "cuisine": "American",
+            "logo_url": null,
+            "contact": "Jan Scarborough",
+            "website": "http://www.rustypickletruck.com",
+            "phone": "702-625-3455",
+            "mobile": null,
+            "email": "jan@rustypickletruck.com"
+        },
+        {
+            "id": 3,
+            "name": "Chitown Hustler",
+            "cuisine": "French",
+            "logo_url": null,
+            "contact": "Caleb Marks",
+            "website": "http://www.chitownhustlerlv.com",
+            "phone": "702-289-5040",
+            "mobile": null,
+            "email": "chitownhustlertruck@gmail.com"
+        },
+        {
+            "id": 4,
+            "name": "Coast 2 Coast",
+            "cuisine": "Fish",
+            "logo_url": null,
+            "contact": "Mike Notaro",
+            "website": "http://www.c2cdeli.com",
+            "phone": "702-767-3354",
+            "mobile": "516-233-5113",
+            "email": "mike@c2cdeli.com"
+        },
+        {
+            "id": 5,
+            "name": "Fukuburger",
+            "cuisine": "Burgers",
+            "logo_url": null,
+            "contact": "Colin Fukunaga",
+            "website": "http://www.fukuburgertruck.com",
+            "phone": "702-217-0758",
+            "mobile": null,
+            "email": "colin@fukuburger.com"
+        },
+        {
+            "id": 6,
+            "name": "Sauced Vegas",
+            "cuisine": "Curry Vegetarian",
+            "logo_url": null,
+            "contact": "Chris",
+            "website": "http://www.saucedvegas.com",
+            "phone": "702-539-3553",
+            "mobile": null,
+            "email": "info@saucedvegas.com"
+        },
+        {
+            "id": 7,
+            "name": "Johnny McGuire's",
+            "cuisine": "Hot Dogs",
+            "logo_url": null,
+            "contact": "Keith McCoy",
+            "website": "http://www.johnnymcguires.com",
+            "phone": "702-338-7459",
+            "mobile": null,
+            "email": ""
+        },
+        {
+            "id": 8,
+            "name": "SlidinThru",
+            "cuisine": "Burgers, Sliders",
+            "logo_url": null,
+            "contact": "Elsie Guerrero",
+            "website": "http://www.slidinthru.com",
+            "phone": "702-686-1515",
+            "mobile": null,
+            "email": "contact@slidinthru.com"
+        }
+    ],
+    "calendar": {
+        "now": [
+            {
+                "id": 4,
+                "at": 1,
+                "until": "2pm"
+            },
+            {
+                "id": 2,
+                "at": 2,
+                "until": "2pm"
+            },
+            {
+                "id": 7,
+                "at": 3,
+                "until": "4pm"
+            }
+        ],
+        "later": [
+            {
+                "id": 1,
+                "at": 1,
+                "from": "6pm",
+                "until": "10pm"
+            },
+            {
+                "id": 8,
+                "at": 2,
+                "from": "2pm",
+                "until": "4pm"
+            },
+            {
+                "id": 3,
+                "at": 3,
+                "from": "4pm",
+                "until": "7pm"
+            }
+        ],
+        "muchlater": [
+            {
+                "id": 6,
+                "at": 2,
+                "date": "Wednesday",
+                "from": "12pm",
+                "until": "2pm"                
+            }
+        ]
+    }
+}

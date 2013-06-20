@@ -7,77 +7,92 @@
 @nav-divider:           darken(@nav-background, 10%);
 @nav-hilite:            #09c;
 @nav-search-width:      400px;
-@background:            #f7f7f7;
+@background:            #f2f2f2;
 @clv-type:              #3f3f3f;
 @sidebar-background:    #444;
 @ui-index:              9000;
 @footer-background:     rgba(51,51,63,1);
 @footer-divider:        lighten(@footer-background, 10%);
+@footer-height:         40px;
 
 @container-width:       90%;
 
 // TYPOGRAPHY PRESETS
 
-@font-face {
-    font-family: 'Edmondsans';
-    src: url('../fonts/Edmondsans-Regular.ttf') format('otf');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'Edmondsans';
-    src: url('../fonts/Edmondsans-Bold.ttf') format('otf');
-    font-weight: bolder;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'Edmondsans';
-    src: url('../fonts/Edmondsans-Medium.ttf') format('otf');
-    font-weight: bold;
-    font-style: normal;
-}
+@import url(http://fonts.googleapis.com/css?family=Fauna+One|PT+Sans+Caption:400,700);
 
 // TRUCK MAP SPECIFIC
 
-@truck-heading-color:           #c6456a;
+@truck-heading-color:           lighten(@footer-background, 25%);
 @truck-heading-hilite-color:    lighten(@truck-heading-color, 8%);
+@truck-heading-text-color:      white;
 @truck-entry-bgcolor:           white;
 @truck-entry-hilite-color:      rgb(240,240,240);
 
-body {
-}
+// OVERALL STUFF
 
-header {
-    box-shadow: 0 1px 6px rgba(0,0,0,0.25); // permanent drop-shadow
-}
-
-#main {
-    // this needs to be dynamically figured out
-    height: 720px;
-}
-
-#map {
+html, body {
     width: 100%;
     height: 100%;
+    background-color: @background;
+    font-family: 'PT Sans Caption', 'Helvetica Neue', sans-serif;
+    font-size: 13px;
+}
+
+.container {
+    width: @container-width;
+    margin: 0 auto;
+}
+
+// LINKS
+a {
+    color: #7c7c7c;
+}
+
+
+// LAYOUT
+
+header {
+    width: 100%;
+    position: absolute;
+    .user-select(none);
+    #nav-logo {
+        z-index: @ui-index;
+        width: 120px;
+        height: 150px;
+        right: 5%;
+        position: absolute;
+        background: transparent url('../img/clv-logo-tag-120.png') center 0 no-repeat;
+        h1 {
+            display: none;
+        }
+        a {
+            display: block;
+            width: 100px;
+            height: 100px;
+            margin: 0 auto;
+        }
+    }
 }
 
 #truck-info {
-    width: 340px;
+    width: 360px;
     position: absolute;
-    top: 70px;
-    left: 5%;
+//    top: 30px;
+//    left: 5%;
+    top: 0;
+    left: 0;
     z-index: 1200;
     box-shadow: 0 0 20px rgba(0,0,0,0.75);
     background-color: white;
     color: black;
     font-size: 11px;
-    max-height: 100%;
+    max-height: 95%;
     overflow: auto;
     .user-select(none);
     .truck-title, .truck-heading {
-        font-family: 'Edmondsans';
-        color: white;
-
+        font-family: 'Fauna One';
+        color: @truck-heading-text-color;
     }
     .truck-title {
         background-color: darken(@truck-heading-color, 10%);
@@ -85,9 +100,9 @@ header {
         height: 36px;
         line-height: 44px;
         padding: 10px;
-        cursor: grab;
-        cursor: -moz-grab;
-        cursor: -webkit-grab;
+//        cursor: grab;
+//        cursor: -moz-grab;
+//        cursor: -webkit-grab;
     }
     .truck-heading {
         background: @truck-heading-color url('../img/arrow.png') right 20px top 16px no-repeat;
@@ -142,7 +157,7 @@ header {
                 background-color: #5c8f54;
                 border-radius: 4px;
                 float: right;
-                margin-top: -26px;
+                margin-top: -56px;
                 color: white;
                 padding: 6px 10px;
             }
@@ -162,8 +177,7 @@ header {
 
 
 footer {
-    // custom to trucks. copy styles to lv-site?
-    height: 40px;
+    height: @footer-height;
     width: 100%;
     bottom: 0;
     position: fixed;
@@ -172,7 +186,7 @@ footer {
     z-index: @ui-index;
     font-size: 13px;
     .user-select(none);
-    font-family: 'Edmondsans';
+    font-family: 'Fauna One';
     border-top: 1px solid darken(@footer-background, 2%);
     box-shadow: 0 0 6px rgba(0,0,0,0.25);
     div.container {
@@ -186,16 +200,16 @@ footer {
             float: left;
             margin: 0;
             padding: 0 50px 0 30px;
-            height: 40px;
-            line-height: 40px;
-            border-left: 1px solid @footer-divider;
+            height: @footer-height;
+            line-height: @footer-height;
+            border-right: 1px solid @footer-divider;
             cursor: hand;
             cursor: pointer;
             background-image: url('../img/arrow-up.png');
             background-position: right 20px top 20px;
             background-repeat: no-repeat;
-            &:last-of-type {
-                border-right: 1px solid @footer-divider;
+            &:first-of-type {
+                border-left: 1px solid @footer-divider;
             }
             &:hover {
                 background-color: lighten(@footer-background, 5%);
@@ -214,42 +228,49 @@ div.footer-popup {
     display: none;
     bottom: 0;
     width: 400px;
-    background-color: lighten(@footer-background, 65%);
+    background-color: @background;
     color: black;
-    height: 500px;
     left: 5%;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
     z-index: @ui-index - 50;
-    div.footer-popup-title {
-        border-bottom: 1px solid lighten(@footer-background, 60%);
+    .footer-popup-close {
+        position: absolute;
+        top: 13px;
+        right: 16px;
+        color: darken(@background, 40%);
+        cursor: pointer;
+        font-size: 24px;
+    }
+    .footer-popup-title {
+        border-bottom: 1px dotted darken(@background, 10%);
         padding: 15px 25px;
+        background-color: darken(@background, 5%);
         h2 {
+            font-family: 'Fauna One';
+            font-weight: normal;
             padding: 0;
             margin: 0;
         }
     }
-    div.footer-popup-content {
-        padding: 0 40px 0 25px;
+    .footer-popup-content {
+        padding: 0 40px 50px 25px;
+        line-height: 150%;
     }
 }
 #footer-trucks {
-    height: 600px;
-    width: 600px;
 }
 #footer-calendar {
 }
 #footer-mfv {
-    height: 300px;
     width: 500px;
 }
 #footer-about {
-    height: 300px;
 }
 
 #mockup-popup {
     position: absolute;
     right: 270px;
-    top: 230px;
+    top: 200px;
     z-index: 1000;
     .user-select(none);
     .mockup-popup-tag {
@@ -260,7 +281,7 @@ div.footer-popup {
         color: white;
         font-size: 11px;
         padding: 6px 10px;
-        font-family: 'Edmondsans';
+        font-family: 'Fauna One';
         border-top-right-radius: 2px;
         border-top-left-radius: 2px;
     }
@@ -310,6 +331,12 @@ div.footer-popup {
 
 }
 
+#pi {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+
 // LEAFLET OVERRIDES
 
 .leaflet-clickable {
@@ -355,247 +382,12 @@ div.footer-popup {
     }
   }  
 }
-
-
-// LAYOUT - COPIED FROM lv-site
-
-.nav-hilite {
-    border-bottom: 4px solid @nav-hilite;
-    background-color: fade(@nav-hilite, 7%);
+.leaflet-bottom {
+    margin-bottom: @footer-height;
 }
-
-html {
-    background-color: @background;
-    font-family: 'Helvetica Neue';
-    font-size: 14px;
-}
-
-header {
-    width: 100%;
-    height: 60px;
-    background-color: @nav-background;
-    border-bottom: 1px solid darken(@nav-background, 20%);
-    font-family: 'Edmondsans';
-    font-size: 13px;
-    color: #777;
+.leaflet-top, .leaflet-bottom {
     .user-select(none);
-    #nav-bar {
-        width: @container-width;
-        margin: 0 auto;
-        height: 100%;
-        border-left: 1px solid @nav-divider;
-        border-right: 1px solid @nav-divider;
-        section {
-            height: 100%;
-            float: left;
-            line-height: 60px;
-            div {
-                padding: 0 10px;
-                height: 100%;
-                &:hover {
-                    .nav-hilite;
-                    cursor: pointer;
-                }
-            }
-            &#nav-logo {
-                width: 250px;
-                border-right: 1px solid @nav-divider;
-                h1 {
-                    margin: 0;
-                    padding-left: 10px;
-                    font-family: 'Edmondsans';
-                    font-size: 24px;
-                    color: @clv-type;
-                    font-weight: normal;
-                }
-                h1:after {
-                    border-bottom: 7px double #999;
-                    border-top: 2px solid #999;
-                    content: '';
-                    height: 3px;
-                    position: relative;
-                    display: block;
-                    left: 195px;
-                    top: -35px;
-                    width: 20px;
-                }
-            }
-            &#nav-buttons {
-                float: right;
-                ul {
-                    list-style-type: none;
-                    padding: 0;
-                    margin: 0;
-                    li {
-                        display: block;
-                        float: left;
-                        padding: 0 10px;
-                        &:hover {
-                            .nav-hilite;
-                            cursor: hand;
-                            cursor: pointer;
-                        }
-                    }
-                    #nav-weather {
-                        &:before {
-                          font-family: 'typicons';
-                          font-style: normal;
-                          font-weight: normal;
-                          speak: none;
-                          display: inline-block;
-                          font-size: 1.6em;
-                          height: 1em;
-                          line-height: 1.6em;
-                          text-align: center;
-                          margin-right: 8px;
-                          -webkit-font-smoothing: antialiased;
-                          font-smoothing: antialiased;
-                          text-rendering: optimizeLegibility;
-                        }
-                    }
-                }
-            }
-            &#nav-search {
-                width: @nav-search-width;
-                float: right;
-                border-left: 1px solid @nav-divider;
-                background: url('../img/icon-search.png') (@nav-search-width - 24px) 24px no-repeat;
-                input {
-                    border: 0;
-                    height: 60px;
-                    width: 170px;
-                    background-color: transparent;
-                    &:hover, &:focus {
-                        outline: none;
-                    }
-                }
-                button {
-
-                }
-            }
-        }    
-    }
-    &.pinned {
-        position: fixed;
-        top: 0;
-        z-index: @ui-index;
-    }
 }
-
-.container {
-    width: @container-width;
-    margin: 0 auto;
+.map-legends {
+    display: none;
 }
-
-#main {
-    margin-top: 60px;
-}
-
-
-#sidebar {
-    width: 250px + 2px;
-    display: block;
-    position: fixed;
-    top: 60px;
-    margin-left: -1px;
-    ul {
-        padding: 0;
-        margin: 0;        
-    }
-    #page-toc {
-        background-color: @sidebar-background;
-        color: white;
-        font-family: 'Edmondsans';
-        border-top: 3px solid @nav-hilite;
-        ul {
-            list-style: none;
-            li {
-                margin: 0;
-                border-top: 1px solid lighten(@sidebar-background, 5%);
-                a {
-                    padding: 16px 20px;
-                    color: #eee;
-                    text-decoration: none;
-                    display: block;
-                }
-                a:hover {
-                    background-color: lighten(@sidebar-background, 10%);
-                }
-                &.active {
-                    background: darken(@nav-hilite, 10%) url('../img/arrow.png') 230px 18px no-repeat;
-                    a:hover {
-                        background: @nav-hilite url('../img/arrow.png') 230px 18px no-repeat;
-                    }
-                }
-            }
-        }
-    }
-    #related-links {
-        font-size: 12px;
-        padding: 20px;
-        margin-top: 20px;
-        color: #999;
-        line-height: 200%;
-        ul {
-            list-style-type: square;
-        }
-        a {
-            color: #666;
-            text-decoration: none;
-            &:hover {
-                border-bottom: 1px dotted #666;
-            }
-        }
-    }
-}
-
-#content {
-    line-height: 150%;
-    width: @container-width - 330px;
-    display: block;
-    background-color: white;
-    padding: 10px 40px 30px 40px;
-    float: right;
-    .lede {
-        width: 90%;
-        font-size: 20px;
-        line-height: 150%;
-        margin: 16px 0;
-    }
-    .announce {
-        padding: 2px 96px 2px 16px;
-        background: #fcfcd9 url('../img/icon-announce.png') 580px 16px no-repeat;
-        margin-left: -16px;
-        border-radius: 8px;
-        .announce-title {
-            font-weight: bold;
-            color: #770000;
-        }
-        .announce-more {
-            display: none;
-        }
-    }
-}
-
-h2, h3, h4 {
-    font-family: 'Helvetica';
-}
-
-h5 {
-    color: #50596c;
-    font-size: 16px;
-    margin: 0;
-    margin-bottom: 8px;
-}
-
-a.law {
-    color: #777;
-    text-decoration: none;
-    border-bottom: 1px dotted #999;
-    text-transform: uppercase;
-    font-size: 12px;
-    &:hover {
-        border-bottom: 1px solid #999;
-    }
-}
-

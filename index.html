@@ -26,6 +26,30 @@
             <link href='http://api.tiles.mapbox.com/mapbox.js/v1.0.0/mapbox.ie.css' rel='stylesheet' />
         <![endif]-->
         <script src='http://api.tiles.mapbox.com/mapbox.js/v1.0.0/mapbox.js'></script>
+
+        <!-- basic layout stuff - needs to be here because map renders before LESS -->
+        <style type='text/css'>
+
+            html, body {
+                padding: 0;
+                margin: 0;
+                width: 100%;
+                height: 100%;
+            }
+
+            #main {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+            }
+
+            #map {
+                width: 100%;
+                height: 100%;
+                position: absolute !important; // need !important for firefox
+            }
+
+        </style>
         
     </head>
     <body>
@@ -33,23 +57,13 @@
             <p class='chromeframe'>You are using an <strong>outdated</strong> browser. Please <a href='http://browsehappy.com/'>upgrade your browser</a> or <a href='http://www.google.com/chromeframe/?redirect=true'>activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
 
-        <header class='pinned'>
-            <nav id='nav-bar'>
+        <header>
+            <div class='container'>
                 <section id='nav-logo'>
-                    <div><h1>City of Las Vegas</h1></div>
+                    <div><h1>City of Las Vegas Mobile Food Vendor Map</h1></div>
+                    <a href='http://lasvegasnevada.gov' target='_blank'></a>
                 </section>
-                <section id='nav-search'>
-                    <div><form id='search-form'><input type='text' placeholder='Search city website'></form></div>
-                </section>
-                <section id='nav-buttons'>
-                    <ul>
-                        <li id='nav-news'>News</li>
-                        <li id='nav-help'>Help</li>
-                        <li id='nav-translate'>Translate</li>
-                        <li id='nav-weather' class='typcn-weather-stormy'>79°</li>
-                    </ul>
-                </section>
-            </nav>
+            </div>
         </header>
 
         <section id='main'>
@@ -58,94 +72,50 @@
                 <div class='truck-title'>Mobile food vendors</div>
                 <div id='truck-head-now' class='truck-heading truck-heading-border'>Open now</div>
                 <div id='truck-info-now' class='truck-entries' style='display: none;'>
-                    <div class='truck-entry'>
-                        <div class='truck-image' style='background: #f1f1f1 url("img/mockup-truck-logo-01.png") no-repeat'></div>
-                        <h3>Lou's Taco Truck</h3>
-                        <p>
-                            is at <a href=''>Bonneville Transit Center</a>
-                            <br><span class='address'>300 Lewis Avenue</span>
-                        </p>
-                        <span class='time'>until 2pm</span>
-                    </div>
-                    <div class='truck-entry'>
-                        <div class='truck-image' style='background: #f1f1f1 url("img/mockup-truck-logo-02.png") no-repeat'></div>
-                        <h3>Ryan's Hamburgers</h3>
-                        <p>
-                            is at <a href=''>Regional Justice Center</a>
-                            <br><span class='address'>300 Lewis Avenue</span>
-                        </p>
-                        <span class='time'>until 3pm</span>
-                    </div>
-                    <div class='truck-entry'>
-                        <div class='truck-image' style='background: #f1f1f1 url("img/mockup-truck-logo-03.png") no-repeat'></div>
-                        <h3>Lindsay's Pizza Truck</h3>
-                        <p>
-                            is at <a href=''>Las Vegas City Hall</a>
-                            <br><span class='address'>300 Lewis Avenue</span>
-                        </p>
-                        <span class='time'>until 4pm</span>
-                    </div>
+                    <!-- Replace this area with generated entries -->
                 </div>
                 <div id='truck-head-later' class='truck-heading truck-heading-border'>Later today</div>
                 <div id='truck-info-later' class='truck-entries' style='display: none;'>
-                    <div class='truck-entry'>
-                        <div class='truck-image' style='background: #f1f1f1 url("img/mockup-truck-logo-04.png") no-repeat'></div>
-                        <h3>Brandy's Dessert Truck</h3>
-                        <p>
-                            is at <a href=''>Bonneville Transit Center</a>
-                            <br><span class='address'>300 Lewis Avenue</span>
-                        </p>
-                        <span class='time'>4pm - 6pm</span>
-                    </div>
+                    <!-- Replace this area with generated entries -->
                 </div>
-                <div id='truck-head-waylater' class='truck-heading'>This week</div>
-                <div id='truck-info-waylater' class='truck-entries' style='display: none;'>
-                    <div class='truck-message'>
-                        <h3>Nothing else open this week!</h3>
-                    </div>
+                <div id='truck-head-muchlater' class='truck-heading'>This week</div>
+                <div id='truck-info-muchlater' class='truck-entries' style='display: none;'>
+                    <!-- Replace this area with generated entries -->
                 </div>
-                <!--
-                <div id='truck-head-all' class='truck-heading'>All participating trucks</div>
-                <div id='truck-info-all' class='truck-entries' style='display: none;'>
-                    <div class='truck-entry'>
-                        <div class='truck-image' style='background: #f1f1f1 url("img/mockup-truck-logo-01.png") no-repeat'></div>
-                        <h3>Lou's Taco Truck</h3>
-                        <p>
-                            is at <a href=''>Bonneville Transit Center</a>
-                            <br><span class='address'>300 Lewis Avenue</span>
-                        </p>
-                        <span class='time'>until 2pm</span>
-                    </div>
-                    <div class='truck-entry'>
-                        <div class='truck-image' style='background: #f1f1f1 url("img/mockup-truck-logo-02.png") no-repeat'></div>
-                        <h3>Ryan's Hamburgers</h3>
-                        <p>
-                            is at <a href=''>Regional Justice Center</a>
-                            <br><span class='address'>300 Lewis Avenue</span>
-                        </p>
-                        <span class='time'>until 3pm</span>
-                    </div>
-                    <div class='truck-entry'>
-                        <div class='truck-image' style='background: #f1f1f1 url("img/mockup-truck-logo-03.png") no-repeat'></div>
-                        <h3>Lindsay's Pizza Truck</h3>
-                        <p>
-                            is at <a href=''>Las Vegas City Hall</a>
-                            <br><span class='address'>300 Lewis Avenue</span>
-                        </p>
-                        <span class='time'>until 4pm</span>
-                    </div>
-                    <div class='truck-entry'>
-                        <div class='truck-image' style='background: #f1f1f1 url("img/mockup-truck-logo-04.png") no-repeat'></div>
-                        <h3>Brandy's Dessert Truck</h3>
-                        <p>
-                            is at <a href=''>Bonneville Transit Center</a>
-                            <br><span class='address'>300 Lewis Avenue</span>
-                        </p>
-                        <span class='time'>4pm - 6pm</span>
-                    </div>
-                </div>
-                // -->
             </div>
+
+            <!-- MUSTACHE TEMPLATE -->
+            <div id='truck-entry-template' style='display: none'>
+            <script id='m-truck-entry' type='text/template'>
+                {{#entries}}
+                <div class='truck-entry'>
+                    <div class='truck-image'></div>
+                    <h3>{{name}}</h3>
+                    <p>
+                        is at <strong>{{location}}</strong>
+                        <br><span class='address'>{{address}}</span>
+                    </p>
+                    {{#date}}
+                        <span class='time'>{{date}} {{from}}</span>
+                    {{/date}}
+                    {{^date}}
+                        {{#from}}
+                            <span class='time'>{{from}} - {{until}}</span>
+                        {{/from}}
+                        {{^from}}
+                            <span class='time'>until {{until}}</span>
+                        {{/from}}
+                    {{/date}}
+                </div>
+                {{/entries}}
+                {{^entries}}
+                <div class='truck-message'>
+                    <h3>Unfortunately, there is nothing here :(</h3>
+                </div>
+                {{/entries}}
+            </script>
+            </section>
+            <!-- // end Mustache template -->
 
             <div id='map' class='dark'></div>
 
@@ -176,6 +146,7 @@
                 <!-- create this so jQuery can grab a color set in CSS/LESS -->
                 <div class='truck-heading-hilite'></div>
                 <div class='truck-entry-hilite'></div>
+                <div class='truck-entry'></div>
             </div>
 
         </section>
@@ -187,11 +158,18 @@
                     <li id='footer-calendar-link'>View full calendar</li>
                     <li id='footer-mfv-link'>About the mobile food vendor program</li>
                     <li id='footer-about-link'>About this app</li>
+                </ul>
             </div>
+            <section id='pi'>
+                <a href='https://github.com/louh/lv-trucks-map/' target='_blank'>
+                    <img alt='CfA flag' src='img/cfa-flag.png'>
+                </a>
+            </section>
         </footer>
 
         <section id='footer-elements'>
             <div class='footer-popup' id='footer-trucks'>
+                <div class='footer-popup-close'>×</div>
                 <div class='footer-popup-title'>
                     <h2>All participating trucks</h2>
                 </div>
@@ -202,6 +180,7 @@
                 </div>
             </div>
             <div class='footer-popup' id='footer-calendar'>
+                <div class='footer-popup-close'>×</div>
                 <div class='footer-popup-title'>
                    <h2>Full calendar</h2>
                 </div>
@@ -212,31 +191,51 @@
                 </div>
             </div>
             <div class='footer-popup' id='footer-mfv'>
+                <div class='footer-popup-close'>×</div>
                 <div class='footer-popup-title'>
                     <h2>About the mobile food vendor program</h2>
                 </div>
                 <div class='footer-popup-content'>
                     <p>
-                        The intent of this pilot program is to allow Mobile Food Vehicles to do business in the downtown area.    It provides designated parking spaces within the public right of way and ALSO will allow food trucks to open for periods of time longer than 30 minutes.  This program does not apply to special events.  Supporting ordinances for this program have been passed by the City Council.
+                        The City of Las Vegas initiated a pilot program in June 2013 for mobile food vendors to operate at three specified locations in Downtown Las Vegas, allowing them to be parked and operational in public rights of way for longer than 30 minutes at a time.  Participating vendors were placed in a lottery system at the beginning of the program to reserve dates and hours of operation, which are verified by the electronic parking meters.  This program does not apply to special events or other locations outside of downtown.  Supporting <a href='https://lasvegasnevada.gov/files/6220_Bill_2012-37.pdf' target='_blank'>ordinances</a> for this program have been passed by the City Council.
                     </p>
                 </div>
             </div>
             <div class='footer-popup' id='footer-about'>
+                <div class='footer-popup-close'>×</div>
                 <div class='footer-popup-title'>
-                    <h2>About this site</h2>
+                    <h2>About this app</h2>
                 </div>
                 <div class='footer-popup-content'>
                     <p>
-                        This site was built by Code for America for the City of Las Vegas. It is supposed to get some information via the Parkeon meter API to provide real-time information about truck locations.
+                        This application uses real-time data from new parking meters installed by the <a href='http://lasvegasnevada.gov/'>City of Las Vegas</a>. When food truck vendors pay for their spot, they enter in their truck's license plate number, so we know exactly which truck appears and when. Food trucks appearing on the schedule are subject to change, but now we'll let you know when changes occur, right when it matters the most—when you're hungry!
+                    </p>
+
+                    <p>
+                        <a href='http://codeforamerica.org/'>Code for America</a> built and released this under a permissive open source license. We welcome <a href='http://github.com/louh/lv-trucks-map/'>comments, contributions, forks, and spoons</a>.
                     </p>
                 </div>
             </div>
         </section>
 
+        <!-- MUSTACHE TEMPLATES for footer -->
+        <section id='footer-templates' style='display: none'>
+        <script id='m-footer-all-trucks' type='text/template'>
+            <ul>
+            {{#trucks}}
+                <li><a href='{{website}}' target='_blank'>{{name}}</a></li>
+            {{/trucks}}
+            </ul>
+        </script>
+        </section>
+        <!-- // end Mustache template -->
+
 
         <script src='//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>
         <script>window.jQuery || document.write('<script src='js/vendor/jquery-1.9.1.min.js'><\/script>')</script>
         <script src='http://code.jquery.com/ui/1.10.2/jquery-ui.js'></script>
+        <script src='js/vendor/mustache.js' type='text/javascript'></script>
+
         <script src='js/plugins.js'></script>
         <script src='js/main.js' type='text/javascript'></script>
         <script src='js/map.js' type='text/javascript'></script>
