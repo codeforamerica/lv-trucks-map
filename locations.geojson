@@ -1,0 +1,44 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "id": 1,
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [-115.147866,36.167866]
+            },
+            "properties": {
+                "name": "City Hall",
+                "address": "495 S. Main Street",
+                "location": "Lewis Avenue, between 1st and Main"
+            }
+        },
+        {
+            "id": 2,
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [-115.148048,36.164973]
+            },
+            "properties": {
+                "name": "Bonneville Transit Center",
+                "address": "101 E. Bonneville Ave.",
+                "location": "Bonneville and Casino Center"
+            }
+        },
+        {
+            "id": 3,
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [-115.145667,36.166047]
+            },
+            "properties": {
+                "name": "Regional Justice Center",
+                "address": "200 Lewis Ave.",
+                "location": "South 3rd Street, between Clark and Lewis"
+            }
+        }
+    ]
+}

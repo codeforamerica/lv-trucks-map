@@ -4,6 +4,17 @@
     // LOAD SOME EXTERNAL DATAS
     var dataJson = 'data.json',
         data = []
+    var locationGeoJson = 'locations.geojson',
+        locations 
+
+    $.ajax({
+        url: locationGeoJson,
+        async: false,
+        dataType: 'json',
+        success: function (i) {
+            locations = i
+        }
+    })
 
     $.ajax({
         url: dataJson,
@@ -15,7 +26,7 @@
     })
 
     return {
-        locations: data.locations,
+        locations: locations,
         trucks: data.trucks,
         calendar: data.calendar
     }
@@ -139,10 +150,10 @@ function displayTruckEntries(calendar, section) {
             }
         }
 
-        for (k = 0; k < locations.length; k++) {
-            if (locations[k].id == locationID) {
-                trucksObject.entries[i].location = locations[k].name
-                trucksObject.entries[i].address = locations[k].address
+        for (k = 0; k < locations.features.length; k++) {
+            if (locations.features[k].id == locationID) {
+                trucksObject.entries[i].location = locations.features[k].properties.name
+                trucksObject.entries[i].address = locations.features[k].properties.address
             }
         }
 

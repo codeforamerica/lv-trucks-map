@@ -30,22 +30,34 @@ var calendar = data.calendar
 
 
 // Populate map with locations
+
+map.markerLayer.setGeoJSON(locations);
+/*
 var locationGroup = new L.FeatureGroup()
 var locationMarker = []
 
 for (i = 0; i < locations.length; i++) {
     var lat = locations[i].lat
     var lng = locations[i].lng
+    var locationID = locations[i].id
 
-    locationMarker[i] = new L.Marker([lat, lng], {
-        icon: truckMarker
+    locationMarker[locationID] = new L.Marker([lat, lng], {
+        icon: truckMarker,
+        riseOnHover:  true,
+        title:        locations[i].name
+
     }).addTo(locationGroup)
 }
 
 locationGroup.addTo(map)
-
+*/
 // Set view based on locations
-map.fitBounds(locationGroup.getBounds())
+map.fitBounds(locationGroup.getBounds().pad(0.10))
+
+
+locationGroup.on('click', function (e) {
+    map.panTo(e.getLatLng())
+})
 
 
 
