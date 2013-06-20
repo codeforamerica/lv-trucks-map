@@ -71,7 +71,7 @@ $(document).ready( function () {
         $('.footer-popup').slideUp(200)
     })
     // -- when user clicks outside the popup
-    $('#main').click( function () {
+    $('#map').on('click', function () {
         $('.footer-popup').slideUp(200)
     })
 

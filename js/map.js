@@ -1,5 +1,5 @@
 
-// Initialize map
+// Initialize map & set initial location / view
 //var map = L.mapbox.map('map', 'examples.map-4l7djmvo')
 var map = L.mapbox.map('map', 'examples.map-y7l23tes')
             .setView([36.1665, -115.1479], 17)
@@ -45,7 +45,6 @@ for (i = 0; i < locations.length; i++) {
 locationGroup.addTo(map)
 
 // Set view based on locations
-// Not exactly necessary right now.
 map.fitBounds(locationGroup.getBounds())
 
 
