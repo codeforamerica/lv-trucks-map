@@ -41,10 +41,23 @@ var markers = L.mapbox.markerLayer(locations, {
     marker.options.riseOnHover = true
 
     // shorthand for where things are stored in the GeoJSON
-    var markerProperties = marker.feature.properties
+    var markerID = marker.feature.id
+
+    for (i = 0; i < calendar.now.length; i++) {
+        if (calendar.now[i].at == markerID ) {
+            for (j =0; j < trucks.length; j++) {
+                if (trucks[j].id == calendar.now[i].truck) {
+                    marker.truck = trucks[j]
+                    break
+                }
+            }
+            marker.calendar = calendar.now[i]
+            break
+        }
+    }
 
     // Popup construction
-    var popupHTML = '<strong>' + markerProperties.name + '</strong><br>' + markerProperties.address
+    var popupHTML = '<strong>' + marker.truck.name + '</strong> is at <strong>' + marker.feature.properties.name + '</strong><br>' + marker.feature.properties.address + '<br>until ' + marker.calendar.until
 
     marker.bindPopup(popupHTML, {
         closeButton: false,
@@ -60,6 +73,15 @@ var markers = L.mapbox.markerLayer(locations, {
 // Set view based on locations
 map.fitBounds(markers.getBounds().pad(0.10))
 
+// Open popups on mouseover (test)
+markers.on('mouseover', function (e) {
+    e.layer.openPopup()
+})
+/*
+markers.on('mouseout', function (e) {
+    e.layer.closePopup()
+})
+*/
 
 // Popups test
 /*

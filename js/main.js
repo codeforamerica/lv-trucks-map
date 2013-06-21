@@ -106,7 +106,7 @@ $(document).ready( function () {
     displayTruckEntries(calendar.later, '#truck-info-later')
     displayTruckEntries(calendar.muchlater, '#truck-info-muchlater')
 
-    makePopup(calendar.now)
+    //makePopup(calendar.now)
 
     // Populate footer elements
     var mFooterAllTrucks = $('#m-footer-all-trucks').html()
@@ -170,7 +170,7 @@ function makePopup(calendar) {
     popupObject.entries = []
 
     for (i = 0; i < calendar.length; i++) {
-        
+
         popupObject.entries[i] = gatherData(calendar[i].truck, calendar[i].at)
         popupObject.entries[i].until = calendar[i].until
 
