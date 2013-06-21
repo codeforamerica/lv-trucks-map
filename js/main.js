@@ -137,9 +137,12 @@ function toggleFooterPopup(target) {
 
         // get the position of the clicked link so that the popup box lines up
         // there may be a better way of doing this somehow, that doesn't rely on programatically determining position. what happens if a window resizes?
-        var link = target + '-link'
-        var position = $(link).offset().left
-        $(target).css('left', position)
+        // only make this work if screen width is more than 685px for responsive layouts
+        if ($(window).width() > 685) {
+            var link = target + '-link'
+            var position = $(link).offset().left
+            $(target).css('left', position)            
+        }
 
         // display the popup
         $(target).slideDown(200)

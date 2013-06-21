@@ -241,6 +241,11 @@ footer {
 #footer-elements {
     position: absolute;
     bottom: 0;
+
+    @media only screen and (max-width: 685px) {
+        width: 100%;
+        left: 0;
+    }
 }
 
 div.footer-popup {
@@ -253,6 +258,12 @@ div.footer-popup {
     left: 5%;
     box-shadow: 0 0 20px rgba(0,0,0,0.75);
     z-index: @ui-index - 50;
+
+    @media only screen and (max-width: 685px) {
+        width: 100%;
+        left: 0;
+    }
+
     .footer-popup-close {
         position: absolute;
         top: 13px;
