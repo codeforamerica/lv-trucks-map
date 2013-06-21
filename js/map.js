@@ -3,13 +3,12 @@
 //var map = L.mapbox.map('map', 'examples.map-4l7djmvo')
 var map = L.mapbox.map('map', 'examples.map-y7l23tes')
             .setView([36.1665, -115.1479], 17)
-/*
-var attrib = 'Map tiles by <a href="http://mapbox.com">MapBox</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.'
 
-var layer = L.mapbox.tileLayer('examples.map-y7l23tes', {
-    mapAttribution: attrib
-})
-*/
+// Map imagery attribution
+// Note that mapbox.js provides its own separate attribution, which I don't know how to edit, so I've hidden it with CSS (super hacky!) 
+var control = L.control.attribution({
+    prefix: 'Map imagery by <a href=\'http://www.mapbox.com/about/maps/\' target=\'_blank\'>MapBox</a>. Data &copy; OpenStreetMap contributors and licensed under the <a href=\'http://www.openstreetmap.org/copyright\' target=\'_blank\'>Open Database License</a>.'
+}).addTo(map)
 
 // Set up truck icon
 var truckMarker = L.icon({
@@ -27,7 +26,6 @@ var data = document.data()
 var locations = data.locations // this is a GeoJSON format
 var trucks = data.trucks
 var calendar = data.calendar
-
 
 // Populate map with locations
 var markers = L.mapbox.markerLayer(locations, {
@@ -61,7 +59,8 @@ var markers = L.mapbox.markerLayer(locations, {
 
     marker.bindPopup(popupHTML, {
         closeButton: false,
-        minWidth: 200
+        minWidth: 200,
+        autoPanPadding: [20, 20]
     })
 
     // Center marker on click
@@ -75,6 +74,7 @@ map.fitBounds(markers.getBounds().pad(0.10))
 
 // Open popups on mouseover (test)
 markers.on('mouseover', function (e) {
+    console.log(e.layer)
     e.layer.openPopup()
 })
 /*

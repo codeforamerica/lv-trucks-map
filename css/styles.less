@@ -231,7 +231,7 @@ div.footer-popup {
     background-color: @background;
     color: black;
     left: 5%;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    box-shadow: 0 0 20px rgba(0,0,0,0.75);
     z-index: @ui-index - 50;
     .footer-popup-close {
         position: absolute;
@@ -355,5 +355,13 @@ div.footer-popup {
 .map-legends {
     display: none;
 }
-
+.leaflet-control-attribution {
+    background-color: darken(@footer-background, 5%) !important;
+    color: #bbb !important;
+    box-shadow: none !important;
+    .opacity(0.6);
+}
+.leaflet-control-attribution:last-of-type {
+    display: none;
+}
 
