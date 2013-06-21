@@ -84,11 +84,11 @@
                         <h3>There are no trucks open later.</h3>
                     </div>
                 </div>
-                <div id='truck-head-muchlater' class='truck-heading'>This week</div>
+                <div id='truck-head-muchlater' class='truck-heading'>Tomorrow</div>
                 <div id='truck-info-muchlater' class='truck-entries' style='display: none;'>
                     <!-- Replace this area with generated entries -->
                     <div class='truck-message'>
-                        <h3>There are no other trucks opening in the future.</h3>
+                        <h3>There are no trucks open tomorrow.</h3>
                     </div>
                 </div>
             </div>
@@ -134,6 +134,7 @@
                             <div class='truck-image' style='background: #f1f1f1 url("{{truck.logo_url}}") no-repeat'></div>
                             <div style='float: left; width: 220px'>
                                 <h3>{{truck.name}}</h3>
+                                <small>{{truck.cuisine}}</small>
                                 <p>
                                     Just pretend there is way more information here about this truck
                                 </p>

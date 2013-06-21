@@ -74,7 +74,6 @@ map.fitBounds(markers.getBounds().pad(0.10))
 
 // Open popups on mouseover (test)
 markers.on('mouseover', function (e) {
-    console.log(e.layer)
     e.layer.openPopup()
 })
 /*

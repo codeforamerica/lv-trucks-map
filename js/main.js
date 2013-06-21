@@ -106,7 +106,8 @@ $(document).ready( function () {
     displayTruckEntries(calendar.later, '#truck-info-later')
     displayTruckEntries(calendar.muchlater, '#truck-info-muchlater')
 
-    //makePopup(calendar.now)
+// temp disabled while i figure out how to make custom popups
+    // makePopup(calendar.now)
 
     // Populate footer elements
     var mFooterAllTrucks = $('#m-footer-all-trucks').html()
