@@ -3,13 +3,34 @@
 
 # TEAM
 
-    <name> -- <role> -- <twitter>
+    CODE FOR AMERICA
+
+    Lou Huang -- front-end -- @saikofish
+    Ryan Closner -- back-end -- @rclosner
+    Lindsay Ballant -- design -- @lindsayballant
 
 # THANKS
 
-    <name>
+    CITY OF LAS VEGAS
+
+    Thanks to Don Jacobson, Pat Dues, Joe Marcella, Brandy Stanley, and more
+
+    PARKEON, INC.
+
+    Thanks to Bill Johannsen and Darren Cusano for their support.
+
 
 # TECHNOLOGY COLOPHON
 
-    HTML5, CSS3
-    Normalize.css, jQuery, Modernizr
+    Framework:
+        HTML5 Boilerplate
+        Normalize.css, jQuery, Modernizr
+
+    Mapping:
+        Leaflet.js
+        Mapbox.js
+        OpenStreetMap
+
+    Other tools
+        Mustache.js (templating)
+        Typicons (icons)
