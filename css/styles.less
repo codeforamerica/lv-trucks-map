@@ -62,7 +62,16 @@ header {
         height: 150px;
         right: 5%;
         position: absolute;
-        background: transparent url('../img/clv-logo-tag-120.png') center 0 no-repeat;
+        background: transparent url('../img/clv-logo-tag-240.png') center 0 no-repeat;
+        background-size: 120px 150px;
+
+        @media only screen and (max-width: 640px) {
+            width: 80px;
+            height: 100px;
+            right: 5px;
+            background-size: 80px 100px;
+        }
+
         h1 {
             display: none;
         }
@@ -392,4 +401,3 @@ div.footer-popup {
         bottom: 0px;
     }
 }
-
