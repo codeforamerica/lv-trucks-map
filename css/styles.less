@@ -212,6 +212,26 @@ footer {
     font-family: 'Fauna One';
     border-top: 1px solid darken(@footer-background, 2%);
     box-shadow: 0 0 6px rgba(0,0,0,0.25);
+    #footer-wide {
+        @media only screen and (max-width: 950px) {
+            display: none;
+        }        
+    }
+    #footer-mid {
+        display: none;
+        @media only screen and (max-width: 950px) {
+            display: block;
+        }
+        @media only screen and (max-width: 767px) {
+            display: none;
+        }        
+    }
+    #footer-condensed {
+        display: none;
+        @media only screen and (max-width: 767px) {
+            display: block;
+        }
+    }
     ul {
         list-style: none;
         padding: 0;
