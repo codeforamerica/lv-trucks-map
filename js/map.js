@@ -19,6 +19,14 @@ var truckMarker = L.icon({
     popupAnchor:  [3, -55] // point from which the popup should open relative to the iconAnchor
 })
 
+var truckMarkerOff = L.icon({
+    iconUrl: 'img/marker-truck-off.svg',
+
+    iconSize:     [70, 60], 
+    iconAnchor:   [35, 50], 
+    popupAnchor:  [3, -55]
+})
+
 // Get data
 var data = document.data()
 
@@ -35,7 +43,7 @@ var markers = L.mapbox.markerLayer(locations, {
 }).eachLayer(function (marker) {
 
     // set options here directly on the marker object
-    marker.options.icon = truckMarker
+    marker.options.icon = truckMarkerOff  // set this to be off by default
     marker.options.riseOnHover = true
 
     // shorthand for where things are stored in the GeoJSON
@@ -55,7 +63,11 @@ var markers = L.mapbox.markerLayer(locations, {
     }
 
     // Popup construction
-    var popupHTML = '<strong>' + marker.truck.name + '</strong> is at <strong>' + marker.feature.properties.name + '</strong><br>' + marker.feature.properties.address + '<br>until ' + marker.calendar.until
+    var popupHTML = 'No truck at <strong>' + marker.feature.properties.name + '</strong><br>' + marker.feature.properties.address
+    if (marker.truck) {
+        var popupHTML = '<strong>' + marker.truck.name + '</strong> is at <strong>' + marker.feature.properties.name + '</strong><br>' + marker.feature.properties.address + '<br>until ' + marker.calendar.until
+        marker.options.icon = truckMarker //turn on truck
+    }
 
     marker.bindPopup(popupHTML, {
         closeButton: false,
