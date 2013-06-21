@@ -92,36 +92,36 @@
     "calendar": {
         "now": [
             {
-                "id": 4,
+                "truck": 5,
                 "at": 1,
                 "until": "2pm"
             },
             {
-                "id": 2,
+                "truck": 2,
                 "at": 2,
                 "until": "2:30pm"
             },
             {
-                "id": 7,
+                "truck": 7,
                 "at": 3,
                 "until": "4pm"
             }
         ],
         "later": [
             {
-                "id": 1,
+                "truck": 1,
                 "at": 1,
                 "from": "6pm",
                 "until": "10pm"
             },
             {
-                "id": 8,
+                "truck": 8,
                 "at": 2,
                 "from": "2pm",
                 "until": "4pm"
             },
             {
-                "id": 3,
+                "truck": 3,
                 "at": 3,
                 "from": "4pm",
                 "until": "7pm"
@@ -129,7 +129,7 @@
         ],
         "muchlater": [
             {
-                "id": 6,
+                "truck": 6,
                 "at": 2,
                 "date": "Wednesday",
                 "from": "12pm",

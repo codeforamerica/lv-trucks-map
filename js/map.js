@@ -34,37 +34,54 @@ var markers = L.mapbox.markerLayer(locations, {
     filter: function (feature) {
         return feature.properties.status === 'active'
     }
-})
+}).eachLayer(function (marker) {
 
-// Marker + popup construction
-var locationMarker = []
-markers.eachLayer(function (marker) {
-
+    // set options here directly on the marker object
     marker.options.icon = truckMarker
     marker.options.riseOnHover = true
 
+    // shorthand for where things are stored in the GeoJSON
     var markerProperties = marker.feature.properties
 
+    // Popup construction
     var popupHTML = '<strong>' + markerProperties.name + '</strong><br>' + markerProperties.address
 
     marker.bindPopup(popupHTML, {
         closeButton: false,
         minWidth: 200
     })
+
+    // Center marker on click
     marker.on('click', function (e) {
         map.panTo(marker.getLatLng())
     })
-
-    // Some guidance about displaying information in another part of DOM apart from leaflet-generated popups.
-    // http://www.mapbox.com/mapbox.js/example/v1.0.0/marker-tooltips-outside-map/
-
-
 }).addTo(map)
 
 // Set view based on locations
 map.fitBounds(markers.getBounds().pad(0.10))
 
 
+// Popups test
+/*
+markers.on('click',function (e) {
+    e.layer.unbindPopup();
 
+    var mPopup = $('#m-popup').html()
+    var popupObject = {}
 
+    var i = 1
 
+    var feature = e.layer.feature;
+    popupObject.location = feature.properties.name
+    popupObject.address = feature.properties.address
+    popupObject.name = trucks[i].name
+    popupObject.until = trucks[i].until
+
+    $('#popup-layer').html(Mustache.render(mPopup, popupObject))
+    $('#popup').fadeIn(200)
+});
+// Clear the tooltip when map is clicked
+map.on('click',function (e) {
+    $('#popup').fadeOut(200)
+});
+*/

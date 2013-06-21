@@ -99,14 +99,14 @@ $(document).ready( function () {
     })
 
 
-
-
     // INITIALISE!
     $('#truck-head-now').click()
 
     displayTruckEntries(calendar.now, '#truck-info-now')
     displayTruckEntries(calendar.later, '#truck-info-later')
     displayTruckEntries(calendar.muchlater, '#truck-info-muchlater')
+
+    makePopup(calendar.now)
 
     // Populate footer elements
     var mFooterAllTrucks = $('#m-footer-all-trucks').html()
@@ -153,31 +153,50 @@ function displayTruckEntries(calendar, section) {
 
     for (i = 0; i < calendar.length; i++) {
 
-        var truckID = calendar[i].id
-        var locationID = calendar[i].at
+        trucksObject.entries[i] = gatherData(calendar[i].truck, calendar[i].at)
+
+        trucksObject.entries[i].date = calendar[i].date
+        trucksObject.entries[i].from = calendar[i].from
+        trucksObject.entries[i].until = calendar[i].until
+    }
+
+    $(section).html(Mustache.render(mTruckEntry, trucksObject))
+}
+
+function makePopup(calendar) {
+
+    var mPopup = $('#m-popup').html()
+    var popupObject = {}
+    popupObject.entries = []
+
+    for (i = 0; i < calendar.length; i++) {
+        
+        popupObject.entries[i] = gatherData(calendar[i].truck, calendar[i].at)
+        popupObject.entries[i].until = calendar[i].until
+
+        $('#popup-layer').append(Mustache.render(mPopup, popupObject.entries[i]))
+    }
+
+}
+
+function gatherData(truckID, locationID) {
+
+        var data = {}
 
         for (j = 0; j < trucks.length; j++) {
             if (trucks[j].id == truckID) {
-                trucksObject.entries[i] = trucks[j]
+                data.truck = trucks[j]
+                break
             }
         }
 
         for (k = 0; k < locations.features.length; k++) {
             if (locations.features[k].id == locationID) {
-                trucksObject.entries[i].id = locations.features[k].id
-                trucksObject.entries[i].location = locations.features[k].properties.name
-                trucksObject.entries[i].address = locations.features[k].properties.address
+                data.location = locations.features[k].properties
+                data.location.id = locations.features[k].id
+                break
             }
         }
 
-        trucksObject.entries[i].date = calendar[i].date
-        trucksObject.entries[i].from = calendar[i].from
-        trucksObject.entries[i].until = calendar[i].until
-
-        if(!trucksObject.entries[i]) {
-            console.log('error: problem with truck entries.')
-        }
-    }
-
-    $(section).append(Mustache.render(mTruckEntry, trucksObject))
+        return data
 }

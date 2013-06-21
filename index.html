@@ -73,27 +73,37 @@
                 <div id='truck-head-now' class='truck-heading truck-heading-border'>Open now</div>
                 <div id='truck-info-now' class='truck-entries' style='display: none;'>
                     <!-- Replace this area with generated entries -->
+                    <div class='truck-message'>
+                        <h3>There are no trucks open right now.</h3>
+                    </div>
                 </div>
                 <div id='truck-head-later' class='truck-heading truck-heading-border'>Later today</div>
                 <div id='truck-info-later' class='truck-entries' style='display: none;'>
                     <!-- Replace this area with generated entries -->
+                    <div class='truck-message'>
+                        <h3>There are no trucks open later.</h3>
+                    </div>
                 </div>
                 <div id='truck-head-muchlater' class='truck-heading'>This week</div>
                 <div id='truck-info-muchlater' class='truck-entries' style='display: none;'>
                     <!-- Replace this area with generated entries -->
+                    <div class='truck-message'>
+                        <h3>There are no other trucks opening in the future.</h3>
+                    </div>
                 </div>
             </div>
 
-            <!-- MUSTACHE TEMPLATE -->
+            <!-- BEGIN TEMPLATES -->
+            <!-- Mustache - Truck Entries -->
             <div id='truck-entry-template' style='display: none'>
             <script id='m-truck-entry' type='text/template'>
                 {{#entries}}
-                <div class='truck-entry' data-location-id='{{id}}'>
+                <div class='truck-entry' data-location-id='{{location.id}}'>
                     <div class='truck-image'></div>
-                    <h3>{{name}}</h3>
+                    <h3>{{truck.name}}</h3>
                     <p>
-                        is at <strong>{{location}}</strong>
-                        <br><span class='address'>{{address}}</span>
+                        is at <strong>{{location.name}}</strong>
+                        <br><span class='address'>{{location.address}}</span>
                     </p>
                     {{#date}}
                         <span class='time'>{{date}} {{from}}</span>
@@ -108,46 +118,52 @@
                     {{/date}}
                 </div>
                 {{/entries}}
-                {{^entries}}
-                <div class='truck-message'>
-                    <h3>Unfortunately, there is nothing here :(</h3>
-                </div>
-                {{/entries}}
             </script>
             </section>
-            <!-- // end Mustache template -->
+            <!-- // end Mustasche - Truck Entries -->
 
-            <div id='map' class='dark'></div>
-
-            <div id='mockup-popup' style='display: none'>
-                <div class='mockup-popup-tag'>
-                    Open now until 4pm
-                </div>
-                <div class='mockup-popup-info'>
-                    <div class='mockup-popup-truck'>
-                        <div class='truck-image' style='background: #f1f1f1 url("img/mockup-truck-logo-03.png") no-repeat'></div>
-                        <div style='float: left; width: 220px'>
-                            <h3>Lindsay's Pizza Truck</h3>
-                            <p>
-                                Just pretend there is way more information here about this truck
-                            </p>
+            <!-- Mustache - Popups -->
+            <div id='popup-template' style='display: none'>
+            <script id='m-popup' type='text/template'>
+                <div id='popup'>
+                    <div class='popup-tag'>
+                        Open now until {{until}}
+                    </div>
+                    <div class='popup-info'>
+                        <div class='popup-truck'>
+                            <div class='truck-image' style='background: #f1f1f1 url("{{truck.logo_url}}") no-repeat'></div>
+                            <div style='float: left; width: 220px'>
+                                <h3>{{truck.name}}</h3>
+                                <p>
+                                    Just pretend there is way more information here about this truck
+                                </p>
+                            </div>
+                        </div>
+                        <div class='popup-location'>
+                        <p>
+                            <strong>{{location.name}}</strong>
+                            <br><small>{{location.address}}</small>
+                        </p>
                         </div>
                     </div>
-                    <div class='mockup-popup-location'>
-                    <p>
-                        <strong>Regional Juice Center</strong>
-                        <br><span class='address'>300 Lewis Avenue</span>
-                    </p>
-                    </div>
                 </div>
+            </script>
             </div>
+            <!-- // end Mustache - Popups -->
 
+            <!-- Invisible DOM elements to allow jQuery to grab colors set in CSS -->
             <div style='display: none;'>
-                <!-- create this so jQuery can grab a color set in CSS/LESS -->
                 <div class='truck-heading-hilite'></div>
                 <div class='truck-entry-hilite'></div>
-                <div class='truck-entry'></div>
+                <div class='truck-entry'></div> 
             </div>
+            <!-- // end invisible DOM elements -->
+
+            <!-- END TEMPLATE SECTION -->
+
+            <div id='popup-layer'></div>
+
+            <div id='map' class='dark'></div>
 
         </section>
 
@@ -226,6 +242,7 @@
                 <li><a href='{{website}}' target='_blank'>{{name}}</a></li>
             {{/trucks}}
             </ul>
+            <p><strong>Note:</strong> Clicking these names will open each link in a new window.</p>
         </script>
         </section>
         <!-- // end Mustache template -->
