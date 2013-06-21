@@ -40,8 +40,15 @@ html, body {
 }
 
 .container {
-    width: @container-width;
     margin: 0 auto;
+
+    @media only screen and (max-width: 685px) {
+        width: 100%;
+    }
+    @media only screen and (min-width: 686px) {
+        width: @container-width;
+    }
+
 }
 
 // LINKS
@@ -65,7 +72,14 @@ header {
         background: transparent url('../img/clv-logo-tag-240.png') center 0 no-repeat;
         background-size: 120px 150px;
 
-        @media only screen and (max-width: 640px) {
+        @media only screen and (max-width: 767px) and (orientation: landscape) {
+            width: 80px;
+            height: 100px;
+            right: 5px;
+            background-size: 80px 100px;
+        }
+
+        @media only screen and (max-width: 500px) {
             width: 80px;
             height: 100px;
             right: 5px;
@@ -198,9 +212,6 @@ footer {
     font-family: 'Fauna One';
     border-top: 1px solid darken(@footer-background, 2%);
     box-shadow: 0 0 6px rgba(0,0,0,0.25);
-    div.container {
-        width: @container-width;
-    }
     ul {
         list-style: none;
         padding: 0;
