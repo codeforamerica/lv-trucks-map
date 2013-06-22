@@ -282,11 +282,13 @@ footer {
                 height: @footer-height-small;
                 line-height: @footer-height-small;
                 border: none;
-                width: 24%;
+                width: 25%;
                 text-align: center;
             }
-            &:first-of-type {
-                border-left: 1px solid @footer-divider;
+            @media only screen and (min-width: 525px) {
+                &:first-of-type {
+                    border-left: 1px solid @footer-divider;
+                }
             }
             &:hover {
                 background-color: lighten(@footer-background, 5%);
@@ -438,7 +440,7 @@ div.footer-popup {
 
 .leaflet-bottom {
     margin-bottom: @footer-height;
-    @media only screen and (max-width: 767px) {
+    @media only screen and (max-width: 525px) {
         margin-bottom: @footer-height-small;
     }
 }
@@ -463,6 +465,9 @@ div.footer-popup {
     color: #aaa !important;
     box-shadow: none !important;
     .opacity(0.75);
+    @media only screen and (max-width: 525px) {
+        font-size: 6px;
+    }
 }
 // This hides the second attribution provided by mapbox.js. See issue #6
 .leaflet-control-attribution:last-of-type {
