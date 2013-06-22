@@ -7,7 +7,7 @@ var map = L.mapbox.map('map', 'examples.map-y7l23tes')
 // Map imagery attribution
 // Note that mapbox.js provides its own separate attribution, which I don't know how to edit, so I've hidden it with CSS (super hacky!) 
 var control = L.control.attribution({
-    prefix: 'Map imagery by <a href=\'http://www.mapbox.com/about/maps/\' target=\'_blank\'>MapBox</a>. Data &copy; OpenStreetMap contributors and licensed under the <a href=\'http://www.openstreetmap.org/copyright\' target=\'_blank\'>Open Database License</a>.'
+    prefix: 'Map imagery by <a href=\'http://www.mapbox.com/about/maps/\' target=\'_blank\'>MapBox</a>. Data &copy; <a href=\'http://www.openstreetmap.org/copyright\' target=\'_blank\'>OpenStreetMap contributors</a>.'
 }).addTo(map)
 
 // Set up truck icon
