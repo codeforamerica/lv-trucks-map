@@ -86,8 +86,8 @@ $(document).ready( function () {
     // Open / toggle
     $('#footer-trucks-link').click( function () { toggleFooterPopup('#footer-trucks') })
     $('#footer-calendar-link').click( function () { toggleFooterPopup('#footer-calendar') })
-    $('#footer-mfv-link').click( function () { toggleFooterPopup('#footer-mfv') })
     $('#footer-about-link').click( function () { toggleFooterPopup('#footer-about') })
+    $('#footer-feedback-link').click( function () { toggleFooterPopup('#footer-feedback') })
     // Close popups
     // -- when X is clicked on inside the popup
     $('.footer-popup-close').click( function () {
