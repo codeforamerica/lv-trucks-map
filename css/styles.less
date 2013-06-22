@@ -38,6 +38,11 @@ html, body {
     background-color: @background;
     font-family: 'PT Sans Caption', 'Helvetica Neue', sans-serif;
     font-size: 13px;
+
+    @media only screen and (max-width: 767px) {
+        overflow-x: hidden;
+    }
+
 }
 
 .container {
@@ -272,7 +277,7 @@ footer {
                 height: @footer-height-small;
                 line-height: @footer-height-small;
                 border: none;
-                width: 22%;
+                width: 24%;
                 text-align: center;
             }
             &:first-of-type {
@@ -419,6 +424,9 @@ div.footer-popup {
     position: absolute;
     right: 10px;
     bottom: 10px;
+    @media only screen and (max-width: 525px) {
+        display: none;
+    }
 }
 
 // LEAFLET OVERRIDES
@@ -427,6 +435,16 @@ div.footer-popup {
     margin-bottom: @footer-height;
     @media only screen and (max-width: 767px) {
         margin-bottom: @footer-height-small;
+    }
+}
+.leaflet-top {
+    // may be worth dealing with this with changing the actual map top position, to enable points to scale and pan correctly
+    margin-top: 60px;
+    @media only screen and (max-width: 525px) {
+        margin-top: 40px;
+    }
+    @media only screen and (max-width: 767px) and (orientation: landscape) {
+        margin-top: 40px;
     }
 }
 .leaflet-top, .leaflet-bottom {
