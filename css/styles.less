@@ -120,7 +120,7 @@ header {
     overflow: auto;
     .user-select(none);
 
-    @media only screen and (max-width: 767px) {
+    @media only screen and (max-width: 768px) {
         width: 100%;
     }
     .truck-title, .truck-heading {
@@ -145,6 +145,11 @@ header {
             height: 18px;
             line-height: 18px;
             font-size: 14px;
+        }
+    }
+    #truck-data {
+        @media only screen and (max-width: 768px) {
+            display: none;
         }
     }
     .truck-heading {
@@ -480,10 +485,7 @@ div.footer-popup {
 }
 */
 
-@media only screen and (max-width: 767px) {
-    #truck-data {
-        display: none;
-    }
+@media only screen and (max-width: 768px) {
     #map {
         margin-top: 56px;
         bottom: 0px;
