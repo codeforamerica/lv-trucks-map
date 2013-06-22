@@ -80,7 +80,7 @@ header {
             background-size: 80px 100px;
         }
 
-        @media only screen and (max-width: 500px) {
+        @media only screen and (max-width: 525px) {
             width: 80px;
             height: 100px;
             right: 5px;
@@ -131,7 +131,7 @@ header {
 //        cursor: grab;
 //        cursor: -moz-grab;
 //        cursor: -webkit-grab;
-        @media only screen and (max-width: 685px) {
+        @media only screen and (max-width: 525px) {
             height: 18px;
             line-height: 18px;
             font-size: 14px;
@@ -222,7 +222,7 @@ footer {
     font-family: 'Fauna One';
     border-top: 1px solid darken(@footer-background, 2%);
     box-shadow: 0 0 6px rgba(0,0,0,0.25);
-    @media only screen and (max-width: 685px) {
+    @media only screen and (max-width: 525px) {
         height: @footer-height-small;
     }
     #footer-wide {
@@ -235,13 +235,13 @@ footer {
         @media only screen and (max-width: 950px) {
             display: block;
         }
-        @media only screen and (max-width: 685px) {
+        @media only screen and (max-width: 525px) {
             display: none;
         }
     }
     #footer-condensed {
         display: none;
-        @media only screen and (max-width: 685px) {
+        @media only screen and (max-width: 525px) {
             display: block;
         }
     }
@@ -261,11 +261,14 @@ footer {
             background-image: url('../img/arrow-up.png');
             background-position: right 20px top 20px;
             background-repeat: no-repeat;
-            @media only screen and (max-width: 685px) {
-                padding: 0 10px;
+            @media only screen and (max-width: 525px) {
+                padding: 0;
                 background-image: none;
                 height: @footer-height-small;
                 line-height: @footer-height-small;
+                border: none;
+                width: 22%;
+                text-align: center;
             }
             &:first-of-type {
                 border-left: 1px solid @footer-divider;
@@ -281,7 +284,7 @@ footer {
     position: absolute;
     bottom: 0;
 
-    @media only screen and (max-width: 685px) {
+    @media only screen and (max-width: 525px) {
         width: 100%;
         left: 0;
     }
@@ -298,7 +301,7 @@ div.footer-popup {
     box-shadow: 0 0 20px rgba(0,0,0,0.75);
     z-index: @ui-index - 50;
 
-    @media only screen and (max-width: 685px) {
+    @media only screen and (max-width: 525px) {
         width: 100%;
         left: 0;
     }
