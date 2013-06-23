@@ -72,7 +72,7 @@ var markers = L.mapbox.markerLayer(locations, {
     marker.bindPopup(popupHTML, {
         closeButton: false,
         minWidth: 200,
-        autoPanPadding: [20, 20]
+        autoPanPadding: [20, 40]
     })
 
     // Center marker on click

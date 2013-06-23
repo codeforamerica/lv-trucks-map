@@ -84,10 +84,10 @@ $(document).ready( function () {
 
     // FOOTER POPUPS
     // Open / toggle
-    $('#footer-trucks-link').click( function () { toggleFooterPopup('#footer-trucks') })
-    $('#footer-calendar-link').click( function () { toggleFooterPopup('#footer-calendar') })
-    $('#footer-about-link').click( function () { toggleFooterPopup('#footer-about') })
-    $('#footer-feedback-link').click( function () { toggleFooterPopup('#footer-feedback') })
+    $('.footer-trucks-link').click( function () { toggleFooterPopup('footer-trucks') })
+    $('.footer-calendar-link').click( function () { toggleFooterPopup('footer-calendar') })
+    $('.footer-about-link').click( function () { toggleFooterPopup('footer-about') })
+    $('.footer-feedback-link').click( function () { toggleFooterPopup('footer-feedback') })
     // Close popups
     // -- when X is clicked on inside the popup
     $('.footer-popup-close').click( function () {
@@ -129,8 +129,10 @@ function toggleTruckEntries(clickedHeading) {
 }
 
 function toggleFooterPopup(target) {
-    if ($(target).is(':visible')) {
-        $(target).slideUp(200)
+    var popup = '#' + target
+
+    if ($(popup).is(':visible')) {
+        $(popup).slideUp(200)
     } else {
         // hide all others
         $('.footer-popup').slideUp(200)
@@ -139,13 +141,13 @@ function toggleFooterPopup(target) {
         // there may be a better way of doing this somehow, that doesn't rely on programatically determining position. what happens if a window resizes?
         // only make this work if screen width is more than 685px for responsive layouts
         if ($(window).width() > 685) {
-            var link = target + '-link'
+            var link = '.' + target + '-link'
             var position = $(link).offset().left
-            $(target).css('left', position)            
+            $(popup).css('left', position)            
         }
 
         // display the popup
-        $(target).slideDown(200)
+        $(popup).slideDown(200)
     }
 }
 
