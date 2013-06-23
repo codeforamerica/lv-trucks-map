@@ -83,6 +83,7 @@ var markers = L.mapbox.markerLayer(locations, {
 
 // Set view based on locations
 map.fitBounds(markers.getBounds().pad(0.25))
+map.setMaxBounds(markers.getBounds().pad(6))
 
 // Open popups on mouseover (test)
 markers.on('mouseover', function (e) {
