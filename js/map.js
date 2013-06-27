@@ -13,7 +13,7 @@ var map = L.map('map')
     .setView([36.1665, -115.1479], 17)
     .addLayer(L.mapbox.tileLayer('louh.map-vio2jxma', {
         detectRetina: true,
-        retinaVersion: 'elouh.map-2lywy8ei'
+        retinaVersion: 'louh.map-2lywy8ei'
     }))
 
 // Map imagery attribution
