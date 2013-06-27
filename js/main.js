@@ -145,8 +145,10 @@ $(document).ready( function () {
     // makePopup(calendar.now)
 
     // Populate footer elements
-    var mFooterAllTrucks = $('#m-footer-all-trucks').html()
-    $('#footer-trucks .footer-popup-content').html(Mustache.render(mFooterAllTrucks, data))
+    if (data.trucks.length > 0) {
+        var mFooterAllTrucks = $('#m-footer-all-trucks').html()
+        $('#footer-trucks .footer-popup-content').html(Mustache.render(mFooterAllTrucks, data))        
+    }
 
 })
 
