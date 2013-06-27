@@ -1,10 +1,16 @@
 (function() { 
   document.data = function() {
 
+    // config
+
+    var dataSource = 'data.json'
+    var locationSource = 'locations.geojson'
+
+
     // LOAD SOME EXTERNAL DATAS
-    var dataJson = 'data.json',
+    var dataJson = dataSource,
         data = []
-    var locationGeoJson = 'locations.geojson',
+    var locationGeoJson = locationSource,
         locations 
 
     $.ajax({
@@ -117,6 +123,16 @@ $(document).ready( function () {
 
 function toggleTruckEntries(clickedHeading) {
     var entries = clickedHeading.next('.truck-entries')
+    /*
+    if ($('.truck-entries').is(':visible')) {
+        $(this).slideUp(200)
+        $(this).addClass('truck-heading-border')
+        $(this).removeClass('active')
+    }
+    entries.slideDown(200)
+    clickedHeading.removeClass('truck-heading-border')
+    clickedHeading.addClass('active')
+    */
     if ( entries.is(':visible') ) {
         entries.slideUp(200)
         clickedHeading.addClass('truck-heading-border')
@@ -140,10 +156,14 @@ function toggleFooterPopup(target) {
         // get the position of the clicked link so that the popup box lines up
         // there may be a better way of doing this somehow, that doesn't rely on programatically determining position. what happens if a window resizes?
         // only make this work if screen width is more than 685px for responsive layouts
-        if ($(window).width() > 685) {
+        if ($(window).width() > 767) {
             var link = '.' + target + '-link'
             var position = $(link).offset().left
             $(popup).css('left', position)            
+        }
+        if ($(window).width() > 525 && $(window).width() <= 767 ) {
+            $(popup).css('left', $('footer div.container').offset().left)
+            $(popup).css('width', $('footer div.container').width())
         }
 
         // display the popup

@@ -42,20 +42,6 @@
                 "location": "South 3rd Street, between Clark and Lewis",
                 "status": "active"
             }
-        },
-        {
-            "id": 4,
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [-115.13941, 36.17173]
-            },
-            "properties": {
-                "name": "Zappo's Headquarters",
-                "address": "400 Stewart Avenue",
-                "location": "Corner of Stewart and Las Vegas Ave",
-                "status": "inactive"
-            }
         }
     ]
 }

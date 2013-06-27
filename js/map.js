@@ -38,7 +38,9 @@ var calendar = data.calendar
 // Populate map with locations
 var markers = L.mapbox.markerLayer(locations, {
     filter: function (feature) {
-        return feature.properties.status === 'active'
+        return true
+        // disabled active filter
+        // return feature.properties.status === 'active'
     }
 }).eachLayer(function (marker) {
 

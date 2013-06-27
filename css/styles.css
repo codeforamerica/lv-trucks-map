@@ -1,0 +1,877 @@
+@import url('css/main.css');
+
+@import url('css/typicons.css');
+
+@import url(http://fonts.googleapis.com/css?family=Fauna+One|PT+Sans+Caption:400,700);
+/*! normalize.css v2.1.0 | MIT License | git.io/normalize */
+/* ==========================================================================
+   HTML5 display definitions
+   ========================================================================== */
+/**
+ * Correct `block` display not defined in IE 8/9.
+ */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+nav,
+section,
+summary {
+  display: block;
+}
+/**
+ * Correct `inline-block` display not defined in IE 8/9.
+ */
+audio,
+canvas,
+video {
+  display: inline-block;
+}
+/**
+ * Prevent modern browsers from displaying `audio` without controls.
+ * Remove excess height in iOS 5 devices.
+ */
+audio:not([controls]) {
+  display: none;
+  height: 0;
+}
+/**
+ * Address styling not present in IE 8/9.
+ */
+[hidden] {
+  display: none;
+}
+/* ==========================================================================
+   Base
+   ========================================================================== */
+/**
+ * 1. Set default font family to sans-serif.
+ * 2. Prevent iOS text size adjust after orientation change, without disabling
+ *    user zoom.
+ */
+html {
+  font-family: sans-serif;
+  /* 1 */
+
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  /* 2 */
+
+}
+/**
+ * Remove default margin.
+ */
+body {
+  margin: 0;
+}
+/* ==========================================================================
+   Links
+   ========================================================================== */
+/**
+ * Address `outline` inconsistency between Chrome and other browsers.
+ */
+a:focus {
+  outline: thin dotted;
+}
+/**
+ * Improve readability when focused and also mouse hovered in all browsers.
+ */
+a:active,
+a:hover {
+  outline: 0;
+}
+/* ==========================================================================
+   Typography
+   ========================================================================== */
+/**
+ * Address variable `h1` font-size and margin within `section` and `article`
+ * contexts in Firefox 4+, Safari 5, and Chrome.
+ */
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+/**
+ * Address styling not present in IE 8/9, Safari 5, and Chrome.
+ */
+abbr[title] {
+  border-bottom: 1px dotted;
+}
+/**
+ * Address style set to `bolder` in Firefox 4+, Safari 5, and Chrome.
+ */
+b,
+strong {
+  font-weight: bold;
+}
+/**
+ * Address styling not present in Safari 5 and Chrome.
+ */
+dfn {
+  font-style: italic;
+}
+/**
+ * Address differences between Firefox and other browsers.
+ */
+hr {
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  height: 0;
+}
+/**
+ * Address styling not present in IE 8/9.
+ */
+mark {
+  background: #ff0;
+  color: #000;
+}
+/**
+ * Correct font family set oddly in Safari 5 and Chrome.
+ */
+code,
+kbd,
+pre,
+samp {
+  font-family: monospace, serif;
+  font-size: 1em;
+}
+/**
+ * Improve readability of pre-formatted text in all browsers.
+ */
+pre {
+  white-space: pre-wrap;
+}
+/**
+ * Set consistent quote types.
+ */
+q {
+  quotes: "\201C" "\201D" "\2018" "\2019";
+}
+/**
+ * Address inconsistent and variable font size in all browsers.
+ */
+small {
+  font-size: 80%;
+}
+/**
+ * Prevent `sub` and `sup` affecting `line-height` in all browsers.
+ */
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sup {
+  top: -0.5em;
+}
+sub {
+  bottom: -0.25em;
+}
+/* ==========================================================================
+   Embedded content
+   ========================================================================== */
+/**
+ * Remove border when inside `a` element in IE 8/9.
+ */
+img {
+  border: 0;
+}
+/**
+ * Correct overflow displayed oddly in IE 9.
+ */
+svg:not(:root) {
+  overflow: hidden;
+}
+/* ==========================================================================
+   Figures
+   ========================================================================== */
+/**
+ * Address margin not present in IE 8/9 and Safari 5.
+ */
+figure {
+  margin: 0;
+}
+/* ==========================================================================
+   Forms
+   ========================================================================== */
+/**
+ * Define consistent border, margin, and padding.
+ */
+fieldset {
+  border: 1px solid #c0c0c0;
+  margin: 0 2px;
+  padding: 0.35em 0.625em 0.75em;
+}
+/**
+ * 1. Correct `color` not being inherited in IE 8/9.
+ * 2. Remove padding so people aren't caught out if they zero out fieldsets.
+ */
+legend {
+  border: 0;
+  /* 1 */
+
+  padding: 0;
+  /* 2 */
+
+}
+/**
+ * 1. Correct font family not being inherited in all browsers.
+ * 2. Correct font size not being inherited in all browsers.
+ * 3. Address margins set differently in Firefox 4+, Safari 5, and Chrome.
+ */
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  /* 1 */
+
+  font-size: 100%;
+  /* 2 */
+
+  margin: 0;
+  /* 3 */
+
+}
+/**
+ * Address Firefox 4+ setting `line-height` on `input` using `!important` in
+ * the UA stylesheet.
+ */
+button,
+input {
+  line-height: normal;
+}
+/**
+ * Address inconsistent `text-transform` inheritance for `button` and `select`.
+ * All other form control elements do not inherit `text-transform` values.
+ * Correct `button` style inheritance in Chrome, Safari 5+, and IE 8+.
+ * Correct `select` style inheritance in Firefox 4+ and Opera.
+ */
+button,
+select {
+  text-transform: none;
+}
+/**
+ * 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio`
+ *    and `video` controls.
+ * 2. Correct inability to style clickable `input` types in iOS.
+ * 3. Improve usability and consistency of cursor style between image-type
+ *    `input` and others.
+ */
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  -webkit-appearance: button;
+  /* 2 */
+
+  cursor: pointer;
+  /* 3 */
+
+}
+/**
+ * Re-set default cursor for disabled elements.
+ */
+button[disabled],
+html input[disabled] {
+  cursor: default;
+}
+/**
+ * 1. Address box sizing set to `content-box` in IE 8/9.
+ * 2. Remove excess padding in IE 8/9.
+ */
+input[type="checkbox"],
+input[type="radio"] {
+  box-sizing: border-box;
+  /* 1 */
+
+  padding: 0;
+  /* 2 */
+
+}
+/**
+ * 1. Address `appearance` set to `searchfield` in Safari 5 and Chrome.
+ * 2. Address `box-sizing` set to `border-box` in Safari 5 and Chrome
+ *    (include `-moz` to future-proof).
+ */
+input[type="search"] {
+  -webkit-appearance: textfield;
+  /* 1 */
+
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  /* 2 */
+
+  box-sizing: content-box;
+}
+/**
+ * Remove inner padding and search cancel button in Safari 5 and Chrome
+ * on OS X.
+ */
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+/**
+ * Remove inner padding and border in Firefox 4+.
+ */
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+/**
+ * 1. Remove default vertical scrollbar in IE 8/9.
+ * 2. Improve readability and alignment in all browsers.
+ */
+textarea {
+  overflow: auto;
+  /* 1 */
+
+  vertical-align: top;
+  /* 2 */
+
+}
+/* ==========================================================================
+   Tables
+   ========================================================================== */
+/**
+ * Remove most spacing between table cells.
+ */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+/*!
+ * Preboot v2
+ *
+ * Open sourced under MIT license by @mdo.
+ * Some variables and mixins from Bootstrap (Apache 2 license).
+ */
+html,
+body {
+  width: 100%;
+  height: 100%;
+  background-color: #f2f2f2;
+  font-family: 'PT Sans Caption', 'Helvetica Neue', sans-serif;
+  font-size: 13px;
+}
+@media only screen and (max-width: 767px) {
+  html,
+  body {
+    overflow-x: hidden;
+  }
+}
+.container {
+  margin: 0 auto;
+}
+@media only screen and (max-width: 685px) {
+  .container {
+    width: 100%;
+  }
+}
+@media only screen and (min-width: 686px) {
+  .container {
+    width: 90%;
+  }
+}
+a {
+  color: #7c7c7c;
+}
+header {
+  width: 100%;
+  position: absolute;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+header #nav-logo {
+  z-index: 8980;
+  width: 120px;
+  height: 150px;
+  right: 5%;
+  position: absolute;
+  background: transparent url('../img/clv-logo-tag-240.png') center 0 no-repeat;
+  background-size: 120px 150px;
+}
+@media only screen and (max-width: 767px) and (orientation: landscape) {
+  header #nav-logo {
+    width: 80px;
+    height: 100px;
+    right: 5px;
+    background-size: 80px 100px;
+  }
+}
+@media only screen and (max-width: 525px) {
+  header #nav-logo {
+    width: 80px;
+    height: 100px;
+    right: 5px;
+    background-size: 80px 100px;
+  }
+}
+header #nav-logo h1 {
+  display: none;
+}
+header #nav-logo a {
+  display: block;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+}
+#truck-info {
+  width: 360px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1200;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.75);
+  background-color: white;
+  color: black;
+  font-size: 11px;
+  max-height: 95%;
+  overflow: auto;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+@media only screen and (max-width: 768px) {
+  #truck-info {
+    width: 100%;
+  }
+}
+#truck-info .truck-title,
+#truck-info .truck-heading {
+  font-family: 'Fauna One';
+  color: #ffffff;
+}
+#truck-info .truck-title {
+  background-color: #555569;
+  font-size: 24px;
+  height: 36px;
+  line-height: 36px;
+  padding: 10px;
+}
+@media only screen and (max-width: 767px) and (orientation: landscape) {
+  #truck-info .truck-title {
+    height: 18px;
+    line-height: 18px;
+    font-size: 14px;
+  }
+}
+@media only screen and (max-width: 525px) {
+  #truck-info .truck-title {
+    height: 18px;
+    line-height: 18px;
+    font-size: 14px;
+  }
+}
+@media only screen and (max-width: 768px) {
+  #truck-info #truck-data {
+    display: none;
+  }
+}
+#truck-info .truck-heading {
+  background: #6c6c85 url('../img/arrow.png') right 20px top 16px no-repeat;
+  font-size: 14px;
+  height: 40px;
+  line-height: 40px;
+  padding: 0 10px;
+  cursor: hand;
+  cursor: pointer;
+}
+#truck-info .truck-heading.active {
+  background: #6c6c85 url('../img/arrow-down.png') right 19px top 18px no-repeat;
+}
+#truck-info .truck-heading-border {
+  border-bottom: 1px dotted #87879e;
+}
+#truck-info .truck-entries {
+  padding: 3px 0;
+}
+#truck-info .truck-entries .truck-entry,
+#truck-info .truck-entries .truck-message {
+  padding: 10px 10px;
+}
+#truck-info .truck-entries .truck-entry {
+  height: 60px;
+  cursor: hand;
+  cursor: pointer;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  -o-user-select: text;
+  user-select: text;
+}
+#truck-info .truck-entries .truck-entry:not(:last-child) {
+  border-bottom: 1px dotted #d9d9d9;
+}
+#truck-info .truck-entries .truck-entry .truck-image {
+  height: 70px;
+  width: 70px;
+  float: left;
+  margin-right: 8px;
+  margin-top: -6px;
+  margin-left: -6px;
+}
+#truck-info .truck-entries .truck-entry .truck-image img {
+  width: 100%;
+  height: 100%;
+}
+#truck-info .truck-entries .truck-entry h3 {
+  padding: 0;
+  margin: 0;
+  font-size: 18px;
+}
+#truck-info .truck-entries .truck-entry p {
+  padding: 0;
+  margin: 0;
+}
+#truck-info .truck-entries .truck-entry p .address {
+  color: #999;
+  font-size: 10px;
+}
+#truck-info .truck-entries .truck-entry span.time {
+  background-color: #5c8f54;
+  border-radius: 4px;
+  float: right;
+  margin-top: -56px;
+  color: white;
+  padding: 6px 10px;
+}
+#truck-info .truck-entries .truck-message {
+  line-height: 10px;
+}
+.truck-heading-hilite {
+  background-color: #818199;
+}
+.truck-entry-hilite {
+  background-color: #f0f0f0;
+}
+footer {
+  height: 40px;
+  width: 100%;
+  bottom: 0;
+  position: fixed;
+  background-color: #33333f;
+  color: #cdcdd7;
+  z-index: 9000;
+  font-size: 13px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  font-family: 'Fauna One';
+  border-top: 1px solid #2e2e39;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.25);
+  /* Responsive footer buttons test */
+
+}
+@media only screen and (max-width: 525px) {
+  footer {
+    height: 40px;
+  }
+}
+@media only screen and (max-width: 950px) {
+  footer #footer-wide {
+    display: none;
+  }
+}
+footer #footer-mid {
+  display: none;
+}
+@media only screen and (max-width: 950px) {
+  footer #footer-mid {
+    display: block;
+  }
+}
+@media only screen and (max-width: 525px) {
+  footer #footer-mid {
+    display: none;
+  }
+}
+footer #footer-condensed {
+  display: none;
+}
+@media only screen and (max-width: 525px) {
+  footer #footer-condensed {
+    display: block;
+  }
+}
+footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+footer ul li {
+  float: left;
+  margin: 0;
+  padding: 0 50px 0 30px;
+  height: 40px;
+  line-height: 40px;
+  border-right: 1px solid #4a4a5b;
+  cursor: hand;
+  cursor: pointer;
+  background-image: url('../img/arrow-up.png');
+  background-position: right 20px top 20px;
+  background-repeat: no-repeat;
+}
+@media only screen and (max-width: 525px) {
+  footer ul li {
+    padding: 0;
+    background-image: none;
+    height: 40px;
+    line-height: 40px;
+    border: none;
+    width: 25%;
+    text-align: center;
+  }
+}
+@media only screen and (min-width: 525px) {
+  footer ul li:first-of-type {
+    border-left: 1px solid #4a4a5b;
+  }
+}
+footer ul li:hover {
+  background-color: #3e3e4d;
+}
+#footer-elements {
+  position: absolute;
+  bottom: 0;
+}
+@media only screen and (max-width: 525px) {
+  #footer-elements {
+    width: 100%;
+    left: 0;
+  }
+}
+div.footer-popup {
+  position: absolute;
+  display: none;
+  bottom: 0;
+  width: 400px;
+  background-color: #f2f2f2;
+  color: black;
+  left: 5%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.75);
+  z-index: 8990;
+}
+@media only screen and (max-width: 525px) {
+  div.footer-popup {
+    width: 100%;
+    left: 0;
+  }
+}
+div.footer-popup .footer-popup-close {
+  position: absolute;
+  top: 13px;
+  right: 16px;
+  color: #8c8c8c;
+  cursor: pointer;
+  font-size: 24px;
+}
+div.footer-popup .footer-popup-title {
+  border-bottom: 1px dotted #d9d9d9;
+  padding: 15px 25px;
+  background-color: #e5e5e5;
+}
+div.footer-popup .footer-popup-title h2 {
+  font-family: 'Fauna One';
+  font-weight: normal;
+  padding: 0;
+  margin: 0;
+}
+div.footer-popup .footer-popup-content {
+  padding: 0 40px 50px 25px;
+  line-height: 150%;
+}
+@media only screen and (max-width: 525px) {
+  div.footer-popup .footer-popup-content {
+    font-size: 11px;
+    padding: 0 20px 50px;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+}
+#footer-about {
+  width: 500px;
+}
+@media only screen and (max-width: 525px) {
+  #footer-about {
+    width: 100%;
+  }
+}
+#popup-layer {
+  position: absolute;
+}
+#popup {
+  position: relative;
+  left: 50%;
+  z-index: 1000;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+#popup .popup-tag {
+  display: inline;
+  height: 11px;
+  line-height: 11px;
+  background-color: #6c6c85;
+  color: white;
+  font-size: 11px;
+  padding: 6px 10px;
+  font-family: 'Fauna One';
+  border-top-right-radius: 2px;
+  border-top-left-radius: 2px;
+}
+#popup .popup-info {
+  margin-top: 4px;
+  width: 300px;
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.5);
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  -o-user-select: text;
+  user-select: text;
+}
+#popup .popup-info .popup-truck {
+  padding: 10px;
+  background-color: white;
+  height: 80px;
+  border-top-right-radius: 2px;
+}
+#popup .popup-info .popup-truck .truck-image {
+  height: 50px;
+  width: 50px;
+  float: left;
+  margin-right: 10px;
+  margin-top: 4px;
+  background-color: #f1f1f1;
+}
+#popup .popup-info .popup-location {
+  padding: 1px 10px;
+  background-color: #6c6c85;
+  color: white;
+  border-bottom-left-radius: 1px;
+  border-bottom-right-radius: 1px;
+  font-family: 'Fauna One';
+}
+#popup .popup-info h3 {
+  margin: 0;
+  padding: 0;
+}
+#popup:after {
+  width: 24px;
+  height: 24px;
+  display: block;
+  position: relative;
+  left: 70px;
+  top: -12px;
+  background-color: #6c6c85;
+  content: '';
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+#pi {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+}
+@media only screen and (max-width: 525px) {
+  #pi {
+    display: none;
+  }
+}
+.leaflet-bottom {
+  margin-bottom: 40px;
+}
+@media only screen and (max-width: 525px) {
+  .leaflet-bottom {
+    margin-bottom: 40px;
+  }
+}
+.leaflet-top {
+  margin-top: 60px;
+}
+@media only screen and (max-width: 525px) {
+  .leaflet-top {
+    margin-top: 40px;
+  }
+}
+@media only screen and (max-width: 767px) and (orientation: landscape) {
+  .leaflet-top {
+    margin-top: 40px;
+  }
+}
+.leaflet-top,
+.leaflet-bottom {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+.map-legends {
+  display: none;
+}
+.leaflet-control-attribution {
+  background-color: #282831 !important;
+  color: #aaa !important;
+  box-shadow: none !important;
+  opacity: 0.75;
+  filter: alpha(opacity=75);
+}
+@media only screen and (max-width: 525px) {
+  .leaflet-control-attribution {
+    font-size: 10px !important;
+  }
+}
+.leaflet-control-attribution:last-of-type {
+  display: none;
+}
+/*
+@media all and (orientation:portrait) {
+    #truck-info {
+        width: 100%;
+    }
+    #truck-data {
+        display: none;
+    }
+    #map {
+        margin-top: 56px;
+        bottom: 0px;
+    }
+}
+*/
+.typcn {
+  font-size: 190%;
+}
+@media only screen and (max-width: 768px) {
+  #map {
+    margin-top: 56px;
+    bottom: 0px;
+  }
+}
+@media only screen and (max-width: 685px) {
+  #map {
+    margin-top: 18px;
+    bottom: 0px;
+  }
+}
