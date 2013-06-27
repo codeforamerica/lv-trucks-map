@@ -10,7 +10,7 @@
 
     // LOAD SOME EXTERNAL DATAS
     var data = [],
-        vendors = []
+        vendors = [],
         locations = []
 
     $.ajax({
@@ -21,7 +21,7 @@
             locations = i
         },
         error: function (i) {
-            showError('Could not retrieve locations from server.')
+            showError('Could not retrieve locations at this time.')
         }
     })
 
@@ -33,7 +33,7 @@
             data = i
         },
         error: function (i) {
-            showError('Could not retrieve data from server.')
+            showError('Could not retrieve data at this time.')
         }
     })
 
@@ -45,16 +45,9 @@
             vendors = i
         },
         error: function (i) {
-            showError('Could not retrieve vendor information.')
+            showError('Could not retrieve vendor information at this time.')
         }
     })
-
-
-    function showError (message) {
-        $('#truck-data').hide()
-        $('#error').show()
-        $('#error .message').html(message)
-    }
 
     var sort_by = function(field, reverse, primer) {
 
@@ -261,4 +254,13 @@ function gatherData(truckID, locationID) {
         }
 
         return data
+}
+
+
+function showError (message) {
+
+    $('#truck-data').hide(250)
+    $('#error').show(250)
+    $('#error .message').html(message)
+
 }
