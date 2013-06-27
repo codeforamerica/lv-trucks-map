@@ -264,7 +264,14 @@
         <script id='m-footer-all-trucks' type='text/template'>
             <ul>
             {{#trucks}}
-                <li><a href='{{website}}' target='_blank'>{{name}}</a></li>
+                <li>
+                {{#website}}
+                <a href='{{website}}' target='_blank'>{{name}}</a>
+                {{/website}}
+                {{^website}}
+                    {{name}}
+                {{/website}}
+                </li>
             {{/trucks}}
             </ul>
             <p><strong>Note:</strong> Clicking these names will open each link in a new window.</p>

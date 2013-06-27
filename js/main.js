@@ -31,9 +31,19 @@
         }
     })
 
+    var sort_by = function(field, reverse, primer){
+
+       var key = function (x) {return primer ? primer(x[field]) : x[field]};
+
+       return function (a,b) {
+           var A = key(a), B = key(b);
+           return ((A < B) ? -1 : (A > B) ? +1 : 0) * [-1,1][+!!reverse];                  
+       }
+    }
+
     return {
         locations: locations,
-        trucks: data.trucks,
+        trucks: data.trucks.sort(sort_by('name', true, function(a){return a.toUpperCase()})),
         calendar: data.calendar
     }
 
