@@ -365,7 +365,7 @@ body {
   font-family: 'PT Sans Caption', 'Helvetica Neue', sans-serif;
   font-size: 13px;
 }
-@media only screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
   html,
   body {
     overflow: hidden;
@@ -381,15 +381,27 @@ body {
   height: 100%;
   position: absolute !important;
 }
+@media screen and (max-width: 768px) {
+  #map {
+    margin-top: 56px;
+    bottom: 0px;
+  }
+}
+@media screen and (min-width: 768px) {
+  #map {
+    margin-top: 18px;
+    bottom: 0px;
+  }
+}
 .container {
   margin: 0 auto;
 }
-@media only screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
   .container {
     width: 100%;
   }
 }
-@media only screen and (min-width: 768px) {
+@media screen and (min-width: 768px) {
   .container {
     width: 90%;
   }
@@ -451,7 +463,7 @@ header #nav-logo a {
 #error strong {
   font-size: 150%;
 }
-#error .window {
+#error .modal {
   max-width: 250px;
   background-color: white;
   border-radius: 4px;
@@ -828,6 +840,12 @@ div.footer-popup .footer-popup-content {
   -o-transform: rotate(45deg);
   transform: rotate(45deg);
 }
+#loading {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: transparent url('../img/loading.gif') center center no-repeat;
+}
 #pi {
   position: absolute;
   right: 10px;
@@ -899,32 +917,6 @@ div.footer-popup .footer-popup-content {
 .leaflet-control-attribution:last-of-type {
   display: none;
 }
-/*
-@media all and (orientation:portrait) {
-    #truck-info {
-        width: 100%;
-    }
-    #truck-data {
-        display: none;
-    }
-    #map {
-        margin-top: 56px;
-        bottom: 0px;
-    }
-}
-*/
 .typcn {
   font-size: 190%;
-}
-@media only screen and (max-width: 768px) {
-  #map {
-    margin-top: 56px;
-    bottom: 0px;
-  }
-}
-@media only screen and (max-width: 685px) {
-  #map {
-    margin-top: 18px;
-    bottom: 0px;
-  }
 }

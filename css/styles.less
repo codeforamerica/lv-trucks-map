@@ -20,9 +20,21 @@
 
 @container-width:       90%;
 
+// MEDIA QUERY WIDTHS
+// Not used everywhere right now
+@large-screen-width:    950px;
+@tablet-width:          768px;
+@tablet:                ~'screen and (max-width: @{tablet-width})';
+@larger-than-tablet:    ~'screen and (min-width: @{tablet-width})';
+@mobile-width:          525px;
+@mobile:                ~'screen and (max-width: @{mobile-width})';
+
 // TYPOGRAPHY PRESETS
 
 @import url(http://fonts.googleapis.com/css?family=Fauna+One|PT+Sans+Caption:400,700);
+
+@display-font:          'Fauna One';
+@body-font:             'PT Sans Caption', 'Helvetica Neue', sans-serif;
 
 // TRUCK MAP SPECIFIC
 
@@ -40,10 +52,10 @@ html, body {
     width: 100%;
     height: 100%;
     background-color: @background;
-    font-family: 'PT Sans Caption', 'Helvetica Neue', sans-serif;
+    font-family: @body-font;
     font-size: 13px;
 
-    @media only screen and (max-width: 767px) {
+    @media @tablet {
         overflow: hidden;
     }
 
@@ -59,15 +71,23 @@ html, body {
     width: 100%;
     height: 100%;
     position: absolute !important; // need !important for firefox
+    @media @tablet {
+        margin-top: 56px;
+        bottom: 0px;
+    }
+    @media @larger-than-tablet {
+        margin-top: 18px;
+        bottom: 0px;
+    }
 }
 
 .container {
     margin: 0 auto;
 
-    @media only screen and (max-width: 767px) {
+    @media @tablet {
         width: 100%;
     }
-    @media only screen and (min-width: 768px) {
+    @media @larger-than-tablet {
         width: @container-width;
     }
 
@@ -130,7 +150,7 @@ header {
     strong {
         font-size: 150%;
     }
-    .window {
+    .modal {
         max-width: 250px;
         background-color: white;
         border-radius: 4px;
@@ -162,7 +182,7 @@ header {
         width: 100%;
     }
     .truck-title, .truck-heading {
-        font-family: 'Fauna One';
+        font-family: @display-font;
         color: @truck-heading-text-color;
     }
     .truck-title {
@@ -276,7 +296,7 @@ footer {
     z-index: @ui-index;
     font-size: 13px;
     .user-select(none);
-    font-family: 'Fauna One';
+    font-family: @display-font;
     border-top: 1px solid darken(@footer-background, 2%);
     box-shadow: 0 0 6px rgba(0,0,0,0.25);
     @media only screen and (max-width: 525px) {
@@ -383,7 +403,7 @@ div.footer-popup {
         padding: 15px 25px;
         background-color: darken(@background, 5%);
         h2 {
-            font-family: 'Fauna One';
+            font-family: @display-font;
             font-weight: normal;
             padding: 0;
             margin: 0;
@@ -432,7 +452,7 @@ div.footer-popup {
         color: white;
         font-size: 11px;
         padding: 6px 10px;
-        font-family: 'Fauna One';
+        font-family: @display-font;
         border-top-right-radius: 2px;
         border-top-left-radius: 2px;
     }
@@ -462,7 +482,7 @@ div.footer-popup {
             color: white;
             border-bottom-left-radius: 1px;
             border-bottom-right-radius: 1px;
-            font-family: 'Fauna One';
+            font-family: @display-font;
         }
         h3 {
             margin: 0;
@@ -482,6 +502,14 @@ div.footer-popup {
     }
 
 }
+
+#loading {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: transparent url('../img/loading.gif') center center no-repeat;
+}
+
 
 #pi {
     position: absolute;
@@ -541,37 +569,8 @@ div.footer-popup {
     display: none;
 }
 
-// MEDIA QUERIES
-/*
-@media all and (orientation:portrait) {
-    #truck-info {
-        width: 100%;
-    }
-    #truck-data {
-        display: none;
-    }
-    #map {
-        margin-top: 56px;
-        bottom: 0px;
-    }
-}
-*/
-
 // TYPICON SIZE OVERRIDE
 .typcn {
     font-size: 190%;
 }
 
-@media only screen and (max-width: 768px) {
-    #map {
-        margin-top: 56px;
-        bottom: 0px;
-    }
-}
-
-@media only screen and (max-width: 685px) {
-    #map {
-        margin-top: 18px;
-        bottom: 0px;
-    }
-}
