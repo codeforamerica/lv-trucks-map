@@ -5,16 +5,16 @@
 
     var dataSource = 'data.json'
     var locationSource = 'locations.geojson'
+    var vendorSource = 'http://lv-food-trucks.herokuapp.com/api/vendors.json'
 
 
     // LOAD SOME EXTERNAL DATAS
-    var dataJson = dataSource,
-        data = []
-    var locationGeoJson = locationSource,
-        locations 
+    var data = [],
+        vendors = []
+        locations = []
 
     $.ajax({
-        url: locationGeoJson,
+        url: locationSource,
         async: false,
         dataType: 'json',
         success: function (i) {
@@ -23,7 +23,7 @@
     })
 
     $.ajax({
-        url: dataJson,
+        url: dataSource,
         async: false,
         dataType: 'json',
         success: function (i) {
@@ -31,7 +31,17 @@
         }
     })
 
-    var sort_by = function(field, reverse, primer){
+    $.ajax({
+        url: vendorSource,
+        async: false,
+        dataType: 'json',
+        success: function (i) {
+            vendors = i
+        }
+    })
+
+
+    var sort_by = function(field, reverse, primer) {
 
        var key = function (x) {return primer ? primer(x[field]) : x[field]};
 
@@ -43,7 +53,7 @@
 
     return {
         locations: locations,
-        trucks: data.trucks.sort(sort_by('name', true, function(a){return a.toUpperCase()})),
+        trucks: vendors.sort(sort_by('name', true, function(a){return a.toUpperCase()})),
         calendar: data.calendar
     }
 

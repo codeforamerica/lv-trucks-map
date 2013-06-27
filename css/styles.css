@@ -822,6 +822,11 @@ div.footer-popup .footer-popup-content {
 .leaflet-top {
   margin-top: 60px;
 }
+@media only screen and (min-width: 768px) {
+  .leaflet-top {
+    margin-left: 260px;
+  }
+}
 @media only screen and (max-width: 525px) {
   .leaflet-top {
     margin-top: 40px;
