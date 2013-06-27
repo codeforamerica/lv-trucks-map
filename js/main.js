@@ -19,6 +19,9 @@
         dataType: 'json',
         success: function (i) {
             locations = i
+        },
+        error: function (i) {
+            showError('Could not retrieve locations from server.')
         }
     })
 
@@ -28,6 +31,9 @@
         dataType: 'json',
         success: function (i) {
             data = i
+        },
+        error: function (i) {
+            showError('Could not retrieve data from server.')
         }
     })
 
@@ -37,9 +43,18 @@
         dataType: 'json',
         success: function (i) {
             vendors = i
+        },
+        error: function (i) {
+            showError('Could not retrieve vendor information.')
         }
     })
 
+
+    function showError (message) {
+        $('#truck-data').hide()
+        $('#error').show()
+        $('#error .message').html(message)
+    }
 
     var sort_by = function(field, reverse, primer) {
 
@@ -54,6 +69,7 @@
     return {
         locations: locations,
         trucks: vendors.sort(sort_by('name', true, function(a){return a.toUpperCase()})),
+//        trucks: data.trucks,
         calendar: data.calendar
     }
 
