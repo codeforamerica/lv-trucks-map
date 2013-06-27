@@ -454,7 +454,7 @@ header #nav-logo a {
 #error .window {
   max-width: 250px;
   background-color: white;
-  border-radius: 10px;
+  border-radius: 4px;
   position: relative;
   margin: 0 auto;
   text-align: center;
@@ -825,12 +825,20 @@ div.footer-popup .footer-popup-content {
 #pi {
   position: absolute;
   right: 10px;
-  bottom: 10px;
+  bottom: 20px;
+  opacity: 0.1;
+  filter: alpha(opacity=10);
+  width: 36px;
+  height: 9px;
 }
 @media only screen and (max-width: 525px) {
   #pi {
     display: none;
   }
+}
+#pi img {
+  width: 100%;
+  height: 100%;
 }
 .leaflet-bottom {
   margin-bottom: 40px;

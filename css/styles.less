@@ -133,7 +133,7 @@ header {
     .window {
         max-width: 250px;
         background-color: white;
-        border-radius: 10px;
+        border-radius: 4px;
         position: relative;
         margin: 0 auto;
         text-align: center;
@@ -482,9 +482,16 @@ div.footer-popup {
 #pi {
     position: absolute;
     right: 10px;
-    bottom: 10px;
+    bottom: 20px;
+    .opacity(.1);
+    width: 36px;
+    height: 9px;
     @media only screen and (max-width: 525px) {
         display: none;
+    }
+    img {
+        width: 100%;
+        height: 100%;
     }
 }
 
