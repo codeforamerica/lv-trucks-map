@@ -21,7 +21,7 @@
             locations = i
         },
         error: function (i) {
-            showError('Could not retrieve locations at this time.')
+            showError('We couldn\'t retrieve location data at this time.')
         }
     })
 
@@ -33,7 +33,7 @@
             data = i
         },
         error: function (i) {
-            showError('Could not retrieve data at this time.')
+            showError('We couldn\'t retrieve data at this time.')
         }
     })
 
@@ -45,7 +45,7 @@
             vendors = i
         },
         error: function (i) {
-            showError('Could not retrieve vendor information at this time.')
+            showError('We couldn\'t retrieve vendor information at this time.')
         }
     })
 
