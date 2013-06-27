@@ -384,12 +384,12 @@ body {
 .container {
   margin: 0 auto;
 }
-@media only screen and (max-width: 685px) {
+@media only screen and (max-width: 767px) {
   .container {
     width: 100%;
   }
 }
-@media only screen and (min-width: 686px) {
+@media only screen and (min-width: 768px) {
   .container {
     width: 90%;
   }
@@ -479,7 +479,7 @@ header #nav-logo a {
   -o-user-select: none;
   user-select: none;
 }
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 767px) {
   #truck-info {
     width: 100%;
   }
@@ -660,6 +660,12 @@ footer ul li {
   background-image: url('../img/arrow-up.png');
   background-position: right 20px top 20px;
   background-repeat: no-repeat;
+}
+@media only screen and (max-width: 767px) {
+  footer ul li {
+    background-image: none;
+    padding: 0 30px;
+  }
 }
 @media only screen and (max-width: 525px) {
   footer ul li {
