@@ -1,9 +1,21 @@
 
 // Initialize map & set initial location / view
 //var map = L.mapbox.map('map', 'examples.map-4l7djmvo')
-var map = L.mapbox.map('map', 'examples.map-y7l23tes')
+
+var map = L.mapbox.map('map', 'louh.map-vio2jxma', {
+                detectRetina: true,
+                retinaVersion: 'louh.map-2lywy8ei'
+            })
             .setView([36.1665, -115.1479], 17)
 
+/*
+var map = L.map('map')
+    .setView([36.1665, -115.1479], 17)
+    .addLayer(L.mapbox.tileLayer('louh.map-vio2jxma', {
+        detectRetina: true,
+        retinaVersion: 'elouh.map-2lywy8ei'
+    }));
+*/
 // Map imagery attribution
 // Note that mapbox.js provides its own separate attribution, which I don't know how to edit, so I've hidden it with CSS (super hacky!) 
 var control = L.control.attribution({
