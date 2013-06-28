@@ -59,8 +59,10 @@
        }
     }
 
+    $('#loading').hide()
     return {
         locations: locations,
+//        trucks: vendors,
         trucks: vendors.sort(sort_by('name', true, function(a){return a.toUpperCase()})),
 //        trucks: data.trucks,
         calendar: data.calendar
@@ -70,6 +72,7 @@
 })();
 
 $(document).ready( function () {
+
 
     // TRUCK INFO - Dragger
     // $('#truck-info').draggable({ handle: '.truck-title', containment: '#main', cursor: '-webkit-grabbing !important'})
@@ -190,9 +193,11 @@ function toggleFooterPopup(target) {
         if ($(window).width() > 767) {
             var link = '.' + target + '-link'
             var position = $(link).offset().left
-            $(popup).css('left', position)            
+
+            $(popup).css('left', position)
         }
         if ($(window).width() > 525 && $(window).width() <= 767 ) {
+            console.log($('footer div.container').offset().left)
             $(popup).css('left', $('footer div.container').offset().left)
             $(popup).css('width', $('footer div.container').width())
         }

@@ -1,6 +1,8 @@
+
+
 // Initialize map & set initial location / view
 var map = L.map('map')
-    .setView([36.1665, -115.1479], 10)
+    .setView([36.1665, -115.1479], 14)
     .addLayer(L.mapbox.tileLayer('louh.map-vio2jxma', {
         detectRetina: true,
         retinaVersion: 'louh.map-2lywy8ei'
