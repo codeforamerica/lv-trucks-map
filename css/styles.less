@@ -17,17 +17,20 @@
 @footer-divider:        lighten(@footer-background, 10%);
 @footer-height:         40px;
 @footer-height-small:   40px;
+@background-dark:       rgba(0,0,0,0.5);
 
 @container-width:       90%;
 
 // MEDIA QUERY WIDTHS
 // Not used everywhere right now
-@large-screen-width:    950px;
+@mid-screen-width:      900px;
+@mid-screen:            ~'screen and (max-width: @{mid-screen-width})';
 @tablet-width:          768px;
 @tablet:                ~'screen and (max-width: @{tablet-width})';
 @larger-than-tablet:    ~'screen and (min-width: @{tablet-width})';
 @mobile-width:          525px;
 @mobile:                ~'screen and (max-width: @{mobile-width})';
+@not-mobile:            ~'screen and (min-width: @{mobile-width})';
 
 // TYPOGRAPHY PRESETS
 
@@ -143,7 +146,7 @@ header {
 #error {
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.5);
+    background-color: @background-dark;
     z-index: @ui-index - 30;
     position: absolute;
     display: none;
@@ -304,22 +307,22 @@ footer {
     }
     /* Responsive footer buttons test */
     #footer-wide {
-        @media only screen and (max-width: 950px) {
+        @media @mid-screen {
             display: none;
         }
     }
     #footer-mid {
         display: none;
-        @media only screen and (max-width: 950px) {
+        @media @mid-screen {
             display: block;
         }
-        @media only screen and (max-width: 525px) {
+        @media @mobile {
             display: none;
         }
     }
     #footer-condensed {
         display: none;
-        @media only screen and (max-width: 525px) {
+        @media @mobile {
             display: block;
         }
     }
@@ -339,11 +342,11 @@ footer {
             background-image: url('../img/arrow-up.png');
             background-position: right 20px top 20px;
             background-repeat: no-repeat;
-            @media only screen and (max-width: 767px) {
+            @media @tablet {
                 background-image: none;
                 padding: 0 30px;                
             }
-            @media only screen and (max-width: 525px) {
+            @media @mobile {
                 padding: 0;
                 background-image: none;
                 height: @footer-height-small;
@@ -352,10 +355,10 @@ footer {
                 width: 25%;
                 text-align: center;
             }
-            @media only screen and (min-width: 525px) {
+            @media @not-mobile {
                 &:first-of-type {
                     border-left: 1px solid @footer-divider;
-                }
+                }                
             }
             &:hover {
                 background-color: lighten(@footer-background, 5%);
@@ -368,7 +371,7 @@ footer {
     position: absolute;
     bottom: 0;
 
-    @media only screen and (max-width: 525px) {
+    @media @mobile {
         width: 100%;
         left: 0;
     }
@@ -385,7 +388,7 @@ div.footer-popup {
     box-shadow: 0 0 20px rgba(0,0,0,0.75);
     z-index: @ui-index - 10;
 
-    @media only screen and (max-width: 525px) {
+    @media @mobile {
         width: 100%;
         left: 0;
     }
@@ -412,7 +415,7 @@ div.footer-popup {
     .footer-popup-content {
         padding: 0 40px 50px 25px;
         line-height: 150%;
-        @media only screen and (max-width: 525px) {
+        @media @mobile {
             font-size: 11px;
             padding: 0 20px 50px;
             max-height: 200px;
@@ -426,7 +429,7 @@ div.footer-popup {
 }
 #footer-about {
     width: 500px;
-    @media only screen and (max-width: 525px) {
+    @media @mobile {
         width: 100%;
     }
 }
@@ -507,7 +510,7 @@ div.footer-popup {
     width: 100%;
     height: 100%;
     position: absolute;
-    background: transparent url('../img/loading-dark.gif') center center no-repeat;
+    background: @background-dark url('../img/loading-dark.gif') center center no-repeat;
 }
 
 
@@ -518,7 +521,7 @@ div.footer-popup {
     .opacity(.1);
     width: 36px;
     height: 9px;
-    @media only screen and (max-width: 525px) {
+    @media @mobile {
         display: none;
     }
     img {
@@ -531,7 +534,7 @@ div.footer-popup {
 
 .leaflet-bottom {
     margin-bottom: @footer-height;
-    @media only screen and (max-width: 525px) {
+    @media @mobile {
         margin-bottom: @footer-height-small;
     }
 }
@@ -542,7 +545,7 @@ div.footer-popup {
         margin-left: 360px;
         margin-top: 0px;
     }
-    @media only screen and (max-width: 525px) {
+    @media @mobile {
         margin-top: 40px;
     }
     @media only screen and (max-width: 767px) and (orientation: landscape) {
@@ -560,7 +563,7 @@ div.footer-popup {
     color: #aaa !important;
     box-shadow: none !important;
     .opacity(0.75);
-    @media only screen and (max-width: 525px) {
+    @media @mobile {
         font-size: 10px !important;
     }
 }

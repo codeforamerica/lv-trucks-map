@@ -2,7 +2,6 @@
   document.data = function() {
 
     // config
-
     var dataSource = 'data.json'
     var locationSource = 'locations.geojson'
     var vendorSource = 'http://lv-food-trucks.herokuapp.com/api/vendors.json'
@@ -13,6 +12,7 @@
         vendors = [],
         locations = []
 
+    // Note: true async does not work with cross-domain requests.
     $.ajax({
         url: locationSource,
         async: false,
@@ -43,7 +43,7 @@
         dataType: 'json',
         success: function (i) {
             vendors = i
-        },
+         },
         error: function (i) {
             showError('We couldn\'t retrieve vendor information at this time.')
         }
@@ -122,10 +122,10 @@ $(document).ready( function () {
 
     // FOOTER POPUPS
     // Open / toggle
-    $('.footer-trucks-link').click( function () { toggleFooterPopup('footer-trucks') })
-    $('.footer-calendar-link').click( function () { toggleFooterPopup('footer-calendar') })
-    $('.footer-about-link').click( function () { toggleFooterPopup('footer-about') })
-    $('.footer-feedback-link').click( function () { toggleFooterPopup('footer-feedback') })
+    $('.footer-trucks-link').click( function () { toggleFooterPopup('footer-trucks', $(this)) })
+    $('.footer-calendar-link').click( function () { toggleFooterPopup('footer-calendar', $(this)) })
+    $('.footer-about-link').click( function () { toggleFooterPopup('footer-about', $(this) ) })
+    $('.footer-feedback-link').click( function () { toggleFooterPopup('footer-feedback', $(this)) })
     // Close popups
     // -- when X is clicked on inside the popup
     $('.footer-popup-close').click( function () {
@@ -178,9 +178,8 @@ function toggleTruckEntries(clickedHeading) {
     }
 }
 
-function toggleFooterPopup(target) {
+function toggleFooterPopup(target, clicked) {
     var popup = '#' + target
-
     if ($(popup).is(':visible')) {
         $(popup).slideUp(200)
     } else {
@@ -189,17 +188,14 @@ function toggleFooterPopup(target) {
 
         // get the position of the clicked link so that the popup box lines up
         // there may be a better way of doing this somehow, that doesn't rely on programatically determining position. what happens if a window resizes?
-        // only make this work if screen width is more than 685px for responsive layouts
-        if ($(window).width() > 767) {
-            var link = '.' + target + '-link'
-            var position = $(link).offset().left
-
-            $(popup).css('left', position)
-        }
-        if ($(window).width() > 525 && $(window).width() <= 767 ) {
-            console.log($('footer div.container').offset().left)
-            $(popup).css('left', $('footer div.container').offset().left)
-            $(popup).css('width', $('footer div.container').width())
+        var position = clicked.offset().left
+        if ($(window).width() > 525) {
+            if ( $(popup).width() + position <= $(window).width() ) {
+                $(popup).css('left', position)
+            }
+            else {
+                $(popup).css('left', $(window).width() - $(popup).width() - 20)
+            }
         }
 
         // display the popup
