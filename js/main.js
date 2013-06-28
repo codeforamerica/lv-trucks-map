@@ -197,6 +197,9 @@ function toggleFooterPopup(target, clicked) {
                 $(popup).css('left', $(window).width() - $(popup).width() - 20)
             }
         }
+        else {
+            $(popup).css('left', 0)
+        }
 
         // display the popup
         $(popup).slideDown(200)
