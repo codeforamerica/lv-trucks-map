@@ -154,23 +154,6 @@ $(document).ready( function () {
         $('#footer-trucks .footer-popup-content').html(Mustache.render(mFooterAllTrucks, data))        
     }
 
-
-    var preventDefault = function(e){
-        e.preventDefault();
-    };
-    var touchstart = function(e) {
-        document.addEventListener('touchstart', preventDefault,false);
-        document.addEventListener('touchmove',  preventDefault,false);
-        /*do other stuff*/
-    };
-    var touchend = function(e) {
-        document.removeEventListener('touchstart', preventDefault,false);
-        document.removeEventListener('touchmove',  preventDefault,false);
-    };
-
-    $('body').addEventListener('touchstart',  touchstart, false);
-    $('body').addEventListener('touchend',    touchend,   false);
-
 })
 
 function toggleTruckEntries(clickedHeading) {
