@@ -735,6 +735,11 @@ div.footer-popup .footer-popup-close {
   cursor: pointer;
   font-size: 24px;
 }
+@media screen and (max-width: 525px) {
+  div.footer-popup .footer-popup-close {
+    top: 2px;
+  }
+}
 div.footer-popup .footer-popup-title {
   border-bottom: 1px dotted #d9d9d9;
   padding: 15px 25px;
@@ -746,6 +751,16 @@ div.footer-popup .footer-popup-title h2 {
   padding: 0;
   margin: 0;
 }
+@media screen and (max-width: 525px) {
+  div.footer-popup .footer-popup-title {
+    height: 18px;
+    padding: 8px 20px;
+  }
+  div.footer-popup .footer-popup-title h2 {
+    font-size: 16px;
+    font-weight: bold;
+  }
+}
 div.footer-popup .footer-popup-content {
   padding: 0 40px 50px 25px;
   line-height: 150%;
@@ -754,7 +769,7 @@ div.footer-popup .footer-popup-content {
   div.footer-popup .footer-popup-content {
     font-size: 11px;
     padding: 0 20px 50px;
-    max-height: 200px;
+    max-height: 240px;
     overflow-y: auto;
   }
 }

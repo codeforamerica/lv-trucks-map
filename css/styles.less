@@ -403,6 +403,9 @@ div.footer-popup {
         color: darken(@background, 40%);
         cursor: pointer;
         font-size: 24px;
+        @media @mobile {
+            top: 2px;
+        }
     }
     .footer-popup-title {
         border-bottom: 1px dotted darken(@background, 10%);
@@ -414,6 +417,14 @@ div.footer-popup {
             padding: 0;
             margin: 0;
         }
+        @media @mobile {
+            height: 18px;
+            padding: 8px 20px;
+            h2 {
+                font-size: 16px;
+                font-weight: bold;
+            }            
+        }
     }
     .footer-popup-content {
         padding: 0 40px 50px 25px;
@@ -421,7 +432,7 @@ div.footer-popup {
         @media @mobile {
             font-size: 11px;
             padding: 0 20px 50px;
-            max-height: 200px;
+            max-height: 240px;
             overflow-y: auto;
         }
     }
