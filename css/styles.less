@@ -406,6 +406,9 @@ div.footer-popup {
         @media @mobile {
             top: 2px;
         }
+        @media @tablet-landscape {
+            top: 2px;
+        }
     }
     .footer-popup-title {
         border-bottom: 1px dotted darken(@background, 10%);
@@ -423,13 +426,28 @@ div.footer-popup {
             h2 {
                 font-size: 16px;
                 font-weight: bold;
-            }            
+            }
         }
+        @media @tablet-landscape {
+            height: 18px;
+            padding: 8px 20px;
+            h2 {
+                font-size: 16px;
+                font-weight: bold;
+            }
+        }
+
     }
     .footer-popup-content {
         padding: 0 40px 50px 25px;
         line-height: 150%;
         @media @mobile {
+            font-size: 11px;
+            padding: 0 20px 50px;
+            max-height: 240px;
+            overflow-y: auto;
+        }
+        @media @tablet-landscape {
             font-size: 11px;
             padding: 0 20px 50px;
             max-height: 240px;
