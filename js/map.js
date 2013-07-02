@@ -8,9 +8,15 @@ var map = L.map('map')
         retinaVersion: 'louh.map-2lywy8ei'
     }))
 
-// Generate center offset amounts for the view if truck data is present
-var centerOffsetH = 360,
-    centerOffsetV = 0    // vertical is not used right now
+// Generate center offset amounts for different views
+var centerOffsetH = 0,
+    centerOffsetV = 0
+
+if ($('#truck-data').is(':visible')) {
+    centerOffsetH = $('#truck-data').width()
+} else {
+    centerOffsetV = $(window).height() / 4
+}
 
 // See here for source and discussion of following mixin
 // https://github.com/Leaflet/Leaflet/issues/859
@@ -48,9 +54,7 @@ MapCenterOffsetMixin = {
     }
 }
 
-if ($('#truck-data').is(':visible')) {
-    L.Map.include(MapCenterOffsetMixin);
-}
+L.Map.include(MapCenterOffsetMixin);
 
 // Map imagery attribution
 // Note that mapbox.js provides its own separate attribution, which I don't know how to edit, so I've hidden it with CSS (super hacky!) 
