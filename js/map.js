@@ -1,12 +1,20 @@
-
+// LV TRUCKS MAP - map-related Javascripts
 
 // Initialize map & set initial location / view
 var map = L.map('map')
-    .setView([36.1665, -115.1479], 14)
+    .setView([36.1665, -115.1479], 14)  // This will be overridden later when map bounds are set based on available markers.
     .addLayer(L.mapbox.tileLayer('louh.map-vio2jxma', {
         detectRetina: true,
         retinaVersion: 'louh.map-2lywy8ei'
     }))
+
+// Generate center offset amounts for the view if truck data is present
+var centerOffsetH = 0,
+    centerOffsetV = 0    // vertical is not used right now
+
+if ($('#truck-data').is(':visible')) {
+    centerOffsetH = ($('#map').width() - $('#truck-info').width() ) / 2
+}
 
 // Map imagery attribution
 // Note that mapbox.js provides its own separate attribution, which I don't know how to edit, so I've hidden it with CSS (super hacky!) 
@@ -20,7 +28,7 @@ var truckMarker = L.icon({
 
     iconSize:     [70, 60], // size of the icon
     iconAnchor:   [35, 50], // point of the icon which will correspond to marker's location
-    popupAnchor:  [3, -55] // point from which the popup should open relative to the iconAnchor
+    popupAnchor:  [3, -55]  // point from which the popup should open relative to the iconAnchor
 })
 
 var truckMarkerOff = L.icon({
@@ -87,14 +95,19 @@ var markers = L.mapbox.markerLayer(locations, {
     })
 }).addTo(map)
 
-// Set view based on locations
-map.fitBounds(markers.getBounds().pad(0.5))
+// Set the bounding area for the map
+map.fitBounds(markers.getBounds().pad(0.5), {
+    paddingTopLeft: [centerOffsetH, 0]
+})
 map.setMaxBounds(markers.getBounds().pad(6))
 
 // Open popups on mouseover (test)
 markers.on('mouseover', function (e) {
     e.layer.openPopup()
 })
+
+
+
 /*
 markers.on('mouseout', function (e) {
     e.layer.closePopup()
