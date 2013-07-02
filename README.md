@@ -11,7 +11,7 @@ While the API from these parking meters are owned and operated by Parkeon, the c
 
 There are two components to this software. This is the front end public facing map. An administration interface for the city to manage location, vendors, and scheduling is located [here][back-end].
 
-[back-end]: http://github.com/rclosner/food-trucks/
+[back-end]: http://github.com/rclosner/food_trucks/
 
 ## Visit the live site
 

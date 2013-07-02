@@ -2,8 +2,8 @@
   document.data = function() {
 
     // config
-    var dataSource = 'data.json'
-//    var locationSource = 'locations.geojson'
+    var dataSource = 'dummy-data/data.json'
+//    var locationSource = 'dummy-data/locations.geojson'
     var locationSource = 'http://lv-food-trucks.herokuapp.com/api/locations/search.geojson'
     var vendorSource = 'http://lv-food-trucks.herokuapp.com/api/vendors.json'
 
