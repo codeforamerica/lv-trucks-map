@@ -83,7 +83,7 @@ a:focus {
  */
 a:active,
 a:hover {
-  outline: none;
+  outline: 0;
 }
 /* ==========================================================================
    Typography
@@ -359,8 +359,6 @@ html,
 body {
   padding: 0;
   margin: 0;
-  width: 100%;
-  height: 100%;
   background-color: #f2f2f2;
   font-family: 'PT Sans Caption', 'Helvetica Neue', sans-serif;
   font-size: 13px;
@@ -379,7 +377,7 @@ body {
 #map {
   width: 100%;
   height: 100%;
-  position: absolute !important;
+  position: absolute;
 }
 @media screen and (max-width: 768px) {
   #map {
@@ -423,7 +421,7 @@ header #nav-logo {
   width: 120px;
   height: 150px;
   right: 5%;
-  position: absolute;
+  position: fixed;
   background: transparent url('../img/clv-logo-tag-240.png') center 0 no-repeat;
   background-size: 120px 150px;
 }
