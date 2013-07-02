@@ -27,6 +27,7 @@
 @mid-screen:            ~'screen and (max-width: @{mid-screen-width})';
 @tablet-width:          768px;
 @tablet:                ~'screen and (max-width: @{tablet-width})';
+@tablet-landscape:      ~'screen and (max-width: @{tablet-width}) and (orientation: landscape)';
 @larger-than-tablet:    ~'screen and (min-width: @{tablet-width})';
 @mobile-width:          525px;
 @mobile:                ~'screen and (max-width: @{mobile-width})';
@@ -124,7 +125,7 @@ header {
             background-size: 80px 100px;
         }
 
-        @media only screen and (max-width: 525px) {
+        @media @mobile {
             width: 80px;
             height: 100px;
             right: 5px;
@@ -181,7 +182,7 @@ header {
     overflow: auto;
     .user-select(none);
 
-    @media only screen and (max-width: 767px) {
+    @media @tablet {
         width: 100%;
     }
     .truck-title, .truck-heading {
@@ -202,14 +203,14 @@ header {
             line-height: 18px;
             font-size: 14px;
         }
-        @media only screen and (max-width: 525px) {
+        @media @mobile {
             height: 18px;
             line-height: 18px;
             font-size: 14px;
         }
     }
     #truck-data {
-        @media only screen and (max-width: 768px) {
+        @media @tablet {
             display: none;
         }
     }
@@ -330,7 +331,9 @@ footer {
         list-style: none;
         padding: 0;
         margin: 0;
+        white-space: nowrap;
         li {
+            display: block;
             float: left;
             margin: 0;
             padding: 0 50px 0 30px;
@@ -541,14 +544,14 @@ div.footer-popup {
 .leaflet-top {
     // may be worth dealing with this with changing the actual map top position, to enable points to scale and pan correctly
     margin-top: 60px;
-    @media only screen and (min-width: 768px) {
+    @media @larger-than-tablet {
         margin-left: 360px;
         margin-top: 0px;
     }
     @media @mobile {
         margin-top: 40px;
     }
-    @media only screen and (max-width: 767px) and (orientation: landscape) {
+    @media @tablet-landscape {
         margin-top: 40px;
     }
 }

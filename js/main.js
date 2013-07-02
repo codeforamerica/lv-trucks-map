@@ -4,6 +4,7 @@
     // config
     var dataSource = 'data.json'
     var locationSource = 'locations.geojson'
+    var locationSource = 'http://lv-food-trucks.herokuapp.com/api/locations/search.geojson'
     var vendorSource = 'http://lv-food-trucks.herokuapp.com/api/vendors.json'
 
 
@@ -180,14 +181,16 @@ function toggleTruckEntries(clickedHeading) {
 
 function toggleFooterPopup(target, clicked) {
     var popup = '#' + target
+
     if ($(popup).is(':visible')) {
+        // If visible, hide it!
         $(popup).slideUp(200)
-    } else {
-        // hide all others
+    }
+    else {
+        // Hide all other popups
         $('.footer-popup').slideUp(200)
 
-        // get the position of the clicked link so that the popup box lines up
-        // there may be a better way of doing this somehow, that doesn't rely on programatically determining position. what happens if a window resizes?
+        // Establish popup position in the window
         var position = clicked.offset().left
         if ($(window).width() > 525) {
             if ( $(popup).width() + position <= $(window).width() ) {
@@ -201,7 +204,7 @@ function toggleFooterPopup(target, clicked) {
             $(popup).css('left', 0)
         }
 
-        // display the popup
+        // Display the popup
         $(popup).slideDown(200)
     }
 }

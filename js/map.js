@@ -44,7 +44,7 @@ var markers = L.mapbox.markerLayer(locations, {
     filter: function (feature) {
         return true
         // disabled active filter
-        // return feature.properties.status === 'active'
+        // return feature.properties.active === true
     }
 }).eachLayer(function (marker) {
 
@@ -88,7 +88,7 @@ var markers = L.mapbox.markerLayer(locations, {
 }).addTo(map)
 
 // Set view based on locations
-map.fitBounds(markers.getBounds().pad(0.25))
+map.fitBounds(markers.getBounds().pad(0.5))
 map.setMaxBounds(markers.getBounds().pad(6))
 
 // Open popups on mouseover (test)

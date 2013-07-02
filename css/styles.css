@@ -435,7 +435,7 @@ header #nav-logo {
     background-size: 80px 100px;
   }
 }
-@media only screen and (max-width: 525px) {
+@media screen and (max-width: 525px) {
   header #nav-logo {
     width: 80px;
     height: 100px;
@@ -491,7 +491,7 @@ header #nav-logo a {
   -o-user-select: none;
   user-select: none;
 }
-@media only screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
   #truck-info {
     width: 100%;
   }
@@ -515,14 +515,14 @@ header #nav-logo a {
     font-size: 14px;
   }
 }
-@media only screen and (max-width: 525px) {
+@media screen and (max-width: 525px) {
   #truck-info .truck-title {
     height: 18px;
     line-height: 18px;
     font-size: 14px;
   }
 }
-@media only screen and (max-width: 768px) {
+@media screen and (max-width: 768px) {
   #truck-info #truck-data {
     display: none;
   }
@@ -659,8 +659,10 @@ footer ul {
   list-style: none;
   padding: 0;
   margin: 0;
+  white-space: nowrap;
 }
 footer ul li {
+  display: block;
   float: left;
   margin: 0;
   padding: 0 50px 0 30px;
@@ -875,7 +877,7 @@ div.footer-popup .footer-popup-content {
 .leaflet-top {
   margin-top: 60px;
 }
-@media only screen and (min-width: 768px) {
+@media screen and (min-width: 768px) {
   .leaflet-top {
     margin-left: 360px;
     margin-top: 0px;
@@ -886,7 +888,7 @@ div.footer-popup .footer-popup-content {
     margin-top: 40px;
   }
 }
-@media only screen and (max-width: 767px) and (orientation: landscape) {
+@media screen and (max-width: 768px) and (orientation: landscape) {
   .leaflet-top {
     margin-top: 40px;
   }
