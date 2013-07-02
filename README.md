@@ -64,7 +64,7 @@ We use the [GitHub issue tracker][issues] to track bugs and features. Before sub
 ## Copyright
 Copyright (c) 2013 Code for America. See [LICENSE][] for details.
 
-See [humans.txt][] for credits and technology colophon.
+See ```humans.txt``` for credits and technology colophon.
 
 [license]: https://github.com/codeforamerica/cfa_template/blob/master/LICENSE.mkd
 
