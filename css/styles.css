@@ -83,7 +83,7 @@ a:focus {
  */
 a:active,
 a:hover {
-  outline: 0;
+  outline: none;
 }
 /* ==========================================================================
    Typography
