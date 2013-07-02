@@ -17,7 +17,7 @@ There are two components to this software. This is the front end public facing m
 
 You can see a running version of the application [here][live].
 
-[live]: http://louh.github.io/lv-trucks-map/
+[live]: http://codeforamerica.github.io/lv-trucks-map/
 
 ## Usage / Installation
 
