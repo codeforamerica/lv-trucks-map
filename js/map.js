@@ -9,11 +9,47 @@ var map = L.map('map')
     }))
 
 // Generate center offset amounts for the view if truck data is present
-var centerOffsetH = 0,
+var centerOffsetH = 360,
     centerOffsetV = 0    // vertical is not used right now
 
+// See here for source and discussion of following mixin
+// https://github.com/Leaflet/Leaflet/issues/859
+MapCenterOffsetMixin = {
+    UIOffset: [centerOffsetH, centerOffsetV], // x, y
+    getBounds: function(){
+        var a=this.getPixelBounds(),
+            b=this.unproject(new L.Point(a.min.x+this.UIOffset[0],a.max.y+this.UIOffset[1]), this._zoom,!0),
+            c=this.unproject(new L.Point(a.max.x,a.min.y),this._zoom,!0);
+            return new L.LatLngBounds(b,c)
+    },
+    _latLngToNewLayerPoint: function (latlng, newZoom, newCenter) {
+        var targetPoint = this.project(newCenter, newCenter).subtract([this.UIOffset[0]/2, this.UIOffset[1]/2]),
+            newCenter = this.unproject(targetPoint, newZoom);
+        var topLeft = this._getNewTopLeftPoint(newCenter, newZoom).add(this._getMapPanePos());
+        return this.project(latlng, newZoom)._subtract(topLeft);
+    },
+    _getCenterLayerPoint: function () {
+        return this.containerPointToLayerPoint(this.getSize().divideBy(2).add([this.UIOffset[0]/2, this.UIOffset[1]/2]));
+    },
+    _resetView: function (a, b, c, d) {
+        var e = this._zoom !== b;
+        // Change the center
+        var targetPoint = this.project(a, b).subtract([this.UIOffset[0] / 2, this.UIOffset[1]/2]),
+            a = this.unproject(targetPoint, b);
+        d || (this.fire("movestart"), e && this.fire("zoomstart")), this._zoom = b, this._initialTopLeftPoint = this._getNewTopLeftPoint(a);
+        if (!c) L.DomUtil.setPosition(this._mapPane, new L.Point(0, 0));
+        else {
+            var f = L.DomUtil.getPosition(this._mapPane);
+            this._initialTopLeftPoint._add(f)
+        }
+        this._tileLayersToLoad = this._tileLayersNum, this.fire("viewreset", {
+            hard: !c
+        }), this.fire("move"), (e || d) && this.fire("zoomend"), this.fire("moveend"), this._loaded || (this._loaded = !0, this.fire("load"))
+    }
+}
+
 if ($('#truck-data').is(':visible')) {
-    centerOffsetH = ($('#map').width() - $('#truck-info').width() ) / 2
+    L.Map.include(MapCenterOffsetMixin);
 }
 
 // Map imagery attribution
@@ -96,9 +132,7 @@ var markers = L.mapbox.markerLayer(locations, {
 }).addTo(map)
 
 // Set the bounding area for the map
-map.fitBounds(markers.getBounds().pad(0.5), {
-    paddingTopLeft: [centerOffsetH, 0]
-})
+map.fitBounds(markers.getBounds().pad(0.5))
 map.setMaxBounds(markers.getBounds().pad(6))
 
 // Open popups on mouseover (test)
