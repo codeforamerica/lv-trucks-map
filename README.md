@@ -21,7 +21,7 @@ You can see a running version of the application [here][live].
 
 ## Usage / Installation
 
-This is almost 100% Javascript and HTML5; just load into a browser and run. The back-end is a Rails server; see [that page][back-end] for details.
+This the front end is all Javascript and HTML5; just load into a browser and run. The back-end is a Rails server; see [that page][back-end] for details.
 
 If you need to customize the stylesheet, ```css/styles.css``` is auto-generated from ```css/styles.less```.  You can use a LESS compiler of choice.
 
@@ -36,7 +36,6 @@ Here are some ways *you* can contribute:
 * by using alpha, beta, and prerelease versions
 * by reporting bugs
 * by suggesting new features
-* by [translating to a new language][locales]
 * by writing or editing documentation
 * by writing specifications
 * by writing code (**no patch is too small**: fix typos, add comments, clean up inconsistent whitespace)
@@ -45,8 +44,7 @@ Here are some ways *you* can contribute:
 * by reviewing patches
 * [financially][]
 
-[locales]: https://github.com/codeforamerica/cfa_template/tree/master/config/locales
-[issues]: https://github.com/codeforamerica/cfa_template/issues
+[issues]: https://github.com/codeforamerica/lv-trucks-map/issues
 [financially]: https://secure.codeforamerica.org/page/contribute
 
 ## Submitting an Issue
@@ -66,8 +64,8 @@ Copyright (c) 2013 Code for America. See [LICENSE][] for details.
 
 See ```humans.txt``` for credits and technology colophon.
 
-[license]: https://github.com/codeforamerica/cfa_template/blob/master/LICENSE.mkd
+[license]: https://github.com/codeforamerica/lv-trucks-map/blob/master/LICENSE.md
 
-[![Code for America Tracker](http://stats.codeforamerica.org/codeforamerica/cfa_template.png)][tracker]
+[![Code for America Tracker](http://stats.codeforamerica.org/codeforamerica/lv-trucks-map.png)][tracker]
 
-[tracker]: http://stats.codeforamerica.org/projects/cfa_template
+[tracker]: http://stats.codeforamerica.org/projects/lv-trucks-map
