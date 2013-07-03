@@ -155,21 +155,18 @@ if (navigator.geolocation) {
 }
 // Once we've got a position, add a marker.
 map.on('locationfound', function (e) {
-    var userMarker = L.mapbox.markerLayer({
+    map.markerLayer.setGeoJSON({
         type: 'Feature',
         geometry: {
             type: 'Point',
 //            coordinates: [e.latlng.lng, e.latlng.lat]
-            coordinates: [36.164973, -115.148048]
+            coordinates: [-115.148048,36.164973]
         },
         properties: {
-            'marker-color': '#f00',
+            'title': 'You are here',
+            'marker-color': '#b20000',
             'marker-symbol': 'star-stroked'
         }
-    }).eachLayer(function (userMarker) {
-
-    // set options here directly on the marker object
-    userMarker.options.icon = truckMarkerOff  // set this to be off by default
     }).addTo(map)
 })
 
