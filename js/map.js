@@ -13,6 +13,11 @@ var centerOffsetH = 0,
     centerOffsetV = 0
 
 if ($('#truck-data').is(':visible')) {
+    centerOffsetH = ($(window).width() - $('#truck-data').width()) / 2
+}
+
+/*
+if ($('#truck-data').is(':visible')) {
     centerOffsetH = $('#truck-data').width()
 } else {
     centerOffsetV = $(window).height() / 4
@@ -55,6 +60,7 @@ MapCenterOffsetMixin = {
 }
 
 L.Map.include(MapCenterOffsetMixin);
+*/
 
 // Map imagery attribution
 // Note that mapbox.js provides its own separate attribution, which I don't know how to edit, so I've hidden it with CSS (super hacky!) 
@@ -126,7 +132,9 @@ var markers = L.mapbox.markerLayer(locations, {
     marker.bindPopup(popupHTML, {
         closeButton: false,
         minWidth: 200,
-        autoPanPadding: [20, 40]
+        autoPanPadding: [20, 40],
+        closeOnClick: false,
+        keepInView: true
     })
 
     // Center marker on click
@@ -136,7 +144,9 @@ var markers = L.mapbox.markerLayer(locations, {
 }).addTo(map)
 
 // Set the bounding area for the map
-map.fitBounds(markers.getBounds().pad(0.5))
+map.fitBounds(markers.getBounds().pad(0.5), {
+    paddingTopLeft: [centerOffsetH, centerOffsetV]
+})
 map.setMaxBounds(markers.getBounds().pad(6))
 
 // Open popups on mouseover (test)
@@ -168,13 +178,6 @@ map.on('locationfound', function (e) {
         }
     })
 })
-
-
-/*
-markers.on('mouseout', function (e) {
-    e.layer.closePopup()
-})
-*/
 
 // Popups test
 /*
