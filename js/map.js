@@ -159,8 +159,8 @@ map.on('locationfound', function (e) {
         type: 'Feature',
         geometry: {
             type: 'Point',
-//            coordinates: [e.latlng.lng, e.latlng.lat]
-            coordinates: [-115.148048,36.164973]
+            coordinates: [e.latlng.lng, e.latlng.lat]
+//            coordinates: [-115.148048,36.164973]
         },
         properties: {
             'title': 'You are here',
