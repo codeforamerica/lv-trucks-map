@@ -150,6 +150,7 @@ $(document).ready( function () {
         $('#footer-trucks .footer-popup-content').html(Mustache.render(mFooterAllTrucks, data))        
     }
 
+
 })
 
 function toggleTruckEntries(clickedHeading) {

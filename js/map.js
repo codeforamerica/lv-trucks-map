@@ -1,7 +1,7 @@
 // LV TRUCKS MAP - map-related Javascripts
 
 // Initialize map & set initial location / view
-var map = L.map('map')
+var map = L.mapbox.map('map')
     .setView([36.1665, -115.1479], 14)  // This will be overridden later when map bounds are set based on available markers.
     .addLayer(L.mapbox.tileLayer('louh.map-vio2jxma', {
         detectRetina: true,
@@ -144,6 +144,34 @@ markers.on('mouseover', function (e) {
     e.layer.openPopup()
 })
 
+// GEOLOCATE!
+// This uses the HTML5 geolocation API, which is available on
+// most mobile browsers and modern browsers, but not in Internet Explorer
+//
+// See this chart of compatibility for details:
+// http://caniuse.com/#feat=geolocation
+if (navigator.geolocation) {
+    map.locate()
+}
+// Once we've got a position, add a marker.
+map.on('locationfound', function (e) {
+    var userMarker = L.mapbox.markerLayer({
+        type: 'Feature',
+        geometry: {
+            type: 'Point',
+//            coordinates: [e.latlng.lng, e.latlng.lat]
+            coordinates: [36.164973, -115.148048]
+        },
+        properties: {
+            'marker-color': '#f00',
+            'marker-symbol': 'star-stroked'
+        }
+    }).eachLayer(function (userMarker) {
+
+    // set options here directly on the marker object
+    userMarker.options.icon = truckMarkerOff  // set this to be off by default
+    }).addTo(map)
+})
 
 
 /*
