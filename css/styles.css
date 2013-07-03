@@ -904,7 +904,6 @@ div.footer-popup .footer-popup-content {
 @media screen and (max-width: 525px) {
   .leaflet-bottom {
     margin-bottom: 40px;
-    display: none;
   }
 }
 .leaflet-top {
@@ -947,6 +946,9 @@ div.footer-popup .footer-popup-content {
 @media screen and (max-width: 525px) {
   .leaflet-control-attribution {
     font-size: 10px !important;
+  }
+  .leaflet-control-attribution a {
+    color: #aaa !important;
   }
 }
 .leaflet-control-attribution:last-of-type {

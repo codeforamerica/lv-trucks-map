@@ -563,7 +563,6 @@ div.footer-popup {
     margin-bottom: @footer-height;
     @media @mobile {
         margin-bottom: @footer-height-small;
-        display: none;
     }
 }
 .leaflet-top {
@@ -593,6 +592,9 @@ div.footer-popup {
     .opacity(0.75);
     @media @mobile {
         font-size: 10px !important;
+        a {
+            color: #aaa !important;
+        }
     }
 }
 // This hides the second attribution provided by mapbox.js. See issue #6

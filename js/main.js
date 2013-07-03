@@ -158,6 +158,11 @@ $(document).ready( function () {
         $('#footer-trucks .footer-popup-content').html(Mustache.render(mFooterAllTrucks, data))        
     }
 
+    $('.leaflet-control-attribution a').on('click', function() {
+        if ($(window).width() < 525) {
+            return false
+        }
+    })
 
 })
 
