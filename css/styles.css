@@ -904,6 +904,7 @@ div.footer-popup .footer-popup-content {
 @media screen and (max-width: 525px) {
   .leaflet-bottom {
     margin-bottom: 40px;
+    display: none;
   }
 }
 .leaflet-top {
