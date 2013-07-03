@@ -660,13 +660,11 @@ footer ul {
   white-space: nowrap;
 }
 footer ul li {
-  display: block;
-  float: left;
+  display: inline-block;
   margin: 0;
   padding: 0 50px 0 30px;
   height: 40px;
   line-height: 40px;
-  border-right: 1px solid #4a4a5b;
   cursor: hand;
   cursor: pointer;
   background-image: url('../img/arrow-up.png');
@@ -691,9 +689,7 @@ footer ul li {
   }
 }
 @media screen and (min-width: 525px) {
-  footer ul li:first-of-type {
-    border-left: 1px solid #4a4a5b;
-  }
+  
 }
 footer ul li:hover {
   background-color: #3e3e4d;

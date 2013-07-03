@@ -329,13 +329,12 @@ footer {
         margin: 0;
         white-space: nowrap;
         li {
-            display: block;
-            float: left;
+            display: inline-block;
             margin: 0;
             padding: 0 50px 0 30px;
             height: @footer-height;
             line-height: @footer-height;
-            border-right: 1px solid @footer-divider;
+//            border-right: 1px solid @footer-divider;
             cursor: hand;
             cursor: pointer;
             background-image: url('../img/arrow-up.png');
@@ -356,7 +355,7 @@ footer {
             }
             @media @not-mobile {
                 &:first-of-type {
-                    border-left: 1px solid @footer-divider;
+  //                  border-left: 1px solid @footer-divider;
                 }                
             }
             &:hover {
