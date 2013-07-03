@@ -859,6 +859,11 @@ div.footer-popup .footer-popup-content {
   margin: 0;
   padding: 0;
 }
+@media screen and (max-width: 525px) {
+  #popup .popup-info {
+    max-width: 250px;
+  }
+}
 #popup:after {
   width: 24px;
   height: 24px;

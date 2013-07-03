@@ -136,7 +136,7 @@ var markers = L.mapbox.markerLayer(locations, {
         closeButton: false,
         minWidth: 200,
         autoPanPadding: [20, 40],
-        closeOnClick: false,
+        closeOnClick: true,
         keepInView: true
     })
 
