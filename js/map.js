@@ -160,14 +160,13 @@ map.on('locationfound', function (e) {
         geometry: {
             type: 'Point',
             coordinates: [e.latlng.lng, e.latlng.lat]
-//            coordinates: [-115.148048,36.164973]
         },
         properties: {
             'title': 'You are here',
-            'marker-color': '#b20000',
+            'marker-color': '#cd0000',
             'marker-symbol': 'star-stroked'
         }
-    }).addTo(map)
+    })
 })
 
 
