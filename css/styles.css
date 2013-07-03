@@ -425,7 +425,7 @@ header #nav-logo {
   background: transparent url('../img/clv-logo-tag-240.png') center 0 no-repeat;
   background-size: 120px 150px;
 }
-@media only screen and (max-width: 767px) and (orientation: landscape) {
+@media screen and (max-width: 768px) and (orientation: landscape) {
   header #nav-logo {
     width: 80px;
     height: 100px;
@@ -506,7 +506,7 @@ header #nav-logo a {
   line-height: 36px;
   padding: 10px;
 }
-@media only screen and (max-width: 767px) and (orientation: landscape) {
+@media screen and (max-width: 768px) and (orientation: landscape) {
   #truck-info .truck-title {
     height: 18px;
     line-height: 18px;
@@ -622,7 +622,7 @@ footer {
   /* Responsive footer buttons test */
 
 }
-@media only screen and (max-width: 525px) {
+@media screen and (max-width: 525px) {
   footer {
     height: 40px;
   }

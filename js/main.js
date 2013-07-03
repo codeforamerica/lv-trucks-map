@@ -1,12 +1,11 @@
 (function() { 
   document.data = function() {
 
-    // config
+    // CONFIGURATE DATA SOURCES
     var dataSource = 'dummy-data/data.json'
 //    var locationSource = 'dummy-data/locations.geojson'
     var locationSource = 'http://lv-food-trucks.herokuapp.com/api/locations/search.geojson'
     var vendorSource = 'http://lv-food-trucks.herokuapp.com/api/vendors.json'
-
 
     // LOAD SOME EXTERNAL DATAS
     var data = [],
@@ -63,9 +62,7 @@
     $('#loading').hide()
     return {
         locations: locations,
-//        trucks: vendors,
         trucks: vendors.sort(sort_by('name', true, function(a){return a.toUpperCase()})),
-//        trucks: data.trucks,
         calendar: data.calendar
     }
 
@@ -73,7 +70,6 @@
 })();
 
 $(document).ready( function () {
-
 
     // TRUCK INFO - Dragger
     // $('#truck-info').draggable({ handle: '.truck-title', containment: '#main', cursor: '-webkit-grabbing !important'})

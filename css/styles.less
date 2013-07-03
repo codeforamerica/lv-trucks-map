@@ -114,7 +114,7 @@ header {
         background: transparent url('../img/clv-logo-tag-240.png') center 0 no-repeat;
         background-size: 120px 150px;
 
-        @media only screen and (max-width: 767px) and (orientation: landscape) {
+        @media @tablet-landscape {
             width: 80px;
             height: 100px;
             right: 5px;
@@ -194,7 +194,7 @@ header {
 //        cursor: grab;
 //        cursor: -moz-grab;
 //        cursor: -webkit-grab;
-        @media only screen and (max-width: 767px) and (orientation: landscape) {
+        @media @tablet-landscape {
             height: 18px;
             line-height: 18px;
             font-size: 14px;
@@ -299,7 +299,7 @@ footer {
     font-family: @display-font;
     border-top: 1px solid darken(@footer-background, 2%);
     box-shadow: 0 0 6px rgba(0,0,0,0.25);
-    @media only screen and (max-width: 525px) {
+    @media @mobile {
         height: @footer-height-small;
     }
     /* Responsive footer buttons test */
