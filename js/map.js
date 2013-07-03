@@ -103,7 +103,7 @@ var markers = L.mapbox.markerLayer(locations, {
 }).eachLayer(function (marker) {
 
     // set options here directly on the marker object
-    marker.options.icon = truckMarkerOff  // set this to be off by default
+    // marker.options.icon = truckMarkerOff  // set this to be off by default
     marker.options.riseOnHover = true
 
     // shorthand for where things are stored in the GeoJSON
@@ -122,11 +122,14 @@ var markers = L.mapbox.markerLayer(locations, {
         }
     }
 
-    // Popup construction
+    // Popup construction and marker on
     var popupHTML = 'No truck at <strong>' + marker.feature.properties.name + '</strong><br>' + marker.feature.properties.address
     if (marker.truck) {
         var popupHTML = '<strong>' + marker.truck.name + '</strong> is at <strong>' + marker.feature.properties.name + '</strong><br>' + marker.feature.properties.address + '<br>until ' + marker.calendar.until
-        marker.options.icon = truckMarker //turn on truck
+
+        // Turn on marker
+        // marker.options.icon = truckMarker
+        marker.feature.properties['marker-color'] = '#f93'
     }
 
     marker.bindPopup(popupHTML, {
@@ -141,6 +144,7 @@ var markers = L.mapbox.markerLayer(locations, {
     marker.on('click', function (e) {
         map.panTo(marker.getLatLng())
     })
+
 }).addTo(map)
 
 // Set the bounding area for the map
@@ -173,6 +177,7 @@ map.on('locationfound', function (e) {
         },
         properties: {
             'title': 'You are here',
+            'marker-size': 'large',
             'marker-color': '#cd0000',
             'marker-symbol': 'star-stroked'
         }
