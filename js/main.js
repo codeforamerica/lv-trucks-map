@@ -23,7 +23,7 @@
             for (i = 0; i < locations.features.length; i ++) {
                 // Strip city name/state/zip from address
                 // assuming that the address format was entered properly, anyway....
-                locations.features[i].properties.address = locations.features[i].properties.address.split(',')[0]
+                locations.features[i].properties.addressShort = locations.features[i].properties.address.split(',')[0]
                 
                 // Inject marker styles for mapbox.js
                 // Disabled due to small icons... not good for retina

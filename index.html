@@ -99,7 +99,7 @@
                     <h3>{{truck.name}}</h3>
                     <p>
                         is at <strong>{{location.name}}</strong>
-                        <br><span class='address'>{{location.address}}</span>
+                        <br><span class='address'>{{location.addressShort}}</span>
                     </p>
                     {{#date}}
                         <span class='time'>{{date}} {{from}}</span>
@@ -136,7 +136,7 @@
                         <div class='popup-location'>
                         <p>
                             <strong>{{feature.properties.name}}</strong>
-                            <br><small>{{feature.properties.address}}</small>
+                            <br><small>{{feature.properties.addressShort}}</small>
                         </p>
                         </div>
                     </div>
@@ -162,7 +162,10 @@
                         </div>
                         <div class='popup-location'>
                             <strong>{{feature.properties.name}}</strong>
-                            <br><span class='address'>{{feature.properties.address}}</span>
+                            <br>
+                            <span class='address'>
+                                <span class='typcn typcn-location-arrow-outline'></span><a href='http://maps.google.com/maps?daddr={{feature.properties.address}}' target='_blank' title='Get directions to here'>{{feature.properties.addressShort}}</a>
+                            </span>
                         </div>
                     </div>
                 </div>

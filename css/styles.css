@@ -916,6 +916,18 @@ div.footer-popup .footer-popup-content {
 #popleaf .popup-info .popup-location .address {
   color: #888;
 }
+#popleaf .popup-info .popup-location .address a {
+  text-decoration: none;
+}
+#popleaf .popup-info .popup-location .address a:hover {
+  text-decoration: underline;
+}
+#popleaf .popup-info .popup-location .address .typcn {
+  font-size: 18px;
+  display: inline-block;
+  margin-top: -2px;
+  margin-left: -4px;
+}
 #popleaf .popup-info h3 {
   margin: 0;
   padding: 0;
@@ -996,6 +1008,9 @@ div.footer-popup .footer-popup-content {
   .leaflet-control-attribution a {
     color: #aaa !important;
   }
+}
+.leaflet-container a {
+  color: #777 !important;
 }
 .leaflet-control-attribution:last-of-type {
   display: none;

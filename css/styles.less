@@ -564,6 +564,18 @@ div.footer-popup {
             border-top: 1px solid lighten(@truck-heading-color, 30%);
             .address {
                 color: #888;
+                a {
+                    text-decoration: none;
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+                .typcn {
+                    font-size: 18px;
+                    display: inline-block;
+                    margin-top: -2px;
+                    margin-left: -4px;
+                }
             }
         }
         h3 {
@@ -636,6 +648,9 @@ div.footer-popup {
             color: #aaa !important;
         }
     }
+}
+.leaflet-container a {
+    color: #777 !important;
 }
 // This hides the second attribution provided by mapbox.js. See issue #6
 .leaflet-control-attribution:last-of-type {
