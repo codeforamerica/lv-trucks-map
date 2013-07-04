@@ -72,7 +72,7 @@ var control = L.control.attribution({
 
 var markerIconSize =    [36, 62], // size of the icon
     markerIconAnchor =  [18, 50], // point of the icon which will correspond to marker's location
-    markerPopupAnchor = [0, -60]  // point from which the popup should open relative to the iconAnchor
+    markerPopupAnchor = [0, -55]  // point from which the popup should open relative to the iconAnchor
 
 var truckMarker = L.icon({
     iconUrl: 'img/pin-food.png',

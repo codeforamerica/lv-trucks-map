@@ -360,7 +360,7 @@ body {
   padding: 0;
   margin: 0;
   background-color: #f2f2f2;
-  font-family: 'PT Sans Caption', 'Helvetica Neue', sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 13px;
 }
 @media screen and (max-width: 768px) {
