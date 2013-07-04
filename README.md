@@ -1,6 +1,8 @@
 lv-trucks-map
 =============
 
+![Logo](https://raw.github.com/codeforamerica/lv-trucks-map/master/apple-touch-icon-114x144-precomposed.png)
+
 Public-facing map for City of Las Vegas mobile food vendor app.
 
 Food truck applications are not new. However, they generally rely on scraping Twitter feeds or asking vendors to update a calendar through an administration interface. This one demonstrates how food truck information can be reported in real time using city resources and communication channels.
