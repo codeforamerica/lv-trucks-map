@@ -19,6 +19,8 @@
 @footer-height-small:   40px;
 @background-dark:       rgba(0,0,0,0.5);
 
+@popup-width:           200px;
+
 @container-width:       90%;
 
 // MEDIA QUERY WIDTHS
@@ -512,7 +514,6 @@ div.footer-popup {
             color: white;
             border-bottom-left-radius: 1px;
             border-bottom-right-radius: 1px;
-            font-family: @display-font;
         }
         h3 {
             margin: 0;
@@ -533,7 +534,43 @@ div.footer-popup {
         content: '';
         .rotate(45deg);
     }
+}
 
+#popleaf {
+    .user-select(none);
+    .popup-tag {
+        display: inline;
+        height: 11px;
+        line-height: 11px;
+        background-color: @truck-heading-color;
+        color: white;
+        font-size: 11px;
+        padding: 6px 10px;
+        font-family: @display-font;
+    }
+    .popup-info {
+        margin-top: 4px;
+        max-width: @popup-width;
+        .user-select(text);
+        .popup-truck {
+            .truck-image {
+            }
+            padding: 10px;
+            background-color: white;
+            height: 20px;
+        }
+        .popup-location {
+            padding: 10px 10px;
+            border-top: 1px solid lighten(@truck-heading-color, 30%);
+            .address {
+                color: #888;
+            }
+        }
+        h3 {
+            margin: 0;
+            padding: 0;
+        }
+    }
 }
 
 #loading {
@@ -604,6 +641,16 @@ div.footer-popup {
 .leaflet-control-attribution:last-of-type {
     display: none;
 }
+
+// Popup overrides
+.leaflet-popup-content-wrapper {
+    padding: 0 !important;
+    max-width: @popup-width;
+}
+.leaflet-popup-content {
+    margin: 0 !important;
+}
+
 
 // TYPICON SIZE OVERRIDE
 .typcn {

@@ -853,7 +853,6 @@ div.footer-popup .footer-popup-content {
   color: white;
   border-bottom-left-radius: 1px;
   border-bottom-right-radius: 1px;
-  font-family: 'Fauna One';
 }
 #popup .popup-info h3 {
   margin: 0;
@@ -878,6 +877,48 @@ div.footer-popup .footer-popup-content {
   -ms-transform: rotate(45deg);
   -o-transform: rotate(45deg);
   transform: rotate(45deg);
+}
+#popleaf {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+#popleaf .popup-tag {
+  display: inline;
+  height: 11px;
+  line-height: 11px;
+  background-color: #6c6c85;
+  color: white;
+  font-size: 11px;
+  padding: 6px 10px;
+  font-family: 'Fauna One';
+}
+#popleaf .popup-info {
+  margin-top: 4px;
+  max-width: 200px;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  -o-user-select: text;
+  user-select: text;
+}
+#popleaf .popup-info .popup-truck {
+  padding: 10px;
+  background-color: white;
+  height: 20px;
+}
+#popleaf .popup-info .popup-location {
+  padding: 10px 10px;
+  border-top: 1px solid #bfbfcb;
+}
+#popleaf .popup-info .popup-location .address {
+  color: #888;
+}
+#popleaf .popup-info h3 {
+  margin: 0;
+  padding: 0;
 }
 #loading {
   width: 100%;
@@ -958,6 +999,13 @@ div.footer-popup .footer-popup-content {
 }
 .leaflet-control-attribution:last-of-type {
   display: none;
+}
+.leaflet-popup-content-wrapper {
+  padding: 0 !important;
+  max-width: 200px;
+}
+.leaflet-popup-content {
+  margin: 0 !important;
 }
 .typcn {
   font-size: 190%;

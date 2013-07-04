@@ -68,22 +68,37 @@ var control = L.control.attribution({
     prefix: 'Map imagery by <a href=\'http://www.mapbox.com/about/maps/\' target=\'_blank\'>MapBox</a>. Data &copy; <a href=\'http://www.openstreetmap.org/copyright\' target=\'_blank\'>OpenStreetMap contributors</a>.'
 }).addTo(map)
 
-// Set up truck icon
-var truckMarker = L.icon({
-    iconUrl: 'img/marker-truck.svg',
+// Set up icons for markers
 
-    iconSize:     [70, 60], // size of the icon
-    iconAnchor:   [35, 50], // point of the icon which will correspond to marker's location
-    popupAnchor:  [3, -55]  // point from which the popup should open relative to the iconAnchor
+var markerIconSize =    [36, 62], // size of the icon
+    markerIconAnchor =  [18, 50], // point of the icon which will correspond to marker's location
+    markerPopupAnchor = [0, -60]  // point from which the popup should open relative to the iconAnchor
+
+var truckMarker = L.icon({
+    iconUrl: 'img/pin-food.png',
+
+    iconSize:     markerIconSize,
+    iconAnchor:   markerIconAnchor,
+    popupAnchor:  markerPopupAnchor
 })
 
 var truckMarkerOff = L.icon({
-    iconUrl: 'img/marker-truck-off.svg',
+    iconUrl: 'img/pin-food-off.png',
 
-    iconSize:     [70, 60], 
-    iconAnchor:   [35, 50], 
-    popupAnchor:  [3, -55]
+    iconSize:     markerIconSize,
+    iconAnchor:   markerIconAnchor,
+    popupAnchor:  markerPopupAnchor
 })
+
+// Not used - currently using Mapbox version of this icon.
+var hereMarker = L.icon({
+    iconUrl: 'img/pin-here.png',
+
+    iconSize:     markerIconSize,
+    iconAnchor:   markerIconAnchor,
+    popupAnchor:  markerPopupAnchor
+})
+
 
 // Get data
 var data = document.data()
@@ -103,7 +118,7 @@ var markers = L.mapbox.markerLayer(locations, {
 }).eachLayer(function (marker) {
 
     // set options here directly on the marker object
-    // marker.options.icon = truckMarkerOff  // set this to be off by default
+    marker.options.icon = truckMarkerOff  // set this to be off by default
     marker.options.riseOnHover = true
 
     // shorthand for where things are stored in the GeoJSON
@@ -125,11 +140,13 @@ var markers = L.mapbox.markerLayer(locations, {
     // Popup construction and marker on
     var popupHTML = 'No truck at <strong>' + marker.feature.properties.name + '</strong><br>' + marker.feature.properties.address
     if (marker.truck) {
-        var popupHTML = '<strong>' + marker.truck.name + '</strong> is at <strong>' + marker.feature.properties.name + '</strong><br>' + marker.feature.properties.address + '<br>until ' + marker.calendar.until
+        // var popupHTML = '<strong>' + marker.truck.name + '</strong> is at <strong>' + marker.feature.properties.name + '</strong><br><span class=\'typcn typcn-location-arrow-outline\'></span>' + marker.feature.properties.address + '<br>until ' + marker.calendar.until
+        
+        var mPopleaf = $('#m-popleaf').html()
+        var popupHTML = Mustache.render(mPopleaf, marker)
 
         // Turn on marker
-        // marker.options.icon = truckMarker
-        marker.feature.properties['marker-color'] = '#f93'
+        marker.options.icon = truckMarker
     }
 
     marker.bindPopup(popupHTML, {
@@ -174,10 +191,10 @@ map.on('locationfound', function (e) {
             coordinates: [e.latlng.lng, e.latlng.lat]
         },
         properties: {
-            'title': 'You are here',
             'marker-size': 'large',
             'marker-color': '#cd0000',
-            'marker-symbol': 'star-stroked'
+            'marker-symbol': 'star-stroked',
+            'title': '<div style=\'text-align: center; margin: 0 10px\'>You are here</div>'
         }
     })
 })

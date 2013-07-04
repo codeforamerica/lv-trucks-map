@@ -20,11 +20,16 @@
         success: function (i) {
             locations = i
 
-            // Inject marker styles for mapbox.js
             for (i = 0; i < locations.features.length; i ++) {
-                locations.features[i].properties['marker-symbol'] = 'restaurant'
-                locations.features[i].properties['marker-color'] = '#f93'
-                locations.features[i].properties['marker-size'] = 'large'
+                // Strip city name/state/zip from address
+                // assuming that the address format was entered properly, anyway....
+                locations.features[i].properties.address = locations.features[i].properties.address.split(',')[0]
+                
+                // Inject marker styles for mapbox.js
+                // Disabled due to small icons... not good for retina
+                // locations.features[i].properties['marker-symbol'] = 'restaurant'
+                // locations.features[i].properties['marker-color'] = '#f93'
+                // locations.features[i].properties['marker-size'] = 'large'
             }
 
         },
