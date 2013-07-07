@@ -132,10 +132,10 @@ $(document).ready( function () {
 
     // FOOTER POPUPS
     // Open / toggle
-    $('.footer-trucks-link').click( function () { toggleFooterPopup('footer-trucks', $(this)) })
-    $('.footer-calendar-link').click( function () { toggleFooterPopup('footer-calendar', $(this)) })
-    $('.footer-about-link').click( function () { toggleFooterPopup('footer-about', $(this) ) })
-    $('.footer-feedback-link').click( function () { toggleFooterPopup('footer-feedback', $(this)) })
+    $('.footer-trucks-link').click( function () { toggleFooterPopup('#trucks', $(this)) })
+    $('.footer-calendar-link').click( function () { toggleFooterPopup('#calendar', $(this)) })
+    $('.footer-about-link').click( function () { toggleFooterPopup('#about', $(this) ) })
+    $('.footer-feedback-link').click( function () { toggleFooterPopup('#feedback', $(this)) })
     // Close popups
     // -- when X is clicked on inside the popup
     $('.footer-popup-close').click( function () {
@@ -194,12 +194,12 @@ function toggleTruckEntries(clickedHeading) {
     }
 }
 
-function toggleFooterPopup(target, clicked) {
-    var popup = '#' + target
+function toggleFooterPopup(popup, clicked) {
 
     if ($(popup).is(':visible')) {
         // If visible, hide it!
         $(popup).slideUp(200)
+        // window.location.hash = ''
     }
     else {
         // Hide all other popups
@@ -221,6 +221,8 @@ function toggleFooterPopup(target, clicked) {
 
         // Display the popup
         $(popup).slideDown(200)
+        // Hash related hijinks are disabled
+        // window.location.hash = popup
     }
 }
 

@@ -1,6 +1,6 @@
 @import 'normalize.less';
 @import 'preboot.less';
-@import url('main.css'); // HTML5 default CSS file
+@import url('main.css'); // HTML5 Boilerplate default CSS file
 @import url('typicons.css');
 
 // CONSTANTS
@@ -9,41 +9,22 @@
 @nav-divider:           darken(@nav-background, 10%);
 @nav-hilite:            #09c;
 @nav-search-width:      400px;
+
 @background:            #f2f2f2;
 @clv-type:              #3f3f3f;
 @sidebar-background:    #444;
 @ui-index:              9000;
+
 @footer-background:     rgba(51,51,63,1);
 @footer-divider:        lighten(@footer-background, 10%);
 @footer-height:         40px;
 @footer-height-small:   40px;
+
 @background-dark:       rgba(0,0,0,0.5);
 
 @popup-width:           200px;
 
 @container-width:       90%;
-
-// MEDIA QUERY WIDTHS
-// Not used everywhere right now
-@mid-screen-width:      900px;
-@mid-screen:            ~'screen and (max-width: @{mid-screen-width})';
-@tablet-width:          768px;
-@tablet:                ~'screen and (max-width: @{tablet-width})';
-@tablet-landscape:      ~'screen and (max-width: @{tablet-width}) and (orientation: landscape)';
-@larger-than-tablet:    ~'screen and (min-width: @{tablet-width})';
-@mobile-width:          525px;
-@mobile:                ~'screen and (max-width: @{mobile-width})';
-@not-mobile:            ~'screen and (min-width: @{mobile-width})';
-
-// TYPOGRAPHY PRESETS
-
-@import url(http://fonts.googleapis.com/css?family=Fauna+One|PT+Sans+Caption:400,700);
-
-@display-font:          'Fauna One';
-//@body-font:             'PT Sans Caption', 'Helvetica Neue', sans-serif;
-@body-font:             'Helvetica Neue', Helvetica, Arial, sans-serif;
-
-// TRUCK MAP SPECIFIC
 
 @truck-heading-color:           lighten(@footer-background, 25%);
 @truck-heading-hilite-color:    lighten(@truck-heading-color, 8%);
@@ -51,7 +32,29 @@
 @truck-entry-bgcolor:           white;
 @truck-entry-hilite-color:      rgb(240,240,240);
 
-// OVERALL STUFF
+// MEDIA QUERY WIDTHS
+
+@mid-screen-width:      900px;
+@mid-screen:            ~'screen and (max-width: @{mid-screen-width})';
+@tablet-width:          767px;
+@tablet:                ~'screen and (max-width: @{tablet-width})';
+@tablet-landscape:      ~'screen and (max-width: @{tablet-width}) and (orientation: landscape)';
+@larger-than-tablet:    ~'screen and (min-width: @{tablet-width} + 1)';
+@mobile-width:          524px;
+@mobile:                ~'screen and (max-width: @{mobile-width})';
+@not-mobile:            ~'screen and (min-width: @{mobile-width} + 1)';
+
+// TYPOGRAPHY PRESETS
+
+// @import url(http://fonts.googleapis.com/css?family=Fauna+One|PT+Sans+Caption:400,700);
+@import url(http://fonts.googleapis.com/css?family=Fauna+One:400,700);
+
+@display-font:          'Fauna One';
+// @body-font:             'PT Sans Caption', 'Helvetica Neue', sans-serif;
+@body-font:             'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+
+// GENERAL LAYOUT
 
 html, body {
     padding: 0;
@@ -97,10 +100,10 @@ html, body {
 }
 
 // LINKS
+
 a {
     color: #7c7c7c;
 }
-
 
 // LAYOUT
 
@@ -168,8 +171,6 @@ header {
 #truck-info {
     width: 360px;
     position: absolute;
-//    top: 30px;
-//    left: 5%;
     top: 0;
     left: 0;
     z-index: 1200;
@@ -194,9 +195,6 @@ header {
         height: 36px;
         line-height: 36px;
         padding: 10px;
-//        cursor: grab;
-//        cursor: -moz-grab;
-//        cursor: -webkit-grab;
         @media @tablet-landscape {
             height: 18px;
             line-height: 18px;
@@ -288,7 +286,6 @@ header {
     background-color: @truck-entry-hilite-color;
 }
 
-
 footer {
     height: @footer-height;
     width: 100%;
@@ -305,7 +302,7 @@ footer {
     @media @mobile {
         height: @footer-height-small;
     }
-    /* Responsive footer buttons test */
+    /* Responsive footer button set */
     #footer-wide {
         @media @mid-screen {
             display: none;
@@ -334,22 +331,13 @@ footer {
         li {
             display: inline-block;
             margin: 0;
-            padding: 0 50px 0 30px;
+            padding: 0 30px;
             height: @footer-height;
             line-height: @footer-height;
-//            border-right: 1px solid @footer-divider;
             cursor: hand;
             cursor: pointer;
-            background-image: url('../img/arrow-up.png');
-            background-position: right 20px top 20px;
-            background-repeat: no-repeat;
-            @media @tablet {
-                background-image: none;
-                padding: 0 30px;                
-            }
             @media @mobile {
                 padding: 0;
-                background-image: none;
                 height: @footer-height-small;
                 line-height: @footer-height-small;
                 border: none;
@@ -358,8 +346,13 @@ footer {
             }
             @media @not-mobile {
                 &:first-of-type {
-  //                  border-left: 1px solid @footer-divider;
+//                    border-left: 1px solid @footer-divider;
                 }                
+                &:after {
+                    margin-left: 15px;
+                    content: '\25B4';
+                    color: white;
+                }
             }
             &:hover {
                 background-color: lighten(@footer-background, 5%);
@@ -453,23 +446,21 @@ div.footer-popup {
         }
     }
 }
-#footer-trucks {
+#trucks {
 }
-#footer-calendar {
+#calendar {
 }
-#footer-about {
+#about {
     width: 500px;
     @media @mobile {
         width: 100%;
     }
 }
-#footer-feedback {
-
+#feedback {
 }
 
 #popup-layer {
     position: absolute;
-//    z-index: 1000;
 }
 
 #popup {

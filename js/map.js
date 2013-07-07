@@ -13,7 +13,7 @@ var centerOffsetH = 0,
     centerOffsetV = 0
 
 if ($('#truck-data').is(':visible')) {
-    centerOffsetH = ($(window).width() - $('#truck-data').width()) / 2
+    centerOffsetH = $('#truck-data').width() / 2
 }
 
 /*
