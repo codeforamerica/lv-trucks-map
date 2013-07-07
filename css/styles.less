@@ -18,7 +18,6 @@
 @footer-background:     rgba(51,51,63,1);
 @footer-divider:        lighten(@footer-background, 10%);
 @footer-height:         40px;
-@footer-height-small:   40px;
 
 @background-dark:       rgba(0,0,0,0.5);
 
@@ -34,23 +33,17 @@
 
 // MEDIA QUERY WIDTHS
 
-@mid-screen-width:      900px;
-@mid-screen:            ~'screen and (max-width: @{mid-screen-width})';
-@tablet-width:          767px;
-@tablet:                ~'screen and (max-width: @{tablet-width})';
-@tablet-landscape:      ~'screen and (max-width: @{tablet-width}) and (orientation: landscape)';
-@larger-than-tablet:    ~'screen and (min-width: @{tablet-width} + 1)';
-@mobile-width:          524px;
-@mobile:                ~'screen and (max-width: @{mobile-width})';
-@not-mobile:            ~'screen and (min-width: @{mobile-width} + 1)';
+@mobile:                ~'screen and (max-width: 529px)';
+@tablet:                ~'screen and (min-width: 520px) and (max-width: 767px)';
+@desktop-small:         ~'screen and (min-width: 768px) and (max-width: 900px)';
+@dekstop-large:         ~'screen and (min-width: 901px)';
+@landscape:             ~'screen and (max-width: 767px) and (orientation: landscape)';
 
 // TYPOGRAPHY PRESETS
 
-// @import url(http://fonts.googleapis.com/css?family=Fauna+One|PT+Sans+Caption:400,700);
 @import url(http://fonts.googleapis.com/css?family=Fauna+One:400,700);
 
 @display-font:          'Fauna One';
-// @body-font:             'PT Sans Caption', 'Helvetica Neue', sans-serif;
 @body-font:             'Helvetica Neue', Helvetica, Arial, sans-serif;
 
 
@@ -62,7 +55,7 @@ html, body {
     background-color: @background;
     font-family: @body-font;
     font-size: 13px;
-    @media @tablet {
+    @media @mobile, @tablet {
         overflow: hidden;
     }
 }
@@ -77,23 +70,24 @@ html, body {
     width: 100%;
     height: 100%;
     position: absolute;
-    @media @tablet {
+    @media @mobile, @tablet {
         margin-top: 56px;
         bottom: 0px;
     }
-    @media @larger-than-tablet {
+    @media @desktop-small {
         margin-top: 18px;
         bottom: 0px;
     }
 }
 
 .container {
+    width: 90%;
     margin: 0 auto;
 
     @media @tablet {
         width: 100%;
     }
-    @media @larger-than-tablet {
+    @media @desktop-small {
         width: @container-width;
     }
 
@@ -119,21 +113,6 @@ header {
         position: fixed;
         background: transparent url('../img/clv-logo-tag-240.png') center 0 no-repeat;
         background-size: 120px 150px;
-
-        @media @tablet-landscape {
-            width: 80px;
-            height: 100px;
-            right: 5px;
-            background-size: 80px 100px;
-        }
-
-        @media @mobile {
-            width: 80px;
-            height: 100px;
-            right: 5px;
-            background-size: 80px 100px;
-        }
-
         h1 {
             display: none;
         }
@@ -142,6 +121,12 @@ header {
             width: 100px;
             height: 100px;
             margin: 0 auto;
+        }
+        @media @mobile, @tablet, @landscape {
+            width: 80px;
+            height: 100px;
+            right: 5px;
+            background-size: 80px 100px;
         }
     }
 }
@@ -182,7 +167,7 @@ header {
     overflow: auto;
     .user-select(none);
 
-    @media @tablet {
+    @media @mobile, @tablet {
         width: 100%;
     }
     .truck-title, .truck-heading {
@@ -195,7 +180,7 @@ header {
         height: 36px;
         line-height: 36px;
         padding: 10px;
-        @media @tablet-landscape {
+        @media @tablet, @landscape {
             height: 18px;
             line-height: 18px;
             font-size: 14px;
@@ -207,7 +192,7 @@ header {
         }
     }
     #truck-data {
-        @media @tablet {
+        @media @mobile, @tablet {
             display: none;
         }
     }
@@ -299,18 +284,16 @@ footer {
     font-family: @display-font;
     border-top: 1px solid darken(@footer-background, 2%);
     box-shadow: 0 0 6px rgba(0,0,0,0.25);
-    @media @mobile {
-        height: @footer-height-small;
-    }
+
     /* Responsive footer button set */
     #footer-wide {
-        @media @mid-screen {
+        @media @mobile, @tablet, @desktop-small {
             display: none;
         }
     }
     #footer-mid {
         display: none;
-        @media @mid-screen {
+        @media @tablet, @desktop-small {
             display: block;
         }
         @media @mobile {
@@ -336,26 +319,27 @@ footer {
             line-height: @footer-height;
             cursor: hand;
             cursor: pointer;
+            &:hover {
+                background-color: lighten(@footer-background, 5%);
+            }
+            &:after {
+                margin-left: 15px;
+                content: '\25B4';
+                color: white;
+            }
             @media @mobile {
                 padding: 0;
-                height: @footer-height-small;
-                line-height: @footer-height-small;
                 border: none;
                 width: 25%;
                 text-align: center;
-            }
-            @media @not-mobile {
-                &:first-of-type {
-//                    border-left: 1px solid @footer-divider;
-                }                
                 &:after {
-                    margin-left: 15px;
-                    content: '\25B4';
-                    color: white;
+                    content: '';
                 }
             }
-            &:hover {
-                background-color: lighten(@footer-background, 5%);
+            @media @tablet, @desktop-small {
+                &:first-of-type {
+//                    border-left: 1px solid @footer-divider;
+                }
             }
         }
     }
@@ -389,16 +373,13 @@ div.footer-popup {
 
     .footer-popup-close {
         position: absolute;
-        top: 13px;
+        top: 10px;
         right: 16px;
         color: darken(@background, 40%);
         cursor: pointer;
         font-size: 24px;
-        @media @mobile {
-            top: 2px;
-        }
-        @media @tablet-landscape {
-            top: 2px;
+        @media @mobile, @tablet, @landscape {
+            top: 0px;
         }
     }
     .footer-popup-title {
@@ -411,7 +392,7 @@ div.footer-popup {
             padding: 0;
             margin: 0;
         }
-        @media @mobile {
+        @media @mobile, @tablet, @landscape {
             height: 18px;
             padding: 8px 20px;
             h2 {
@@ -419,26 +400,11 @@ div.footer-popup {
                 font-weight: bold;
             }
         }
-        @media @tablet-landscape {
-            height: 18px;
-            padding: 8px 20px;
-            h2 {
-                font-size: 16px;
-                font-weight: bold;
-            }
-        }
-
     }
     .footer-popup-content {
         padding: 0 40px 50px 25px;
         line-height: 150%;
-        @media @mobile {
-            font-size: 11px;
-            padding: 0 20px 50px;
-            max-height: 240px;
-            overflow-y: auto;
-        }
-        @media @tablet-landscape {
+        @media @mobile, @tablet, @landscape {
             font-size: 11px;
             padding: 0 20px 50px;
             max-height: 240px;
@@ -605,21 +571,13 @@ div.footer-popup {
 
 .leaflet-bottom {
     margin-bottom: @footer-height;
-    @media @mobile {
-        margin-bottom: @footer-height-small;
-    }
 }
 .leaflet-top {
     // may be worth dealing with this with changing the actual map top position, to enable points to scale and pan correctly
-    margin-top: 60px;
-    @media @larger-than-tablet {
-        margin-left: 360px;
-        margin-top: 0px;
-    }
-    @media @mobile {
-        margin-top: 40px;
-    }
-    @media @tablet-landscape {
+    margin-left: 360px;
+    margin-top: 0px;
+    @media @mobile, @tablet, @landscape {
+        margin-left: 0;
         margin-top: 40px;
     }
 }

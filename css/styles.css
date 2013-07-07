@@ -363,7 +363,7 @@ body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 13px;
 }
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 529px), screen and (min-width: 520px) and (max-width: 767px) {
   html,
   body {
     overflow: hidden;
@@ -379,27 +379,28 @@ body {
   height: 100%;
   position: absolute;
 }
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 529px), screen and (min-width: 520px) and (max-width: 767px) {
   #map {
     margin-top: 56px;
     bottom: 0px;
   }
 }
-@media screen and (min-width: 767px + 1) {
+@media screen and (min-width: 768px) and (max-width: 900px) {
   #map {
     margin-top: 18px;
     bottom: 0px;
   }
 }
 .container {
+  width: 90%;
   margin: 0 auto;
 }
-@media screen and (max-width: 767px) {
+@media screen and (min-width: 520px) and (max-width: 767px) {
   .container {
     width: 100%;
   }
 }
-@media screen and (min-width: 767px + 1) {
+@media screen and (min-width: 768px) and (max-width: 900px) {
   .container {
     width: 90%;
   }
@@ -425,22 +426,6 @@ header #nav-logo {
   background: transparent url('../img/clv-logo-tag-240.png') center 0 no-repeat;
   background-size: 120px 150px;
 }
-@media screen and (max-width: 767px) and (orientation: landscape) {
-  header #nav-logo {
-    width: 80px;
-    height: 100px;
-    right: 5px;
-    background-size: 80px 100px;
-  }
-}
-@media screen and (max-width: 524px) {
-  header #nav-logo {
-    width: 80px;
-    height: 100px;
-    right: 5px;
-    background-size: 80px 100px;
-  }
-}
 header #nav-logo h1 {
   display: none;
 }
@@ -449,6 +434,14 @@ header #nav-logo a {
   width: 100px;
   height: 100px;
   margin: 0 auto;
+}
+@media screen and (max-width: 529px), screen and (min-width: 520px) and (max-width: 767px), screen and (max-width: 767px) and (orientation: landscape) {
+  header #nav-logo {
+    width: 80px;
+    height: 100px;
+    right: 5px;
+    background-size: 80px 100px;
+  }
 }
 #error {
   width: 100%;
@@ -489,7 +482,7 @@ header #nav-logo a {
   -o-user-select: none;
   user-select: none;
 }
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 529px), screen and (min-width: 520px) and (max-width: 767px) {
   #truck-info {
     width: 100%;
   }
@@ -506,21 +499,21 @@ header #nav-logo a {
   line-height: 36px;
   padding: 10px;
 }
-@media screen and (max-width: 767px) and (orientation: landscape) {
+@media screen and (min-width: 520px) and (max-width: 767px), screen and (max-width: 767px) and (orientation: landscape) {
   #truck-info .truck-title {
     height: 18px;
     line-height: 18px;
     font-size: 14px;
   }
 }
-@media screen and (max-width: 524px) {
+@media screen and (max-width: 529px) {
   #truck-info .truck-title {
     height: 18px;
     line-height: 18px;
     font-size: 14px;
   }
 }
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 529px), screen and (min-width: 520px) and (max-width: 767px) {
   #truck-info #truck-data {
     display: none;
   }
@@ -622,12 +615,7 @@ footer {
   /* Responsive footer button set */
 
 }
-@media screen and (max-width: 524px) {
-  footer {
-    height: 40px;
-  }
-}
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 529px), screen and (min-width: 520px) and (max-width: 767px), screen and (min-width: 768px) and (max-width: 900px) {
   footer #footer-wide {
     display: none;
   }
@@ -635,12 +623,12 @@ footer {
 footer #footer-mid {
   display: none;
 }
-@media screen and (max-width: 900px) {
+@media screen and (min-width: 520px) and (max-width: 767px), screen and (min-width: 768px) and (max-width: 900px) {
   footer #footer-mid {
     display: block;
   }
 }
-@media screen and (max-width: 524px) {
+@media screen and (max-width: 529px) {
   footer #footer-mid {
     display: none;
   }
@@ -648,7 +636,7 @@ footer #footer-mid {
 footer #footer-condensed {
   display: none;
 }
-@media screen and (max-width: 524px) {
+@media screen and (max-width: 529px) {
   footer #footer-condensed {
     display: block;
   }
@@ -668,31 +656,33 @@ footer ul li {
   cursor: hand;
   cursor: pointer;
 }
-@media screen and (max-width: 524px) {
+footer ul li:hover {
+  background-color: #3e3e4d;
+}
+footer ul li:after {
+  margin-left: 15px;
+  content: '\25B4';
+  color: white;
+}
+@media screen and (max-width: 529px) {
   footer ul li {
     padding: 0;
-    height: 40px;
-    line-height: 40px;
     border: none;
     width: 25%;
     text-align: center;
   }
-}
-@media screen and (min-width: 524px + 1) {
   footer ul li:after {
-    margin-left: 15px;
-    content: '\25B4';
-    color: white;
+    content: '';
   }
 }
-footer ul li:hover {
-  background-color: #3e3e4d;
+@media screen and (min-width: 520px) and (max-width: 767px), screen and (min-width: 768px) and (max-width: 900px) {
+  
 }
 #footer-elements {
   position: absolute;
   bottom: 0;
 }
-@media screen and (max-width: 524px) {
+@media screen and (max-width: 529px) {
   #footer-elements {
     width: 100%;
     left: 0;
@@ -709,7 +699,7 @@ div.footer-popup {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.75);
   z-index: 8990;
 }
-@media screen and (max-width: 524px) {
+@media screen and (max-width: 529px) {
   div.footer-popup {
     width: 100%;
     left: 0;
@@ -717,20 +707,15 @@ div.footer-popup {
 }
 div.footer-popup .footer-popup-close {
   position: absolute;
-  top: 13px;
+  top: 10px;
   right: 16px;
   color: #8c8c8c;
   cursor: pointer;
   font-size: 24px;
 }
-@media screen and (max-width: 524px) {
+@media screen and (max-width: 529px), screen and (min-width: 520px) and (max-width: 767px), screen and (max-width: 767px) and (orientation: landscape) {
   div.footer-popup .footer-popup-close {
-    top: 2px;
-  }
-}
-@media screen and (max-width: 767px) and (orientation: landscape) {
-  div.footer-popup .footer-popup-close {
-    top: 2px;
+    top: 0px;
   }
 }
 div.footer-popup .footer-popup-title {
@@ -744,17 +729,7 @@ div.footer-popup .footer-popup-title h2 {
   padding: 0;
   margin: 0;
 }
-@media screen and (max-width: 524px) {
-  div.footer-popup .footer-popup-title {
-    height: 18px;
-    padding: 8px 20px;
-  }
-  div.footer-popup .footer-popup-title h2 {
-    font-size: 16px;
-    font-weight: bold;
-  }
-}
-@media screen and (max-width: 767px) and (orientation: landscape) {
+@media screen and (max-width: 529px), screen and (min-width: 520px) and (max-width: 767px), screen and (max-width: 767px) and (orientation: landscape) {
   div.footer-popup .footer-popup-title {
     height: 18px;
     padding: 8px 20px;
@@ -768,15 +743,7 @@ div.footer-popup .footer-popup-content {
   padding: 0 40px 50px 25px;
   line-height: 150%;
 }
-@media screen and (max-width: 524px) {
-  div.footer-popup .footer-popup-content {
-    font-size: 11px;
-    padding: 0 20px 50px;
-    max-height: 240px;
-    overflow-y: auto;
-  }
-}
-@media screen and (max-width: 767px) and (orientation: landscape) {
+@media screen and (max-width: 529px), screen and (min-width: 520px) and (max-width: 767px), screen and (max-width: 767px) and (orientation: landscape) {
   div.footer-popup .footer-popup-content {
     font-size: 11px;
     padding: 0 20px 50px;
@@ -787,7 +754,7 @@ div.footer-popup .footer-popup-content {
 #about {
   width: 500px;
 }
-@media screen and (max-width: 524px) {
+@media screen and (max-width: 529px) {
   #about {
     width: 100%;
   }
@@ -852,7 +819,7 @@ div.footer-popup .footer-popup-content {
   margin: 0;
   padding: 0;
 }
-@media screen and (max-width: 524px) {
+@media screen and (max-width: 529px) {
   #popup .popup-info {
     max-width: 250px;
   }
@@ -941,7 +908,7 @@ div.footer-popup .footer-popup-content {
   width: 36px;
   height: 9px;
 }
-@media screen and (max-width: 524px) {
+@media screen and (max-width: 529px) {
   #pi {
     display: none;
   }
@@ -953,27 +920,13 @@ div.footer-popup .footer-popup-content {
 .leaflet-bottom {
   margin-bottom: 40px;
 }
-@media screen and (max-width: 524px) {
-  .leaflet-bottom {
-    margin-bottom: 40px;
-  }
-}
 .leaflet-top {
-  margin-top: 60px;
+  margin-left: 360px;
+  margin-top: 0px;
 }
-@media screen and (min-width: 767px + 1) {
+@media screen and (max-width: 529px), screen and (min-width: 520px) and (max-width: 767px), screen and (max-width: 767px) and (orientation: landscape) {
   .leaflet-top {
-    margin-left: 360px;
-    margin-top: 0px;
-  }
-}
-@media screen and (max-width: 524px) {
-  .leaflet-top {
-    margin-top: 40px;
-  }
-}
-@media screen and (max-width: 767px) and (orientation: landscape) {
-  .leaflet-top {
+    margin-left: 0;
     margin-top: 40px;
   }
 }
@@ -995,7 +948,7 @@ div.footer-popup .footer-popup-content {
   opacity: 0.75;
   filter: alpha(opacity=75);
 }
-@media screen and (max-width: 524px) {
+@media screen and (max-width: 529px) {
   .leaflet-control-attribution {
     font-size: 10px !important;
   }
