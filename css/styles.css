@@ -378,6 +378,8 @@ body {
   width: 100%;
   height: 100%;
   position: absolute;
+  margin-top: 18px;
+  bottom: 0px;
 }
 @media screen and (max-width: 529px), screen and (min-width: 520px) and (max-width: 767px) {
   #map {
@@ -385,24 +387,13 @@ body {
     bottom: 0px;
   }
 }
-@media screen and (min-width: 768px) and (max-width: 900px) {
-  #map {
-    margin-top: 18px;
-    bottom: 0px;
-  }
-}
 .container {
   width: 90%;
   margin: 0 auto;
 }
-@media screen and (min-width: 520px) and (max-width: 767px) {
+@media screen and (max-width: 529px), screen and (min-width: 520px) and (max-width: 767px) {
   .container {
     width: 100%;
-  }
-}
-@media screen and (min-width: 768px) and (max-width: 900px) {
-  .container {
-    width: 90%;
   }
 }
 a {
@@ -672,6 +663,7 @@ footer ul li:after {
     text-align: center;
   }
   footer ul li:after {
+    margin-left: 0;
     content: '';
   }
 }
