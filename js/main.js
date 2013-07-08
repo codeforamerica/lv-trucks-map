@@ -3,9 +3,14 @@
 
     // CONFIGURATE DATA SOURCES
     var dataSource = 'dummy-data/data.json'
+    var APIServer = 'http://lv-food-trucks.herokuapp.com/api/'
+    var locationSource = APIServer + 'locations/search.geojson'
 //    var locationSource = 'dummy-data/locations.geojson'
-    var locationSource = 'http://lv-food-trucks.herokuapp.com/api/locations/search.geojson'
-    var vendorSource = 'http://lv-food-trucks.herokuapp.com/api/vendors.json'
+    var vendorSource = APIServer + 'vendors.json'
+
+    /*
+    APIServer + 'locations/' + location_id + '/time_slots.json'
+    */
 
     // LOAD SOME EXTERNAL DATAS
     var data = [],
@@ -84,11 +89,9 @@
 
 $(document).ready( function () {
 
-    // TRUCK INFO - Dragger
-    // $('#truck-info').draggable({ handle: '.truck-title', containment: '#main', cursor: '-webkit-grabbing !important'})
-
     // TRUCK HEADING - Hi-liter
     // Note on hiliters - consider using CSS3 transitions instead of jQuery?
+    /*
     var truckHeadingColor = $('.truck-heading').css('background-color'),
         truckHiliteColor = $('.truck-heading-hilite').css('background-color')
 
@@ -100,27 +103,17 @@ $(document).ready( function () {
         $(this).animate({
             backgroundColor: truckHeadingColor,
         }, 200 )
-    })
+    })*/
 
     // TRUCK HEADING - toggler for entries
     $('.truck-heading').click( function () {
         toggleTruckEntries($(this))
     })
 
-    // TRUCK ENTRY - Hi-liter
-    var entryBgColor = $('.truck-entry').css('background-color'),
-        entryHiliteColor = $('.truck-entry-hilite').css('background-color')
-
-    $('#truck-info').on('mouseenter', '.truck-entry', function () {
-        $(this).css('background-color', entryHiliteColor)
-    })
-    $('#truck-info').on('mouseleave', '.truck-entry', function () {
-        $(this).css('background-color', entryBgColor)
-    })
-
     // TRUCK ENTRY - Activate marker on click
     $('#truck-info').on('click', '.truck-entry', function () {
-        $(this).css('background-color', '#fffff0')
+        // need a better way of indicating a click flash.
+        // $(this).css('background-color', '#fffff0')
         var locationId = $(this).data('locationId')
         markers.eachLayer( function (marker) {
             if (marker.feature.id === locationId) {

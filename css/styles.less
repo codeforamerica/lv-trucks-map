@@ -200,6 +200,9 @@ header {
         &.active {
             background: @truck-heading-color url('../img/arrow-down.png') right 19px top 18px no-repeat;
         }
+        &:hover {
+            background-color: @truck-heading-hilite-color;
+        }
     }
     .truck-heading-border {
         border-bottom: 1px dotted lighten(@truck-heading-color, 10%);
@@ -216,6 +219,9 @@ header {
             .user-select(text);
             &:not(:last-child) {
                 border-bottom: 1px dotted #d9d9d9;
+            }
+            &:hover {
+                background-color: @truck-entry-hilite-color;
             }
             .truck-image {
                 height: 70px;
@@ -255,13 +261,6 @@ header {
             line-height: 10px;
         }
     }
-}
-
-.truck-heading-hilite {
-    background-color: @truck-heading-hilite-color;
-}
-.truck-entry-hilite {
-    background-color: @truck-entry-hilite-color;
 }
 
 footer {

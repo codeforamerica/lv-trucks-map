@@ -521,6 +521,9 @@ header #nav-logo a {
 #truck-info .truck-heading.active {
   background: #6c6c85 url('../img/arrow-down.png') right 19px top 18px no-repeat;
 }
+#truck-info .truck-heading:hover {
+  background-color: #818199;
+}
 #truck-info .truck-heading-border {
   border-bottom: 1px dotted #87879e;
 }
@@ -543,6 +546,9 @@ header #nav-logo a {
 }
 #truck-info .truck-entries .truck-entry:not(:last-child) {
   border-bottom: 1px dotted #d9d9d9;
+}
+#truck-info .truck-entries .truck-entry:hover {
+  background-color: #f0f0f0;
 }
 #truck-info .truck-entries .truck-entry .truck-image {
   height: 70px;
@@ -579,12 +585,6 @@ header #nav-logo a {
 }
 #truck-info .truck-entries .truck-message {
   line-height: 10px;
-}
-.truck-heading-hilite {
-  background-color: #818199;
-}
-.truck-entry-hilite {
-  background-color: #f0f0f0;
 }
 footer {
   height: 40px;
