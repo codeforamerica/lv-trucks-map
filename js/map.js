@@ -1,12 +1,21 @@
 // LV TRUCKS MAP - map-related Javascripts
 
+var mapStyle = GetQueryStringParams('m')
+
 // Initialize map & set initial location / view
 var map = L.mapbox.map('map')
     .setView([36.1665, -115.1479], 14)  // This will be overridden later when map bounds are set based on available markers.
-    .addLayer(L.mapbox.tileLayer('louh.map-vio2jxma', {
+
+if (mapStyle) {
+    // If a custom map style is required for testing
+    map.addLayer(L.mapbox.tileLayer(mapStyle))
+}
+else {
+    map.addLayer(L.mapbox.tileLayer('louh.map-vio2jxma', {
         detectRetina: true,
         retinaVersion: 'louh.map-2lywy8ei'
     }))
+}
 
 // Generate center offset amounts for different views
 var centerOffsetH = 0,
