@@ -89,22 +89,6 @@
 
 $(document).ready( function () {
 
-    // TRUCK HEADING - Hi-liter
-    // Note on hiliters - consider using CSS3 transitions instead of jQuery?
-    /*
-    var truckHeadingColor = $('.truck-heading').css('background-color'),
-        truckHiliteColor = $('.truck-heading-hilite').css('background-color')
-
-    $('.truck-heading').hover( function () {
-        $(this).animate({
-            backgroundColor: truckHiliteColor,
-        }, 200 )
-    }, function () {
-        $(this).animate({
-            backgroundColor: truckHeadingColor,
-        }, 200 )
-    })*/
-
     // TRUCK HEADING - toggler for entries
     $('.truck-heading').click( function () {
         toggleTruckEntries($(this))
@@ -138,7 +122,6 @@ $(document).ready( function () {
     $('#map').on('click', function () {
         $('.footer-popup').slideUp(200)
     })
-
 
     // INITIALISE!
     $('#truck-head-now').click()
@@ -275,6 +258,10 @@ function gatherData(truckID, locationID) {
         return data
 }
 
+
+/**
+ *   In case of application error, display error modal on page with message.
+ */
 
 function showError (message) {
 

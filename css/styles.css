@@ -517,6 +517,10 @@ header #nav-logo a {
   padding: 0 10px;
   cursor: hand;
   cursor: pointer;
+  -webkit-transition: background-color 0.2s ease;
+  -moz-transition: background-color 0.2s ease;
+  -o-transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease;
 }
 #truck-info .truck-heading.active {
   background: #6c6c85 url('../img/arrow-down.png') right 19px top 18px no-repeat;
