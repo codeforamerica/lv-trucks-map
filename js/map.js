@@ -17,13 +17,33 @@ else {
     }))
 }
 
+
+// MAP CENTER OFFSETS
 // Generate center offset amounts for different views
-var centerOffsetH = 0,
-    centerOffsetV = 0
+var centerOffset = [0, 0]
 
 if ($('#truck-data').is(':visible')) {
-    centerOffsetH = $('#truck-data').width() / 2
+    centerOffset[0] = $('#truck-data').width() / 2
 }
+if ($(window).width() < 530) {
+    centerOffset[1] = $(window).height() / 8
+}
+
+// Generate a new "center point" for marker positioning - NOT USED.
+/*
+var centerX = $(window).width() / 2,
+    centerY = $(window).height() / 2,
+    centerPoint = [centerX, centerY]
+
+if ($('#truck-data').is(':visible')) {
+    centerX = (($(window).width() - $('#truck-data').width()) / 2) + $('#truck-data').width()
+    centerPoint[0] = centerX
+}
+if ($(window).width() < 530) {
+    centerY = $(window).height() / 3
+    centerPoint[1] = centerY
+}
+*/
 
 
 // Map imagery attribution
@@ -121,14 +141,18 @@ var markers = L.mapbox.markerLayer(locations, {
 
     // Center marker on click
     marker.on('click', function (e) {
-        map.panTo(marker.getLatLng())
+        // Uses center offset to pan map center to an area off set from the actual marker point.
+        var markerPoint = map.latLngToContainerPoint(marker.getLatLng())
+        var newX = markerPoint.x - centerOffset[0]
+        var newY = markerPoint.y - centerOffset[1]
+        map.panTo(map.containerPointToLatLng([newX, newY]))
     })
 
 }).addTo(map)
 
 // Set the bounding area for the map
 map.fitBounds(markers.getBounds().pad(0.5), {
-    paddingTopLeft: [centerOffsetH, centerOffsetV]
+    paddingTopLeft: centerOffset
 })
 map.setMaxBounds(markers.getBounds().pad(6))
 
@@ -161,6 +185,12 @@ map.on('locationfound', function (e) {
             'title': '<div style=\'text-align: center; margin: 0 10px\'>You are here</div>'
         }
     })
+})
+
+
+$(window).on('resize', function (e) {
+    // This is in case we need to do anything to the map if window gets resized.
+    map.invalidateSize()
 })
 
 // Popups test

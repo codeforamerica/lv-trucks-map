@@ -143,21 +143,37 @@ $(document).ready( function () {
     // TIME & DATE HIJINKS
     var now = new Date()
 
-
-
     // TRUCK HEADING - toggler for entries
     $('.truck-heading').click( function () {
         toggleTruckEntries($(this))
     })
 
     // TRUCK ENTRY - Activate marker on click
+
+    // repeating center offset code from map.js
+    var centerOffset = [0, 0]
+
+    if ($('#truck-data').is(':visible')) {
+        centerOffset[0] = $('#truck-data').width() / 2
+    }
+    if ($(window).width() < 530) {
+        centerOffset[1] = $(window).height() / 8
+    }
+
     $('#truck-info').on('click', '.truck-entry', function () {
         // need a better way of indicating a click flash.
         // $(this).css('background-color', '#fffff0')
         var locationId = $(this).data('locationId')
         markers.eachLayer( function (marker) {
             if (marker.feature.id === locationId) {
-                map.panTo(marker.getLatLng())
+
+                // Pan to offset location (copied from map.js - how to make this piece of code DRY?
+                var markerPoint = map.latLngToContainerPoint(marker.getLatLng())
+                var newX = markerPoint.x - centerOffset[0]
+                var newY = markerPoint.y - centerOffset[1]
+                map.panTo(map.containerPointToLatLng([newX, newY]))
+
+                // Open popup
                 marker.openPopup()
             }
         })
@@ -197,7 +213,7 @@ $(document).ready( function () {
     }
 
     $('.leaflet-control-attribution a').on('click', function() {
-        if ($(window).width() < 525) {
+        if ($(window).width() < 529) {
             return false
         }
     })
@@ -309,24 +325,24 @@ function makePopup(calendar) {
 
 function gatherData(truckID, locationID) {
 
-        var data = {}
+    var data = {}
 
-        for (j = 0; j < trucks.length; j++) {
-            if (trucks[j].id == truckID) {
-                data.truck = trucks[j]
-                break
-            }
+    for (j = 0; j < trucks.length; j++) {
+        if (trucks[j].id == truckID) {
+            data.truck = trucks[j]
+            break
         }
+    }
 
-        for (k = 0; k < locations.features.length; k++) {
-            if (locations.features[k].id == locationID) {
-                data.location = locations.features[k].properties
-                data.location.id = locations.features[k].id
-                break
-            }
+    for (k = 0; k < locations.features.length; k++) {
+        if (locations.features[k].id == locationID) {
+            data.location = locations.features[k].properties
+            data.location.id = locations.features[k].id
+            break
         }
+    }
 
-        return data
+    return data
 }
 
 

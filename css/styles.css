@@ -363,7 +363,7 @@ body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 13px;
 }
-@media screen and (max-width: 529px), screen and (min-width: 520px) and (max-width: 767px), screen and (max-width: 767px) and (orientation: landscape) {
+@media screen and (max-width: 529px), screen and (min-width: 530px) and (max-width: 767px), screen and (max-width: 767px) and (orientation: landscape) {
   html,
   body {
     overflow: hidden;
@@ -379,7 +379,7 @@ body {
   height: 100%;
   position: absolute;
 }
-@media screen and (max-width: 529px), screen and (min-width: 520px) and (max-width: 767px) {
+@media screen and (max-width: 529px), screen and (min-width: 530px) and (max-width: 767px) {
   #map {
     margin-top: 38px;
     margin-bottom: 40px;
@@ -389,7 +389,7 @@ body {
   width: 90%;
   margin: 0 auto;
 }
-@media screen and (max-width: 529px), screen and (min-width: 520px) and (max-width: 767px) {
+@media screen and (max-width: 529px), screen and (min-width: 530px) and (max-width: 767px) {
   .container {
     width: 100%;
   }
@@ -424,7 +424,7 @@ header #nav-logo a {
   height: 100px;
   margin: 0 auto;
 }
-@media screen and (max-width: 529px), screen and (min-width: 520px) and (max-width: 767px), screen and (max-width: 767px) and (orientation: landscape) {
+@media screen and (max-width: 529px), screen and (min-width: 530px) and (max-width: 767px), screen and (max-width: 767px) and (orientation: landscape) {
   header #nav-logo {
     width: 80px;
     height: 100px;
@@ -471,7 +471,7 @@ header #nav-logo a {
   -o-user-select: none;
   user-select: none;
 }
-@media screen and (max-width: 529px), screen and (min-width: 520px) and (max-width: 767px) {
+@media screen and (max-width: 529px), screen and (min-width: 530px) and (max-width: 767px) {
   #truck-info {
     width: 100%;
   }
@@ -495,7 +495,7 @@ header #nav-logo a {
   background: transparent url('../img/truck-icon.png') left top 9px no-repeat;
   background-size: 36px 20px;
 }
-@media screen and (max-width: 529px), screen and (min-width: 520px) and (max-width: 767px), screen and (max-width: 767px) and (orientation: landscape) {
+@media screen and (max-width: 529px), screen and (min-width: 530px) and (max-width: 767px), screen and (max-width: 767px) and (orientation: landscape) {
   #truck-info .truck-title h1 {
     line-height: 18px;
     font-size: 14px;
@@ -504,12 +504,12 @@ header #nav-logo a {
     background-position: left top 2px;
   }
 }
-@media screen and (max-width: 529px), screen and (min-width: 520px) and (max-width: 767px), screen and (max-width: 767px) and (orientation: landscape) {
+@media screen and (max-width: 529px), screen and (min-width: 530px) and (max-width: 767px), screen and (max-width: 767px) and (orientation: landscape) {
   #truck-info .truck-title {
     height: 18px;
   }
 }
-@media screen and (max-width: 529px), screen and (min-width: 520px) and (max-width: 767px) {
+@media screen and (max-width: 529px), screen and (min-width: 530px) and (max-width: 767px) {
   #truck-info #truck-data {
     display: none;
   }
@@ -615,7 +615,7 @@ footer {
   /* Responsive footer button set */
 
 }
-@media screen and (max-width: 529px), screen and (min-width: 520px) and (max-width: 767px), screen and (min-width: 768px) and (max-width: 900px) {
+@media screen and (max-width: 529px), screen and (min-width: 530px) and (max-width: 767px), screen and (min-width: 768px) and (max-width: 900px) {
   footer #footer-wide {
     display: none;
   }
@@ -623,7 +623,7 @@ footer {
 footer #footer-mid {
   display: none;
 }
-@media screen and (min-width: 520px) and (max-width: 767px), screen and (min-width: 768px) and (max-width: 900px) {
+@media screen and (min-width: 530px) and (max-width: 767px), screen and (min-width: 768px) and (max-width: 900px) {
   footer #footer-mid {
     display: block;
   }
@@ -676,7 +676,7 @@ footer ul li:after {
     content: '';
   }
 }
-@media screen and (min-width: 520px) and (max-width: 767px), screen and (min-width: 768px) and (max-width: 900px) {
+@media screen and (min-width: 530px) and (max-width: 767px), screen and (min-width: 768px) and (max-width: 900px) {
   
 }
 #footer-elements {
@@ -714,7 +714,7 @@ div.footer-popup .footer-popup-close {
   cursor: pointer;
   font-size: 24px;
 }
-@media screen and (max-width: 529px), screen and (min-width: 520px) and (max-width: 767px), screen and (max-width: 767px) and (orientation: landscape) {
+@media screen and (max-width: 529px), screen and (min-width: 530px) and (max-width: 767px), screen and (max-width: 767px) and (orientation: landscape) {
   div.footer-popup .footer-popup-close {
     top: 0px;
   }
@@ -730,7 +730,7 @@ div.footer-popup .footer-popup-title h2 {
   padding: 0;
   margin: 0;
 }
-@media screen and (max-width: 529px), screen and (min-width: 520px) and (max-width: 767px), screen and (max-width: 767px) and (orientation: landscape) {
+@media screen and (max-width: 529px), screen and (min-width: 530px) and (max-width: 767px), screen and (max-width: 767px) and (orientation: landscape) {
   div.footer-popup .footer-popup-title {
     height: 18px;
     padding: 8px 20px;
@@ -744,7 +744,7 @@ div.footer-popup .footer-popup-content {
   padding: 0 40px 50px 25px;
   line-height: 150%;
 }
-@media screen and (max-width: 529px), screen and (min-width: 520px) and (max-width: 767px), screen and (max-width: 767px) and (orientation: landscape) {
+@media screen and (max-width: 529px), screen and (min-width: 530px) and (max-width: 767px), screen and (max-width: 767px) and (orientation: landscape) {
   div.footer-popup .footer-popup-content {
     font-size: 11px;
     padding: 0 20px 50px;
@@ -922,7 +922,7 @@ div.footer-popup .footer-popup-content {
   margin-left: 360px;
   margin-top: 0px;
 }
-@media screen and (max-width: 529px), screen and (min-width: 520px) and (max-width: 767px), screen and (max-width: 767px) and (orientation: landscape) {
+@media screen and (max-width: 529px), screen and (min-width: 530px) and (max-width: 767px), screen and (max-width: 767px) and (orientation: landscape) {
   .leaflet-top {
     margin-left: 0;
   }
