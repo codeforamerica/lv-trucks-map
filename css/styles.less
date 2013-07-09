@@ -70,11 +70,12 @@ html, body {
 
 #map {
     width: 100%;
-    height: 100%;
+    height: auto;
     position: absolute;
+    top: 0;
+    bottom: @footer-height;
     @media @mobile, @tablet {
-        margin-top: 38px;
-        margin-bottom: @footer-height;
+        top: 38px;
     }
 }
 
@@ -516,7 +517,6 @@ div.footer-popup {
 // LEAFLET OVERRIDES
 
 .leaflet-bottom {
-    margin-bottom: @footer-height;
 }
 .leaflet-top {
     margin-left: 380px;
