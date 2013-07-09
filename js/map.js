@@ -1,6 +1,16 @@
 // LV TRUCKS MAP - map-related Javascripts
 
-var mapStyle = GetQueryStringParams('m')
+var mapStyle = getQueryStringParams('m')
+
+// Extend map with a variant of map.panTo() method to accept center offset
+L.Map.prototype.panToOffset = function (latlng, offset, options) {
+    var x = this.latLngToContainerPoint(latlng).x - offset[0]
+    var y = this.latLngToContainerPoint(latlng).y - offset[1]
+    var point = this.containerPointToLatLng([x, y])
+    return this.setView(point, this._zoom, { pan: options })
+}
+
+var centerOffset = getCenterOffset()
 
 // Initialize map & set initial location / view
 var map = L.mapbox.map('map')
@@ -16,35 +26,6 @@ else {
         retinaVersion: 'louh.map-2lywy8ei'
     }))
 }
-
-
-// MAP CENTER OFFSETS
-// Generate center offset amounts for different views
-var centerOffset = [0, 0]
-
-if ($('#truck-data').is(':visible')) {
-    centerOffset[0] = $('#truck-data').width() / 2
-}
-if ($(window).width() < 530) {
-    centerOffset[1] = $(window).height() / 8
-}
-
-// Generate a new "center point" for marker positioning - NOT USED.
-/*
-var centerX = $(window).width() / 2,
-    centerY = $(window).height() / 2,
-    centerPoint = [centerX, centerY]
-
-if ($('#truck-data').is(':visible')) {
-    centerX = (($(window).width() - $('#truck-data').width()) / 2) + $('#truck-data').width()
-    centerPoint[0] = centerX
-}
-if ($(window).width() < 530) {
-    centerY = $(window).height() / 3
-    centerPoint[1] = centerY
-}
-*/
-
 
 // Map imagery attribution
 // Note that mapbox.js provides its own separate attribution, which I don't know how to edit, so I've hidden it with CSS (super hacky!) 
@@ -139,15 +120,6 @@ var markers = L.mapbox.markerLayer(locations, {
         autoPanPadding: [30, 20]
     })
 
-    // Center marker on click
-    marker.on('click', function (e) {
-        // Uses center offset to pan map center to an area off set from the actual marker point.
-        var markerPoint = map.latLngToContainerPoint(marker.getLatLng())
-        var newX = markerPoint.x - centerOffset[0]
-        var newY = markerPoint.y - centerOffset[1]
-        map.panTo(map.containerPointToLatLng([newX, newY]))
-    })
-
 }).addTo(map)
 
 // Set the bounding area for the map
@@ -160,6 +132,16 @@ map.setMaxBounds(markers.getBounds().pad(6))
 markers.on('mouseover', function (e) {
     e.layer.openPopup()
 })
+// Center marker on click
+/*
+marker.on('click', function (e) {
+    e.target.openPopup()
+})*/
+markers.on('click', function (e) {
+    map.panToOffset(e.layer.getLatLng(), getCenterOffset())
+    e.layer.openPopup()
+})
+
 
 // GEOLOCATE!
 // This uses the HTML5 geolocation API, which is available on
@@ -182,7 +164,7 @@ map.on('locationfound', function (e) {
             'marker-size': 'large',
             'marker-color': '#cd0000',
             'marker-symbol': 'star-stroked',
-            'title': '<div style=\'text-align: center; margin: 0 10px\'>You are here</div>'
+            'title': '<div id=\'popup-here\'>You are here</div>'
         }
     })
 })

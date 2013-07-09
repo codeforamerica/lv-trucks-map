@@ -149,17 +149,6 @@ $(document).ready( function () {
     })
 
     // TRUCK ENTRY - Activate marker on click
-
-    // repeating center offset code from map.js
-    var centerOffset = [0, 0]
-
-    if ($('#truck-data').is(':visible')) {
-        centerOffset[0] = $('#truck-data').width() / 2
-    }
-    if ($(window).width() < 530) {
-        centerOffset[1] = $(window).height() / 8
-    }
-
     $('#truck-info').on('click', '.truck-entry', function () {
         // need a better way of indicating a click flash.
         // $(this).css('background-color', '#fffff0')
@@ -168,10 +157,7 @@ $(document).ready( function () {
             if (marker.feature.id === locationId) {
 
                 // Pan to offset location (copied from map.js - how to make this piece of code DRY?
-                var markerPoint = map.latLngToContainerPoint(marker.getLatLng())
-                var newX = markerPoint.x - centerOffset[0]
-                var newY = markerPoint.y - centerOffset[1]
-                map.panTo(map.containerPointToLatLng([newX, newY]))
+                map.panToOffset(marker.getLatLng(), getCenterOffset())
 
                 // Open popup
                 marker.openPopup()
@@ -347,6 +333,25 @@ function gatherData(truckID, locationID) {
 
 
 /**
+ *   Get center offset of map
+ */
+
+function getCenterOffset () {
+
+    var centerOffset = [0, 0]
+
+    if ($('#truck-data').is(':visible')) {
+        centerOffset[0] = $('#truck-data').width() / 2
+    }
+    if ($(window).width() < 530) {
+        centerOffset[1] = $(window).height() / 8
+    }
+
+    return centerOffset
+
+ }
+
+/**
  *   In case of application error, display error modal on page with message.
  */
 
@@ -363,7 +368,7 @@ function showError (message) {
 *    Get query string for various options
 */ 
 
-function GetQueryStringParams(sParam) {
+function getQueryStringParams(sParam) {
     var sPageURL = window.location.search.substring(1);
     var sURLVariables = sPageURL.split('&');
     for (var i = 0; i < sURLVariables.length; i++) {

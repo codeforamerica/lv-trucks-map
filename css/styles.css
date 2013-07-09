@@ -492,8 +492,9 @@ header #nav-logo a {
   font-size: 24px;
   line-height: 36px;
   font-weight: normal;
-  background: transparent url('../img/truck-icon.png') left top 9px no-repeat;
+  background: transparent url('../img/truck-icon.png') no-repeat;
   background-size: 36px 20px;
+  background-position: left top 9px;
 }
 @media screen and (max-width: 529px), screen and (min-width: 530px) and (max-width: 767px), screen and (max-width: 767px) and (orientation: landscape) {
   #truck-info .truck-title h1 {
@@ -501,7 +502,7 @@ header #nav-logo a {
     font-size: 14px;
     padding-left: 32px;
     background-size: 25px 14px;
-    background-position: left top 2px;
+    background-position: left top 3px;
   }
 }
 @media screen and (max-width: 529px), screen and (min-width: 530px) and (max-width: 767px), screen and (max-width: 767px) and (orientation: landscape) {
@@ -965,6 +966,10 @@ div.footer-popup .footer-popup-content {
 }
 .leaflet-popup-content {
   margin: 0 !important;
+}
+#popup-here {
+  text-align: center;
+  margin: 0 10px;
 }
 .typcn {
   font-size: 190%;
