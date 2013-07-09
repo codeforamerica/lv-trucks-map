@@ -25,51 +25,6 @@ if ($('#truck-data').is(':visible')) {
     centerOffsetH = $('#truck-data').width() / 2
 }
 
-/*
-if ($('#truck-data').is(':visible')) {
-    centerOffsetH = $('#truck-data').width()
-} else {
-    centerOffsetV = $(window).height() / 4
-}
-
-// See here for source and discussion of following mixin
-// https://github.com/Leaflet/Leaflet/issues/859
-MapCenterOffsetMixin = {
-    UIOffset: [centerOffsetH, centerOffsetV], // x, y
-    getBounds: function(){
-        var a=this.getPixelBounds(),
-            b=this.unproject(new L.Point(a.min.x+this.UIOffset[0],a.max.y+this.UIOffset[1]), this._zoom,!0),
-            c=this.unproject(new L.Point(a.max.x,a.min.y),this._zoom,!0);
-            return new L.LatLngBounds(b,c)
-    },
-    _latLngToNewLayerPoint: function (latlng, newZoom, newCenter) {
-        var targetPoint = this.project(newCenter, newCenter).subtract([this.UIOffset[0]/2, this.UIOffset[1]/2]),
-            newCenter = this.unproject(targetPoint, newZoom);
-        var topLeft = this._getNewTopLeftPoint(newCenter, newZoom).add(this._getMapPanePos());
-        return this.project(latlng, newZoom)._subtract(topLeft);
-    },
-    _getCenterLayerPoint: function () {
-        return this.containerPointToLayerPoint(this.getSize().divideBy(2).add([this.UIOffset[0]/2, this.UIOffset[1]/2]));
-    },
-    _resetView: function (a, b, c, d) {
-        var e = this._zoom !== b;
-        // Change the center
-        var targetPoint = this.project(a, b).subtract([this.UIOffset[0] / 2, this.UIOffset[1]/2]),
-            a = this.unproject(targetPoint, b);
-        d || (this.fire("movestart"), e && this.fire("zoomstart")), this._zoom = b, this._initialTopLeftPoint = this._getNewTopLeftPoint(a);
-        if (!c) L.DomUtil.setPosition(this._mapPane, new L.Point(0, 0));
-        else {
-            var f = L.DomUtil.getPosition(this._mapPane);
-            this._initialTopLeftPoint._add(f)
-        }
-        this._tileLayersToLoad = this._tileLayersNum, this.fire("viewreset", {
-            hard: !c
-        }), this.fire("move"), (e || d) && this.fire("zoomend"), this.fire("moveend"), this._loaded || (this._loaded = !0, this.fire("load"))
-    }
-}
-
-L.Map.include(MapCenterOffsetMixin);
-*/
 
 // Map imagery attribution
 // Note that mapbox.js provides its own separate attribution, which I don't know how to edit, so I've hidden it with CSS (super hacky!) 
@@ -161,7 +116,7 @@ var markers = L.mapbox.markerLayer(locations, {
     marker.bindPopup(popupHTML, {
         closeButton: false,
         minWidth: 200,
-        autoPanPadding: [20, 40]
+        autoPanPadding: [30, 20]
     })
 
     // Center marker on click
