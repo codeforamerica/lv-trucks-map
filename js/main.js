@@ -1,21 +1,34 @@
 (function() { 
   document.data = function() {
 
+    var now = new Date()
+
     // CONFIGURATE DATA SOURCES
-    var dataSource = 'dummy-data/data.json'
     var APIServer = 'http://lv-food-trucks.herokuapp.com/api/'
+
+    // Dummy data sources
+    var dataSource = 'dummy-data/data.json'
+    // var locationSource = 'dummy-data/locations.geojson'
+
+    // Data sources
+//    var timeslotsSource = APIServer + 'locations/{x}/time_slots.json'
     var locationSource = APIServer + 'locations/search.geojson'
-//    var locationSource = 'dummy-data/locations.geojson'
     var vendorSource = APIServer + 'vendors.json'
 
     /*
+    var timeslotsSource = APIServer + 'locations/1/time_slots/search.json?q%5Bstart_at_gt%5D=' + now.toJSON()
     APIServer + 'locations/' + location_id + '/time_slots.json'
+    http://www.timeapi.org/pst/now
+
+
+    http://lv-food-trucks.herokuapp.com/api/locations/1/time_slots/search.json?q%5Bstart_at_gt%5D=2013-07-01T00:00:00Z
     */
 
     // LOAD SOME EXTERNAL DATAS
     var data = [],
         vendors = [],
-        locations = []
+        locations = [],
+        timeslots = []
 
     // Note: true async does not work with cross-domain requests.
     $.ajax({
@@ -43,6 +56,31 @@
         }
     })
 
+    for (i = 0; i < locations.features.length; i++) {
+
+        var locationId = locations.features[i].id
+        var timeslotSource = APIServer + 'locations/' + locationId + '/time_slots.json'
+
+        $.ajax({
+            url: timeslotSource,
+            async: false,
+            dataType: 'json',
+            success: function (data) {
+               console.log(data.length)
+               // why is this an infinite loop??
+/*                for (i = 0; i < data.length; i++) {
+//                    timeslots[timeslots.length] = data[i]
+                    console.log(data[i])
+                }
+                */
+
+            },
+            error: function (i) {
+                showError('We couldn\'t retrieve time slots at this time.')
+            }
+        })
+    }
+
     $.ajax({
         url: dataSource,
         async: false,
@@ -66,7 +104,19 @@
             showError('We couldn\'t retrieve vendor information at this time.')
         }
     })
-
+/*
+    $.ajax({
+        url: calendarSource,
+        async: false,
+        dataType: 'json',
+        success: function (i) {
+            calendar = i
+         },
+        error: function (i) {
+            showError('We couldn\'t retrieve calendar information at this time.')
+        }
+    })
+*/
     var sort_by = function(field, reverse, primer) {
 
        var key = function (x) {return primer ? primer(x[field]) : x[field]};
@@ -81,13 +131,19 @@
     return {
         locations: locations,
         trucks: vendors.sort(sort_by('name', true, function(a){return a.toUpperCase()})),
-        calendar: data.calendar
+        calendar: data.calendar,
+        timeslots: timeslots
     }
 
   }
 })();
 
 $(document).ready( function () {
+
+    // TIME & DATE HIJINKS
+    var now = new Date()
+
+
 
     // TRUCK HEADING - toggler for entries
     $('.truck-heading').click( function () {
@@ -126,11 +182,12 @@ $(document).ready( function () {
     // INITIALISE!
     $('#truck-head-now').click()
 
+    // Populate truck entries
     displayTruckEntries(calendar.now, '#truck-info-now')
     displayTruckEntries(calendar.later, '#truck-info-later')
     displayTruckEntries(calendar.muchlater, '#truck-info-muchlater')
 
-// temp disabled while i figure out how to make custom popups
+    // temp disabled while i figure out how to make custom popups
     // makePopup(calendar.now)
 
     // Populate footer elements
@@ -145,20 +202,17 @@ $(document).ready( function () {
         }
     })
 
+
 })
 
+/**
+ *   Shows or hides trucks under each section of trucks data panel
+ */
+
 function toggleTruckEntries(clickedHeading) {
+
     var entries = clickedHeading.next('.truck-entries')
-    /*
-    if ($('.truck-entries').is(':visible')) {
-        $(this).slideUp(200)
-        $(this).addClass('truck-heading-border')
-        $(this).removeClass('active')
-    }
-    entries.slideDown(200)
-    clickedHeading.removeClass('truck-heading-border')
-    clickedHeading.addClass('active')
-    */
+
     if ( entries.is(':visible') ) {
         entries.slideUp(200)
         clickedHeading.addClass('truck-heading-border')
@@ -168,7 +222,12 @@ function toggleTruckEntries(clickedHeading) {
         clickedHeading.removeClass('truck-heading-border')
         clickedHeading.addClass('active')
     }
+
 }
+
+/**
+ *   Shows or hides a footer element
+ */
 
 function toggleFooterPopup(popup, clicked) {
 
@@ -202,6 +261,10 @@ function toggleFooterPopup(popup, clicked) {
     }
 }
 
+/**
+ *   Display calendar entries
+ */
+
 function displayTruckEntries(calendar, section) {
 
     var mTruckEntry = $('#m-truck-entry').html()
@@ -220,6 +283,10 @@ function displayTruckEntries(calendar, section) {
     $(section).html(Mustache.render(mTruckEntry, trucksObject))
 }
 
+/**
+ *   This is for the old popup format, I think
+ */
+
 function makePopup(calendar) {
 
     var mPopup = $('#m-popup').html()
@@ -235,6 +302,10 @@ function makePopup(calendar) {
     }
 
 }
+
+/**
+ *   ???
+ */
 
 function gatherData(truckID, locationID) {
 

@@ -106,7 +106,7 @@ header {
         position: fixed;
         background: transparent url('../img/clv-logo-tag-240.png') center 0 no-repeat;
         background-size: 120px 150px;
-        h1 {
+        h2 {
             display: none;
         }
         a {
@@ -169,19 +169,26 @@ header {
     }
     .truck-title {
         background-color: darken(@truck-heading-color, 10%);
-        font-size: 24px;
         height: 36px;
-        line-height: 36px;
         padding: 10px;
-        @media @tablet, @landscape {
-            height: 18px;
-            line-height: 18px;
-            font-size: 14px;
+        h1 {
+            margin: 0;
+            padding: 0 0 0 50px;
+            font-size: 24px;
+            line-height: 36px;
+            font-weight: normal;
+            background: transparent url('../img/truck-icon.png') left top 9px no-repeat;
+            background-size: 36px 20px;
+            @media @mobile, @tablet, @landscape {
+                line-height: 18px;
+                font-size: 14px;
+                padding-left: 32px;
+                background-size: 25px 14px;
+                background-position: left top 2px;
+            }
         }
-        @media @mobile {
+        @media @mobile, @tablet, @landscape {
             height: 18px;
-            line-height: 18px;
-            font-size: 14px;
         }
     }
     #truck-data {
