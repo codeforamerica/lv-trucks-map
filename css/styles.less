@@ -31,6 +31,8 @@
 @truck-entry-bgcolor:           white;
 @truck-entry-hilite-color:      rgb(240,240,240);
 
+@time-background:       #5c8f54;
+
 // MEDIA QUERY WIDTHS
 
 @mobile:                ~'screen and (max-width: 529px)';
@@ -259,7 +261,7 @@ header {
                 }
             }
             span.time {
-                background-color: #5c8f54;
+                background-color: @time-background;
                 border-radius: 4px;
                 float: right;
                 margin-top: -56px;
@@ -428,96 +430,31 @@ div.footer-popup {
 #feedback {
 }
 
-#popup {
-    position: relative;
-    left: 50%;
-    z-index: 1000;
+#popup-leaflet {
     .user-select(none);
     .popup-tag {
-        display: inline;
+        display: inline-block;
         height: 11px;
         line-height: 11px;
-        background-color: @truck-heading-color;
+        background-color: @time-background;
         color: white;
-        font-size: 11px;
-        padding: 6px 10px;
-        font-family: @display-font;
-        border-top-right-radius: 2px;
-        border-top-left-radius: 2px;
+        font-size: 12px;
+        padding: 6px 8px;
     }
     .popup-info {
-        margin-top: 4px;
-        width: 300px;
-        box-shadow: 0 8px 8px rgba(0,0,0,0.5);
-        .user-select(text);
-        .popup-truck {
-            .truck-image {
-                // duplicated from #truck-info
-                height: 50px;
-                width: 50px;
-                float: left;
-                margin-right: 10px;
-                margin-top: 4px;
-                background-color: #f1f1f1;
-            }
-            padding: 10px;
-            background-color: white;
-            height: 80px;
-            border-top-right-radius: 2px;
-        }
-        .popup-location {
-            padding: 1px 10px;
-            background-color: @truck-heading-color;
-            color: white;
-            border-bottom-left-radius: 1px;
-            border-bottom-right-radius: 1px;
-        }
-        h3 {
-            margin: 0;
-            padding: 0;
-        }
-        @media @mobile {
-            max-width: 250px;
-        }
-    }
-    &:after {
-        width: 24px;
-        height: 24px;
-        display: block;
-        position: relative;
-        left: 70px;
-        top: -12px;
-        background-color: @truck-heading-color;
-        content: '';
-        .rotate(45deg);
-    }
-}
-
-#popleaf {
-    .user-select(none);
-    .popup-tag {
-        display: inline;
-        height: 11px;
-        line-height: 11px;
-        background-color: @truck-heading-color;
-        color: white;
-        font-size: 11px;
-        padding: 6px 10px;
-        font-family: @display-font;
-    }
-    .popup-info {
-        margin-top: 4px;
         max-width: @popup-width;
         .user-select(text);
         .popup-truck {
             .truck-image {
             }
-            padding: 10px;
-            background-color: white;
-            height: 20px;
+            line-height: 120%;
+            padding: 8px;
+            small {
+                color: #888;
+            }
         }
         .popup-location {
-            padding: 10px 10px;
+            padding: 8px;
             border-top: 1px solid lighten(@truck-heading-color, 30%);
             .address {
                 color: #888;
@@ -614,9 +551,9 @@ div.footer-popup {
     margin: 0 !important;
 }
 
-#popup-here {
+.popup-message {
     text-align: center;
-    margin: 0 10px
+    padding: 4px 8px;
 }
 
 // TYPICON SIZE OVERRIDE

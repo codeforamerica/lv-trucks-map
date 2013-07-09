@@ -209,10 +209,10 @@
             </div>
             <!-- // end Mustasche - Truck Entries -->
 
-            <!-- Mustache - Popups - Custom version-->
-            <div id='popup-template' style='display: none'>
-            <script id='m-popup' type='text/template'>
-                <div id='popup'>
+            <!-- Mustache - Popups - Leaflet version-->
+            <div id='popleaf-template' style='display: none'>
+            <script id='m-popleaf' type='text/template'>
+                <div id='popup-leaflet'>
                     <div class='popup-tag'>
                         Open now until {{calendar.until}}
                     </div>
@@ -220,33 +220,6 @@
                         <div class='popup-truck'>
                             <!-- div class='truck-image' style='background: #f1f1f1 url("{{truck.logo_url}}") no-repeat'></div -->
                             <div>
-                                <h3>{{truck.name}}</h3>
-                                <small>{{truck.cuisine}}</small>
-                            </div>
-                        </div>
-                        <div class='popup-location'>
-                        <p>
-                            <strong>{{feature.properties.name}}</strong>
-                            <br><small>{{feature.properties.addressShort}}</small>
-                        </p>
-                        </div>
-                    </div>
-                </div>
-            </script>
-            </div>
-            <!-- // end Mustache - Popups Custom -->
-
-            <!-- Mustache - Popups - Leaflet version-->
-            <div id='popleaf-template' style='display: none'>
-            <script id='m-popleaf' type='text/template'>
-                <div id='popleaf'>
-                    <div class='popup-tag'>
-                        Open now until {{calendar.until}}
-                    </div>
-                    <div class='popup-info'>
-                        <div class='popup-truck'>
-                            <!-- div class='truck-image' style='background: #f1f1f1 url("{{truck.logo_url}}") no-repeat'></div -->
-                            <div style='float: left; width: 220px'>
                                 <h3>{{truck.name}}</h3>
                                 <small>{{truck.cuisine}}</small>
                             </div>

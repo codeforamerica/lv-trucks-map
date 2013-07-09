@@ -100,11 +100,6 @@
                 "truck": 2,
                 "at": 2,
                 "until": "2:30pm"
-            },
-            {
-                "truck": 7,
-                "at": 3,
-                "until": "4pm"
             }
         ],
         "later": [

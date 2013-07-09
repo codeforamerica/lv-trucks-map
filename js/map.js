@@ -103,10 +103,10 @@ var markers = L.mapbox.markerLayer(locations, {
     }
 
     // Popup construction and marker on
-    var popupHTML = 'No truck at <strong>' + marker.feature.properties.name + '</strong><br>' + marker.feature.properties.address
+    var popupHTML = '<div class=\'popup-message\'>No truck at <br><strong>' + marker.feature.properties.name + '</strong></div>'
     if (marker.truck) {
-        // var popupHTML = '<strong>' + marker.truck.name + '</strong> is at <strong>' + marker.feature.properties.name + '</strong><br><span class=\'typcn typcn-location-arrow-outline\'></span>' + marker.feature.properties.address + '<br>until ' + marker.calendar.until
-        
+
+        // Generate popup information through Mustache template        
         var mPopleaf = $('#m-popleaf').html()
         var popupHTML = Mustache.render(mPopleaf, marker)
 
@@ -155,7 +155,7 @@ map.on('locationfound', function (e) {
             'marker-size': 'large',
             'marker-color': '#cd0000',
             'marker-symbol': 'star-stroked',
-            'title': '<div id=\'popup-here\'>You are here</div>'
+            'title': '<div class=\'popup-message\'>You are here</div>'
         }
     })
 })
