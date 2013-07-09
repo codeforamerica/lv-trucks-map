@@ -213,15 +213,19 @@ $(document).ready( function () {
 
 function toggleTruckEntries(clickedHeading) {
 
-    var entries = clickedHeading.next('.truck-entries')
-
-    if ( entries.is(':visible') ) {
-        entries.slideUp(200)
-        clickedHeading.addClass('truck-heading-border')
+    // if clicked heading is currently open, just close it
+    if (clickedHeading.next('.truck-entries').is(':visible')) {
         clickedHeading.removeClass('active')
-    } else {
-        entries.slideDown(200)
-        clickedHeading.removeClass('truck-heading-border')
+        $('.truck-entries').slideUp(200)
+    }
+
+    // otherwise, close other open headings (if any) and open the one that's clicked
+    else {
+        if ($('.truck-entries').is(':visible')) {
+            $('.truck-entries').prev('.truck-heading').removeClass('active')
+            $('.truck-entries').slideUp(200)
+        }
+        clickedHeading.next('.truck-entries').slideDown(200)
         clickedHeading.addClass('active')
     }
 
