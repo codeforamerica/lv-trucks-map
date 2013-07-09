@@ -147,19 +147,20 @@ header {
 #truck-info {
     width: 360px;
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 20px;
+    left: 20px;
     z-index: 1200;
     box-shadow: 0 0 20px rgba(0,0,0,0.75);
     background-color: white;
     color: black;
     font-size: 11px;
-    max-height: 95%;
+    max-height: 90%;
     overflow: auto;
     .user-select(none);
-
-    @media @mobile, @tablet {
+    @media @mobile, @tablet, @landscape {
         width: 100%;
+        top: 0;
+        left: 0;
     }
     .truck-title, .truck-heading {
         font-family: @display-font;
@@ -569,10 +570,11 @@ div.footer-popup {
     margin-bottom: @footer-height;
 }
 .leaflet-top {
-    margin-left: 360px;
-    margin-top: 0px;
+    margin-left: 380px;
+    margin-top: 10px;
     @media @mobile, @tablet, @landscape {
         margin-left: 0;
+        margin-top: 0;
     }
 }
 .leaflet-top, .leaflet-bottom {

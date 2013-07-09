@@ -174,28 +174,3 @@ $(window).on('resize', function (e) {
     // This is in case we need to do anything to the map if window gets resized.
     map.invalidateSize()
 })
-
-// Popups test
-/*
-markers.on('click',function (e) {
-    e.layer.unbindPopup();
-
-    var mPopup = $('#m-popup').html()
-    var popupObject = {}
-
-    var i = 1
-
-    var feature = e.layer.feature;
-    popupObject.location = feature.properties.name
-    popupObject.address = feature.properties.address
-    popupObject.name = trucks[i].name
-    popupObject.until = trucks[i].until
-
-    $('#popup-layer').html(Mustache.render(mPopup, popupObject))
-    $('#popup').fadeIn(200)
-});
-// Clear the tooltip when map is clicked
-map.on('click',function (e) {
-    $('#popup').fadeOut(200)
-});
-*/

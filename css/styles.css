@@ -456,14 +456,14 @@ header #nav-logo a {
 #truck-info {
   width: 360px;
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 20px;
+  left: 20px;
   z-index: 1200;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.75);
   background-color: white;
   color: black;
   font-size: 11px;
-  max-height: 95%;
+  max-height: 90%;
   overflow: auto;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -471,9 +471,11 @@ header #nav-logo a {
   -o-user-select: none;
   user-select: none;
 }
-@media screen and (max-width: 529px), screen and (min-width: 530px) and (max-width: 767px) {
+@media screen and (max-width: 529px), screen and (min-width: 530px) and (max-width: 767px), screen and (max-width: 767px) and (orientation: landscape) {
   #truck-info {
     width: 100%;
+    top: 0;
+    left: 0;
   }
 }
 #truck-info .truck-title,
@@ -920,12 +922,13 @@ div.footer-popup .footer-popup-content {
   margin-bottom: 40px;
 }
 .leaflet-top {
-  margin-left: 360px;
-  margin-top: 0px;
+  margin-left: 380px;
+  margin-top: 10px;
 }
 @media screen and (max-width: 529px), screen and (min-width: 530px) and (max-width: 767px), screen and (max-width: 767px) and (orientation: landscape) {
   .leaflet-top {
     margin-left: 0;
+    margin-top: 0;
   }
 }
 .leaflet-top,

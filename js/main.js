@@ -340,8 +340,15 @@ function getCenterOffset () {
 
     var centerOffset = [0, 0]
 
-    if ($('#truck-data').is(':visible')) {
-        centerOffset[0] = $('#truck-data').width() / 2
+    var overlay = $('#truck-data')
+
+    if (overlay.is(':visible')) {
+        var viewableX = $(window).width() - overlay.width() - overlay.offset().left
+        centerOffset[0] =  (overlay.width() + overlay.offset().left) / 2
+        if (viewableX > 840) {
+            // Tweak to balance super wide windows.
+            centerOffset[0] = centerOffset[0] - 60
+        }
     }
     if ($(window).width() < 530) {
         centerOffset[1] = $(window).height() / 8
