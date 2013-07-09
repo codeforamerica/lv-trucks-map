@@ -148,7 +148,7 @@
                 </div>
                 <div class='footer-popup-content'>
                     <p>
-                        In June 2013 the <a href='http://lasvegasnevada.gov/'>City of Las Vegas</a> began a pilot program to allow mobile food vendors to operate on public streets for longer periods of time.  Three locations were initially chosen, and participating vendors were placed in a lottery system to reserve dates and hours of operation.  Supporting <a href='https://lasvegasnevada.gov/files/6220_Bill_2012-37.pdf' target='_blank'>ordinances</a> for this program have been passed by the City Council.
+                        On August 1, 2013, the <a href='http://lasvegasnevada.gov/'>City of Las Vegas</a> began a pilot program to allow mobile food vendors to operate on public streets for longer periods of time.  Three locations were initially chosen, and participating vendors were placed in a lottery system to reserve dates and hours of operation.  Supporting <a href='https://lasvegasnevada.gov/files/6220_Bill_2012-37.pdf' target='_blank'>ordinances</a> for this program have been passed by the City Council.
                     </p>
                     <p>
                         This application uses real-time data from newly installed electronic parking meters, so we know exactly which truck appears and when. Food trucks appearing on the schedule may change, but we'll let you know when it matters the most—when you're hungry!
@@ -220,7 +220,14 @@
                         <div class='popup-truck'>
                             <!-- div class='truck-image' style='background: #f1f1f1 url("{{truck.logo_url}}") no-repeat'></div -->
                             <div>
-                                <h3>{{truck.name}}</h3>
+                                <h3>
+                                    {{#truck.website}}
+                                        <a href='{{truck.website}}' target='_blank'>{{truck.name}}</a>
+                                    {{/truck.website}}
+                                    {{^truck.website}}
+                                        {{truck.name}}
+                                    {{/truck.website}}
+                                </h3>
                                 <small>{{truck.cuisine}}</small>
                             </div>
                         </div>

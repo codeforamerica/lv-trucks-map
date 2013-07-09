@@ -98,7 +98,26 @@
         async: false,
         dataType: 'json',
         success: function (i) {
-            vendors = i
+
+            // Sort alphabetical and assign to vendors array variable
+            var sort_by = function(field, reverse, primer) {
+                var key = function (x) {return primer ? primer(x[field]) : x[field]};
+
+                return function (a,b) {
+                    var A = key(a), B = key(b);
+                    return ((A < B) ? -1 : (A > B) ? +1 : 0) * [-1,1][+!!reverse];                  
+                }
+            }
+
+            vendors = i.sort(sort_by('name', true, function(a){return a.toUpperCase()}))
+
+            // Clean up website URLs if present
+            for (i = 0; i < vendors.length; i ++) {
+                if (vendors[i].website) {
+                    vendors[i].website = addHttp(vendors[i].website)
+                }
+            }
+
          },
         error: function (i) {
             showError('We couldn\'t retrieve vendor information at this time.')
@@ -117,20 +136,11 @@
         }
     })
 */
-    var sort_by = function(field, reverse, primer) {
-
-       var key = function (x) {return primer ? primer(x[field]) : x[field]};
-
-       return function (a,b) {
-           var A = key(a), B = key(b);
-           return ((A < B) ? -1 : (A > B) ? +1 : 0) * [-1,1][+!!reverse];                  
-       }
-    }
 
     $('#loading').hide()
     return {
         locations: locations,
-        trucks: vendors.sort(sort_by('name', true, function(a){return a.toUpperCase()})),
+        trucks: vendors,
         calendar: data.calendar,
         timeslots: timeslots
     }
@@ -195,15 +205,25 @@ $(document).ready( function () {
     // Populate footer elements
     if (data.trucks.length > 0) {
         var mFooterAllTrucks = $('#m-footer-all-trucks').html()
-        $('#footer-trucks .footer-popup-content').html(Mustache.render(mFooterAllTrucks, data))        
+        $('#trucks .footer-popup-content').html(Mustache.render(mFooterAllTrucks, data))        
     }
 
+    // Sneaky disabling of attribution link on small windows
     $('.leaflet-control-attribution a').on('click', function() {
-        if ($(window).width() < 529) {
+        if (window.screen.width < 530) {
             return false
         }
     })
 
+    // Make tapping truck info on mobile easier
+    if (window.screen.width < 767) {
+        $('.leaflet-popup-pane').on('click', '.popup-truck', function () {
+            window.open($('.popup-truck a').attr('href'), '_blank')
+        })
+        $('.leaflet-popup-pane').on('click', '.popup-location', function () {
+            window.open($('.popup-location a').attr('href'), '_blank')
+        })
+    }
 
 })
 
@@ -344,12 +364,12 @@ function getCenterOffset () {
 
     var centerOffset = [0, 0]
 
-    var overlay = $('#truck-data')
+    var $overlay = $('#truck-data')
 
-    if (overlay.is(':visible')) {
-        var viewableX = $(window).width() - overlay.width() - overlay.offset().left
-        centerOffset[0] =  (overlay.width() + overlay.offset().left) / 2
-        if (viewableX > 840) {
+    if ($overlay.is(':visible')) {
+        var viewableWidth = $(window).width() - $overlay.width() - $overlay.offset().left
+        centerOffset[0] =  ($overlay.width() + $overlay.offset().left) / 2
+        if (viewableWidth > 840) {
             // Tweak to balance super wide windows.
             centerOffset[0] = centerOffset[0] - 60
         }
@@ -388,4 +408,11 @@ function getQueryStringParams(sParam) {
             return sParameterName[1];
         }
     }
+}
+
+function addHttp(url) {
+    if (!url.match(/^(?:f|ht)tps?:\/\//)) {
+        url = 'http://' + url
+    }
+    return url
 }
