@@ -130,7 +130,7 @@ map.setMaxBounds(markers.getBounds().pad(6))
 
 // Open popups on mouseover (test)
 markers.on('mouseover', function (e) {
-    e.layer.openPopup()
+//    e.layer.openPopup()
 })
 // Center marker on click
 /*
@@ -139,7 +139,6 @@ marker.on('click', function (e) {
 })*/
 markers.on('click', function (e) {
     map.panToOffset(e.layer.getLatLng(), getCenterOffset())
-    e.layer.openPopup()
 })
 
 

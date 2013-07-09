@@ -459,7 +459,7 @@ header #nav-logo a {
   top: 20px;
   left: 20px;
   z-index: 1200;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.75);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   background-color: white;
   color: black;
   font-size: 11px;
