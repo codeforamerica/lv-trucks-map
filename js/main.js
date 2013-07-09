@@ -215,7 +215,7 @@ $(document).ready( function () {
         }
     })
 
-    // Make tapping truck info on mobile easier
+    // Make tapping truck info popups on mobile easier
     if (window.screen.width < 767) {
         $('.leaflet-popup-pane').on('click', '.popup-truck', function () {
             window.open($('.popup-truck a').attr('href'), '_blank')
