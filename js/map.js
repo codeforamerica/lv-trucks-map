@@ -1,5 +1,10 @@
 // LV TRUCKS MAP - map-related Javascripts
 
+var mapboxID = 'codeforamerica.map-wzcm8dk0'
+var mapboxIDRetina = 'codeforamerica.map-dfs3qfso'
+//var mapboxID = 'codeforamerica.map-lam6vthg'
+//var mapboxIDRetina = 'codeforamerica.map-6wzjbm7l'
+
 var mapStyle = getQueryStringParams('m')
 
 // Extend map with a variant of map.panTo() method to accept center offset
@@ -21,9 +26,10 @@ if (mapStyle) {
     map.addLayer(L.mapbox.tileLayer(mapStyle))
 }
 else {
-    map.addLayer(L.mapbox.tileLayer('codeforamerica.map-lam6vthg', {
+
+    map.addLayer(L.mapbox.tileLayer(mapboxID, {
         detectRetina: true,
-        retinaVersion: 'codeforamerica.map-6wzjbm7l'
+        retinaVersion: mapboxIDRetina
     }))
 }
 
