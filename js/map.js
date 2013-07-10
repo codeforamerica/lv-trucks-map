@@ -21,9 +21,9 @@ if (mapStyle) {
     map.addLayer(L.mapbox.tileLayer(mapStyle))
 }
 else {
-    map.addLayer(L.mapbox.tileLayer('louh.map-vio2jxma', {
+    map.addLayer(L.mapbox.tileLayer('codeforamerica.map-lam6vthg', {
         detectRetina: true,
-        retinaVersion: 'louh.map-2lywy8ei'
+        retinaVersion: 'codeforamerica.map-6wzjbm7l'
     }))
 }
 

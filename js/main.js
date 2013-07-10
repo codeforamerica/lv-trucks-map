@@ -38,25 +38,25 @@
         success: function (i) {
             locations = i
 
-            for (i = 0; i < locations.features.length; i ++) {
+            for (var j = 0; j < locations.features.length; j ++) {
                 // Strip city name/state/zip from address
                 // assuming that the address format was entered properly, anyway....
-                locations.features[i].properties.addressShort = locations.features[i].properties.address.split(',')[0]
+                locations.features[j].properties.addressShort = locations.features[j].properties.address.split(',')[0]
                 
                 // Inject marker styles for mapbox.js
                 // Disabled due to small icons... not good for retina
-                // locations.features[i].properties['marker-symbol'] = 'restaurant'
-                // locations.features[i].properties['marker-color'] = '#f93'
-                // locations.features[i].properties['marker-size'] = 'large'
+                // locations.features[j].properties['marker-symbol'] = 'restaurant'
+                // locations.features[j].properties['marker-color'] = '#f93'
+                // locations.features[j].properties['marker-size'] = 'large'
             }
 
         },
-        error: function (i) {
+        error: function (x) {
             showError('We couldn\'t retrieve location data at this time.')
         }
     })
 
-    for (i = 0; i < locations.features.length; i++) {
+    for (var i = 0; i < locations.features.length; i++) {
 
         var locationId = locations.features[i].id
         var timeslotSource = APIServer + 'locations/' + locationId + '/time_slots.json'
@@ -66,16 +66,11 @@
             async: false,
             dataType: 'json',
             success: function (data) {
-               console.log(data.length)
-               // why is this an infinite loop??
-/*                for (i = 0; i < data.length; i++) {
-//                    timeslots[timeslots.length] = data[i]
-                    console.log(data[i])
+                for (var j = 0; j < data.length; j++) {
+                    timeslots[timeslots.length] = data[j]
                 }
-                */
-
             },
-            error: function (i) {
+            error: function (x) {
                 showError('We couldn\'t retrieve time slots at this time.')
             }
         })
@@ -88,7 +83,7 @@
         success: function (i) {
             data = i
         },
-        error: function (i) {
+        error: function (x) {
             showError('We couldn\'t retrieve data at this time.')
         }
     })
@@ -109,6 +104,15 @@
                 }
             }
 
+
+            // Look at website string and add http:// if necessary
+            function addHttp(url) {
+                if (!url.match(/^(?:f|ht)tps?:\/\//)) {
+                    url = 'http://' + url
+                }
+                return url
+            }
+
             vendors = i.sort(sort_by('name', true, function(a){return a.toUpperCase()}))
 
             // Clean up website URLs if present
@@ -119,25 +123,15 @@
             }
 
          },
-        error: function (i) {
+        error: function (x) {
             showError('We couldn\'t retrieve vendor information at this time.')
         }
     })
-/*
-    $.ajax({
-        url: calendarSource,
-        async: false,
-        dataType: 'json',
-        success: function (i) {
-            calendar = i
-         },
-        error: function (i) {
-            showError('We couldn\'t retrieve calendar information at this time.')
-        }
-    })
-*/
-
+    
+    // Hide loader
     $('#loading').hide()
+
+    // Return data object
     return {
         locations: locations,
         trucks: vendors,
@@ -297,7 +291,7 @@ function displayTruckEntries(calendar, section) {
     var trucksObject = {}
     trucksObject.entries = []
 
-    for (i = 0; i < calendar.length; i++) {
+    for (var i = 0; i < calendar.length; i++) {
 
         trucksObject.entries[i] = gatherData(calendar[i].truck, calendar[i].at)
 
@@ -319,7 +313,7 @@ function makePopup(calendar) {
     var popupObject = {}
     popupObject.entries = []
 
-    for (i = 0; i < calendar.length; i++) {
+    for (var i = 0; i < calendar.length; i++) {
 
         popupObject.entries[i] = gatherData(calendar[i].truck, calendar[i].at)
         popupObject.entries[i].until = calendar[i].until
@@ -337,14 +331,14 @@ function gatherData(truckID, locationID) {
 
     var data = {}
 
-    for (j = 0; j < trucks.length; j++) {
+    for (var j = 0; j < trucks.length; j++) {
         if (trucks[j].id == truckID) {
             data.truck = trucks[j]
             break
         }
     }
 
-    for (k = 0; k < locations.features.length; k++) {
+    for (var k = 0; k < locations.features.length; k++) {
         if (locations.features[k].id == locationID) {
             data.location = locations.features[k].properties
             data.location.id = locations.features[k].id
@@ -408,11 +402,4 @@ function getQueryStringParams(sParam) {
             return sParameterName[1];
         }
     }
-}
-
-function addHttp(url) {
-    if (!url.match(/^(?:f|ht)tps?:\/\//)) {
-        url = 'http://' + url
-    }
-    return url
 }
