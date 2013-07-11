@@ -160,13 +160,18 @@ if (dummy === true) {
     var now = new Date('July 16, 2013 12:05:00')
 }
 
-var schedule = {}
-schedule.now = {}
-schedule.later = {}
-schedule.tomorrow = {}
-schedule.now.entries = []
-schedule.later.entries = []
-schedule.tomorrow.entries = []
+// Create a global schedule object
+var schedule = {
+    'now': {
+        'entries': []
+    },
+    'later': {
+        'entries': []
+    },
+    'tomorrow': {
+        'entries': []
+    }
+}
 
 /*************************************************************************
 // 
@@ -220,9 +225,8 @@ $(document).ready( function () {
     $('#vendor-head-now').click()
     $('#loading').hide()
 
-    // Populate truck entries
+    // Populate schedule
     // showScheduleOverlay(data.timeslots);
-
 // ***********************************************************************************************
     // let's just be stupid with this code right now.
 
@@ -233,9 +237,8 @@ $(document).ready( function () {
 
     var mustacheScheduleEntry = $('#mustache-schedule-entry').html()
 
-    // open now
-    // we can either use the timeslots.... OR just use current_vendor_id
-
+    // Current vendor id is stored in the location object.
+    // Use this to create the schedule.now list
     for (var i = 0; i < locations.features.length; i++) {
         if (locations.features[i].properties.current_vendor_id) {
             for (var j =0; j < data.vendors.length; j++) {
@@ -251,6 +254,7 @@ $(document).ready( function () {
         }
     }
 
+    // Use timeslot data to create the rest of the schedule object
     for (var i = 0; i < timeslots.length; i++) {
 
         var start = new Date(timeslots[i].start_at)
@@ -269,6 +273,15 @@ $(document).ready( function () {
         timeslots[i].from = formatTime(start)
         timeslots[i].until = formatTime(end)
 
+        // time slots for current vendors - sure, why not.
+        if (now > start && now < end) {
+            for (var k = 0; k < schedule.now.entries.length; k++) {
+                if (timeslots[i].location_id == schedule.now.entries[k].location_id) {
+                    schedule.now.entries[k].until = timeslots[i].until
+                }
+            }
+        }
+
         // time slots starting later today
         if (now < start && now.getDate() == start.getDate()) {
             schedule.later.entries.push(timeslots[i])
@@ -285,7 +298,6 @@ $(document).ready( function () {
             schedule.tomorrow.entries.push(timeslots[i])
 
         }
-
     }
 
     if (schedule.now.entries.length > 0) {
@@ -299,10 +311,6 @@ $(document).ready( function () {
     }
 
 // ***********************************************************************************************
-
-
-
-
 
     // Populate footer elements
     if (data.vendors.length > 0) {
@@ -418,12 +426,25 @@ function formatTime (date) {
     var hour = date.getHours()
     var minutes = date.getMinutes()
 
+    // Hours in 12-hour format
     if (hour > 12) {
-        hour = hour - 12
-        string = hour + 'pm'
+        string = (hour - 12)
     }
     else {
-        string = hour + 'am'
+        string = hour
+    }
+
+    // Add minutes, if any
+    if (minutes > 0) {
+        string = string + ':' + minutes
+    }
+
+    // Add am/pm
+    if (hour > 12) {
+        string = string + 'pm'
+    }
+    else {
+        string = string + 'am'
     }
 
     return string

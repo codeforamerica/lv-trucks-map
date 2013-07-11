@@ -130,12 +130,31 @@ var markers = L.mapbox.markerLayer(locations, {
     // Note that marker.feature is a synonym for data.locations.features[x] - location
     // data is now attached to the marker itself.
     if (marker.feature.properties.current_vendor_id) {
+
+        // Add vendor information for current vendor
         for (var j =0; j < data.vendors.length; j++) {
             if (data.vendors[j].id == marker.feature.properties.current_vendor_id) {
                 marker.vendor = vendors[j]
                 break
             }
         }
+
+        // Add time slot end for current location and time
+        // Important: do NOT base on vendor, because that may change.
+        // If there is NO time slot, leave this empty, since we don't have reports from
+        // the parking meter back-end about how long someone is paid through till.
+        for (var k = 0; k < timeslots.length; k++) {
+
+            var start = new Date(timeslots[k].start_at)
+            var end = new Date(timeslots[k].finish_at)
+
+            if (marker.feature.id == timeslots[k].location_id && now > start && now < end) {
+                marker.schedule = {}
+                until = new Date(timeslots[k].finish_at)
+                marker.schedule.until = formatTime(until)
+            }
+        }
+
     }
 
     // Popup construction and marker on
