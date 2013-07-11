@@ -862,7 +862,7 @@ div.footer-popup .footer-popup-content {
   height: 100%;
 }
 .leaflet-top {
-  margin-left: 380px;
+  margin-left: 385px;
   margin-top: 10px;
 }
 @media screen and (max-width: 529px), screen and (min-width: 530px) and (max-width: 767px), screen and (max-width: 767px) and (orientation: landscape) {

@@ -1,6 +1,8 @@
 // LAS VEGAS FOOD TRUCKS MAP - main application Javascript
 
-var dummy = false;
+if (getQueryStringParams('test') == 1 ) {
+    var dummy = true;
+}
 
 /*************************************************************************
 // 
@@ -240,7 +242,10 @@ $(document).ready( function () {
                 if (data.vendors[j].id == locations.features[i].properties.current_vendor_id) {
                     var temp = {}
                     temp.vendor = vendors[j]
-                    schedule.now.entries.push(temp)
+                    var k = schedule.now.entries.push(temp) - 1
+                    schedule.now.entries[k].location_id = locations.features[i].id
+                    schedule.now.entries[k].location = locations.features[i].properties
+
                 }
             }
         }
@@ -278,13 +283,13 @@ $(document).ready( function () {
 //        vendors.entries[i].until = timeslots[i].until
     }
 
-    if (schedule.now.length > 0) {
+    if (schedule.now.entries.length > 0) {
         $panelNow.html(Mustache.render(mustacheScheduleEntry, schedule.now))
     }
-    if (schedule.later.length > 0) {
+    if (schedule.later.entries.length > 0) {
         $panelLater.html(Mustache.render(mustacheScheduleEntry, schedule.later))
     }
-    if (schedule.tomorrow.length > 0) {
+    if (schedule.tomorrow.entries.length > 0) {
         $panelMuchLater.html(Mustache.render(mustacheScheduleEntry, schedule.tomorrow))
     }
 
