@@ -66,7 +66,7 @@ var markerIconSize =    [36, 62], // size of the icon
     markerPopupAnchor = [0, -55]  // point from which the popup should open relative to the iconAnchor
 
 var vendorMarker = L.icon({
-    iconUrl: 'img/pin-food.png',
+    iconUrl: 'img/pin-food-on.png',
 
     iconSize:     markerIconSize,
     iconAnchor:   markerIconAnchor,

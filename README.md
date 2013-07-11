@@ -9,7 +9,10 @@ Food truck applications are not new. However, they generally rely on scraping Tw
 
 In July of 2013, the City of Las Vegas (a Code for America partner city) installed new electronic parking meters throughout Downtown. They also started a new six-month pilot program for officially designated spots at these meters for food trucks. The city recognized that the new meters could report what truck was parked where, and when, and use it as a code enforcement tool in conjunction with their mobile food vendor program. Working together with the city, we intend to show that it could also be used for public benefit as well.
 
-While the API from these parking meters are owned and operated by Parkeon, the city's parking meter vendor, we would hope that information such as this could become publicly accessible, and feed directly into other food truck app developers, who would be able to provide a much more robust experience for truck customers.
+While the API from these parking meters are owned and operated by Parkeon, the city's parking meter vendor, 
+
+
+we would hope that information such as this could become publicly accessible, and feed directly into other food truck app developers, who would be able to provide a much more robust experience for truck customers.
 
 There are two components to this software. This is the front end public facing map. An administration interface for the city to manage location, vendors, and scheduling is located [here][back-end].
 

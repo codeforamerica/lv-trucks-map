@@ -327,7 +327,7 @@ $(document).ready( function () {
 
     // Make tapping truck info popups on mobile easier
     if (window.screen.width < 767) {
-        $('.leaflet-popup-pane').on('click', '.popup-truck', function () {
+        $('.leaflet-popup-pane').on('click', '.popup-vendor', function () {
             window.open($('.popup-vendor a').attr('href'), '_blank')
         })
         $('.leaflet-popup-pane').on('click', '.popup-location', function () {

@@ -155,7 +155,7 @@
                         This application uses real-time data from newly installed electronic parking meters, so we know exactly which truck appears and when. Food trucks appearing on the schedule may change, but we'll let you know when it matters the most—when you're hungry!
                     </p>
                     <p>
-                        <a href='http://codeforamerica.org/'>Code for America</a> built this, with thanks to Las Vegas and <a href='http://www.parkeon.us/'>Parkeon</a> for their cooperation in making this possible.
+                        <a href='http://codeforamerica.org/'>Code for America</a> built this, with thanks to Las Vegas and <a href='http://www.parkeon.us/'>Parkeon</a> for their cooperation in making this possible.  For developer information (including using the City's vendor and schedule information in your own app), visit our <a href='https://github.com/codeforamerica/lv-trucks-map/'>GitHub repository</a>.
                     </p>
                 </div>
             </div>
@@ -214,13 +214,20 @@
             <div id='popleaf-template' style='display: none'>
             <script id='mustache-popleaf' type='text/template'>
                 <div id='popup-leaflet'>
-                    <div class='popup-tag'>
-                        Open now
-                        {{#schedule.until}}
-                        until {{schedule.until}}
-                        {{/schedule.until}}
-                    </div>
                     <div class='popup-info'>
+                        <div class='popup-location'>
+                            <strong>{{feature.properties.name}}</strong>
+                            <br>
+                            <span class='address'>
+                                <span class='typcn typcn-location-arrow-outline'></span><a href='http://maps.google.com/maps?daddr={{feature.properties.address}}' target='_blank' title='Get directions to here'>{{feature.properties.addressShort}}</a>
+                            </span>
+                        </div>
+                        <div class='popup-tag'>
+                            Open now
+                            {{#schedule.until}}
+                            until {{schedule.until}}
+                            {{/schedule.until}}
+                        </div>
                         <div class='popup-vendor'>
                             <!-- div class='vendor-image' style='background: #f1f1f1 url("{{vendor.logo_url}}") no-repeat'></div -->
                             <div>
@@ -234,13 +241,6 @@
                                 </h3>
                                 <small>{{vendor.cuisine}}</small>
                             </div>
-                        </div>
-                        <div class='popup-location'>
-                            <strong>{{feature.properties.name}}</strong>
-                            <br>
-                            <span class='address'>
-                                <span class='typcn typcn-location-arrow-outline'></span><a href='http://maps.google.com/maps?daddr={{feature.properties.address}}' target='_blank' title='Get directions to here'>{{feature.properties.addressShort}}</a>
-                            </span>
                         </div>
                     </div>
                 </div>
