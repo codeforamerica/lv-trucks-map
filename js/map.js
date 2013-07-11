@@ -1,4 +1,10 @@
-// LV TRUCKS MAP - map-related Javascripts
+// LAS VEGAS FOOD TRUCKS MAP - map-related Javascripts
+
+/*************************************************************************
+// 
+// CONFIGURATION
+//
+// ***********************************************************************/
 
 var mapboxID = 'codeforamerica.map-wzcm8dk0'
 var mapboxIDRetina = 'codeforamerica.map-dfs3qfso'
@@ -7,7 +13,14 @@ var mapboxIDRetina = 'codeforamerica.map-dfs3qfso'
 
 var mapStyle = getQueryStringParams('m')
 
+
+/*************************************************************************
+// 
+// MAPBOX.JS HACKS
 // Extend map with a variant of map.panTo() method to accept center offset
+//
+// ***********************************************************************/
+
 L.Map.prototype.panToOffset = function (latlng, offset, options) {
     var x = this.latLngToContainerPoint(latlng).x - offset[0]
     var y = this.latLngToContainerPoint(latlng).y - offset[1]
@@ -17,7 +30,14 @@ L.Map.prototype.panToOffset = function (latlng, offset, options) {
 
 var centerOffset = getCenterOffset()
 
-// Initialize map & set initial location / view
+
+/*************************************************************************
+// 
+// INITIALIZE MAP
+// Sets initial location, view, attribution, marker types
+//
+// ***********************************************************************/
+
 var map = L.mapbox.map('map')
     .setView([36.1665, -115.1479], 14)  // This will be overridden later when map bounds are set based on available markers.
 
@@ -26,7 +46,7 @@ if (mapStyle) {
     map.addLayer(L.mapbox.tileLayer(mapStyle))
 }
 else {
-
+    // Use normal map
     map.addLayer(L.mapbox.tileLayer(mapboxID, {
         detectRetina: true,
         retinaVersion: mapboxIDRetina
@@ -45,7 +65,7 @@ var markerIconSize =    [36, 62], // size of the icon
     markerIconAnchor =  [18, 50], // point of the icon which will correspond to marker's location
     markerPopupAnchor = [0, -55]  // point from which the popup should open relative to the iconAnchor
 
-var truckMarker = L.icon({
+var vendorMarker = L.icon({
     iconUrl: 'img/pin-food.png',
 
     iconSize:     markerIconSize,
@@ -53,7 +73,7 @@ var truckMarker = L.icon({
     popupAnchor:  markerPopupAnchor
 })
 
-var truckMarkerOff = L.icon({
+var vendorMarkerOff = L.icon({
     iconUrl: 'img/pin-food-off.png',
 
     iconSize:     markerIconSize,
@@ -71,13 +91,27 @@ var hereMarker = L.icon({
 })
 
 
-// Get data
+/*************************************************************************
+// 
+// RETRIEVE DATA
+//
+// ***********************************************************************/
+
+// This calls data function from main.js
 var data = document.data()
 
-// This information is now also available back in main.js
+// This information is now global and available for use in main.js
 var locations = data.locations // this is a GeoJSON format
-var trucks = data.trucks
-var calendar = data.calendar
+var vendors = data.vendors
+var timeslots = data.timeslots
+
+
+/*************************************************************************
+// 
+// DISPLAY DATA ON MAP
+// Plus various things to set up markers, popups, etc.
+//
+// ***********************************************************************/
 
 // Populate map with locations
 var markers = L.mapbox.markerLayer(locations, {
@@ -89,35 +123,31 @@ var markers = L.mapbox.markerLayer(locations, {
 }).eachLayer(function (marker) {
 
     // set options here directly on the marker object
-    marker.options.icon = truckMarkerOff  // set this to be off by default
+    marker.options.icon = vendorMarkerOff  // set this to be off by default
     marker.options.riseOnHover = true
 
-    // shorthand for where things are stored in the GeoJSON
-    var markerID = marker.feature.id
-
-    for (i = 0; i < calendar.now.length; i++) {
-        if (calendar.now[i].at == markerID ) {
-            for (j =0; j < trucks.length; j++) {
-                if (trucks[j].id == calendar.now[i].truck) {
-                    marker.truck = trucks[j]
-                    break
-                }
+    // Obtain truck information if there is a current vendor present, according to Locations API
+    // Note that marker.feature is a synonym for data.locations.features[x] - location
+    // data is now attached to the marker itself.
+    if (marker.feature.properties.current_vendor_id) {
+        for (var j =0; j < data.vendors.length; j++) {
+            if (data.vendors[j].id == marker.feature.properties.current_vendor_id) {
+                marker.vendor = vendors[j]
+                break
             }
-            marker.calendar = calendar.now[i]
-            break
         }
     }
 
     // Popup construction and marker on
     var popupHTML = '<div class=\'popup-message\'>No truck at <br><strong>' + marker.feature.properties.name + '</strong></div>'
-    if (marker.truck) {
 
+    if (marker.vendor) {
         // Generate popup information through Mustache template        
-        var mPopleaf = $('#m-popleaf').html()
+        var mPopleaf = $('#mustache-popleaf').html()
         var popupHTML = Mustache.render(mPopleaf, marker)
 
         // Turn on marker
-        marker.options.icon = truckMarker
+        marker.options.icon = vendorMarker
     }
 
     marker.bindPopup(popupHTML, {
@@ -140,15 +170,19 @@ markers.on('click', function (e) {
 })
 
 
+/*************************************************************************
 // GEOLOCATE!
 // This uses the HTML5 geolocation API, which is available on
 // most mobile browsers and modern browsers, but not in Internet Explorer
 //
 // See this chart of compatibility for details:
 // http://caniuse.com/#feat=geolocation
+// ***********************************************************************/
+
 if (navigator.geolocation) {
     map.locate()
 }
+
 // Once we've got a position, add a marker.
 map.on('locationfound', function (e) {
     map.markerLayer.setGeoJSON({
@@ -166,6 +200,12 @@ map.on('locationfound', function (e) {
     })
 })
 
+
+/*************************************************************************
+// 
+// MISCELLANEOUS
+//
+// ***********************************************************************/
 
 $(window).on('resize', function (e) {
     // This is in case we need to do anything to the map if window gets resized.

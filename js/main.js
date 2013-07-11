@@ -1,28 +1,27 @@
+// LAS VEGAS FOOD TRUCKS MAP - main application Javascript
+
+var dummy = false;
+
+/*************************************************************************
+// 
+// GRAB DATA FROM BACK-END API
+//
+// ***********************************************************************/
+
 (function() { 
   document.data = function() {
-
-    var now = new Date()
 
     // CONFIGURATE DATA SOURCES
     var APIServer = 'http://lv-food-trucks.herokuapp.com/api/'
 
     // Dummy data sources
-    var dataSource = 'dummy-data/data.json'
+    // var dataSource = 'dummy-data/data.json'
     // var locationSource = 'dummy-data/locations.geojson'
 
     // Data sources
-//    var timeslotsSource = APIServer + 'locations/{x}/time_slots.json'
+    // Timeslots source is done further down below
     var locationSource = APIServer + 'locations/search.geojson'
     var vendorSource = APIServer + 'vendors.json'
-
-    /*
-    var timeslotsSource = APIServer + 'locations/1/time_slots/search.json?q%5Bstart_at_gt%5D=' + now.toJSON()
-    APIServer + 'locations/' + location_id + '/time_slots.json'
-    http://www.timeapi.org/pst/now
-
-
-    http://lv-food-trucks.herokuapp.com/api/locations/1/time_slots/search.json?q%5Bstart_at_gt%5D=2013-07-01T00:00:00Z
-    */
 
     // LOAD SOME EXTERNAL DATAS
     var data = [],
@@ -38,6 +37,7 @@
         success: function (i) {
             locations = i
 
+            // Data munging
             for (var j = 0; j < locations.features.length; j ++) {
                 // Strip city name/state/zip from address
                 // assuming that the address format was entered properly, anyway....
@@ -48,11 +48,17 @@
                 // locations.features[j].properties['marker-symbol'] = 'restaurant'
                 // locations.features[j].properties['marker-color'] = '#f93'
                 // locations.features[j].properties['marker-size'] = 'large'
+
+                // Inject dummy current vendor data
+                if (dummy === true) {
+                    locations.features[2].properties.current_vendor_id = 5
+                    locations.features[1].properties.current_vendor_id = 2                    
+                }
             }
 
         },
         error: function (x) {
-            showError('We couldn\'t retrieve location data at this time.')
+            showError('We couldn\'t retrieve vendor locations at this time.')
         }
     })
 
@@ -67,15 +73,16 @@
             dataType: 'json',
             success: function (data) {
                 for (var j = 0; j < data.length; j++) {
-                    timeslots[timeslots.length] = data[j]
+                    timeslots.push (data[j])
                 }
             },
             error: function (x) {
-                showError('We couldn\'t retrieve time slots at this time.')
+                showError('We couldn\'t retrieve schedule at this time.')
             }
         })
     }
 
+    /*
     $.ajax({
         url: dataSource,
         async: false,
@@ -87,12 +94,16 @@
             showError('We couldn\'t retrieve data at this time.')
         }
     })
+    */
 
     $.ajax({
         url: vendorSource,
         async: false,
         dataType: 'json',
         success: function (i) {
+
+            // Data munging
+            // First, declare some munging functions
 
             // Sort alphabetical and assign to vendors array variable
             var sort_by = function(field, reverse, primer) {
@@ -113,6 +124,7 @@
                 return url
             }
 
+            // Assign to data object
             vendors = i.sort(sort_by('name', true, function(a){return a.toUpperCase()}))
 
             // Clean up website URLs if present
@@ -128,32 +140,49 @@
         }
     })
     
-    // Hide loader
-    $('#loading').hide()
-
     // Return data object
     return {
         locations: locations,
-        trucks: vendors,
-        calendar: data.calendar,
+        vendors: vendors,
         timeslots: timeslots
     }
 
   }
 })();
 
+
+// TIME & DATE HIJINKS
+var now = new Date()
+// Set dummy date for testing.
+if (dummy === true) {
+    var now = new Date('July 16, 2013 12:05:00')
+}
+
+var schedule = {}
+schedule.now = {}
+schedule.later = {}
+schedule.tomorrow = {}
+schedule.now.entries = []
+schedule.later.entries = []
+schedule.tomorrow.entries = []
+
+/*************************************************************************
+// 
+// UI
+// Makes liberal use of jQuery to do things
+//
+// ***********************************************************************/
+
+
 $(document).ready( function () {
 
-    // TIME & DATE HIJINKS
-    var now = new Date()
-
     // TRUCK HEADING - toggler for entries
-    $('.truck-heading').click( function () {
-        toggleTruckEntries($(this))
+    $('.vendor-heading').click( function () {
+        toggleVendorEntries($(this))
     })
 
     // TRUCK ENTRY - Activate marker on click
-    $('#truck-info').on('click', '.truck-entry', function () {
+    $('#vendor-info').on('click', '.vendor-entry', function () {
         // need a better way of indicating a click flash.
         // $(this).css('background-color', '#fffff0')
         var locationId = $(this).data('locationId')
@@ -171,7 +200,7 @@ $(document).ready( function () {
 
     // FOOTER POPUPS
     // Open / toggle
-    $('.footer-trucks-link').click( function () { toggleFooterPopup('#trucks', $(this)) })
+    $('.footer-vendors-link').click( function () { toggleFooterPopup('#vendors', $(this)) })
     $('.footer-calendar-link').click( function () { toggleFooterPopup('#calendar', $(this)) })
     $('.footer-about-link').click( function () { toggleFooterPopup('#about', $(this) ) })
     $('.footer-feedback-link').click( function () { toggleFooterPopup('#feedback', $(this)) })
@@ -186,20 +215,89 @@ $(document).ready( function () {
     })
 
     // INITIALISE!
-    $('#truck-head-now').click()
+    $('#vendor-head-now').click()
+    $('#loading').hide()
 
     // Populate truck entries
-    displayTruckEntries(calendar.now, '#truck-info-now')
-    displayTruckEntries(calendar.later, '#truck-info-later')
-    displayTruckEntries(calendar.muchlater, '#truck-info-muchlater')
+    // showScheduleOverlay(data.timeslots);
 
-    // temp disabled while i figure out how to make custom popups
-    // makePopup(calendar.now)
+// ***********************************************************************************************
+    // let's just be stupid with this code right now.
+
+
+    var $panelNow = $('#vendor-info-now')
+    var $panelLater = $('#vendor-info-later')
+    var $panelMuchLater = $('#vendor-info-muchlater')
+
+    var mustacheScheduleEntry = $('#mustache-schedule-entry').html()
+
+    // open now
+    // we can either use the timeslots.... OR just use current_vendor_id
+
+    for (var i = 0; i < locations.features.length; i++) {
+        if (locations.features[i].properties.current_vendor_id) {
+            for (var j =0; j < data.vendors.length; j++) {
+                if (data.vendors[j].id == locations.features[i].properties.current_vendor_id) {
+                    var temp = {}
+                    temp.vendor = vendors[j]
+                    schedule.now.entries.push(temp)
+                }
+            }
+        }
+    }
+
+    for (var i = 0; i < timeslots.length; i++) {
+
+        var start = new Date(timeslots[i].start_at)
+
+        var locationId = timeslots[i].location_id
+
+        // add location data to schedule object
+        for (var j = 0; j < locations.features.length; j++) {
+            if (timeslots[i].location_id == locations.features[j].id) {
+                timeslots[i].location = locations.features[j].properties
+            }
+        }
+
+        // time slots starting later today
+        if (now < start && now.getDate() == start.getDate()) {
+            schedule.later.entries.push(timeslots[i])
+        }
+
+        // time slots starting tomorrow
+        var compareday = new Date(now)
+        compareday.setDate(compareday.getDate() + 1)
+        if (compareday.getDate() == start.getDate()) {
+            schedule.tomorrow.entries.push(timeslots[i])
+        }
+
+//        vendors.entries[i] = gatherData(timeslots[i].vendor, timeslots[i].at)
+
+//        vendors.entries[i].date = timeslots[i].date
+//        vendors.entries[i].from = timeslots[i].from
+//        vendors.entries[i].until = timeslots[i].until
+    }
+
+    if (schedule.now.length > 0) {
+        $panelNow.html(Mustache.render(mustacheScheduleEntry, schedule.now))
+    }
+    if (schedule.later.length > 0) {
+        $panelLater.html(Mustache.render(mustacheScheduleEntry, schedule.later))
+    }
+    if (schedule.tomorrow.length > 0) {
+        $panelMuchLater.html(Mustache.render(mustacheScheduleEntry, schedule.tomorrow))
+    }
+
+// ***********************************************************************************************
+
+
+
+
 
     // Populate footer elements
-    if (data.trucks.length > 0) {
-        var mFooterAllTrucks = $('#m-footer-all-trucks').html()
-        $('#trucks .footer-popup-content').html(Mustache.render(mFooterAllTrucks, data))        
+    if (data.vendors.length > 0) {
+        var mustacheFooterAllVendors = $('#mustache-footer-all-vendors').html()
+        $('#vendors .footer-popup-content').html(Mustache.render(mustacheFooterAllVendors, data))        
     }
 
     // Sneaky disabling of attribution link on small windows
@@ -212,7 +310,7 @@ $(document).ready( function () {
     // Make tapping truck info popups on mobile easier
     if (window.screen.width < 767) {
         $('.leaflet-popup-pane').on('click', '.popup-truck', function () {
-            window.open($('.popup-truck a').attr('href'), '_blank')
+            window.open($('.popup-vendor a').attr('href'), '_blank')
         })
         $('.leaflet-popup-pane').on('click', '.popup-location', function () {
             window.open($('.popup-location a').attr('href'), '_blank')
@@ -221,25 +319,34 @@ $(document).ready( function () {
 
 })
 
+
+
+/*************************************************************************
+// 
+// HERE IS A PLACE WHERE I PUT FUNCTIONS
+//
+// ***********************************************************************/
+
+
 /**
  *   Shows or hides trucks under each section of trucks data panel
  */
 
-function toggleTruckEntries(clickedHeading) {
+function toggleVendorEntries(clickedHeading) {
 
     // if clicked heading is currently open, just close it
-    if (clickedHeading.next('.truck-entries').is(':visible')) {
+    if (clickedHeading.next('.vendor-entries').is(':visible')) {
         clickedHeading.removeClass('active')
-        $('.truck-entries').slideUp(200)
+        $('.vendor-entries').slideUp(200)
     }
 
     // otherwise, close other open headings (if any) and open the one that's clicked
     else {
-        if ($('.truck-entries').is(':visible')) {
-            $('.truck-entries').prev('.truck-heading').removeClass('active')
-            $('.truck-entries').slideUp(200)
+        if ($('.vendor-entries').is(':visible')) {
+            $('.vendor-entries').prev('.vendor-heading').removeClass('active')
+            $('.vendor-entries').slideUp(200)
         }
-        clickedHeading.next('.truck-entries').slideDown(200)
+        clickedHeading.next('.vendor-entries').slideDown(200)
         clickedHeading.addClass('active')
     }
 
@@ -282,58 +389,62 @@ function toggleFooterPopup(popup, clicked) {
 }
 
 /**
- *   Display calendar entries
+ *   Display vendor info panel with what's open now and upcoming
  */
 
-function displayTruckEntries(calendar, section) {
+function showScheduleOverlay (timeslots) {
 
-    var mTruckEntry = $('#m-truck-entry').html()
-    var trucksObject = {}
-    trucksObject.entries = []
+    var $panelNow = $('#vendor-info-now')
+    var $panelLater = $('#vendor-info-later')
+    var $panelMuchLater = $('#vendor-info-muchlater')
 
-    for (var i = 0; i < calendar.length; i++) {
+    var mustacheScheduleEntry = $('#mustache-schedule-entry').html()
 
-        trucksObject.entries[i] = gatherData(calendar[i].truck, calendar[i].at)
+    // let's just be stupid with this code right now.
 
-        trucksObject.entries[i].date = calendar[i].date
-        trucksObject.entries[i].from = calendar[i].from
-        trucksObject.entries[i].until = calendar[i].until
+    var vendors = {}
+    vendors.entries = []
+
+    for (var i = 0; i < timeslots.length; i++) {
+
+        var start = new Date(timeslots[i].start_at)
+
+        // open now
+        // we can either use the timeslots.... OR just use current_vendor_id
+
+        // time slots starting later today
+        if (now < start && now.getDate() == start.getDate()) {
+            vendors.later = timeslots[i]
+        }
+
+        // time slots starting tomorrow
+        var compareday = new Date(now)
+        compareday.setDate(compareday.getDate() + 1)
+        if (compareday.getDate() == start.getDate()) {
+            vendors.tomorrow = timeslots[i]
+        }
+
+//        vendors.entries[i] = gatherData(timeslots[i].vendor, timeslots[i].at)
+
+//        vendors.entries[i].date = timeslots[i].date
+//        vendors.entries[i].from = timeslots[i].from
+//        vendors.entries[i].until = timeslots[i].until
     }
 
-    $(section).html(Mustache.render(mTruckEntry, trucksObject))
-}
-
-/**
- *   This is for the old popup format, I think
- */
-
-function makePopup(calendar) {
-
-    var mPopup = $('#m-popup').html()
-    var popupObject = {}
-    popupObject.entries = []
-
-    for (var i = 0; i < calendar.length; i++) {
-
-        popupObject.entries[i] = gatherData(calendar[i].truck, calendar[i].at)
-        popupObject.entries[i].until = calendar[i].until
-
-        $('#popup-layer').append(Mustache.render(mPopup, popupObject.entries[i]))
-    }
-
+    //section.html(Mustache.render(mustacheScheduleEntry, vendors))
 }
 
 /**
  *   ???
  */
 
-function gatherData(truckID, locationID) {
+function gatherData (vendorID, locationID) {
 
     var data = {}
 
-    for (var j = 0; j < trucks.length; j++) {
-        if (trucks[j].id == truckID) {
-            data.truck = trucks[j]
+    for (var j = 0; j < vendors.length; j++) {
+        if (vendors[j].id == vendorID) {
+            data.vendor = vendors[j]
             break
         }
     }
@@ -358,7 +469,7 @@ function getCenterOffset () {
 
     var centerOffset = [0, 0]
 
-    var $overlay = $('#truck-data')
+    var $overlay = $('#vendor-data')
 
     if ($overlay.is(':visible')) {
         var viewableWidth = $(window).width() - $overlay.width() - $overlay.offset().left
@@ -369,7 +480,9 @@ function getCenterOffset () {
         }
     }
     if ($(window).width() < 530) {
-        centerOffset[1] = $(window).height() / 8
+        centerOffset[1] = $(window).height() / 4
+    } else {
+        centerOffset[1] = $(window).height() / 10        
     }
 
     return centerOffset
@@ -382,7 +495,7 @@ function getCenterOffset () {
 
 function showError (message) {
 
-    $('#truck-data').hide(250)
+    $('#vendor-data').hide(250)
     $('#error').show(250)
     $('#error .message').html(message)
 

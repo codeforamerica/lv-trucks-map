@@ -58,27 +58,27 @@
                 </div>
             </div>
 
-            <div id='truck-info'>
-                <div class='truck-title'><h1>Food trucks of DTLV</h1></div>
-                <div id='truck-data'>
-                    <div id='truck-head-now' class='truck-heading'>Open now</div>
-                    <div id='truck-info-now' class='truck-entries' style='display: none;'>
+            <div id='vendor-info'>
+                <div class='vendor-title'><h1>Food trucks of DTLV</h1></div>
+                <div id='vendor-data'>
+                    <div id='vendor-head-now' class='vendor-heading'>Open now</div>
+                    <div id='vendor-info-now' class='vendor-entries' style='display: none;'>
                         <!-- Replace this area with generated entries -->
-                        <div class='truck-message'>
+                        <div class='vendor-message'>
                             <h3>There are no trucks open right now.</h3>
                         </div>
                     </div>
-                    <div id='truck-head-later' class='truck-heading'>Later today</div>
-                    <div id='truck-info-later' class='truck-entries' style='display: none;'>
+                    <div id='vendor-head-later' class='vendor-heading'>Later today</div>
+                    <div id='vendor-info-later' class='vendor-entries' style='display: none;'>
                         <!-- Replace this area with generated entries -->
-                        <div class='truck-message'>
+                        <div class='vendor-message'>
                             <h3>There are no trucks open later.</h3>
                         </div>
                     </div>
-                    <div id='truck-head-muchlater' class='truck-heading no-border'>Tomorrow</div>
-                    <div id='truck-info-muchlater' class='truck-entries' style='display: none;'>
+                    <div id='vendor-head-muchlater' class='vendor-heading no-border'>Tomorrow</div>
+                    <div id='vendor-info-muchlater' class='vendor-entries' style='display: none;'>
                         <!-- Replace this area with generated entries -->
-                        <div class='truck-message'>
+                        <div class='vendor-message'>
                             <h3>There are no trucks open tomorrow.</h3>
                         </div>
                     </div>
@@ -94,19 +94,19 @@
         <footer>
             <div class='container'>
                 <ul id='footer-wide'>
-                    <li class='footer-trucks-link'>View all participating trucks</li>
+                    <li class='footer-vendors-link'>View all participating trucks</li>
                     <li class='footer-calendar-link'>View full calendar</li>
                     <li class='footer-about-link'>About this app</li>
                     <li class='footer-feedback-link'>Feedback</li>
                 </ul>
                 <ul id='footer-mid'>
-                    <li class='footer-trucks-link'>All trucks</li>
+                    <li class='footer-vendors-link'>All trucks</li>
                     <li class='footer-calendar-link'>Calendar</li>
                     <li class='footer-about-link'>About</li>
                     <li class='footer-feedback-link'>Feedback</li>
                 </ul>
                 <ul id='footer-condensed'>
-                    <li class='footer-trucks-link'><span class='typcn typcn-sort-alphabetically-outline'></span></li>
+                    <li class='footer-vendors-link'><span class='typcn typcn-sort-alphabetically-outline'></span></li>
                     <li class='footer-calendar-link'><span class='typcn typcn-calender-outline'></span></li>
                     <li class='footer-about-link'><span class='typcn typcn-info-large'></span></li>
                     <li class='footer-feedback-link'><span class='typcn typcn-message'></span></li>
@@ -120,7 +120,7 @@
         </footer>
 
         <section id='footer-elements'>
-            <div class='footer-popup' id='trucks'>
+            <div class='footer-popup' id='vendors'>
                 <div class='footer-popup-close'>×</div>
                 <div class='footer-popup-title'>
                     <h2>All participating trucks</h2>
@@ -177,18 +177,18 @@
         <section id='templates'>
 
             <!-- BEGIN TEMPLATES -->
-            <!-- Mustache - Truck Entries -->
-            <div id='truck-entry-template' style='display: none'>
-            <script id='m-truck-entry' type='text/template'>
+            <!-- Mustache - Entries for Schedule Overlay -->
+            <div id='vendor-entry-template' style='display: none'>
+            <script id='mustache-schedule-entry' type='text/template'>
                 {{#entries}}
-                <div class='truck-entry' data-location-id='{{location.id}}'>
+                <div class='vendor-entry' data-location-id='{{location_id}}'>
                     {{#logo_url}}
-                        <div class='truck-image'><img src='{{logo_url}}'></div>
+                        <div class='vendor-image'><img src='{{logo_url}}'></div>
                     {{/logo_url}}
                     {{^logo_url}}
-                        <div class='truck-image'><img src='img/truck-placeholder.png'></div>
+                        <div class='vendor-image'><img src='img/vendor-placeholder.png'></div>
                     {{/logo_url}}
-                    <h3>{{truck.name}}</h3>
+                    <h3>{{vendor.name}}</h3>
                     <p>
                         is at <strong>{{location.name}}</strong>
                         <br><span class='address'>{{location.addressShort}}</span>
@@ -208,28 +208,31 @@
                 {{/entries}}
             </script>
             </div>
-            <!-- // end Mustasche - Truck Entries -->
+            <!-- // end Mustasche - Entries for Schedule Overlay -->
 
-            <!-- Mustache - Popups - Leaflet version-->
+            <!-- Mustache - Leaflet Popups -->
             <div id='popleaf-template' style='display: none'>
-            <script id='m-popleaf' type='text/template'>
+            <script id='mustache-popleaf' type='text/template'>
                 <div id='popup-leaflet'>
                     <div class='popup-tag'>
-                        Open now until {{calendar.until}}
+                        Open now
+                        {{#calendar.until}}
+                        until {{calendar.until}}
+                        {{/calendar.until}}
                     </div>
                     <div class='popup-info'>
-                        <div class='popup-truck'>
-                            <!-- div class='truck-image' style='background: #f1f1f1 url("{{truck.logo_url}}") no-repeat'></div -->
+                        <div class='popup-vendor'>
+                            <!-- div class='vendor-image' style='background: #f1f1f1 url("{{vendor.logo_url}}") no-repeat'></div -->
                             <div>
                                 <h3>
-                                    {{#truck.website}}
-                                        <a href='{{truck.website}}' target='_blank'>{{truck.name}}</a>
-                                    {{/truck.website}}
-                                    {{^truck.website}}
-                                        {{truck.name}}
-                                    {{/truck.website}}
+                                    {{#vendor.website}}
+                                        <a href='{{vendor.website}}' target='_blank'>{{vendor.name}}</a>
+                                    {{/vendor.website}}
+                                    {{^vendor.website}}
+                                        {{vendor.name}}
+                                    {{/vendor.website}}
                                 </h3>
-                                <small>{{truck.cuisine}}</small>
+                                <small>{{vendor.cuisine}}</small>
                             </div>
                         </div>
                         <div class='popup-location'>
@@ -243,13 +246,13 @@
                 </div>
             </script>
             </div>
-            <!-- // end Mustache - Popups Leaflet -->            
+            <!-- // end Mustache - Leaflet Popups -->            
 
             <!-- MUSTACHE TEMPLATES for footer -->
             <div id='footer-templates' style='display: none'>
-            <script id='m-footer-all-trucks' type='text/template'>
+            <script id='mustache-footer-all-vendors' type='text/template'>
                 <ul>
-                {{#trucks}}
+                {{#vendors}}
                     <li>
                     {{#website}}
                     <a href='{{website}}' target='_blank'>{{name}}</a>
@@ -258,12 +261,12 @@
                         {{name}}
                     {{/website}}
                     </li>
-                {{/trucks}}
+                {{/vendors}}
                 </ul>
                 <p><strong>Note:</strong> If links are provided, they will open in a new window.</p>
             </script>
             </div>
-            <!-- // end Mustache - Footer trucks list -->
+            <!-- // end Mustache - Footer vendors list -->
 
             <!-- END TEMPLATE SECTION -->
 

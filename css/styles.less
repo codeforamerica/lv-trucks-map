@@ -5,33 +5,31 @@
 
 // CONSTANTS
 
-@nav-background:        #fbfbfb;
-@nav-divider:           darken(@nav-background, 10%);
-@nav-hilite:            #09c;
-@nav-search-width:      400px;
+@color-scheme:          #21687f;
+//@color-scheme:     rgb(51,51,63);
 
-@background:            #f2f2f2;
+@background:            #f8f8f8;
 @clv-type:              #3f3f3f;
 @sidebar-background:    #444;
 @ui-index:              9000;
 
-@footer-background:     rgba(51,51,63,1);
+@footer-background:     @color-scheme;
 @footer-divider:        lighten(@footer-background, 10%);
 @footer-height:         40px;
 
 @background-dark:       rgba(0,0,0,0.5);
 
-@popup-width:           200px;
+@popup-width:           180px;
 
 @container-width:       90%;
 
-@truck-heading-color:           lighten(@footer-background, 25%);
-@truck-heading-hilite-color:    lighten(@truck-heading-color, 8%);
-@truck-heading-text-color:      white;
-@truck-entry-bgcolor:           white;
-@truck-entry-hilite-color:      rgb(240,240,240);
+@vendor-heading-color:           lighten(@footer-background, 25%);
+@vendor-heading-hilite-color:    lighten(@vendor-heading-color, 8%);
+@vendor-heading-text-color:      white;
+@vendor-entry-bgcolor:           white;
+@vendor-entry-hilite-color:      rgb(240,240,240);
 
-@time-background:       #5c8f54;
+@time-background:       #3ab000;
 
 // MEDIA QUERY WIDTHS
 
@@ -147,30 +145,32 @@ header {
     }
 }
 
-#truck-info {
+#vendor-info {
     width: 360px;
     position: absolute;
     top: 20px;
     left: 20px;
     z-index: 1200;
-    box-shadow: 0 0 10px rgba(0,0,0,0.50);
+    box-shadow: 0 0 6px rgba(0,0,0,0.25);
     background-color: white;
     color: black;
     font-size: 11px;
     max-height: 90%;
     overflow: auto;
     .user-select(none);
+    border-radius: 2px;
     @media @mobile, @tablet, @landscape {
         width: 100%;
         top: 0;
         left: 0;
+        border-radius: 0;
     }
-    .truck-title, .truck-heading {
+    .vendor-title, .vendor-heading {
         font-family: @display-font;
-        color: @truck-heading-text-color;
+        color: @vendor-heading-text-color;
     }
-    .truck-title {
-        background-color: darken(@truck-heading-color, 10%);
+    .vendor-title {
+        background-color: darken(@vendor-heading-color, 10%);
         height: 36px;
         padding: 10px;
         h1 {
@@ -194,38 +194,38 @@ header {
             height: 18px;
         }
     }
-    #truck-data {
+    #vendor-data {
         @media @mobile, @tablet {
             display: none;
         }
     }
-    .truck-heading {
-        background: @truck-heading-color url('../img/arrow.png') right 20px top 16px no-repeat;
+    .vendor-heading {
+        background: @vendor-heading-color url('../img/arrow.png') right 20px top 16px no-repeat;
         font-size: 14px;
         height: 40px;
         line-height: 40px;
         padding: 0 10px;
         cursor: hand;
         cursor: pointer;
-        border-bottom: 1px dotted lighten(@truck-heading-color, 10%);
+        border-bottom: 1px dotted lighten(@vendor-heading-color, 10%);
         .transition(background-color 0.2s ease);
         &.active {
-            background: @truck-heading-color url('../img/arrow-down.png') right 19px top 18px no-repeat;
+            background: @vendor-heading-color url('../img/arrow-down.png') right 19px top 18px no-repeat;
             border-bottom: 0px;
         }
         &.no-border {
             border-bottom: 0px;
         }
         &:hover {
-            background-color: @truck-heading-hilite-color;
+            background-color: @vendor-heading-hilite-color;
         }
     }
-    .truck-entries {
+    .vendor-entries {
         padding: 3px 0;
-        .truck-entry, .truck-message {
+        .vendor-entry, .vendor-message {
             padding: 10px 10px;
         }
-        .truck-entry {
+        .vendor-entry {
             height: 60px;
             cursor: hand;
             cursor: pointer;
@@ -234,9 +234,9 @@ header {
                 border-bottom: 1px dotted #d9d9d9;
             }
             &:hover {
-                background-color: @truck-entry-hilite-color;
+                background-color: @vendor-entry-hilite-color;
             }
-            .truck-image {
+            .vendor-image {
                 height: 70px;
                 width: 70px;
                 float: left;
@@ -270,7 +270,7 @@ header {
                 padding: 6px 10px;
             }
         }
-        .truck-message {
+        .vendor-message {
             line-height: 10px;
         }
     }
@@ -369,14 +369,12 @@ div.footer-popup {
     background-color: @background;
     color: black;
     left: 5%;
-    box-shadow: 0 0 20px rgba(0,0,0,0.75);
+    box-shadow: 0 0 6px rgba(0,0,0,0.25);
     z-index: @ui-index - 10;
-
     @media @mobile {
         width: 100%;
         left: 0;
     }
-
     .footer-popup-close {
         position: absolute;
         top: 10px;
@@ -389,9 +387,8 @@ div.footer-popup {
         }
     }
     .footer-popup-title {
-        border-bottom: 1px dotted darken(@background, 10%);
         padding: 15px 25px;
-        background-color: darken(@background, 5%);
+        background-color: darken(@background, 8%);
         h2 {
             font-family: @display-font;
             font-weight: normal;
@@ -418,7 +415,7 @@ div.footer-popup {
         }
     }
 }
-#trucks {
+#vendors {
 }
 #calendar {
 }
@@ -445,8 +442,8 @@ div.footer-popup {
     .popup-info {
         max-width: @popup-width;
         .user-select(text);
-        .popup-truck {
-            .truck-image {
+        .popup-vendor {
+            .vendor-image {
             }
             line-height: 120%;
             padding: 8px;
@@ -456,7 +453,7 @@ div.footer-popup {
         }
         .popup-location {
             padding: 8px;
-            border-top: 1px solid lighten(@truck-heading-color, 30%);
+            border-top: 1px solid lighten(@vendor-heading-color, 30%);
             .address {
                 color: #888;
                 a {
@@ -533,14 +530,13 @@ div.footer-popup {
     display: none;
 }
 .leaflet-control-attribution {
-    background-color: darken(@footer-background, 5%) !important;
-    color: #aaa !important;
+    background-color: rgba(255,255,255,0.7) !important;
+    color: #888 !important;
     box-shadow: none !important;
-    .opacity(0.75);
     @media @mobile {
         font-size: 10px !important;
         a {
-            color: #aaa !important;
+            color: #888 !important;
         }
     }
 }
@@ -559,6 +555,8 @@ div.footer-popup {
 }
 .leaflet-popup-content {
     margin: 0 !important;
+    max-width: @popup-width;
+    box-shadow: 0 1px 10px rgba(0,0,0,0.25);
 }
 
 .popup-message {

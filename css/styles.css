@@ -359,7 +359,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-  background-color: #f2f2f2;
+  background-color: #f8f8f8;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 13px;
 }
@@ -454,13 +454,13 @@ header #nav-logo a {
   top: 35%;
   padding: 16px;
 }
-#truck-info {
+#vendor-info {
   width: 360px;
   position: absolute;
   top: 20px;
   left: 20px;
   z-index: 1200;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.25);
   background-color: white;
   color: black;
   font-size: 11px;
@@ -471,25 +471,27 @@ header #nav-logo a {
   -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
+  border-radius: 2px;
 }
 @media screen and (max-width: 529px), screen and (min-width: 530px) and (max-width: 767px), screen and (max-width: 767px) and (orientation: landscape) {
-  #truck-info {
+  #vendor-info {
     width: 100%;
     top: 0;
     left: 0;
+    border-radius: 0;
   }
 }
-#truck-info .truck-title,
-#truck-info .truck-heading {
+#vendor-info .vendor-title,
+#vendor-info .vendor-heading {
   font-family: 'Fauna One';
   color: #ffffff;
 }
-#truck-info .truck-title {
-  background-color: #555569;
+#vendor-info .vendor-title {
+  background-color: #319abc;
   height: 36px;
   padding: 10px;
 }
-#truck-info .truck-title h1 {
+#vendor-info .vendor-title h1 {
   margin: 0;
   padding: 0 0 0 50px;
   font-size: 24px;
@@ -500,7 +502,7 @@ header #nav-logo a {
   background-position: left top 9px;
 }
 @media screen and (max-width: 529px), screen and (min-width: 530px) and (max-width: 767px), screen and (max-width: 767px) and (orientation: landscape) {
-  #truck-info .truck-title h1 {
+  #vendor-info .vendor-title h1 {
     line-height: 18px;
     font-size: 14px;
     padding-left: 30px;
@@ -509,47 +511,47 @@ header #nav-logo a {
   }
 }
 @media screen and (max-width: 529px), screen and (min-width: 530px) and (max-width: 767px), screen and (max-width: 767px) and (orientation: landscape) {
-  #truck-info .truck-title {
+  #vendor-info .vendor-title {
     height: 18px;
   }
 }
 @media screen and (max-width: 529px), screen and (min-width: 530px) and (max-width: 767px) {
-  #truck-info #truck-data {
+  #vendor-info #vendor-data {
     display: none;
   }
 }
-#truck-info .truck-heading {
-  background: #6c6c85 url('../img/arrow.png') right 20px top 16px no-repeat;
+#vendor-info .vendor-heading {
+  background: #4eb1d1 url('../img/arrow.png') right 20px top 16px no-repeat;
   font-size: 14px;
   height: 40px;
   line-height: 40px;
   padding: 0 10px;
   cursor: hand;
   cursor: pointer;
-  border-bottom: 1px dotted #87879e;
+  border-bottom: 1px dotted #77c3dc;
   -webkit-transition: background-color 0.2s ease;
   -moz-transition: background-color 0.2s ease;
   -o-transition: background-color 0.2s ease;
   transition: background-color 0.2s ease;
 }
-#truck-info .truck-heading.active {
-  background: #6c6c85 url('../img/arrow-down.png') right 19px top 18px no-repeat;
+#vendor-info .vendor-heading.active {
+  background: #4eb1d1 url('../img/arrow-down.png') right 19px top 18px no-repeat;
   border-bottom: 0px;
 }
-#truck-info .truck-heading.no-border {
+#vendor-info .vendor-heading.no-border {
   border-bottom: 0px;
 }
-#truck-info .truck-heading:hover {
-  background-color: #818199;
+#vendor-info .vendor-heading:hover {
+  background-color: #6fbfda;
 }
-#truck-info .truck-entries {
+#vendor-info .vendor-entries {
   padding: 3px 0;
 }
-#truck-info .truck-entries .truck-entry,
-#truck-info .truck-entries .truck-message {
+#vendor-info .vendor-entries .vendor-entry,
+#vendor-info .vendor-entries .vendor-message {
   padding: 10px 10px;
 }
-#truck-info .truck-entries .truck-entry {
+#vendor-info .vendor-entries .vendor-entry {
   height: 60px;
   cursor: hand;
   cursor: pointer;
@@ -559,13 +561,13 @@ header #nav-logo a {
   -o-user-select: text;
   user-select: text;
 }
-#truck-info .truck-entries .truck-entry:not(:last-child) {
+#vendor-info .vendor-entries .vendor-entry:not(:last-child) {
   border-bottom: 1px dotted #d9d9d9;
 }
-#truck-info .truck-entries .truck-entry:hover {
+#vendor-info .vendor-entries .vendor-entry:hover {
   background-color: #f0f0f0;
 }
-#truck-info .truck-entries .truck-entry .truck-image {
+#vendor-info .vendor-entries .vendor-entry .vendor-image {
   height: 70px;
   width: 70px;
   float: left;
@@ -573,32 +575,32 @@ header #nav-logo a {
   margin-top: -6px;
   margin-left: -6px;
 }
-#truck-info .truck-entries .truck-entry .truck-image img {
+#vendor-info .vendor-entries .vendor-entry .vendor-image img {
   width: 100%;
   height: 100%;
 }
-#truck-info .truck-entries .truck-entry h3 {
+#vendor-info .vendor-entries .vendor-entry h3 {
   padding: 0;
   margin: 0;
   font-size: 18px;
 }
-#truck-info .truck-entries .truck-entry p {
+#vendor-info .vendor-entries .vendor-entry p {
   padding: 0;
   margin: 0;
 }
-#truck-info .truck-entries .truck-entry p .address {
+#vendor-info .vendor-entries .vendor-entry p .address {
   color: #999;
   font-size: 10px;
 }
-#truck-info .truck-entries .truck-entry span.time {
-  background-color: #5c8f54;
+#vendor-info .vendor-entries .vendor-entry span.time {
+  background-color: #3ab000;
   border-radius: 4px;
   float: right;
   margin-top: -56px;
   color: white;
   padding: 6px 10px;
 }
-#truck-info .truck-entries .truck-message {
+#vendor-info .vendor-entries .vendor-message {
   line-height: 10px;
 }
 footer {
@@ -606,8 +608,8 @@ footer {
   width: 100%;
   bottom: 0;
   position: fixed;
-  background-color: #33333f;
-  color: #cdcdd7;
+  background-color: #21687f;
+  color: #dcf0f6;
   z-index: 9000;
   font-size: 13px;
   -webkit-user-select: none;
@@ -616,7 +618,7 @@ footer {
   -o-user-select: none;
   user-select: none;
   font-family: 'Fauna One';
-  border-top: 1px solid #2e2e39;
+  border-top: 1px solid #1f6177;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.25);
   /* Responsive footer button set */
 
@@ -663,7 +665,7 @@ footer ul li {
   cursor: pointer;
 }
 footer ul li:hover {
-  background-color: #3e3e4d;
+  background-color: #267993;
 }
 footer ul li:after {
   margin-left: 15px;
@@ -700,10 +702,10 @@ div.footer-popup {
   display: none;
   bottom: 0;
   width: 400px;
-  background-color: #f2f2f2;
+  background-color: #f8f8f8;
   color: black;
   left: 5%;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.75);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.25);
   z-index: 8990;
 }
 @media screen and (max-width: 529px) {
@@ -716,7 +718,7 @@ div.footer-popup .footer-popup-close {
   position: absolute;
   top: 10px;
   right: 16px;
-  color: #8c8c8c;
+  color: #929292;
   cursor: pointer;
   font-size: 24px;
 }
@@ -726,9 +728,8 @@ div.footer-popup .footer-popup-close {
   }
 }
 div.footer-popup .footer-popup-title {
-  border-bottom: 1px dotted #d9d9d9;
   padding: 15px 25px;
-  background-color: #e5e5e5;
+  background-color: #e4e4e4;
 }
 div.footer-popup .footer-popup-title h2 {
   font-family: 'Fauna One';
@@ -777,29 +778,29 @@ div.footer-popup .footer-popup-content {
   display: inline-block;
   height: 11px;
   line-height: 11px;
-  background-color: #5c8f54;
+  background-color: #3ab000;
   color: white;
   font-size: 12px;
   padding: 6px 8px;
 }
 #popup-leaflet .popup-info {
-  max-width: 200px;
+  max-width: 180px;
   -webkit-user-select: text;
   -moz-user-select: text;
   -ms-user-select: text;
   -o-user-select: text;
   user-select: text;
 }
-#popup-leaflet .popup-info .popup-truck {
+#popup-leaflet .popup-info .popup-vendor {
   line-height: 120%;
   padding: 8px;
 }
-#popup-leaflet .popup-info .popup-truck small {
+#popup-leaflet .popup-info .popup-vendor small {
   color: #888;
 }
 #popup-leaflet .popup-info .popup-location {
   padding: 8px;
-  border-top: 1px solid #bfbfcb;
+  border-top: 1px solid #c8e7f1;
 }
 #popup-leaflet .popup-info .popup-location .address {
   color: #888;
@@ -882,18 +883,16 @@ div.footer-popup .footer-popup-content {
   display: none;
 }
 .leaflet-control-attribution {
-  background-color: #282831 !important;
-  color: #aaa !important;
+  background-color: rgba(255, 255, 255, 0.7) !important;
+  color: #888 !important;
   box-shadow: none !important;
-  opacity: 0.75;
-  filter: alpha(opacity=75);
 }
 @media screen and (max-width: 529px) {
   .leaflet-control-attribution {
     font-size: 10px !important;
   }
   .leaflet-control-attribution a {
-    color: #aaa !important;
+    color: #888 !important;
   }
 }
 .leaflet-container a {
@@ -904,10 +903,12 @@ div.footer-popup .footer-popup-content {
 }
 .leaflet-popup-content-wrapper {
   padding: 0 !important;
-  max-width: 200px;
+  max-width: 180px;
 }
 .leaflet-popup-content {
   margin: 0 !important;
+  max-width: 180px;
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.25);
 }
 .popup-message {
   text-align: center;
