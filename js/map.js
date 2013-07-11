@@ -159,7 +159,7 @@ var markers = L.mapbox.markerLayer(locations, {
 }).addTo(map)
 
 // Set the bounding area for the map
-map.fitBounds(markers.getBounds().pad(0.3), {
+map.fitBounds(markers.getBounds().pad(0.25), {
     paddingTopLeft: centerOffset
 })
 map.setMaxBounds(markers.getBounds().pad(6))

@@ -544,9 +544,6 @@ header #nav-logo a {
 #vendor-info .vendor-heading:hover {
   background-color: #6fbfda;
 }
-#vendor-info .vendor-entries {
-  padding: 3px 0;
-}
 #vendor-info .vendor-entries .vendor-entry,
 #vendor-info .vendor-entries .vendor-message {
   padding: 10px 10px;

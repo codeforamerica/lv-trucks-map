@@ -254,6 +254,7 @@ $(document).ready( function () {
     for (var i = 0; i < timeslots.length; i++) {
 
         var start = new Date(timeslots[i].start_at)
+        var end = new Date(timeslots[i].finish_at)
 
         var locationId = timeslots[i].location_id
 
@@ -264,6 +265,10 @@ $(document).ready( function () {
             }
         }
 
+        // format times for output
+        timeslots[i].from = formatTime(start)
+        timeslots[i].until = formatTime(end)
+
         // time slots starting later today
         if (now < start && now.getDate() == start.getDate()) {
             schedule.later.entries.push(timeslots[i])
@@ -273,14 +278,14 @@ $(document).ready( function () {
         var compareday = new Date(now)
         compareday.setDate(compareday.getDate() + 1)
         if (compareday.getDate() == start.getDate()) {
+            // add day
+            var day_names = new Array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday')
+            timeslots[i].date = day_names[start.getDay()]
+    
             schedule.tomorrow.entries.push(timeslots[i])
+
         }
 
-//        vendors.entries[i] = gatherData(timeslots[i].vendor, timeslots[i].at)
-
-//        vendors.entries[i].date = timeslots[i].date
-//        vendors.entries[i].from = timeslots[i].from
-//        vendors.entries[i].until = timeslots[i].until
     }
 
     if (schedule.now.entries.length > 0) {
@@ -399,45 +404,33 @@ function toggleFooterPopup(popup, clicked) {
 
 function showScheduleOverlay (timeslots) {
 
-    var $panelNow = $('#vendor-info-now')
-    var $panelLater = $('#vendor-info-later')
-    var $panelMuchLater = $('#vendor-info-muchlater')
 
-    var mustacheScheduleEntry = $('#mustache-schedule-entry').html()
+}
 
-    // let's just be stupid with this code right now.
 
-    var vendors = {}
-    vendors.entries = []
+/**
+ *   Format time for display, given a Date object
+ */
 
-    for (var i = 0; i < timeslots.length; i++) {
+function formatTime (date) {
 
-        var start = new Date(timeslots[i].start_at)
+    var string = ''
+    var hour = date.getHours()
+    var minutes = date.getMinutes()
 
-        // open now
-        // we can either use the timeslots.... OR just use current_vendor_id
-
-        // time slots starting later today
-        if (now < start && now.getDate() == start.getDate()) {
-            vendors.later = timeslots[i]
-        }
-
-        // time slots starting tomorrow
-        var compareday = new Date(now)
-        compareday.setDate(compareday.getDate() + 1)
-        if (compareday.getDate() == start.getDate()) {
-            vendors.tomorrow = timeslots[i]
-        }
-
-//        vendors.entries[i] = gatherData(timeslots[i].vendor, timeslots[i].at)
-
-//        vendors.entries[i].date = timeslots[i].date
-//        vendors.entries[i].from = timeslots[i].from
-//        vendors.entries[i].until = timeslots[i].until
+    if (hour > 12) {
+        hour = hour - 12
+        string = hour + 'pm'
+    }
+    else {
+        string = hour + 'am'
     }
 
-    //section.html(Mustache.render(mustacheScheduleEntry, vendors))
+    return string
+
 }
+
+
 
 /**
  *   ???
