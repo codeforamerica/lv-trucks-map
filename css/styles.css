@@ -489,7 +489,7 @@ header #nav-logo a {
 #vendor-info .vendor-title {
   background-color: #319abc;
   height: 60px;
-  padding: 10px 10px;
+  padding: 10px 10px 15px;
 }
 #vendor-info .vendor-title h1 {
   margin: 0;
@@ -511,7 +511,7 @@ header #nav-logo a {
 }
 #vendor-info .vendor-title p {
   margin-left: 50px;
-  line-height: 120%;
+  line-height: 130%;
   margin-top: 0;
   color: #dfdfdf;
 }
