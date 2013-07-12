@@ -5,16 +5,19 @@ lv-trucks-map
 
 Public-facing map for City of Las Vegas mobile food vendor app.
 
-Food truck applications are not new. However, they generally rely on scraping Twitter feeds or asking vendors to update a calendar through an administration interface. This one demonstrates how food truck information can be reported in real time using city resources and communication channels.
+Food truck applications are not new. However, most existing apps rely on scraping social media or asking vendors to update a calendar through an administration interface. 
 
-In July of 2013, the City of Las Vegas (a Code for America partner city) installed new electronic parking meters throughout Downtown. They also started a new six-month pilot program for officially designated spots at these meters for food trucks. The city recognized that the new meters could report what truck was parked where, and when, and use it as a code enforcement tool in conjunction with their mobile food vendor program. Working together with the city, we intend to show that it could also be used for public benefit as well.
+Code for America fellows, in partnership with the City of Las Vegas, developed this application to demonstrate how __real-time parking information__ can be utilized to provide up-to-date information that citizens can benefit from.
 
-While the API from these parking meters are owned and operated by Parkeon, the city's parking meter vendor, 
+### Context
 
+In July of 2013, the City of Las Vegas installed new electronic parking meters throughout Downtown. They also started a new six-month pilot program to officially designate approved spots for mobile vendors, with a corresponding lottery system to assign scheduled time slots to participating vendors. 
 
-we would hope that information such as this could become publicly accessible, and feed directly into other food truck app developers, who would be able to provide a much more robust experience for truck customers.
+The city recognized that the new meters had an ability to report whether trucks had parked when they were supposed to. Their initial interest in this project was to record meter data for code enforcement purposes. However, they now recognize that this data can also be utilized for public benefit as well.
 
-There are two components to this software. This is the front end public facing map. An administration interface for the city to manage location, vendors, and scheduling is located [here][back-end].
+The parking meters' API, and the data retrieved from it, is owned and operated by the meter vendor, Parkeon. Through our partnership with the city, we obtain data from these meters, match it to a participating vendor, and translate it to a format that can be consumed by a front-end.
+
+Our application shows only the designated vendor spots, and vendors participating in the City's program. However, our [scheduling admin interface][back-end] outputs its own API that is publicly accessible. Therefore, other application developers (who may use social media or other strategies to obtain food truck information) may use the real-time information to enrich their own applications.
 
 [back-end]: http://github.com/rclosner/food_trucks/
 
