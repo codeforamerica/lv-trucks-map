@@ -461,7 +461,7 @@ header #nav-logo a {
   left: 20px;
   z-index: 1200;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.25);
-  background-color: white;
+  background-color: #f1f1f1;
   color: black;
   font-size: 12px;
   max-height: 90%;
@@ -488,7 +488,7 @@ header #nav-logo a {
 }
 #vendor-info .vendor-title {
   background-color: #319abc;
-  height: 36px;
+  height: 60px;
   padding: 10px;
 }
 #vendor-info .vendor-title h1 {
@@ -508,6 +508,17 @@ header #nav-logo a {
     padding-left: 30px;
     background-size: 22px 12px;
     background-position: left center;
+  }
+}
+#vendor-info .vendor-title p {
+  margin-left: 50px;
+  line-height: 120%;
+  margin-top: -2px;
+  color: #eee;
+}
+@media screen and (max-width: 529px), screen and (min-width: 530px) and (max-width: 767px), screen and (max-width: 767px) and (orientation: landscape) {
+  #vendor-info .vendor-title p {
+    display: none;
   }
 }
 @media screen and (max-width: 529px), screen and (min-width: 530px) and (max-width: 767px), screen and (max-width: 767px) and (orientation: landscape) {
@@ -543,6 +554,9 @@ header #nav-logo a {
 }
 #vendor-info .vendor-heading:hover {
   background-color: #6fbfda;
+}
+#vendor-info .vendor-entries .vendor-entry-list {
+  background-color: white;
 }
 #vendor-info .vendor-entries .vendor-entry,
 #vendor-info .vendor-entries .vendor-message {
@@ -596,6 +610,17 @@ header #nav-logo a {
   margin-top: -56px;
   color: white;
   padding: 6px 10px;
+}
+#vendor-info .vendor-entries .vendor-entry span.later {
+  background-color: #ff9933;
+}
+#vendor-info .vendor-entries .vendor-entry-note {
+  line-height: 10px;
+  font-size: 11px;
+  color: #777;
+  border-top: 1px dotted #d9d9d9;
+  background-color: #f1f1f1;
+  padding: 0 10px;
 }
 #vendor-info .vendor-entries .vendor-message {
   line-height: 10px;

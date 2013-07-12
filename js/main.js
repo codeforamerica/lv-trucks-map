@@ -231,9 +231,9 @@ $(document).ready( function () {
     // let's just be stupid with this code right now.
 
 
-    var $panelNow = $('#vendor-info-now')
-    var $panelLater = $('#vendor-info-later')
-    var $panelMuchLater = $('#vendor-info-muchlater')
+    var $panelNow = $('#vendor-info-now .vendor-entry-list')
+    var $panelLater = $('#vendor-info-later .vendor-entry-list')
+    var $panelMuchLater = $('#vendor-info-muchlater .vendor-entry-list')
 
     var mustacheScheduleEntry = $('#mustache-schedule-entry').html()
 

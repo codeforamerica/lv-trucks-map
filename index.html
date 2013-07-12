@@ -12,7 +12,7 @@
         <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
         
         <title>Food Trucks of Downtown Las Vegas</title>
-        <meta name='description' content='Find out when your favorite food trucks are in downtown Las Vegas!'>
+        <meta name='description' content='App for officially designated mobile food vendor parking spots in Downtown Las Vegas. Find out when your favorite food trucks are downtown!'>
 
         <link rel='author' href='humans.txt' />
 
@@ -59,27 +59,42 @@
             </div>
 
             <div id='vendor-info'>
-                <div class='vendor-title'><h1>Food trucks of DTLV</h1></div>
+                <div class='vendor-title'>
+                    <h1>Food trucks of DTLV</h1>
+                    <p>Officially designated mobile food vendor parking spots in Downtown Las Vegas</p>
+                </div>
                 <div id='vendor-data'>
                     <div id='vendor-head-now' class='vendor-heading'>Open now</div>
                     <div id='vendor-info-now' class='vendor-entries' style='display: none;'>
-                        <!-- Replace this area with generated entries -->
-                        <div class='vendor-message'>
-                            <h3>There are no trucks open right now.</h3>
+                        <div class='vendor-entry-list'>
+                            <!-- Replace this area with generated entries -->
+                            <div class='vendor-message'>
+                                <h3>There are no trucks open right now.</h3>
+                            </div>
                         </div>
                     </div>
                     <div id='vendor-head-later' class='vendor-heading'>Later today</div>
                     <div id='vendor-info-later' class='vendor-entries' style='display: none;'>
-                        <!-- Replace this area with generated entries -->
-                        <div class='vendor-message'>
-                            <h3>There are no trucks open later.</h3>
+                        <div class='vendor-entry-list'>
+                            <!-- Replace this area with generated entries -->
+                            <div class='vendor-message'>
+                                <h3>There are no trucks open later.</h3>
+                            </div>
+                        </div>
+                        <div class='vendor-entry-note'>
+                            <p><strong>Note:</strong> Scheduled vendors may be subject to change without notice.</p>
                         </div>
                     </div>
                     <div id='vendor-head-muchlater' class='vendor-heading no-border'>Tomorrow</div>
                     <div id='vendor-info-muchlater' class='vendor-entries' style='display: none;'>
-                        <!-- Replace this area with generated entries -->
-                        <div class='vendor-message'>
-                            <h3>There are no trucks open tomorrow.</h3>
+                        <div class='vendor-entry-list'>
+                            <!-- Replace this area with generated entries -->
+                            <div class='vendor-message'>
+                                <h3>There are no trucks open tomorrow.</h3>
+                            </div>
+                        </div>
+                        <div class='vendor-entry-note'>
+                            <p><strong>Note:</strong> Scheduled vendors may be subject to change without notice.</p>
                         </div>
                     </div>
                 </div>
@@ -194,11 +209,11 @@
                         <br><span class='address'>{{location.addressShort}}</span>
                     </p>
                     {{#date}}
-                        <span class='time'>{{date}} {{from}}</span>
+                        <span class='time later'>{{date}} {{from}}</span>
                     {{/date}}
                     {{^date}}
                         {{#from}}
-                            <span class='time'>{{from}} - {{until}}</span>
+                            <span class='time later'>{{from}} - {{until}}</span>
                         {{/from}}
                         {{^from}}
                             <span class='time'>until {{until}}</span>
