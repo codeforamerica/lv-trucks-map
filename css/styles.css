@@ -489,17 +489,16 @@ header #nav-logo a {
 #vendor-info .vendor-title {
   background-color: #319abc;
   height: 60px;
-  padding: 10px;
+  padding: 10px 10px;
 }
 #vendor-info .vendor-title h1 {
   margin: 0;
   padding: 0 0 0 50px;
   font-size: 24px;
-  line-height: 36px;
   font-weight: normal;
   background: transparent url('../img/truck-icon.png') no-repeat;
   background-size: 36px 20px;
-  background-position: left top 9px;
+  background-position: left top 7px;
 }
 @media screen and (max-width: 529px), screen and (min-width: 530px) and (max-width: 767px), screen and (max-width: 767px) and (orientation: landscape) {
   #vendor-info .vendor-title h1 {
@@ -513,8 +512,8 @@ header #nav-logo a {
 #vendor-info .vendor-title p {
   margin-left: 50px;
   line-height: 120%;
-  margin-top: -2px;
-  color: #eee;
+  margin-top: 0;
+  color: #dfdfdf;
 }
 @media screen and (max-width: 529px), screen and (min-width: 530px) and (max-width: 767px), screen and (max-width: 767px) and (orientation: landscape) {
   #vendor-info .vendor-title p {
