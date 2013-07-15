@@ -348,6 +348,9 @@ $(document).ready( function () {
         $('.leaflet-popup-pane').on('click', '.popup-location', function () {
             window.open($('.popup-location a').attr('href'), '_blank')
         })
+        $('.leaflet-popup-pane').on('click', 'a', function (e) {
+            e.preventDefault()
+        })
     }
 
 })
@@ -427,6 +430,7 @@ function toggleFooterPopup(popup, clicked) {
 
 function showScheduleOverlay (timeslots) {
 
+// NOT USED AT THE MOMENT
 
 }
 
@@ -464,34 +468,6 @@ function formatTime (date) {
 
     return string
 
-}
-
-
-
-/**
- *   ???
- */
-
-function gatherData (vendorID, locationID) {
-
-    var data = {}
-
-    for (var j = 0; j < vendors.length; j++) {
-        if (vendors[j].id == vendorID) {
-            data.vendor = vendors[j]
-            break
-        }
-    }
-
-    for (var k = 0; k < locations.features.length; k++) {
-        if (locations.features[k].id == locationID) {
-            data.location = locations.features[k].properties
-            data.location.id = locations.features[k].id
-            break
-        }
-    }
-
-    return data
 }
 
 
