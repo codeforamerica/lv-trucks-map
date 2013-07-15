@@ -523,6 +523,7 @@ header #nav-logo a {
 @media screen and (max-width: 529px), screen and (min-width: 530px) and (max-width: 767px), screen and (max-width: 767px) and (orientation: landscape) {
   #vendor-info .vendor-title {
     height: 18px;
+    padding: 10px;
   }
 }
 @media screen and (max-width: 529px), screen and (min-width: 530px) and (max-width: 767px) {
@@ -873,12 +874,12 @@ div.footer-popup .footer-popup-content {
   position: absolute;
   right: 10px;
   bottom: 20px;
-  opacity: 0.1;
-  filter: alpha(opacity=10);
+  opacity: 0.2;
+  filter: alpha(opacity=20);
   width: 36px;
   height: 9px;
 }
-@media screen and (max-width: 529px) {
+@media screen and (max-width: 529px), screen and (min-width: 530px) and (max-width: 767px), screen and (max-width: 767px) and (orientation: landscape) {
   #pi {
     display: none;
   }

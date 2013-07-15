@@ -202,6 +202,7 @@ header {
         }
         @media @mobile, @tablet, @landscape {
             height: 18px;
+            padding: 10px;
         }
     }
     #vendor-data {
@@ -527,10 +528,10 @@ div.footer-popup {
     position: absolute;
     right: 10px;
     bottom: 20px;
-    .opacity(.1);
+    .opacity(.2);
     width: 36px;
     height: 9px;
-    @media @mobile {
+    @media @mobile, @tablet, @landscape {
         display: none;
     }
     img {

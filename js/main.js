@@ -79,9 +79,25 @@ if (getQueryStringParams('test') == 1 ) {
                 }
             },
             error: function (x) {
-                showError('We couldn\'t retrieve schedule at this time.')
+                showError('We couldn\'t retrieve vendor schedule at this time.')
             }
         })
+    }
+
+    if (timeslots.length > 1) {
+
+        // Sort timeslots by time
+        var sort_by_time = function(field, reverse, primer) {
+            var key = function (x) {return primer ? primer(x[field]) : x[field]};
+
+            return function (a,b) {
+                var A = key(a), B = key(b);
+                return ((A < B) ? -1 : (A > B) ? +1 : 0) * [-1,1][+!!reverse];                  
+            }
+        }
+
+        // Assign to data object
+        timeslots = timeslots.sort(sort_by_time('start_at', true))
     }
 
     /*
@@ -116,7 +132,6 @@ if (getQueryStringParams('test') == 1 ) {
                     return ((A < B) ? -1 : (A > B) ? +1 : 0) * [-1,1][+!!reverse];                  
                 }
             }
-
 
             // Look at website string and add http:// if necessary
             function addHttp(url) {
