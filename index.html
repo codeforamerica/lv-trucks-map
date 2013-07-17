@@ -3,309 +3,335 @@
 <!--[if IE 7]>         <html class='no-js lt-ie9 lt-ie8'> <![endif]-->
 <!--[if IE 8]>         <html class='no-js lt-ie9'> <![endif]-->
 <!--[if gt IE 8]><!--> <html class='no-js'> <!--<![endif]-->
-    <head>
-        <meta charset='utf-8'>
-        <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+	<head>
+		<meta charset='utf-8'>
+		<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 
-        <meta name='HandheldFriendly' content='true'>
-        <meta name='apple-mobile-web-app-capable' content='yes'>
-        <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
-        <meta name='viewport' content='initial-scale=1.0, maximum-scale=1.0, user-scalable=no' media='(device-height: 568px)'>
-        
-        <title>Food Trucks of Downtown Las Vegas</title>
-        <meta name='description' content='App for officially designated mobile food vendor parking spots in Downtown Las Vegas. Find out when your favorite food trucks are downtown!'>
+		<meta name='HandheldFriendly' content='true'>
+		<meta name='apple-mobile-web-app-capable' content='yes'>
+		<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
+		<meta name='viewport' content='initial-scale=1.0, maximum-scale=1.0, user-scalable=no' media='(device-height: 568px)'>
+		
+		<title>Food Trucks of Downtown Las Vegas</title>
+		<meta name='description' content='App for officially designated mobile food vendor parking spots in Downtown Las Vegas. Find out when your favorite food trucks are downtown!'>
 
-        <link rel='author' href='humans.txt' />
+		<link rel='author' href='humans.txt' />
 
-        <link href='css/styles.css' rel='stylesheet' type='text/css' />
+		<link href='css/styles.css' rel='stylesheet' type='text/css' />
 
-        <link rel='icon' type='image/png' href='favicon.png' />
-        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-        <link rel='apple-touch-icon' href='apple-touch-icon.png' />
-        <link rel='apple-touch-icon' sizes='72x72' href='apple-touch-icon-72x72-precomposed.png' />
-        <link rel='apple-touch-icon' sizes='114x114' href='apple-touch-icon-114x114-precomposed.png' />
-        <link rel='apple-touch-icon' sizes='144x144' href='apple-touch-icon-144x144-precomposed.png' />
+		<link rel='icon' type='image/png' href='favicon.png' />
+		<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+		<link rel='apple-touch-icon' href='apple-touch-icon.png' />
+		<link rel='apple-touch-icon' sizes='72x72' href='apple-touch-icon-72x72-precomposed.png' />
+		<link rel='apple-touch-icon' sizes='114x114' href='apple-touch-icon-114x114-precomposed.png' />
+		<link rel='apple-touch-icon' sizes='144x144' href='apple-touch-icon-144x144-precomposed.png' />
 
-        <script src='js/vendor/modernizr-2.6.2.min.js'></script>
+		<script src='js/vendor/modernizr-2.6.2.min.js'></script>
 
-        <link href='http://api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.css' rel='stylesheet' />
-        <!--[if lte IE 8]>
-            <link href='http://api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.ie.css' rel='stylesheet' />
-        <![endif]-->
-        <script src='http://api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.js'></script>
-        
-    </head>
-    <body>
-        <!--[if lt IE 9]>
-            <p class='chromeframe'>You are using an <strong>outdated</strong> browser. Please <a href='http://browsehappy.com/'>upgrade your browser</a> or <a href='http://www.google.com/chromeframe/?redirect=true'>activate Google Chrome Frame</a> to improve your experience.</p>
-        <![endif]-->
+		<link href='http://api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.css' rel='stylesheet' />
+		<!--[if lte IE 8]>
+			<link href='http://api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.ie.css' rel='stylesheet' />
+		<![endif]-->
+		<script src='http://api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.js'></script>
+		
+	</head>
+	<body>
+		<!--[if lt IE 9]>
+			<p class='chromeframe'>You are using an <strong>outdated</strong> browser. Please <a href='http://browsehappy.com/'>upgrade your browser</a> or <a href='http://www.google.com/chromeframe/?redirect=true'>activate Google Chrome Frame</a> to improve your experience.</p>
+		<![endif]-->
 
-        <header>
-            <div class='container'>
-                <section id='nav-logo'>
-                    <div><h2>City of Las Vegas</h2></div>
-                    <a href='http://lasvegasnevada.gov' target='_blank'></a>
-                </section>
-            </div>
-        </header>
+		<header>
+			<div class='container'>
+				<section id='nav-logo'>
+					<div><h2>City of Las Vegas</h2></div>
+					<a href='http://lasvegasnevada.gov' target='_blank'></a>
+				</section>
+			</div>
+		</header>
 
-        <section id='main'>
+		<section id='main'>
 
-            <div id='error'>
-                <div class='modal'>
-                    <strong>Something went wrong...</strong>
-                    <p class='message'></p>
-                    <p>Please try again later.</p>
-                </div>
-            </div>
+			<div id='error'>
+				<div class='modal'>
+					<strong>Something went wrong...</strong>
+					<p class='message'></p>
+					<p>Please try again later.</p>
+				</div>
+			</div>
 
-            <div id='vendor-info'>
-                <div class='vendor-title'>
-                    <h1>Food trucks of DTLV</h1>
-                    <p>Officially designated mobile food vendor parking spots in Downtown Las Vegas</p>
-                </div>
-                <div id='vendor-data'>
-                    <div id='vendor-head-now' class='vendor-heading'>Open now</div>
-                    <div id='vendor-info-now' class='vendor-entries' style='display: none;'>
-                        <div class='vendor-entry-list'>
-                            <!-- Replace this area with generated entries -->
-                            <div class='vendor-message'>
-                                <h3>There are no trucks open right now.</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div id='vendor-head-later' class='vendor-heading'>Later today</div>
-                    <div id='vendor-info-later' class='vendor-entries' style='display: none;'>
-                        <div class='vendor-entry-list'>
-                            <!-- Replace this area with generated entries -->
-                            <div class='vendor-message'>
-                                <h3>There are no trucks open later.</h3>
-                            </div>
-                        </div>
-                        <div class='vendor-entry-note'>
-                            <p><strong>Note:</strong> Scheduled vendors may be subject to change without notice.</p>
-                        </div>
-                    </div>
-                    <div id='vendor-head-muchlater' class='vendor-heading no-border'>Tomorrow</div>
-                    <div id='vendor-info-muchlater' class='vendor-entries' style='display: none;'>
-                        <div class='vendor-entry-list'>
-                            <!-- Replace this area with generated entries -->
-                            <div class='vendor-message'>
-                                <h3>There are no trucks open tomorrow.</h3>
-                            </div>
-                        </div>
-                        <div class='vendor-entry-note'>
-                            <p><strong>Note:</strong> Scheduled vendors may be subject to change without notice.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+			<div id='vendor-info'>
+				<div class='vendor-title'>
+					<h1>Food trucks of DTLV</h1>
+					<p>Officially designated mobile food vendor parking spots in Downtown Las Vegas</p>
+				</div>
+				<div id='vendor-data'>
+					<div id='vendor-head-now' class='vendor-heading'>Open now</div>
+					<div id='vendor-info-now' class='vendor-entries' style='display: none;'>
+						<div class='vendor-entry-list'>
+							<!-- Replace this area with generated entries -->
+							<div class='vendor-message'>
+								<h3>There are no trucks open right now.</h3>
+							</div>
+						</div>
+					</div>
+					<div id='vendor-head-later' class='vendor-heading'>Later today</div>
+					<div id='vendor-info-later' class='vendor-entries' style='display: none;'>
+						<div class='vendor-entry-list'>
+							<!-- Replace this area with generated entries -->
+							<div class='vendor-message'>
+								<h3>There are no trucks open later.</h3>
+							</div>
+						</div>
+						<div class='vendor-entry-note'>
+							<p><strong>Note:</strong> Scheduled vendors may be subject to change without notice.</p>
+						</div>
+					</div>
+					<div id='vendor-head-muchlater' class='vendor-heading no-border'>Tomorrow</div>
+					<div id='vendor-info-muchlater' class='vendor-entries' style='display: none;'>
+						<div class='vendor-entry-list'>
+							<!-- Replace this area with generated entries -->
+							<div class='vendor-message'>
+								<h3>There are no trucks open tomorrow.</h3>
+							</div>
+						</div>
+						<div class='vendor-entry-note'>
+							<p><strong>Note:</strong> Scheduled vendors may be subject to change without notice.</p>
+						</div>
+					</div>
+				</div>
+			</div>
 
-            <div id='map'></div>
+			<div id='map'></div>
 
-            <div id='loading'></div>
+			<div id='loading'></div>
 
-        </section>
+		</section>
 
-        <footer>
-            <div class='container'>
-                <ul id='footer-wide'>
-                    <li class='footer-vendors-link'>View all participating trucks</li>
-                    <li class='footer-calendar-link'>View full calendar</li>
-                    <li class='footer-about-link'>About this app</li>
-                    <li class='footer-feedback-link'>Feedback</li>
-                </ul>
-                <ul id='footer-mid'>
-                    <li class='footer-vendors-link'>All trucks</li>
-                    <li class='footer-calendar-link'>Calendar</li>
-                    <li class='footer-about-link'>About</li>
-                    <li class='footer-feedback-link'>Feedback</li>
-                </ul>
-                <ul id='footer-condensed'>
-                    <li class='footer-vendors-link'><span class='typcn typcn-sort-alphabetically-outline'></span></li>
-                    <li class='footer-calendar-link'><span class='typcn typcn-calender-outline'></span></li>
-                    <li class='footer-about-link'><span class='typcn typcn-info-large'></span></li>
-                    <li class='footer-feedback-link'><span class='typcn typcn-message'></span></li>
-                </ul>
-            </div>
-            <section id='pi'>
-                <a href='https://github.com/codeforamerica/lv-trucks-map/' target='_blank'>
-                    <img alt='CfA flag' src='img/cfa-flagtag.svg'>
-                </a>
-            </section>
-        </footer>
+		<footer>
+			<div class='container'>
+				<ul id='footer-wide'>
+					<li class='footer-vendors-link'>View all participating trucks</li>
+					<li class='footer-calendar-link'>View full calendar</li>
+					<li class='footer-about-link'>About this app</li>
+					<li class='footer-feedback-link'>Feedback</li>
+				</ul>
+				<ul id='footer-mid'>
+					<li class='footer-vendors-link'>All trucks</li>
+					<li class='footer-calendar-link'>Calendar</li>
+					<li class='footer-about-link'>About</li>
+					<li class='footer-feedback-link'>Feedback</li>
+				</ul>
+				<ul id='footer-condensed'>
+					<li class='footer-vendors-link'><span class='typcn typcn-sort-alphabetically-outline'></span></li>
+					<li class='footer-calendar-link'><span class='typcn typcn-calender-outline'></span></li>
+					<li class='footer-about-link'><span class='typcn typcn-info-large'></span></li>
+					<li class='footer-feedback-link'><span class='typcn typcn-message'></span></li>
+				</ul>
+			</div>
+			<section id='pi'>
+				<a href='https://github.com/codeforamerica/lv-trucks-map/' target='_blank'>
+					<img alt='CfA flag' src='img/cfa-flagtag.svg'>
+				</a>
+			</section>
+		</footer>
 
-        <section id='footer-elements'>
-            <div class='footer-popup' id='vendors'>
-                <div class='footer-popup-close'>×</div>
-                <div class='footer-popup-title'>
-                    <h2>All participating trucks</h2>
-                </div>
-                <div class='footer-popup-content'>
-                    <p>
-                        This information is currently not available.
-                    </p>
-                </div>
-            </div>
-            <div class='footer-popup' id='calendar'>
-                <div class='footer-popup-close'>×</div>
-                <div class='footer-popup-title'>
-                   <h2>Full calendar</h2>
-                </div>
-                <div class='footer-popup-content'>
-                    <p>
-                        Coming soon...
-                    </p>
-                </div>
-            </div>
-            <div class='footer-popup' id='about'>
-                <div class='footer-popup-close'>×</div>
-                <div class='footer-popup-title'>
-                    <h2>About this app</h2>
-                </div>
-                <div class='footer-popup-content'>
-                    <p>
-                        On August 1, 2013, the <a href='http://lasvegasnevada.gov/'>City of Las Vegas</a> began a pilot program to allow mobile food vendors to operate on public streets for longer periods of time.  Three locations were initially chosen, and participating vendors were placed in a lottery system to reserve dates and hours of operation.  Supporting <a href='https://lasvegasnevada.gov/files/6220_Bill_2012-37.pdf' target='_blank'>ordinances</a> for this program have been passed by the City Council.
-                    </p>
-                    <p>
-                        This application uses real-time data from newly installed electronic parking meters, so we know exactly which truck appears and when. Food trucks appearing on the schedule may change, but we'll let you know when it matters the most—when you're hungry!
-                    </p>
-                    <p>
-                        <a href='http://codeforamerica.org/'>Code for America</a> built this, with thanks to Las Vegas and <a href='http://www.parkeon.us/'>Parkeon</a> for their cooperation in making this possible.  For developer information (including using the City's vendor and schedule information in your own app), visit our <a href='https://github.com/codeforamerica/lv-trucks-map/'>GitHub repository</a>.
-                    </p>
-                </div>
-            </div>
-            <div class='footer-popup' id='feedback'>
-                <div class='footer-popup-close'>×</div>
-                <div class='footer-popup-title'>
-                    <h2>Feedback</h2>
-                </div>
-                <div class='footer-popup-content'>
-                    <p>
-                        Have comments, questions, or praise for us? Did we get something wrong? 
-                        We'd love to hear what you think.
-                        Send us an e-mail at <a href='mailto:lasvegas@codeforamerica.org?subject=[LV Downtown Mobile Food Map] Feedback!'>lasvegas@codeforamerica.org</a>.
-                    </p>
-                </div>
-            </div>
-        </section>
+		<section id='footer-elements'>
+			<div class='footer-popup' id='vendors'>
+				<div class='footer-popup-close'>×</div>
+				<div class='footer-popup-title'>
+					<h2>All participating trucks</h2>
+				</div>
+				<div class='footer-popup-content'>
+					<p>
+						This information is currently not available.
+					</p>
+				</div>
+			</div>
+			<div class='footer-popup' id='calendar'>
+				<div class='footer-popup-close'>×</div>
+				<div class='footer-popup-title'>
+				   <h2>Full calendar</h2>
+				</div>
+				<div class='footer-popup-content'>
+					<p>
+						Coming soon...
+					</p>
+				</div>
+			</div>
+			<div class='footer-popup' id='about'>
+				<div class='footer-popup-close'>×</div>
+				<div class='footer-popup-title'>
+					<h2>About this app</h2>
+				</div>
+				<div class='footer-popup-content'>
+					<p>
+						On August 1, 2013, the <a href='http://lasvegasnevada.gov/'>City of Las Vegas</a> began a pilot program to allow mobile food vendors to operate on public streets for longer periods of time.  Three locations were initially chosen, and participating vendors were placed in a lottery system to reserve dates and hours of operation.  Supporting <a href='https://lasvegasnevada.gov/files/6220_Bill_2012-37.pdf' target='_blank'>ordinances</a> for this program have been passed by the City Council.
+					</p>
+					<p>
+						This application uses real-time data from newly installed electronic parking meters, so we know exactly which truck appears and when. Food trucks appearing on the schedule may change, but we'll let you know when it matters the most—when you're hungry!
+					</p>
+					<p>
+						<a href='http://codeforamerica.org/'>Code for America</a> built this, with thanks to Las Vegas and <a href='http://www.parkeon.us/'>Parkeon</a> for their cooperation in making this possible.  For developer information (including using the City's vendor and schedule information in your own app), visit our <a href='https://github.com/codeforamerica/lv-trucks-map/'>GitHub repository</a>.
+					</p>
+				</div>
+			</div>
+			<div class='footer-popup' id='feedback'>
+				<div class='footer-popup-close'>×</div>
+				<div class='footer-popup-title'>
+					<h2>Feedback</h2>
+				</div>
+				<div class='footer-popup-content'>
+					<p>
+						Have comments, questions, or praise for us? Did we get something wrong? 
+						We'd love to hear what you think.
+						Send us an e-mail at <a href='mailto:lasvegas@codeforamerica.org?subject=[LV Downtown Mobile Food Map] Feedback!'>lasvegas@codeforamerica.org</a>.
+					</p>
+				</div>
+			</div>
+		</section>
 
-        <section id='templates'>
+		<section id='templates'>
 
-            <!-- BEGIN TEMPLATES -->
-            <!-- Mustache - Entries for Schedule Overlay -->
-            <div id='vendor-entry-template' style='display: none'>
-            <script id='mustache-schedule-entry' type='text/template'>
-                {{#entries}}
-                <div class='vendor-entry' data-location-id='{{location_id}}'>
-                    {{#logo_url}}
-                        <div class='vendor-image'><img src='{{logo_url}}'></div>
-                    {{/logo_url}}
-                    {{^logo_url}}
-                        <div class='vendor-image'><img src='img/vendor-placeholder.png'></div>
-                    {{/logo_url}}
-                    <h3>{{vendor.name}}</h3>
-                    <p>
-                        is at <strong>{{location.name}}</strong>
-                        <br><span class='address'>{{location.addressShort}}</span>
-                    </p>
-                    {{#date}}
-                        <span class='time later'>{{date}} {{from}}</span>
-                    {{/date}}
-                    {{^date}}
-                        {{#from}}
-                            <span class='time later'>{{from}} - {{until}}</span>
-                        {{/from}}
-                        {{^from}}
-                            <span class='time'>until {{until}}</span>
-                        {{/from}}
-                    {{/date}}
-                </div>
-                {{/entries}}
-            </script>
-            </div>
-            <!-- // end Mustasche - Entries for Schedule Overlay -->
+			<!-- BEGIN TEMPLATES -->
+			<!-- Mustache - Entries for Schedule Overlay -->
+			<div id='vendor-entry-template' style='display: none'>
+			<script id='mustache-schedule-entry' type='text/template'>
+				{{#entries}}
+				<div class='vendor-entry' data-location-id='{{location_id}}'>
+					{{#logo_url}}
+						<div class='vendor-image'><img src='{{logo_url}}'></div>
+					{{/logo_url}}
+					{{^logo_url}}
+						<div class='vendor-image'><img src='img/vendor-placeholder.png'></div>
+					{{/logo_url}}
+					<h3>{{vendor.name}}</h3>
+					<p>
+						is at <strong>{{location.name}}</strong>
+						<br><span class='address'>{{location.addressShort}}</span>
+					</p>
+					{{#date}}
+						<span class='time later'>{{date}} {{from}}</span>
+					{{/date}}
+					{{^date}}
+						{{#from}}
+							<span class='time later'>{{from}} - {{until}}</span>
+						{{/from}}
+						{{^from}}
+							<span class='time'>until {{until}}</span>
+						{{/from}}
+					{{/date}}
+				</div>
+				{{/entries}}
+			</script>
+			</div>
+			<!-- // end Mustasche - Entries for Schedule Overlay -->
 
-            <!-- Mustache - Leaflet Popups -->
-            <div id='popleaf-template' style='display: none'>
-            <script id='mustache-popleaf' type='text/template'>
-                <div id='popup-leaflet'>
-                    <div class='popup-info'>
-                        <div class='popup-location'>
-                            <strong>{{feature.properties.name}}</strong>
-                            <br>
-                            <span class='address'>
-                                <span class='typcn typcn-location-arrow-outline'></span><a href='http://maps.google.com/maps?daddr={{feature.properties.address}}' target='_blank' title='Get directions to here'>{{feature.properties.addressShort}}</a>
-                            </span>
-                        </div>
-                        <div class='popup-tag'>
-                            Open now
-                            {{#schedule.until}}
-                            until {{schedule.until}}
-                            {{/schedule.until}}
-                        </div>
-                        <div class='popup-vendor'>
-                            <!-- div class='vendor-image' style='background: #f1f1f1 url("{{vendor.logo_url}}") no-repeat'></div -->
-                            <div>
-                                <h3>
-                                    {{#vendor.website}}
-                                        <a href='{{vendor.website}}' target='_blank'>{{vendor.name}}</a>
-                                    {{/vendor.website}}
-                                    {{^vendor.website}}
-                                        {{vendor.name}}
-                                    {{/vendor.website}}
-                                </h3>
-                                <small>{{vendor.cuisine}}</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </script>
-            </div>
-            <!-- // end Mustache - Leaflet Popups -->            
+			<!-- Mustache - Leaflet Popups -->
+			<div id='popleaf-template' style='display: none'>
+			<script id='mustache-popleaf' type='text/template'>
+				<div id='popup-leaflet'>
+					<div class='popup-info'>
+						<div class='popup-location'>
+							<strong>{{feature.properties.name}}</strong>
+							<br>
+							<span class='address'>
+								<span class='typcn typcn-location-arrow-outline'></span><a href='http://maps.google.com/maps?daddr={{feature.properties.address}}' target='_blank' title='Get directions to here'>{{feature.properties.addressShort}}</a>
+							</span>
+						</div>
+						{{#vendor}}
+						<div class='popup-vendor'>
+							<div class='popup-tag'>
+								Open now
+								{{#schedule.until}}
+								until {{schedule.until}}
+								{{/schedule.until}}
+							</div>
+							<!-- div class='vendor-image' style='background: #f1f1f1 url("{{vendor.logo_url}}") no-repeat'></div -->
+							<div>
+								<h3>
+									{{#vendor.website}}
+										<a href='{{vendor.website}}' target='_blank'>{{vendor.name}}</a>
+									{{/vendor.website}}
+									{{^vendor.website}}
+										{{vendor.name}}
+									{{/vendor.website}}
+								</h3>
+								<small>{{vendor.cuisine}}</small>
+							</div>
+						</div>
+						{{/vendor}}
+						{{^vendor}}
+						<div class='popup-vendor'>
+							<strong>No truck here right now!</strong>
+						</div>
+						{{/vendor}}
+						{{#ondeck}}
+						<div class='popup-vendor'>
+							<div class='popup-tag later'>
+								On deck
+							</div>
+							<!-- div class='vendor-image' style='background: #f1f1f1 url("{{vendor.logo_url}}") no-repeat'></div -->
+							<div>
+								<h3>
+									{{#vendor.website}}
+										<a href='{{vendor.website}}' target='_blank'>{{vendor.name}}</a>
+									{{/vendor.website}}
+									{{^vendor.website}}
+										{{vendor.name}}
+									{{/vendor.website}}
+								</h3>
+								<small>{{vendor.cuisine}}</small>
+							</div>
+						</div>
+						{{/ondeck}}
+					</div>
+				</div>
+			</script>
+			</div>
+			<!-- // end Mustache - Leaflet Popups -->            
 
-            <!-- MUSTACHE TEMPLATES for footer -->
-            <div id='footer-templates' style='display: none'>
-            <script id='mustache-footer-all-vendors' type='text/template'>
-                <ul>
-                {{#vendors}}
-                    <li>
-                    {{#website}}
-                    <a href='{{website}}' target='_blank'>{{name}}</a>
-                    {{/website}}
-                    {{^website}}
-                        {{name}}
-                    {{/website}}
-                    </li>
-                {{/vendors}}
-                </ul>
-                <p><strong>Note:</strong> If links are provided, they will open in a new window.</p>
-            </script>
-            </div>
-            <!-- // end Mustache - Footer vendors list -->
+			<!-- MUSTACHE TEMPLATES for footer -->
+			<div id='footer-templates' style='display: none'>
+			<script id='mustache-footer-all-vendors' type='text/template'>
+				<ul>
+				{{#vendors}}
+					<li>
+					{{#website}}
+					<a href='{{website}}' target='_blank'>{{name}}</a>
+					{{/website}}
+					{{^website}}
+						{{name}}
+					{{/website}}
+					</li>
+				{{/vendors}}
+				</ul>
+				<p><strong>Note:</strong> If links are provided, they will open in a new window.</p>
+			</script>
+			</div>
+			<!-- // end Mustache - Footer vendors list -->
 
-            <!-- END TEMPLATE SECTION -->
+			<!-- END TEMPLATE SECTION -->
 
-        </section>
+		</section>
 
-        <script src='//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>
-        <script>window.jQuery || document.write('<script src=\'js/vendor/jquery-1.9.1.min.js\'><\/script>')</script>
-        <script src='js/vendor/mustache.js' type='text/javascript'></script>
+		<script src='//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>
+		<script>window.jQuery || document.write('<script src=\'js/vendor/jquery-1.9.1.min.js\'><\/script>')</script>
+		<script src='js/vendor/mustache.js' type='text/javascript'></script>
 
-        <!--script src='js/plugins.js'></script-->
-        <script src='js/main.js' type='text/javascript'></script>
-        <script src='js/map.js' type='text/javascript'></script>
+		<!--script src='js/plugins.js'></script-->
+		<script src='js/main.js' type='text/javascript'></script>
+		<script src='js/map.js' type='text/javascript'></script>
 
-        <script>
-          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+		<script>
+		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-          ga('create', 'UA-42176824-1', 'codeforamerica.github.io');
-          ga('send', 'pageview');
+		  ga('create', 'UA-42176824-1', 'codeforamerica.github.io');
+		  ga('send', 'pageview');
 
-        </script>
+		</script>
 
-    </body>
+	</body>
 </html>

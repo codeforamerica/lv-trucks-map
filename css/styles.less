@@ -454,31 +454,12 @@ div.footer-popup {
 
 #popup-leaflet {
     .user-select(none);
-    .popup-tag {
-        display: inline-block;
-        height: 11px;
-        line-height: 11px;
-        background-color: @time-background;
-        color: white;
-        font-size: 12px;
-        padding: 6px 8px;
-    }
     .popup-info {
         max-width: @popup-width;
         .user-select(text);
-        .popup-vendor {
-            .vendor-image {
-            }
-            line-height: 120%;
-            padding: 8px;
-            small {
-                color: #888;
-            }
-        }
         .popup-location {
             padding: 8px;
             background-color: #f6f6f6;
-            border-bottom: 1px solid #e9e9e9;
             strong {
                 font-size: 13px;
             }
@@ -496,6 +477,32 @@ div.footer-popup {
                     margin-top: -2px;
                     margin-left: -4px;
                 }
+            }
+        }
+        .popup-tag {
+            display: inline-block;
+            position: relative;
+            height: 10px;
+            line-height: 10px;
+            background-color: @time-background;
+            color: white;
+            font-size: 11px;
+            padding: 6px 8px;
+            top: -8px;
+            left: -8px;
+            &.later {
+                background-color: @time-background-later;
+            }
+        }
+        .popup-vendor {
+            border-top: 1px solid #e9e9e9;
+            line-height: 120%;
+            padding: 8px 8px;
+            .vendor-image {
+            }
+            small {
+                font-size: 11px;
+                color: #888;
             }
         }
         h3 {

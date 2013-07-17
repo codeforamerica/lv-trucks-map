@@ -796,15 +796,6 @@ div.footer-popup .footer-popup-content {
   -o-user-select: none;
   user-select: none;
 }
-#popup-leaflet .popup-tag {
-  display: inline-block;
-  height: 11px;
-  line-height: 11px;
-  background-color: #3ab000;
-  color: white;
-  font-size: 12px;
-  padding: 6px 8px;
-}
 #popup-leaflet .popup-info {
   max-width: 180px;
   -webkit-user-select: text;
@@ -813,17 +804,9 @@ div.footer-popup .footer-popup-content {
   -o-user-select: text;
   user-select: text;
 }
-#popup-leaflet .popup-info .popup-vendor {
-  line-height: 120%;
-  padding: 8px;
-}
-#popup-leaflet .popup-info .popup-vendor small {
-  color: #888;
-}
 #popup-leaflet .popup-info .popup-location {
   padding: 8px;
   background-color: #f6f6f6;
-  border-bottom: 1px solid #e9e9e9;
 }
 #popup-leaflet .popup-info .popup-location strong {
   font-size: 13px;
@@ -842,6 +825,30 @@ div.footer-popup .footer-popup-content {
   display: inline-block;
   margin-top: -2px;
   margin-left: -4px;
+}
+#popup-leaflet .popup-info .popup-tag {
+  display: inline-block;
+  position: relative;
+  height: 10px;
+  line-height: 10px;
+  background-color: #3ab000;
+  color: white;
+  font-size: 11px;
+  padding: 6px 8px;
+  top: -8px;
+  left: -8px;
+}
+#popup-leaflet .popup-info .popup-tag.later {
+  background-color: #ff9933;
+}
+#popup-leaflet .popup-info .popup-vendor {
+  border-top: 1px solid #e9e9e9;
+  line-height: 120%;
+  padding: 8px 8px;
+}
+#popup-leaflet .popup-info .popup-vendor small {
+  font-size: 11px;
+  color: #888;
 }
 #popup-leaflet .popup-info h3 {
   margin: 0;
