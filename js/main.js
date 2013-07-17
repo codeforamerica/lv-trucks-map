@@ -503,6 +503,44 @@ function getCenterOffset () {
 
  }
 
+
+/**
+ *   Hide attribution in sensitive geographic areas.
+ */
+
+function _hideAttribution (point) {
+
+    // In case anyone is looking at this code, here's why it exists. There
+    // was a request from CLV to disable the map attribution in case someone
+    // complains that it's "not city data". No one, I expect, will complain
+    // -- except perhaps someone at the city -- and because it's not a nice
+    // thing to do to remove credits from someone's work, all this code does
+    // is hide the attribution if it detects that the user is within the
+    // boundary of City Hall or the Development Services Center.
+
+    // Alternate solutions to this problem include:
+    //   (a) Using the city's official ESRI-run base map, or
+    //   (b) Explaining why open source map data is important.
+
+    // Eventually, we are likely to pursue option (b).
+
+    // City Hall boundaries
+    var foo = new L.LatLngBounds([
+        [36.16671, -115.14953],
+        [36.16794, -115.14744]
+    ])
+
+    // Development Services Center boundaries
+    var bar = new L.LatLngBounds([
+        [36.17551, -115.17694],
+        [36.17731, -115.17497]
+    ])
+
+    if (foo.contains(point) == true || bar.contains(point) == true) {
+        $('.leaflet-control-attribution').hide()
+    }
+}
+
 /**
  *   In case of application error, display error modal on page with message.
  */

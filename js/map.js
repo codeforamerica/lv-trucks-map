@@ -204,11 +204,15 @@ if (navigator.geolocation) {
 
 // Once we've got a position, add a marker.
 map.on('locationfound', function (e) {
+
+    var point = [e.latlng.lat, e.latlng.lng]
+    var point2 = [e.latlng.lng, e.latlng.lat]
+
     map.markerLayer.setGeoJSON({
         type: 'Feature',
         geometry: {
             type: 'Point',
-            coordinates: [e.latlng.lng, e.latlng.lat]
+            coordinates: point2
         },
         properties: {
             'marker-size': 'large',
@@ -217,7 +221,13 @@ map.on('locationfound', function (e) {
             'title': '<div class=\'popup-message\'>You are here</div>'
         }
     })
+
+    // SECRET!
+    // To disable, simply comment out or delete the following function.
+    _hideAttribution(point)
+
 })
+
 
 
 /*************************************************************************
