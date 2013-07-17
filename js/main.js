@@ -35,6 +35,7 @@ if (getQueryStringParams('test') == 1 ) {
     $.ajax({
         url: locationSource,
         async: false,
+        cache: false,
         dataType: 'json',
         success: function (i) {
             locations = i
@@ -72,6 +73,7 @@ if (getQueryStringParams('test') == 1 ) {
         $.ajax({
             url: timeslotSource,
             async: false,
+            cache: false,
             dataType: 'json',
             success: function (data) {
                 for (var j = 0; j < data.length; j++) {
@@ -104,6 +106,7 @@ if (getQueryStringParams('test') == 1 ) {
     $.ajax({
         url: dataSource,
         async: false,
+        cache: false,
         dataType: 'json',
         success: function (i) {
             data = i
@@ -117,6 +120,7 @@ if (getQueryStringParams('test') == 1 ) {
     $.ajax({
         url: vendorSource,
         async: false,
+        cache: false,
         dataType: 'json',
         success: function (i) {
 
