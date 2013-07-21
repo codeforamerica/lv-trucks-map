@@ -103,7 +103,7 @@ header {
 	position: absolute;
 	.user-select(none);
 	#nav-logo {
-		z-index: @ui-index;
+		z-index: @ui-index - 10;
 		width: 120px;
 		height: 150px;
 		right: 5%;
@@ -398,7 +398,7 @@ div.footer-popup {
 	color: black;
 	left: 5%;
 	box-shadow: 0 0 6px rgba(0,0,0,0.25);
-	z-index: @ui-index - 10;
+	z-index: @ui-index - 5;
 	@media @mobile {
 		width: 100%;
 		left: 0;

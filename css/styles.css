@@ -412,7 +412,7 @@ header {
   user-select: none;
 }
 header #nav-logo {
-  z-index: 9000;
+  z-index: 8990;
   width: 120px;
   height: 150px;
   right: 5%;
@@ -732,7 +732,7 @@ div.footer-popup {
   color: black;
   left: 5%;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.25);
-  z-index: 8990;
+  z-index: 8995;
 }
 @media screen and (max-width: 529px) {
   div.footer-popup {
