@@ -153,8 +153,11 @@
 				   <h2>Full calendar</h2>
 				</div>
 				<div class='footer-popup-content'>
-					<p>
+					<p class='insert'>
 						Coming soon...
+					</p>
+					<p>
+						<small><strong>Note:</strong> Scheduled entries may be subject to change without notice.</small>
 					</p>
 				</div>
 			</div>
@@ -181,20 +184,43 @@
 					<h2>Feedback</h2>
 				</div>
 				<div class='footer-popup-content'>
+
 					<p>
 						Have comments, questions, or praise for us? Did we get something wrong? 
 						We'd love to hear what you think.
+<!--
 						Send us an e-mail at <a href='mailto:lasvegas@codeforamerica.org?subject=[LV Downtown Mobile Food Map] Feedback!'>lasvegas@codeforamerica.org</a>.
+// -->
 					</p>
+					<div id='feedback-form'>
+						<form name='feedback' action='javascript:return false;' method='post'>
+							<div class='select'>
+								<select id='feedback-type' name='feedback-type' required>
+									<option value='' selected disabled>Select your feedback type (required)</option>
+									<option value='1'>Feedback on this app</option>
+									<option value='2'>Feedback on the City's mobile food program</option>
+								</select>
+								<span class='select-arrow'>▾</span>
+							</div>
+							<textarea id='feedback-content' name='feedback-content' placeholder='Your comment, question, feedback... (required)' maxlength='2048' required></textarea>
+							<input id='feedback-email' name='feedback-email' type='email' placeholder='Your e-mail address (optional)' value=''>
+							<button id='feedback-submit' type='submit' value='submit' disabled>Submit feedback!</button>
+						</form>
+						<div id='feedback-sending'></div>
+						<div id='feedback-success'>
+							<strong>Thanks for the feedback!</strong>
+						</div>
+						<div id='feedback-error'>
+							<strong>Something went wrong. Unfortunately, we were not able to submit your feedback at this time.</strong>
+						</div>
+					</div>
 				</div>
 			</div>
 		</section>
 
-		<section id='templates'>
+		<section id='templates' style='display: none'>
+		<!-- BEGIN TEMPLATES -->
 
-			<!-- BEGIN TEMPLATES -->
-			<!-- Mustache - Entries for Schedule Overlay -->
-			<div id='vendor-entry-template' style='display: none'>
 			<script id='mustache-schedule-entry' type='text/template'>
 				{{#entries}}
 				<div class='vendor-entry' data-location-id='{{location_id}}'>
@@ -209,25 +235,21 @@
 						is at <strong>{{location.name}}</strong>
 						<br><span class='address'>{{location.addressShort}}</span>
 					</p>
-					{{#date}}
-						<span class='time later'>{{date}} {{from}}</span>
-					{{/date}}
-					{{^date}}
+					{{#tomorrow}}
+						<span class='time later'>{{day_of_week}} {{from}}</span>
+					{{/tomorrow}}
+					{{^tomorrow}}
 						{{#from}}
 							<span class='time later'>{{from}} - {{until}}</span>
 						{{/from}}
 						{{^from}}
 							<span class='time'>until {{until}}</span>
 						{{/from}}
-					{{/date}}
+					{{/tomorrow}}
 				</div>
 				{{/entries}}
 			</script>
-			</div>
-			<!-- // end Mustasche - Entries for Schedule Overlay -->
 
-			<!-- Mustache - Leaflet Popups -->
-			<div id='popleaf-template' style='display: none'>
 			<script id='mustache-popleaf' type='text/template'>
 				<div id='popup-leaflet'>
 					<div class='popup-info'>
@@ -246,7 +268,7 @@
 								until {{schedule.until}}
 								{{/schedule.until}}
 							</div>
-							<!-- div class='vendor-image' style='background: #f1f1f1 url("{{vendor.logo_url}}") no-repeat'></div -->
+							<!-- div class='vendor-image' style='background: #f1f1f1 url('{{vendor.logo_url}}') no-repeat'></div -->
 							<div>
 								<h3>
 									{{#vendor.website}}
@@ -270,7 +292,7 @@
 							<div class='popup-tag later'>
 								On deck
 							</div>
-							<!-- div class='vendor-image' style='background: #f1f1f1 url("{{vendor.logo_url}}") no-repeat'></div -->
+							<!-- div class='vendor-image' style='background: #f1f1f1 url('{{vendor.logo_url}}') no-repeat'></div -->
 							<div>
 								<h3>
 									{{#vendor.website}}
@@ -287,11 +309,7 @@
 					</div>
 				</div>
 			</script>
-			</div>
-			<!-- // end Mustache - Leaflet Popups -->            
 
-			<!-- MUSTACHE TEMPLATES for footer -->
-			<div id='footer-templates' style='display: none'>
 			<script id='mustache-footer-all-vendors' type='text/template'>
 				<ul>
 				{{#vendors}}
@@ -305,13 +323,33 @@
 					</li>
 				{{/vendors}}
 				</ul>
-				<p><strong>Note:</strong> If links are provided, they will open in a new window.</p>
+				<p><strong>Note:</strong> Links will be opened in a new window.</p>
 			</script>
-			</div>
-			<!-- // end Mustache - Footer vendors list -->
 
-			<!-- END TEMPLATE SECTION -->
+			<script id='mustache-calendar-date' type='text/template'>
+				<p><strong>{{day_of_week}}, {{month}} {{day}}, {{year}}</strong></p>
+			</script>
 
+			<script id='mustache-calendar-list' type='text/template'>
+				<li>
+				{{#website}}
+				<a href='{{website}}' target='_blank'>{{name}}</a>
+				{{/website}}
+				{{^website}}
+					{{name}}
+				{{/website}}
+
+				is at
+
+				{{location}}
+
+				({{from}})
+
+				</li>
+			</script>
+
+
+		<!-- END TEMPLATE SECTION -->
 		</section>
 
 		<script src='//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>

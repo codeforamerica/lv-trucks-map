@@ -1,8 +1,29 @@
 // LAS VEGAS FOOD TRUCKS MAP - main application Javascript
 
 if (getQueryStringParams('test') == 1 ) {
-	var dummy = true;
+	var dummy = true
 }
+
+// TIME & DATE HIJINKS
+var now = new Date()
+// Set dummy date for testing.
+if (dummy === true) {
+	var now = new Date('July 16, 2013 12:05:00')
+}
+
+// Create a global schedule object
+var schedule = {
+	'now': {
+		'entries': []
+	},
+	'later': {
+		'entries': []
+	},
+	'tomorrow': {
+		'entries': []
+	}
+};
+
 
 /*************************************************************************
 // 
@@ -15,9 +36,10 @@ if (getQueryStringParams('test') == 1 ) {
 
 	// CONFIGURATE DATA SOURCES
 	var APIServer = 'http://lv-food-trucks.herokuapp.com/api/'
+//	var APIServer = 'http://localhost:3000/'
 
 	// Dummy data sources
-	// var dataSource = 'dummy-data/data.json'
+	// var dataSource = 'dummy-data/data.json'   // NOTE - no references to this remain
 	// var locationSource = 'dummy-data/locations.geojson'
 
 	// Data sources
@@ -32,6 +54,8 @@ if (getQueryStringParams('test') == 1 ) {
 		timeslots = []
 
 	// Note: true async does not work with cross-domain requests.
+
+	// RETRIEVE LOCATIONS
 	$.ajax({
 		url: locationSource,
 		async: false,
@@ -48,9 +72,9 @@ if (getQueryStringParams('test') == 1 ) {
 				
 				// Inject marker styles for mapbox.js
 				// Disabled due to small icons... not good for retina
-				// locations.features[j].properties['marker-symbol'] = 'restaurant'
-				// locations.features[j].properties['marker-color'] = '#f93'
-				// locations.features[j].properties['marker-size'] = 'large'
+				locations.features[j].properties['marker-symbol'] = 'restaurant'
+				locations.features[j].properties['marker-color'] = '#f93'
+				locations.features[j].properties['marker-size'] = 'large'
 
 				// Inject dummy current vendor data
 				if (dummy === true) {
@@ -65,6 +89,7 @@ if (getQueryStringParams('test') == 1 ) {
 		}
 	})
 
+	// RETRIEVE SCHEDULED TIMESLOTS
 	for (var i = 0; i < locations.features.length; i++) {
 
 		var locationId = locations.features[i].id
@@ -77,7 +102,7 @@ if (getQueryStringParams('test') == 1 ) {
 			dataType: 'json',
 			success: function (data) {
 				for (var j = 0; j < data.length; j++) {
-					timeslots.push (data[j])
+					timeslots.push(data[j])
 				}
 			},
 			error: function (x) {
@@ -88,7 +113,7 @@ if (getQueryStringParams('test') == 1 ) {
 
 	if (timeslots.length > 1) {
 
-		// Sort timeslots by time
+		// Sort timeslots function
 		var sort_by_time = function(field, reverse, primer) {
 			var key = function (x) {return primer ? primer(x[field]) : x[field]};
 
@@ -98,25 +123,36 @@ if (getQueryStringParams('test') == 1 ) {
 			}
 		}
 
-		// Assign to data object
+		// Sort timeslots by time
 		timeslots = timeslots.sort(sort_by_time('start_at', true))
+
+		// Additional timeslot cleaning
+
+		// Setup
+		var day_names = new Array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday')
+		var month_names =  new Array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December')
+
+		// Actions
+		for (var i = 0; i < timeslots.length; i++) {
+
+			var endTime = new Date(timeslots[i].finish_at)
+			var startTime = new Date(timeslots[i].start_at)
+
+			// Remove all timeslots that have ended yesterday
+			if (endTime < now && endTime.getDay() != now.getDay()) {
+				timeslots.splice(i, 1)
+			}
+
+			// Add some helpful information for start times
+			timeslots[i].day_of_week = day_names[startTime.getDay()]
+			timeslots[i].month = month_names[startTime.getMonth()]
+			timeslots[i].day = startTime.getDate()
+			timeslots[i].year = startTime.getFullYear()
+		}
+
 	}
 
-	/*
-	$.ajax({
-		url: dataSource,
-		async: false,
-		cache: false,
-		dataType: 'json',
-		success: function (i) {
-			data = i
-		},
-		error: function (x) {
-			showError('We couldn\'t retrieve data at this time.')
-		}
-	})
-	*/
-
+	// RETRIEVE FULL VENDOR LIST
 	$.ajax({
 		url: vendorSource,
 		async: false,
@@ -172,26 +208,6 @@ if (getQueryStringParams('test') == 1 ) {
 })();
 
 
-// TIME & DATE HIJINKS
-var now = new Date()
-// Set dummy date for testing.
-if (dummy === true) {
-	var now = new Date('July 16, 2013 12:05:00')
-}
-
-// Create a global schedule object
-var schedule = {
-	'now': {
-		'entries': []
-	},
-	'later': {
-		'entries': []
-	},
-	'tomorrow': {
-		'entries': []
-	}
-}
-
 /*************************************************************************
 // 
 // UI
@@ -216,7 +232,7 @@ $(document).ready( function () {
 			if (marker.feature.id === locationId) {
 
 				// Pan to offset location (copied from map.js - how to make this piece of code DRY?
-				map.panToOffset(marker.getLatLng(), getCenterOffset())
+				map.panToOffset(marker.getLatLng(), _getCenterOffset())
 
 				// Open popup
 				marker.openPopup()
@@ -229,7 +245,15 @@ $(document).ready( function () {
 	$('.footer-vendors-link').click( function () { toggleFooterPopup('#vendors', $(this)) })
 	$('.footer-calendar-link').click( function () { toggleFooterPopup('#calendar', $(this)) })
 	$('.footer-about-link').click( function () { toggleFooterPopup('#about', $(this) ) })
-	$('.footer-feedback-link').click( function () { toggleFooterPopup('#feedback', $(this)) })
+	$('.footer-feedback-link').click( function () {
+		toggleFooterPopup('#feedback', $(this))
+
+		// always reset feedback form
+		$('#feedback-sending').hide()
+		$('#feedback-success').hide()
+		$('#feedback-error').hide()
+
+	})
 	// Close popups
 	// -- when X is clicked on inside the popup
 	$('.footer-popup-close').click( function () {
@@ -310,12 +334,9 @@ $(document).ready( function () {
 		var compareday = new Date(now)
 		compareday.setDate(compareday.getDate() + 1)
 		if (compareday.getDate() == start.getDate()) {
-			// add day
-			var day_names = new Array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday')
-			timeslots[i].date = day_names[start.getDay()]
-	
-			schedule.tomorrow.entries.push(timeslots[i])
+			timeslots[i].tomorrow = true
 
+			schedule.tomorrow.entries.push(timeslots[i])
 		}
 	}
 
@@ -356,6 +377,21 @@ $(document).ready( function () {
 			e.preventDefault()
 		})
 	}
+
+	// Feedback form shtuff
+	$('#feedback-type').on('change', function () {
+		_checkFeedbackForm()
+	})
+	$('#feedback-content').on('keyup', function () {
+		_checkFeedbackForm()
+	})
+	$('#feedback-submit').on('click', function (e) {
+		// e.preventDefault()
+		_sendFeedback()
+	})
+
+	// Make Calendar
+	$('#calendar .insert').html(makeCalendar())
 
 })
 
@@ -432,9 +468,70 @@ function toggleFooterPopup(popup, clicked) {
  *   Display vendor info panel with what's open now and upcoming
  */
 
-function showScheduleOverlay (timeslots) {
+function showScheduleOverlay () {
 
 // NOT USED AT THE MOMENT
+
+}
+
+/**
+ *   Display vendor schedule on footer / calendar popup
+ */
+
+function makeCalendar () {
+
+	// Assuming all entries in the "timeslots" object is today or later,
+	// and that timeslots are already sorted in time order, because
+	// because the data retrieval process should have already done this.
+
+	var theHTML = ''
+	var mustacheCalendarDate = $('#mustache-calendar-date').html()
+	var mustacheCalendarList = $('#mustache-calendar-list').html()
+
+	for (var i = 0; i < timeslots.length; i++) {
+
+		var start_day = timeslots[i].day,
+			previous_day = 0
+
+		if (i > 0) {
+			previous_day = timeslots[i-1].day
+		}
+
+		// Display date header, if it needs to change
+		if (start_day != previous_day) {
+
+			var date = {
+				day_of_week: timeslots[i].day_of_week,
+				month:       timeslots[i].month,
+				day:         timeslots[i].day,
+				year:        timeslots[i].year
+			}
+
+			if (i > 0) {
+				theHTML = theHTML + '</ul>'
+			}
+
+			theHTML = theHTML + Mustache.render(mustacheCalendarDate, date)
+
+			theHTML = theHTML + '<ul>'
+
+		}
+
+		// Display scheduled entry
+		var item = {
+			name:     timeslots[i].vendor.name,
+			website:  timeslots[i].vendor.website,
+			location: timeslots[i].location.name,
+			from:     timeslots[i].from
+		}
+
+		theHTML = theHTML + Mustache.render(mustacheCalendarList, item)
+
+	}
+
+	theHTML = theHTML + '</ul>'
+
+	return theHTML
 
 }
 
@@ -479,7 +576,7 @@ function formatTime (date) {
  *   Get center offset of map
  */
 
-function getCenterOffset () {
+function _getCenterOffset () {
 
 	var centerOffset = [0, 0]
 
@@ -503,6 +600,56 @@ function getCenterOffset () {
 
  }
 
+
+/**
+ *   Feedback form content validation
+ */
+
+function _checkFeedbackForm () {
+
+	var type = ($('#feedback-type').val() >= 1) ? true : false
+	var content = ($.trim($('#feedback-content').val()) != '') ? true : false
+
+	if ( type == true && content == true ) {
+		$('#feedback-submit').prop('disabled', false)
+	}
+	else {
+		$('#feedback-submit').prop('disabled', true)
+	}
+
+}
+
+function _sendFeedback () {
+
+	$('#feedback-sending').show()
+
+	var feedbackAPI = 'http://localhost:3000/api/feedback'
+
+	var feedbackData = {
+		type: $('#feedback-type').val(),
+		content: $('#feedback-content').val(),
+		email: $('#feedback-email').val()
+	}
+	// null = no type
+	// 1 = feedback on the app, for us
+	// 2 = feedback on the MFV program, for the city (but also us)
+
+	$.ajax({
+		type: "POST",
+		url: feedbackAPI,
+		data: feedbackData,
+		dataType: 'json',
+		success: function (i) {
+			$('#feedback-sending').hide()
+			$('#feedback-success').show()
+		},
+		error: function (x) {
+			$('#feedback-sending').hide()
+			$('#feedback-error').show()
+		}
+	})
+
+}
 
 /**
  *   Hide attribution in sensitive geographic areas.

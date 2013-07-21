@@ -28,7 +28,7 @@ L.Map.prototype.panToOffset = function (latlng, offset, options) {
 	return this.setView(point, this._zoom, { pan: options })
 }
 
-var centerOffset = getCenterOffset()
+var centerOffset = _getCenterOffset()
 
 
 /*************************************************************************
@@ -182,7 +182,7 @@ map.setMaxBounds(markers.getBounds().pad(6))
 
 // Center marker on click
 markers.on('click', function (e) {
-	map.panToOffset(e.layer.getLatLng(), getCenterOffset())
+	map.panToOffset(e.layer.getLatLng(), _getCenterOffset())
 })
 
 
