@@ -192,13 +192,13 @@
 						Send us an e-mail at <a href='mailto:lasvegas@codeforamerica.org?subject=[LV Downtown Mobile Food Map] Feedback!'>lasvegas@codeforamerica.org</a>.
 // -->
 					</p>
-					<div id='feedback-form'>
-						<form name='feedback' action='javascript:return false;' method='post'>
+					<div id='feedback-form-container'>
+						<form id='feedback-form' name='feedback' action='javascript:return false;' method='post'>
 							<div class='select'>
 								<select id='feedback-type' name='feedback-type' required>
 									<option value='' selected disabled>Select your feedback type (required)</option>
-									<option value='1'>Feedback on this app</option>
-									<option value='2'>Feedback on the City's mobile food program</option>
+									<option value='app'>Feedback on this app</option>
+									<option value='city'>Feedback on the City's mobile food program</option>
 								</select>
 								<span class='select-arrow'>▾</span>
 							</div>

@@ -793,7 +793,7 @@ div.footer-popup .footer-popup-content {
     width: 100%;
   }
 }
-#feedback-form {
+#feedback-form-container {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -801,7 +801,7 @@ div.footer-popup .footer-popup-content {
   user-select: none;
   position: relative;
 }
-#feedback-form .select {
+#feedback-form-container .select {
   width: 100%;
   margin: 10px 0;
   border: 1px solid #d4d4d4;
@@ -812,7 +812,7 @@ div.footer-popup .footer-popup-content {
   overflow: hidden;
   position: relative;
 }
-#feedback-form .select .select-arrow {
+#feedback-form-container .select .select-arrow {
   display: inline-block;
   width: 28px;
   height: 28px;
@@ -824,7 +824,7 @@ div.footer-popup .footer-popup-content {
   color: #a1a1a1;
   border-left: 1px solid #d4d4d4;
 }
-#feedback-form select {
+#feedback-form-container select {
   -webkit-appearance: none;
   border-radius: 0;
   background-color: transparent;
@@ -837,9 +837,9 @@ div.footer-popup .footer-popup-content {
   box-shadow: none;
   outline: none;
 }
-#feedback-form textarea,
-#feedback-form input,
-#feedback-form button {
+#feedback-form-container textarea,
+#feedback-form-container input,
+#feedback-form-container button {
   display: block;
   width: 100%;
   margin: 10px 0;
@@ -851,25 +851,25 @@ div.footer-popup .footer-popup-content {
   border-radius: 0;
   box-shadow: none;
 }
-#feedback-form textarea {
+#feedback-form-container textarea {
   height: 100px;
   border: 1px solid #d4d4d4;
   resize: none;
 }
 @media screen and (max-width: 529px) {
-  #feedback-form textarea {
+  #feedback-form-container textarea {
     height: 60px;
   }
 }
-#feedback-form input {
+#feedback-form-container input {
   border: 1px solid #d4d4d4;
 }
-#feedback-form button {
+#feedback-form-container button {
   border: 0;
   background-color: #2c89a7;
   color: white;
 }
-#feedback-form button:disabled {
+#feedback-form-container button:disabled {
   background-color: #d4d4d4;
   color: #555;
 }

@@ -11,6 +11,12 @@ if (dummy === true) {
 	var now = new Date('July 16, 2013 12:05:00')
 }
 
+// DATA SOURCES
+var APIServer = 'http://lv-food-trucks.herokuapp.com/api/'
+//var APIServer = 'http://localhost:3000/'
+
+
+
 // Create a global schedule object
 var schedule = {
 	'now': {
@@ -35,9 +41,6 @@ var schedule = {
   document.data = function() {
 
 	// CONFIGURATE DATA SOURCES
-	var APIServer = 'http://lv-food-trucks.herokuapp.com/api/'
-//	var APIServer = 'http://localhost:3000/'
-
 	// Dummy data sources
 	// var dataSource = 'dummy-data/data.json'   // NOTE - no references to this remain
 	// var locationSource = 'dummy-data/locations.geojson'
@@ -138,16 +141,17 @@ var schedule = {
 			var endTime = new Date(timeslots[i].finish_at)
 			var startTime = new Date(timeslots[i].start_at)
 
-			// Remove all timeslots that have ended yesterday
-			if (endTime < now && endTime.getDay() != now.getDay()) {
-				timeslots.splice(i, 1)
-			}
-
 			// Add some helpful information for start times
 			timeslots[i].day_of_week = day_names[startTime.getDay()]
 			timeslots[i].month = month_names[startTime.getMonth()]
 			timeslots[i].day = startTime.getDate()
 			timeslots[i].year = startTime.getFullYear()
+
+			// Remove all timeslots that have ended yesterday
+			if (endTime < now && endTime.getDate() != now.getDate()) {
+				timeslots.splice(i, 1)
+				i--      // The array is affected, so change the value of i before re-looping
+			}
 		}
 
 	}
@@ -247,12 +251,7 @@ $(document).ready( function () {
 	$('.footer-about-link').click( function () { toggleFooterPopup('#about', $(this) ) })
 	$('.footer-feedback-link').click( function () {
 		toggleFooterPopup('#feedback', $(this))
-
-		// always reset feedback form
-		$('#feedback-sending').hide()
-		$('#feedback-success').hide()
-		$('#feedback-error').hide()
-
+		_resetFeedbackForm()
 	})
 	// Close popups
 	// -- when X is clicked on inside the popup
@@ -529,7 +528,13 @@ function makeCalendar () {
 
 	}
 
-	theHTML = theHTML + '</ul>'
+	if (timeslots.length > 0) {
+		theHTML = theHTML + '</ul>'
+	}
+	else {
+		theHTML = 'No upcoming scheduled vendors.'
+	}
+
 
 	return theHTML
 
@@ -607,7 +612,7 @@ function _getCenterOffset () {
 
 function _checkFeedbackForm () {
 
-	var type = ($('#feedback-type').val() >= 1) ? true : false
+	var type = ($('#feedback-type').val() != null) ? true : false
 	var content = ($.trim($('#feedback-content').val()) != '') ? true : false
 
 	if ( type == true && content == true ) {
@@ -623,12 +628,15 @@ function _sendFeedback () {
 
 	$('#feedback-sending').show()
 
-	var feedbackAPI = 'http://localhost:3000/api/feedback'
+//	var feedbackAPI = 'http://localhost:3000/api/feedbacks'
+	var feedbackAPI = APIServer + 'feedbacks'
 
 	var feedbackData = {
-		type: $('#feedback-type').val(),
-		content: $('#feedback-content').val(),
-		email: $('#feedback-email').val()
+		feedback: {
+			category: $('#feedback-type').val(),
+			body: $('#feedback-content').val(),
+			email: $('#feedback-email').val()			
+		}
 	}
 	// null = no type
 	// 1 = feedback on the app, for us
@@ -638,7 +646,7 @@ function _sendFeedback () {
 		type: "POST",
 		url: feedbackAPI,
 		data: feedbackData,
-		dataType: 'json',
+//		dataType: 'json',
 		success: function (i) {
 			$('#feedback-sending').hide()
 			$('#feedback-success').show()
@@ -649,6 +657,13 @@ function _sendFeedback () {
 		}
 	})
 
+}
+
+function _resetFeedbackForm () {
+	document.getElementById('feedback-form').reset()
+	$('#feedback-sending').hide()
+	$('#feedback-success').hide()
+	$('#feedback-error').hide()
 }
 
 /**
