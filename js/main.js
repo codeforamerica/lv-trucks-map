@@ -131,6 +131,16 @@ var schedule = {
 
 		// Additional timeslot cleaning
 
+		// Remove all time slots without vendor properties
+		for (var i = 0; i < timeslots.length; i++) {
+
+			if (timeslots[i].vendor == null) {
+				timeslots.splice(i, 1)
+				i--
+			}
+		}
+
+
 		// Setup
 		var day_names = new Array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday')
 		var month_names =  new Array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December')
