@@ -81,8 +81,8 @@ var schedule = {
 
 				// Inject dummy current vendor data
 				if (dummy === true) {
-					locations.features[2].properties.current_vendor_id = 5
-					locations.features[1].properties.current_vendor_id = 2                    
+					locations.features[2].properties.current_vendor_id = 14
+					locations.features[1].properties.current_vendor_id = 23                   
 				}
 			}
 
