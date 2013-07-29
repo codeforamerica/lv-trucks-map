@@ -150,8 +150,8 @@ var markers = L.mapbox.markerLayer(locations, {
 
 			if (marker.feature.id == timeslots[k].location_id && now > start && now < end) {
 				marker.schedule = {}
-				until = new Date(timeslots[k].finish_at)
-				marker.schedule.until = formatTime(until)
+				until = moment(timeslots[k].finish_at)
+				marker.schedule.until = _formatTime(until)
 			}
 		}
 

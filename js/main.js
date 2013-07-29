@@ -10,7 +10,9 @@ var nower = moment()
 
 // Set dummy date for testing.
 if (dummy === true) {
-	var now = new Date('August 20, 2013 9:05:00')
+	var dummyDate = 'August 20, 2013 9:05:00'
+	var now = new Date(dummyDate)
+	var nower = moment(dummyDate)
 }
 
 // DATA SOURCES
@@ -313,8 +315,8 @@ $(document).ready( function () {
 	// Use timeslot data to create the rest of the schedule object
 	for (var i = 0; i < timeslots.length; i++) {
 
-		var start = new Date(timeslots[i].start_at)
-		var end = new Date(timeslots[i].finish_at)
+		var start = moment(timeslots[i].start_at)
+		var end = moment(timeslots[i].finish_at)
 
 		var locationId = timeslots[i].location_id
 
@@ -326,8 +328,8 @@ $(document).ready( function () {
 		}
 
 		// format times for output
-		timeslots[i].from = formatTime(start)
-		timeslots[i].until = formatTime(end)
+		timeslots[i].from = _formatTime(start)
+		timeslots[i].until = _formatTime(end)
 
 		// time slots for current vendors - sure, why not.
 		if (now > start && now < end) {
@@ -339,15 +341,13 @@ $(document).ready( function () {
 		}
 
 		// time slots starting later today
-		if (now < start && now.getDate() == start.getDate() && now.getMonth() == start.getMonth() && now.getYear() == start.getYear()) {
+		if (start.isSame(nower, 'day') && start.isAfter(nower)) {
 			schedule.later.entries.push(timeslots[i])
 		}
 
 		// time slots starting tomorrow
-		var compareday = new Date(now)
-		compareday.setDate(compareday.getDate() + 1)
-		if (compareday.getDate() == start.getDate() && now.getMonth() == start.getMonth() && now.getYear() == start.getYear()) {
-
+		var compareday = moment(nower).add('days', 1)
+		if (start.isSame(compareday, 'day')) {
 			timeslots[i].tomorrow = true
 
 			schedule.tomorrow.entries.push(timeslots[i])
@@ -557,37 +557,21 @@ function makeCalendar () {
 
 
 /**
- *   Format time for display, given a Date object
+ *   Format time for display
  */
 
-function formatTime (date) {
+function _formatTime (date) {
 
-	var string = ''
-	var hour = date.getHours()
-	var minutes = date.getMinutes()
+	// date is a moment.js object
+	// moment.js can't create string formats where the minutes
+	// are optional, so this function returns a string in a format
+	// like '6am' or '6:30pm'
 
-	// Hours in 12-hour format
-	if (hour > 12) {
-		string = (hour - 12)
+	if (date.minutes() > 0) {
+		return string = date.format('h:mma')
+	} else {
+		return string = date.format('ha')
 	}
-	else {
-		string = hour
-	}
-
-	// Add minutes, if any
-	if (minutes > 0) {
-		string = string + ':' + minutes
-	}
-
-	// Add am/pm
-	if (hour > 12) {
-		string = string + 'pm'
-	}
-	else {
-		string = string + 'am'
-	}
-
-	return string
 
 }
 
