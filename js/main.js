@@ -6,9 +6,11 @@ if (getQueryStringParams('test') == 1 ) {
 
 // TIME & DATE HIJINKS
 var now = new Date()
+var nower = moment()
+
 // Set dummy date for testing.
 if (dummy === true) {
-	var now = new Date('July 16, 2013 12:05:00')
+	var now = new Date('August 20, 2013 9:05:00')
 }
 
 // DATA SOURCES
@@ -79,11 +81,12 @@ var schedule = {
 				locations.features[j].properties['marker-color'] = '#f93'
 				locations.features[j].properties['marker-size'] = 'large'
 
-				// Inject dummy current vendor data
-				if (dummy === true) {
-					locations.features[2].properties.current_vendor_id = 14
-					locations.features[1].properties.current_vendor_id = 23                   
-				}
+			}
+
+			// Inject dummy current vendor data
+			if (dummy === true) {
+				locations.features[2].properties.current_vendor_id = 14
+				locations.features[1].properties.current_vendor_id = 23                   
 			}
 
 		},
@@ -143,6 +146,7 @@ var schedule = {
 
 		// Setup
 		var day_names = new Array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday')
+		var day_names_short = new Array('Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat')
 		var month_names =  new Array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December')
 
 		// Actions
@@ -152,7 +156,7 @@ var schedule = {
 			var startTime = new Date(timeslots[i].start_at)
 
 			// Add some helpful information for start times
-			timeslots[i].day_of_week = day_names[startTime.getDay()]
+			timeslots[i].day_of_week = day_names_short[startTime.getDay()]
 			timeslots[i].month = month_names[startTime.getMonth()]
 			timeslots[i].day = startTime.getDate()
 			timeslots[i].year = startTime.getFullYear()
@@ -335,14 +339,15 @@ $(document).ready( function () {
 		}
 
 		// time slots starting later today
-		if (now < start && now.getDate() == start.getDate()) {
+		if (now < start && now.getDate() == start.getDate() && now.getMonth() == start.getMonth() && now.getYear() == start.getYear()) {
 			schedule.later.entries.push(timeslots[i])
 		}
 
 		// time slots starting tomorrow
 		var compareday = new Date(now)
 		compareday.setDate(compareday.getDate() + 1)
-		if (compareday.getDate() == start.getDate()) {
+		if (compareday.getDate() == start.getDate() && now.getMonth() == start.getMonth() && now.getYear() == start.getYear()) {
+
 			timeslots[i].tomorrow = true
 
 			schedule.tomorrow.entries.push(timeslots[i])
