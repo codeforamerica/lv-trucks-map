@@ -2,20 +2,6 @@
 
 /*************************************************************************
 // 
-// CONFIGURATION
-//
-// ***********************************************************************/
-
-var mapboxID = 'codeforamerica.map-wzcm8dk0'
-var mapboxIDRetina = 'codeforamerica.map-dfs3qfso'
-//var mapboxID = 'codeforamerica.map-lam6vthg'
-//var mapboxIDRetina = 'codeforamerica.map-6wzjbm7l'
-
-var mapStyle = getQueryStringParams('m')
-
-
-/*************************************************************************
-// 
 // MAPBOX.JS HACKS
 // Extend map with a variant of map.panTo() method to accept center offset
 //
@@ -28,8 +14,6 @@ L.Map.prototype.panToOffset = function (latlng, offset, options) {
 	return this.setView(point, this._zoom, { pan: options })
 }
 
-var centerOffset = _getCenterOffset()
-
 
 /*************************************************************************
 // 
@@ -39,17 +23,17 @@ var centerOffset = _getCenterOffset()
 // ***********************************************************************/
 
 var map = L.mapbox.map('map')
-	.setView([36.1665, -115.1479], 14)  // This will be overridden later when map bounds are set based on available markers.
+	.setView(MAP_INIT_LATLNG, MAP_INIT_ZOOM)  // This will be overridden later when map bounds are set based on available markers.
 
-if (mapStyle) {
+if (MAPBOX_ID_OVERRIDE) {
 	// If a custom map style is required for testing
-	map.addLayer(L.mapbox.tileLayer(mapStyle))
+	map.addLayer(L.mapbox.tileLayer(MAPBOX_ID_OVERRIDE))
 }
 else {
 	// Use normal map
-	map.addLayer(L.mapbox.tileLayer(mapboxID, {
+	map.addLayer(L.mapbox.tileLayer(MAPBOX_ID, {
 		detectRetina: true,
-		retinaVersion: mapboxIDRetina
+		retinaVersion: MAPBOX_ID_RETINA
 	}))
 }
 
@@ -145,10 +129,10 @@ var markers = L.mapbox.markerLayer(locations, {
 		// the parking meter back-end about how long someone is paid through till.
 		for (var k = 0; k < timeslots.length; k++) {
 
-			var start = new Date(timeslots[k].start_at)
-			var end = new Date(timeslots[k].finish_at)
+			var start = moment(timeslots[k].start_at)
+			var end = moment(timeslots[k].finish_at)
 
-			if (marker.feature.id == timeslots[k].location_id && now > start && now < end) {
+			if (marker.feature.id == timeslots[k].location_id && NOW.isAfter(start) && NOW.isBefore(end)) {
 				marker.schedule = {}
 				until = moment(timeslots[k].finish_at)
 				marker.schedule.until = _formatTime(until)
@@ -175,10 +159,10 @@ var markers = L.mapbox.markerLayer(locations, {
 }).addTo(map)
 
 // Set the bounding area for the map
-map.fitBounds(markers.getBounds().pad(0.25), {
-	paddingTopLeft: centerOffset
+map.fitBounds(markers.getBounds().pad(MAP_FIT_PADDING), {
+	paddingTopLeft: MAP_CENTER_OFFSET
 })
-map.setMaxBounds(markers.getBounds().pad(6))
+map.setMaxBounds(markers.getBounds().pad(MAP_MAX_PADDING))
 
 // Center marker on click
 markers.on('click', function (e) {

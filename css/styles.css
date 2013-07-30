@@ -458,6 +458,33 @@ header #nav-logo a {
   top: 35%;
   padding: 16px;
 }
+#debug {
+  width: 400px;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  margin-left: -200px;
+  background-color: yellow;
+  z-index: 18000;
+  padding: 0 10px;
+  border: 1px solid gray;
+  border-top: 0;
+  box-sizing: border-box;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.25);
+  text-align: center;
+}
+#debug h6 {
+  font-size: 20px;
+  margin: 0;
+  padding: 0;
+}
+#debug #debug-options {
+  display: none;
+}
+#debug fieldset {
+  text-align: left;
+}
 #vendor-info {
   width: 360px;
   position: absolute;
@@ -536,6 +563,7 @@ header #nav-logo a {
   }
 }
 #vendor-info .vendor-heading {
+  background-color: #4eb1d1;
   background: #4eb1d1 url('../img/arrow.png') right 20px top 16px no-repeat;
   font-size: 14px;
   height: 40px;
@@ -550,6 +578,7 @@ header #nav-logo a {
   transition: background-color 0.2s ease;
 }
 #vendor-info .vendor-heading.active {
+  background-color: #4eb1d1;
   background: #4eb1d1 url('../img/arrow-down.png') right 19px top 18px no-repeat;
   border-bottom: 0px;
 }
@@ -617,7 +646,6 @@ header #nav-logo a {
   color: white;
   padding: 6px 10px;
   font-size: 11px;
-  font-weight: bold;
 }
 #vendor-info .vendor-entries .vendor-entry span.later {
   background-color: #ff9933;

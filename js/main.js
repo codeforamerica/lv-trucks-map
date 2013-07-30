@@ -1,24 +1,40 @@
 // LAS VEGAS FOOD TRUCKS MAP - main application Javascript
 
-var dummy = false
-/*if (getQueryStringParams('debug') == 1 ) {
-	var dummy = true
-}*/
+/*************************************************************************
+// 
+// CONFIGURATION
+//
+// ***********************************************************************/
 
-// TIME & DATE HIJINKS
-// Depends on moment.js
-var now = moment()
+// User editable options
 
-// Set dummy date for testing.
-if (dummy === true) {
-	var dummyDate = 'August 20, 2013 9:05:00'
-	var now = moment(dummyDate)
-}
+var DATE_PROGRAM_START  = 'August 1, 2013',
+	DATE_PROGRAM_END    = 'February 1, 2014'
 
-// DATA SOURCES
-var APIServer = 'http://lv-food-trucks.herokuapp.com/api/'
-//var APIServer = 'http://localhost:3000/'
+var API_SERVER          = 'http://lv-food-trucks.herokuapp.com/api/'
+						// local environments use 'http://localhost:3000/'
+var API_LOCATIONS       = API_SERVER + 'locations/search.geojson',
+	API_VENDORS         = API_SERVER + 'vendors.json',
+	API_TIMESLOTS       = API_SERVER + 'locations/{id}/time_slots.json',
+	API_FEEDBACK        = API_SERVER + 'feedbacks'
 
+var MAPBOX_ID           = 'codeforamerica.map-wzcm8dk0',
+	MAPBOX_ID_RETINA    = 'codeforamerica.map-dfs3qfso'
+
+var MAP_INIT_LATLNG     = [36.1665, -115.1479],
+	MAP_INIT_ZOOM       = 14,
+	MAP_FIT_PADDING     = 0.25,
+	MAP_MAX_PADDING     = 6
+
+// ***********************************************************************/
+
+// Configuration things you should not manually edit
+
+var NOW                 = moment()
+						// Current date and time, from moment.js
+
+var MAP_CENTER_OFFSET   = _getCenterOffset(),
+	MAPBOX_ID_OVERRIDE  = _getQueryStringParams('map')
 
 // Create a global schedule object
 var schedule = {
@@ -31,6 +47,58 @@ var schedule = {
 	'tomorrow': {
 		'entries': []
 	}
+}
+
+// DEBUG MODE
+var DEBUG_MODE = false
+
+if (_getQueryStringParams('debug') == 1 ) {
+
+	DEBUG_MODE = true
+	$('#debug').show()
+
+	var DEBUG_FAKE_METERS     = parseInt(_getQueryStringParams('t'))
+	var DEBUG_DATE_OVERRIDE   = parseInt(_getQueryStringParams('d')),
+		DEBUG_DATE_MONTH      = parseInt(_getQueryStringParams('mm')),
+		DEBUG_DATE_DATE       = parseInt(_getQueryStringParams('dd')),
+		DEBUG_DATE_YEAR       = parseInt(_getQueryStringParams('y')),
+		DEBUG_DATE_HOUR       = parseInt(_getQueryStringParams('h')),
+		DEBUG_DATE_MINUTES    = parseInt(_getQueryStringParams('m'))
+
+	if (DEBUG_FAKE_METERS === 1) {
+		$('#debug-fake-meters').val(['1'])
+	}
+	if (DEBUG_DATE_OVERRIDE === 1) {
+		$('#debug-change-date').val(['1'])
+
+		DEBUG_DATE = moment().month(DEBUG_DATE_MONTH)
+							 .date(DEBUG_DATE_DATE)
+							 .year(DEBUG_DATE_YEAR)
+							 .hour(DEBUG_DATE_HOUR)
+							 .minute(DEBUG_DATE_MINUTES)
+		NOW = moment(DEBUG_DATE)
+	}
+
+	$('#debug-date').html(NOW.format('ddd MMM D, YYYY HH:mm:ss ([UTC offset] Z)'))
+
+	// Populate correct time/date dropdowns
+	$('#debug-date-month').val([NOW.month()])
+	$('#debug-date-day').val([NOW.date()])
+	$('#debug-date-year').val([NOW.year()])
+	$('#debug-date-hour').val([NOW.hour()])
+	$('#debug-date-minute').val([Math.floor(NOW.minute() / 5) * 5])
+
+
+	$('#debug-options-button').on('click', function () {
+		$('#debug-options').show()
+		$('#debug-options-button').hide()
+	})
+	$('#debug-options-hide').on('click', function () {
+		$('#debug-options').hide()
+		$('#debug-options-button').show()
+	})
+
+
 };
 
 
@@ -43,16 +111,6 @@ var schedule = {
 (function() { 
   document.data = function() {
 
-	// CONFIGURATE DATA SOURCES
-	// Dummy data sources
-	// var dataSource = 'dummy-data/data.json'   // NOTE - no references to this remain
-	// var locationSource = 'dummy-data/locations.geojson'
-
-	// Data sources
-	// Timeslots source is done further down below
-	var locationSource = APIServer + 'locations/search.geojson'
-	var vendorSource = APIServer + 'vendors.json'
-
 	// LOAD SOME EXTERNAL DATAS
 	var data = [],
 		vendors = [],
@@ -63,7 +121,7 @@ var schedule = {
 
 	// RETRIEVE LOCATIONS
 	$.ajax({
-		url: locationSource,
+		url: API_LOCATIONS,
 		async: false,
 		cache: false,
 		dataType: 'json',
@@ -82,10 +140,14 @@ var schedule = {
 				locations.features[j].properties['marker-color'] = '#f93'
 				locations.features[j].properties['marker-size'] = 'large'
 
+				if (DEBUG_FAKE_METERS == 1) {
+					locations.features[j].properties.current_vendor_id = ''
+				}
+
 			}
 
 			// Inject dummy current vendor data
-			if (dummy === true) {
+			if (DEBUG_FAKE_METERS == 1) {
 				locations.features[2].properties.current_vendor_id = 14
 				locations.features[1].properties.current_vendor_id = 23                   
 			}
@@ -99,11 +161,8 @@ var schedule = {
 	// RETRIEVE SCHEDULED TIMESLOTS
 	for (var i = 0; i < locations.features.length; i++) {
 
-		var locationId = locations.features[i].id
-		var timeslotSource = APIServer + 'locations/' + locationId + '/time_slots.json'
-
 		$.ajax({
-			url: timeslotSource,
+			url: API_TIMESLOTS.replace('{id}', locations.features[i].id),
 			async: false,
 			cache: false,
 			dataType: 'json',
@@ -163,7 +222,7 @@ var schedule = {
 			timeslots[i].year = startTime.year()
 
 			// Remove all timeslots that have ended yesterday
-			if (endTime.isBefore(now, 'day')) {
+			if (endTime.isBefore(NOW, 'day')) {
 				timeslots.splice(i, 1)
 				i--      // The array is affected, so change the value of i before re-looping
 			}
@@ -173,7 +232,7 @@ var schedule = {
 
 	// RETRIEVE FULL VENDOR LIST
 	$.ajax({
-		url: vendorSource,
+		url: API_VENDORS,
 		async: false,
 		cache: false,
 		dataType: 'json',
@@ -331,7 +390,7 @@ $(document).ready( function () {
 		timeslots[i].until = _formatTime(end)
 
 		// time slots for current vendors - sure, why not.
-		if (now > start && now < end) {
+		if (NOW > start && NOW < end) {
 			for (var k = 0; k < schedule.now.entries.length; k++) {
 				if (timeslots[i].location_id == schedule.now.entries[k].location_id) {
 					schedule.now.entries[k].until = timeslots[i].until
@@ -340,12 +399,12 @@ $(document).ready( function () {
 		}
 
 		// time slots starting later today
-		if (start.isSame(now, 'day') && start.isAfter(now)) {
+		if (start.isSame(NOW, 'day') && start.isAfter(NOW)) {
 			schedule.later.entries.push(timeslots[i])
 		}
 
 		// time slots starting tomorrow
-		var compareday = moment(now).add('days', 1)
+		var compareday = moment(NOW).add('days', 1)
 //		if (start.isSame(compareday, 'week') && start.isAfter(compareday)) {
 		if (start.isSame(compareday, 'day')) {
 			timeslots[i].tomorrow = true
@@ -582,25 +641,25 @@ function _formatTime (date) {
 
 function _getCenterOffset () {
 
-	var centerOffset = [0, 0]
+	var offset = [0, 0]
 
 	var $overlay = $('#vendor-data')
 
 	if ($overlay.is(':visible')) {
 		var viewableWidth = $(window).width() - $overlay.width() - $overlay.offset().left
-		centerOffset[0] =  ($overlay.width() + $overlay.offset().left) / 2
+		offset[0] =  ($overlay.width() + $overlay.offset().left) / 2
 		if (viewableWidth > 840) {
 			// Tweak to balance super wide windows.
-			centerOffset[0] = centerOffset[0] - 60
+			offset[0] = offset[0] - 60
 		}
 	}
 	if ($(window).width() < 530) {
-		centerOffset[1] = $(window).height() / 4
+		offset[1] = $(window).height() / 4
 	} else {
-		centerOffset[1] = $(window).height() / 10        
+		offset[1] = $(window).height() / 10        
 	}
 
-	return centerOffset
+	return offset
 
  }
 
@@ -627,9 +686,6 @@ function _sendFeedback () {
 
 	$('#feedback-sending').show()
 
-//	var feedbackAPI = 'http://localhost:3000/api/feedbacks'
-	var feedbackAPI = APIServer + 'feedbacks'
-
 	var feedbackData = {
 		feedback: {
 			category: $('#feedback-type').val(),
@@ -637,15 +693,15 @@ function _sendFeedback () {
 			email: $('#feedback-email').val()			
 		}
 	}
+
 	// null = no type
 	// 1 = feedback on the app, for us
 	// 2 = feedback on the MFV program, for the city (but also us)
 
 	$.ajax({
 		type: "POST",
-		url: feedbackAPI,
+		url: API_FEEDBACK,
 		data: feedbackData,
-//		dataType: 'json',
 		success: function (i) {
 			$('#feedback-sending').hide()
 			$('#feedback-success').show()
@@ -721,7 +777,7 @@ function showError (message) {
 *    Get query string for various options
 */ 
 
-function getQueryStringParams(sParam) {
+function _getQueryStringParams(sParam) {
 	var sPageURL = window.location.search.substring(1);
 	var sURLVariables = sPageURL.split('&');
 	for (var i = 0; i < sURLVariables.length; i++) {

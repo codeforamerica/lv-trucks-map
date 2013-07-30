@@ -150,6 +150,34 @@ header {
 	}
 }
 
+#debug {
+	width: 400px;
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 50%;
+	margin-left: -200px;
+	background-color: yellow;
+	z-index: @ui-index * 2;
+	padding: 0 10px;
+	border: 1px solid gray;
+	border-top: 0;
+	box-sizing: border-box;
+	box-shadow: 0 0 6px rgba(0,0,0,0.25);
+	text-align: center;
+	h6 {
+		font-size: 20px;
+		margin: 0;
+		padding: 0;
+	}
+	#debug-options{
+		display: none;
+	}
+	fieldset {
+		text-align: left;
+	}
+}
+
 #vendor-info {
 	width: 360px;
 	position: absolute;
@@ -215,6 +243,7 @@ header {
 		}
 	}
 	.vendor-heading {
+		background-color: @vendor-heading-color;    // Hack to display color correctly on iPad
 		background: @vendor-heading-color url('../img/arrow.png') right 20px top 16px no-repeat;
 		font-size: 14px;
 		height: 40px;
@@ -225,6 +254,7 @@ header {
 		border-bottom: 1px dotted lighten(@vendor-heading-color, 10%);
 		.transition(background-color 0.2s ease);
 		&.active {
+			background-color: @vendor-heading-color;
 			background: @vendor-heading-color url('../img/arrow-down.png') right 19px top 18px no-repeat;
 			border-bottom: 0px;
 		}
@@ -288,7 +318,6 @@ header {
 				color: white;
 				padding: 6px 10px;
 				font-size: 11px;
-				font-weight: bold;
 			}
 			span.later {
 				background-color: @time-background-later;
