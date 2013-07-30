@@ -570,6 +570,7 @@ header #nav-logo a {
   height: 60px;
   cursor: hand;
   cursor: pointer;
+  position: relative;
   -webkit-user-select: text;
   -moz-user-select: text;
   -ms-user-select: text;
@@ -609,11 +610,14 @@ header #nav-logo a {
 }
 #vendor-info .vendor-entries .vendor-entry span.time {
   background-color: #3ab000;
-  border-radius: 4px;
-  float: right;
-  margin-top: -56px;
+  border-radius: 3px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
   color: white;
   padding: 6px 10px;
+  font-size: 11px;
+  font-weight: bold;
 }
 #vendor-info .vendor-entries .vendor-entry span.later {
   background-color: #ff9933;

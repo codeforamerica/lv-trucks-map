@@ -1,24 +1,23 @@
 // LAS VEGAS FOOD TRUCKS MAP - main application Javascript
 
-if (getQueryStringParams('test') == 1 ) {
+var dummy = false
+/*if (getQueryStringParams('debug') == 1 ) {
 	var dummy = true
-}
+}*/
 
 // TIME & DATE HIJINKS
-var now = new Date()
-var nower = moment()
+// Depends on moment.js
+var now = moment()
 
 // Set dummy date for testing.
 if (dummy === true) {
 	var dummyDate = 'August 20, 2013 9:05:00'
-	var now = new Date(dummyDate)
-	var nower = moment(dummyDate)
+	var now = moment(dummyDate)
 }
 
 // DATA SOURCES
 var APIServer = 'http://lv-food-trucks.herokuapp.com/api/'
 //var APIServer = 'http://localhost:3000/'
-
 
 
 // Create a global schedule object
@@ -154,17 +153,17 @@ var schedule = {
 		// Actions
 		for (var i = 0; i < timeslots.length; i++) {
 
-			var endTime = new Date(timeslots[i].finish_at)
-			var startTime = new Date(timeslots[i].start_at)
+			var endTime = moment(timeslots[i].finish_at)
+			var startTime = moment(timeslots[i].start_at)
 
 			// Add some helpful information for start times
-			timeslots[i].day_of_week = day_names_short[startTime.getDay()]
-			timeslots[i].month = month_names[startTime.getMonth()]
-			timeslots[i].day = startTime.getDate()
-			timeslots[i].year = startTime.getFullYear()
+			timeslots[i].day_of_week = day_names_short[startTime.day()]
+			timeslots[i].month = month_names[startTime.month()]
+			timeslots[i].day = startTime.date()
+			timeslots[i].year = startTime.year()
 
 			// Remove all timeslots that have ended yesterday
-			if (endTime < now && endTime.getDate() != now.getDate()) {
+			if (endTime.isBefore(now, 'day')) {
 				timeslots.splice(i, 1)
 				i--      // The array is affected, so change the value of i before re-looping
 			}
@@ -341,12 +340,13 @@ $(document).ready( function () {
 		}
 
 		// time slots starting later today
-		if (start.isSame(nower, 'day') && start.isAfter(nower)) {
+		if (start.isSame(now, 'day') && start.isAfter(now)) {
 			schedule.later.entries.push(timeslots[i])
 		}
 
 		// time slots starting tomorrow
-		var compareday = moment(nower).add('days', 1)
+		var compareday = moment(now).add('days', 1)
+//		if (start.isSame(compareday, 'week') && start.isAfter(compareday)) {
 		if (start.isSame(compareday, 'day')) {
 			timeslots[i].tomorrow = true
 

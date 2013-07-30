@@ -246,6 +246,7 @@ header {
 			height: 60px;
 			cursor: hand;
 			cursor: pointer;
+			position: relative;
 			.user-select(text);
 			&:not(:last-child) {
 				border-bottom: 1px dotted #d9d9d9;
@@ -280,11 +281,14 @@ header {
 			}
 			span.time {
 				background-color: @time-background;
-				border-radius: 4px;
-				float: right;
-				margin-top: -56px;
+				border-radius: 3px;
+				position: absolute;
+				right: 10px;
+				top: 10px;
 				color: white;
 				padding: 6px 10px;
+				font-size: 11px;
+				font-weight: bold;
 			}
 			span.later {
 				background-color: @time-background-later;
