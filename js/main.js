@@ -88,7 +88,6 @@ if (_getQueryStringParams('debug') == 1 ) {
 	$('#debug-date-hour').val([NOW.hour()])
 	$('#debug-date-minute').val([Math.floor(NOW.minute() / 5) * 5])
 
-
 	$('#debug-options-button').on('click', function () {
 		$('#debug-options').show()
 		$('#debug-options-button').hide()
@@ -96,6 +95,10 @@ if (_getQueryStringParams('debug') == 1 ) {
 	$('#debug-options-hide').on('click', function () {
 		$('#debug-options').hide()
 		$('#debug-options-button').show()
+	})
+
+	$('#debug-menu select').on('change', function () {
+		$('#debug-change-date').val(['1'])
 	})
 
 
