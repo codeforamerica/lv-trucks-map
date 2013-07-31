@@ -278,11 +278,15 @@ header {
 			cursor: pointer;
 			position: relative;
 			.user-select(text);
+			.transition(background-color 0.2s ease);
 			&:not(:last-child) {
 				border-bottom: 1px dotted #d9d9d9;
 			}
 			&:hover {
 				background-color: @vendor-entry-hilite-color;
+			}
+			&:active {
+				background-color: #ffffcc;
 			}
 			.vendor-image {
 				height: 70px;

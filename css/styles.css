@@ -605,12 +605,19 @@ header #nav-logo a {
   -ms-user-select: text;
   -o-user-select: text;
   user-select: text;
+  -webkit-transition: background-color 0.2s ease;
+  -moz-transition: background-color 0.2s ease;
+  -o-transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease;
 }
 #vendor-info .vendor-entries .vendor-entry:not(:last-child) {
   border-bottom: 1px dotted #d9d9d9;
 }
 #vendor-info .vendor-entries .vendor-entry:hover {
   background-color: #f0f0f0;
+}
+#vendor-info .vendor-entries .vendor-entry:active {
+  background-color: #ffffcc;
 }
 #vendor-info .vendor-entries .vendor-entry .vendor-image {
   height: 70px;

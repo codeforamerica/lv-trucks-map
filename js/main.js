@@ -54,9 +54,11 @@ var DEBUG_MODE = false
 
 if (_getQueryStringParams('debug') == 1 ) {
 
+	// Activate debug mode
 	DEBUG_MODE = true
 	$('#debug').show()
 
+	// Get parameters from query string
 	var DEBUG_FAKE_METERS     = parseInt(_getQueryStringParams('t'))
 	var DEBUG_DATE_OVERRIDE   = parseInt(_getQueryStringParams('d')),
 		DEBUG_DATE_MONTH      = parseInt(_getQueryStringParams('mm')),
@@ -65,9 +67,12 @@ if (_getQueryStringParams('debug') == 1 ) {
 		DEBUG_DATE_HOUR       = parseInt(_getQueryStringParams('h')),
 		DEBUG_DATE_MINUTES    = parseInt(_getQueryStringParams('m'))
 
+	// Override Parkeon API with fictional meter data
 	if (DEBUG_FAKE_METERS === 1) {
 		$('#debug-fake-meters').val(['1'])
 	}
+
+	// Override application date with debug selection
 	if (DEBUG_DATE_OVERRIDE === 1) {
 		$('#debug-change-date').val(['1'])
 
@@ -79,6 +84,7 @@ if (_getQueryStringParams('debug') == 1 ) {
 		NOW = moment(DEBUG_DATE)
 	}
 
+	// Display current application date
 	$('#debug-date').html(NOW.format('ddd MMM D, YYYY HH:mm:ss ([UTC offset] Z)'))
 
 	// Populate correct time/date dropdowns
@@ -88,6 +94,7 @@ if (_getQueryStringParams('debug') == 1 ) {
 	$('#debug-date-hour').val([NOW.hour()])
 	$('#debug-date-minute').val([Math.floor(NOW.minute() / 5) * 5])
 
+	// Hide or show the debug options
 	$('#debug-options-button').on('click', function () {
 		$('#debug-options').show()
 		$('#debug-options-button').hide()
@@ -97,10 +104,10 @@ if (_getQueryStringParams('debug') == 1 ) {
 		$('#debug-options-button').show()
 	})
 
+	// Auto check 'change date' option if user changes a select dropdown
 	$('#debug-menu select').on('change', function () {
 		$('#debug-change-date').val(['1'])
 	})
-
 
 };
 
@@ -306,16 +313,12 @@ $(document).ready( function () {
 
 	// TRUCK ENTRY - Activate marker on click
 	$('#vendor-info').on('click', '.vendor-entry', function () {
-		// need a better way of indicating a click flash.
-		// $(this).css('background-color', '#fffff0')
 		var locationId = $(this).data('locationId')
 		markers.eachLayer( function (marker) {
 			if (marker.feature.id === locationId) {
 
-				// Pan to offset location (copied from map.js - how to make this piece of code DRY?
 				map.panToOffset(marker.getLatLng(), _getCenterOffset())
 
-				// Open popup
 				marker.openPopup()
 			}
 		})
