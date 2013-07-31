@@ -348,21 +348,30 @@
 						<div class='vendor-image'><img src='img/vendor-placeholder.png'></div>
 					{{/logo_url}}
 					<h3>{{vendor.name}}</h3>
-					<p>
-						is at <strong>{{location.name}}</strong>
+					<p class='cuisine'>{{vendor.cuisine}}</p>
+					<p class='location'>
+						<strong>{{location.name}}</strong>
+
+						{{#tomorrow}}
+							<span class='time later'>{{day_of_week}} {{from}}</span>
+						{{/tomorrow}}
+						{{^tomorrow}}
+							{{#from}}
+								<span class='time later'>{{from}} - {{until}}</span>
+							{{/from}}
+							{{^from}}
+								<span class='time'>until {{until}}</span>
+							{{/from}}
+						{{/tomorrow}}
+
 						<br><span class='address'>{{location.addressShort}}</span>
 					</p>
-					{{#tomorrow}}
-						<span class='time later'>{{day_of_week}} {{from}}</span>
-					{{/tomorrow}}
-					{{^tomorrow}}
-						{{#from}}
-							<span class='time later'>{{from}} - {{until}}</span>
-						{{/from}}
-						{{^from}}
-							<span class='time'>until {{until}}</span>
-						{{/from}}
-					{{/tomorrow}}
+					
+					<span class='links'>
+						{{#website}}
+
+						{{/website}}
+					</span>
 				</div>
 				{{/entries}}
 			</script>
@@ -371,7 +380,7 @@
 				<div id='popup-leaflet'>
 					<div class='popup-info'>
 						<div class='popup-location'>
-							<strong>{{feature.properties.name}}</strong>
+							<span class='location'>{{feature.properties.name}}</span>
 							<br>
 							<span class='address'>
 								<span class='typcn typcn-location-arrow-outline'></span><a href='http://maps.google.com/maps?daddr={{feature.properties.address}}' target='_blank' title='Get directions to here'>{{feature.properties.addressShort}}</a>

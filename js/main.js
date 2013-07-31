@@ -202,40 +202,24 @@ if (_getQueryStringParams('debug') == 1 ) {
 		// Sort timeslots by time
 		timeslots = timeslots.sort(sort_by_time('start_at', true))
 
-		// Additional timeslot cleaning
-
-		// Remove all time slots without vendor properties
-		for (var i = 0; i < timeslots.length; i++) {
-
-			if (timeslots[i].vendor == null) {
-				timeslots.splice(i, 1)
-				i--
-			}
-		}
-
-
-		// Setup
-		var day_names = new Array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday')
-		var day_names_short = new Array('Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat')
-		var month_names =  new Array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December')
-
 		// Actions
 		for (var i = 0; i < timeslots.length; i++) {
 
-			var endTime = moment(timeslots[i].finish_at)
 			var startTime = moment(timeslots[i].start_at)
-
-			// Add some helpful information for start times
-			timeslots[i].day_of_week = day_names_short[startTime.day()]
-			timeslots[i].month = month_names[startTime.month()]
-			timeslots[i].day = startTime.date()
-			timeslots[i].year = startTime.year()
+			var endTime = moment(timeslots[i].finish_at)
 
 			// Remove all timeslots that have ended yesterday
 			if (endTime.isBefore(NOW, 'day')) {
 				timeslots.splice(i, 1)
 				i--      // The array is affected, so change the value of i before re-looping
 			}
+
+			// Add some helpful information for start times
+			timeslots[i].day_of_week = startTime.format('ddd')
+			timeslots[i].month = startTime.format('MMMM')
+			timeslots[i].day = startTime.date()
+			timeslots[i].year = startTime.year()
+
 		}
 
 	}

@@ -465,7 +465,7 @@ header #nav-logo a {
   top: 0;
   left: 50%;
   margin-left: -200px;
-  background-color: yellow;
+  background-color: rgba(255, 255, 0, 0.8);
   z-index: 18000;
   padding: 0 10px;
   border: 1px solid gray;
@@ -496,7 +496,8 @@ header #nav-logo a {
   color: black;
   font-size: 12px;
   max-height: 90%;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -593,22 +594,23 @@ header #nav-logo a {
 }
 #vendor-info .vendor-entries .vendor-entry,
 #vendor-info .vendor-entries .vendor-message {
-  padding: 10px 10px;
+  padding: 12px 10px 12px;
 }
 #vendor-info .vendor-entries .vendor-entry {
   height: 60px;
   cursor: hand;
   cursor: pointer;
   position: relative;
+  padding-left: 76px;
   -webkit-user-select: text;
   -moz-user-select: text;
   -ms-user-select: text;
   -o-user-select: text;
   user-select: text;
-  -webkit-transition: background-color 0.2s ease;
-  -moz-transition: background-color 0.2s ease;
-  -o-transition: background-color 0.2s ease;
-  transition: background-color 0.2s ease;
+  -webkit-transition: background-color 0s linear;
+  -moz-transition: background-color 0s linear;
+  -o-transition: background-color 0s linear;
+  transition: background-color 0s linear;
 }
 #vendor-info .vendor-entries .vendor-entry:not(:last-child) {
   border-bottom: 1px dotted #d9d9d9;
@@ -617,15 +619,15 @@ header #nav-logo a {
   background-color: #f0f0f0;
 }
 #vendor-info .vendor-entries .vendor-entry:active {
-  background-color: #ffffcc;
+  background-color: #ffffdd;
 }
 #vendor-info .vendor-entries .vendor-entry .vendor-image {
-  height: 70px;
-  width: 70px;
-  float: left;
-  margin-right: 8px;
-  margin-top: -6px;
-  margin-left: -6px;
+  height: 68px;
+  width: 68px;
+  position: absolute;
+  left: 4px;
+  top: 8px;
+  border-radius: 6px;
 }
 #vendor-info .vendor-entries .vendor-entry .vendor-image img {
   width: 100%;
@@ -634,25 +636,34 @@ header #nav-logo a {
 #vendor-info .vendor-entries .vendor-entry h3 {
   padding: 0;
   margin: 0;
-  font-size: 18px;
+  line-height: 26px;
+  font-size: 26px;
+  font-weight: 100;
+  font-color: #222;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 #vendor-info .vendor-entries .vendor-entry p {
   padding: 0;
   margin: 0;
 }
-#vendor-info .vendor-entries .vendor-entry p .address {
+#vendor-info .vendor-entries .vendor-entry p.cuisine {
   color: #777;
-  font-size: 10px;
+}
+#vendor-info .vendor-entries .vendor-entry p.location {
+  margin-top: 4px;
+}
+#vendor-info .vendor-entries .vendor-entry p .address {
+  display: none;
+  color: #555;
+  font-size: 11px;
 }
 #vendor-info .vendor-entries .vendor-entry span.time {
   background-color: #3ab000;
-  border-radius: 3px;
-  position: absolute;
-  right: 10px;
-  top: 10px;
+  border-radius: 2px;
+  margin-left: 2px;
   color: white;
-  padding: 6px 10px;
-  font-size: 11px;
+  padding: 3px 5px;
 }
 #vendor-info .vendor-entries .vendor-entry span.later {
   background-color: #ff9933;
@@ -948,8 +959,10 @@ div.footer-popup .footer-popup-content {
   padding: 8px;
   background-color: #f6f6f6;
 }
-#popup-leaflet .popup-info .popup-location strong {
-  font-size: 13px;
+#popup-leaflet .popup-info .popup-location .location {
+  font-size: 14px;
+  line-height: 12px;
+  font-weight: 200;
 }
 #popup-leaflet .popup-info .popup-location .address {
   color: #888;
@@ -987,9 +1000,10 @@ div.footer-popup .footer-popup-content {
   padding: 8px 8px;
 }
 #popup-leaflet .popup-info h3 {
-  margin: 0;
+  margin: 0 0 2px;
   padding: 0;
-  font-size: 16px;
+  font-size: 20px;
+  font-weight: 200;
 }
 #popup-leaflet .popup-info h3 a {
   color: black !important;

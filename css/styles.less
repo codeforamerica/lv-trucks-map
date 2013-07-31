@@ -157,7 +157,7 @@ header {
 	top: 0;
 	left: 50%;
 	margin-left: -200px;
-	background-color: yellow;
+	background-color: rgba(255,255,0,0.8);
 	z-index: @ui-index * 2;
 	padding: 0 10px;
 	border: 1px solid gray;
@@ -189,7 +189,8 @@ header {
 	color: black;
 	font-size: 12px;
 	max-height: 90%;
-	overflow: auto;
+	overflow-y: auto;
+	overflow-x: hidden;
 	.user-select(none);
 	border-radius: 2px;
 	@media @mobile, @tablet, @landscape {
@@ -270,15 +271,16 @@ header {
 			background-color: white;
 		}
 		.vendor-entry, .vendor-message {
-			padding: 10px 10px;
+			padding: 12px 10px 12px;
 		}
 		.vendor-entry {
 			height: 60px;
 			cursor: hand;
 			cursor: pointer;
 			position: relative;
+			padding-left: 76px;
 			.user-select(text);
-			.transition(background-color 0.2s ease);
+			.transition(background-color 0s linear);
 			&:not(:last-child) {
 				border-bottom: 1px dotted #d9d9d9;
 			}
@@ -286,15 +288,15 @@ header {
 				background-color: @vendor-entry-hilite-color;
 			}
 			&:active {
-				background-color: #ffffcc;
+				background-color: #ffffdd;
 			}
 			.vendor-image {
-				height: 70px;
-				width: 70px;
-				float: left;
-				margin-right: 8px;
-				margin-top: -6px;
-				margin-left: -6px;
+				height: 68px;
+				width: 68px;
+				position: absolute;
+				left: 4px;
+				top: 8px;
+				border-radius: 6px;
 				img {
 					width: 100%;
 					height: 100%;
@@ -303,25 +305,35 @@ header {
 			h3 {
 				padding: 0;
 				margin: 0;
-				font-size: 18px;
+				line-height: 26px;
+				font-size: 26px;
+				font-weight: 100;
+				font-color: #222;
+				white-space: nowrap;
+				text-overflow: ellipsis;
 			}
 			p {
 				padding: 0;
 				margin: 0;
-				.address {
+				&.cuisine {
 					color: #777;
-					font-size: 10px;
+
+				}
+				&.location {
+					margin-top: 4px;
+				}
+				.address {
+					display: none;
+					color: #555;
+					font-size: 11px;
 				}
 			}
 			span.time {
 				background-color: @time-background;
-				border-radius: 3px;
-				position: absolute;
-				right: 10px;
-				top: 10px;
+				border-radius: 2px;
+				margin-left: 2px;
 				color: white;
-				padding: 6px 10px;
-				font-size: 11px;
+				padding: 3px 5px;
 			}
 			span.later {
 				background-color: @time-background-later;
@@ -586,8 +598,10 @@ div.footer-popup {
 		.popup-location {
 			padding: 8px;
 			background-color: #f6f6f6;
-			strong {
-				font-size: 13px;
+			.location {
+				font-size: 14px;
+				line-height: 12px;
+				font-weight: 200;
 			}
 			.address {
 				color: #888;
@@ -628,9 +642,10 @@ div.footer-popup {
 			}
 		}
 		h3 {
-			margin: 0;
+			margin: 0 0 2px;
 			padding: 0;
-			font-size: 16px;
+			font-size: 20px;
+			font-weight: 200;
 			a {
 				color: black !important;
 				text-decoration: none;
