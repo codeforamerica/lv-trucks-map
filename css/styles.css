@@ -419,23 +419,23 @@ header #nav-logo {
   position: fixed;
   background: transparent url('../img/sprites.png') center 0 no-repeat;
   background-position: -5px -248px;
+  /*
+		@media @mobile, @tablet, @landscape {
+			width: 80px;
+			height: 100px;
+			right: 5px;
+			background-size: 80px 100px;
+		}*/
+
 }
 header #nav-logo h2 {
   display: none;
 }
-header #nav-logo a {
+header #nav-logo img {
   display: block;
-  width: 100px;
-  height: 100px;
-  margin: 0 auto;
-}
-@media screen and (max-width: 529px), screen and (min-width: 530px) and (max-width: 767px), screen and (max-width: 767px) and (orientation: landscape) {
-  header #nav-logo {
-    width: 80px;
-    height: 100px;
-    right: 5px;
-    background-size: 80px 100px;
-  }
+  width: 95px;
+  height: 95px;
+  margin: 12px auto;
 }
 #error {
   width: 100%;
@@ -511,6 +511,7 @@ header #nav-logo a {
     top: 0;
     left: 0;
     border-radius: 0;
+    overflow: hidden;
   }
 }
 #vendor-info .vendor-title,
@@ -543,9 +544,10 @@ header #nav-logo a {
   #vendor-info .vendor-title h1 {
     line-height: 18px;
     font-size: 14px;
-    padding-left: 30px;
-    background-size: 22px 12px;
-    background-position: left center;
+    padding-left: 5px;
+  }
+  #vendor-info .vendor-title h1:before {
+    background: transparent;
   }
 }
 #vendor-info .vendor-title p {

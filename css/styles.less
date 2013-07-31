@@ -113,18 +113,19 @@ header {
 		h2 {
 			display: none;
 		}
-		a {
+		img {
 			display: block;
-			width: 100px;
-			height: 100px;
-			margin: 0 auto;
+			width: 95px;
+			height: 95px;
+			margin: 12px auto;
 		}
+		/*
 		@media @mobile, @tablet, @landscape {
 			width: 80px;
 			height: 100px;
 			right: 5px;
 			background-size: 80px 100px;
-		}
+		}*/
 	}
 }
 
@@ -198,6 +199,7 @@ header {
 		top: 0;
 		left: 0;
 		border-radius: 0;
+		overflow: hidden;
 	}
 	.vendor-title, .vendor-heading {
 		font-family: @display-font;
@@ -225,9 +227,11 @@ header {
 			@media @mobile, @tablet, @landscape {
 				line-height: 18px;
 				font-size: 14px;
-				padding-left: 30px;
-				background-size: 22px 12px;
-				background-position: left center;
+	//			padding-left: 30px;
+				padding-left: 5px;
+				&:before {
+					background: transparent;
+				}
 			}
 		}
 		p {
