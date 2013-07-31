@@ -108,8 +108,8 @@ header {
 		height: 150px;
 		right: 5%;
 		position: fixed;
-		background: transparent url('../img/clv-logo-tag-240.png') center 0 no-repeat;
-		background-size: 120px 150px;
+		background: transparent url('../img/sprites.png') center 0 no-repeat;
+		background-position: -5px -248px;
 		h2 {
 			display: none;
 		}
@@ -211,11 +211,17 @@ header {
 			margin: 0;
 			padding: 0 0 0 50px;
 			font-size: 24px;
-			// line-height: 36px;
 			font-weight: normal;
-			background: transparent url('../img/truck-icon.png') no-repeat;
-			background-size: 36px 20px;
-			background-position: left top 7px;
+			&:before {
+				content: '';
+				width: 40px;
+				height: 30px;
+				position: absolute;
+				left: 10px;
+				top: 10px;
+				background: transparent url('../img/sprites.png') no-repeat;
+				background-position: -94px -141px;
+			}
 			@media @mobile, @tablet, @landscape {
 				line-height: 18px;
 				font-size: 14px;
@@ -278,7 +284,7 @@ header {
 			cursor: hand;
 			cursor: pointer;
 			position: relative;
-			padding-left: 76px;
+			padding-left: 80px;
 			.user-select(text);
 			.transition(background-color 0s linear);
 			&:not(:last-child) {
@@ -294,9 +300,11 @@ header {
 				height: 68px;
 				width: 68px;
 				position: absolute;
-				left: 4px;
-				top: 8px;
+				left: 5px;
+				top: 10px;
 				border-radius: 6px;
+				background-image: url('../img/sprites.png');
+				background-position: -296px -70px;
 				img {
 					width: 100%;
 					height: 100%;

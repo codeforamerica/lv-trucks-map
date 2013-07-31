@@ -341,12 +341,9 @@
 			<script id='mustache-schedule-entry' type='text/template'>
 				{{#entries}}
 				<div class='vendor-entry' data-location-id='{{location_id}}'>
-					{{#logo_url}}
-						<div class='vendor-image'><img src='{{logo_url}}'></div>
-					{{/logo_url}}
-					{{^logo_url}}
-						<div class='vendor-image'><img src='img/vendor-placeholder.png'></div>
-					{{/logo_url}}
+					<div class='vendor-image'>
+						{{#logo_url}}<img src='{{logo_url}}'>{{/logo_url}}
+					</div>
 					<h3>{{vendor.name}}</h3>
 					<p class='cuisine'>{{vendor.cuisine}}</p>
 					<p class='location'>

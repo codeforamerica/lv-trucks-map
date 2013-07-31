@@ -417,8 +417,8 @@ header #nav-logo {
   height: 150px;
   right: 5%;
   position: fixed;
-  background: transparent url('../img/clv-logo-tag-240.png') center 0 no-repeat;
-  background-size: 120px 150px;
+  background: transparent url('../img/sprites.png') center 0 no-repeat;
+  background-position: -5px -248px;
 }
 header #nav-logo h2 {
   display: none;
@@ -528,9 +528,16 @@ header #nav-logo a {
   padding: 0 0 0 50px;
   font-size: 24px;
   font-weight: normal;
-  background: transparent url('../img/truck-icon.png') no-repeat;
-  background-size: 36px 20px;
-  background-position: left top 7px;
+}
+#vendor-info .vendor-title h1:before {
+  content: '';
+  width: 40px;
+  height: 30px;
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  background: transparent url('../img/sprites.png') no-repeat;
+  background-position: -94px -141px;
 }
 @media screen and (max-width: 529px), screen and (min-width: 530px) and (max-width: 767px), screen and (max-width: 767px) and (orientation: landscape) {
   #vendor-info .vendor-title h1 {
@@ -601,7 +608,7 @@ header #nav-logo a {
   cursor: hand;
   cursor: pointer;
   position: relative;
-  padding-left: 76px;
+  padding-left: 80px;
   -webkit-user-select: text;
   -moz-user-select: text;
   -ms-user-select: text;
@@ -625,9 +632,11 @@ header #nav-logo a {
   height: 68px;
   width: 68px;
   position: absolute;
-  left: 4px;
-  top: 8px;
+  left: 5px;
+  top: 10px;
   border-radius: 6px;
+  background-image: url('../img/sprites.png');
+  background-position: -296px -70px;
 }
 #vendor-info .vendor-entries .vendor-entry .vendor-image img {
   width: 100%;
