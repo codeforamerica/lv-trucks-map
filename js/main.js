@@ -2,11 +2,9 @@
 
 /*************************************************************************
 // 
-// CONFIGURATION
+// CONFIGURATION - User editable options
 //
 // ***********************************************************************/
-
-// User editable options
 
 var DATE_PROGRAM_START  = 'August 1, 2013',
 	DATE_PROGRAM_END    = 'February 1, 2014'
@@ -27,15 +25,33 @@ var MAP_INIT_LATLNG     = [36.1665, -115.1479],
 	MAP_FIT_PADDING     = 0.25,
 	MAP_MAX_PADDING     = 6
 
+
+/*************************************************************************
+// 
+// APPLICATION INITIALIZING
+//
 // ***********************************************************************/
 
-// Configuration things you should not manually edit
-
+// Current date and time, from moment.js
 var NOW                 = moment()
-						// Current date and time, from moment.js
 
+// Map variables
 var MAP_CENTER_OFFSET   = _getCenterOffset(),
 	MAPBOX_ID_OVERRIDE  = _getQueryStringParams('map')
+
+// Set a timeout to log to Google Analytics if application takes too long to load.
+var LOAD_TIMEOUT_LENGTH_01 = 3000
+var LOAD_TIMEOUT_LENGTH_02 = 5000
+var LOAD_TIMEOUT_LENGTH_03 = 10000
+var LOAD_TIMEOUT_01 = setTimeout(function () {
+	_loadTimeout(LOAD_TIMEOUT_LENGTH_01)
+	}, LOAD_TIMEOUT_LENGTH_01)
+var LOAD_TIMEOUT_02 = setTimeout(function () {
+	_loadTimeout(LOAD_TIMEOUT_LENGTH_02)
+	}, LOAD_TIMEOUT_LENGTH_02)
+var LOAD_TIMEOUT_03 = setTimeout(function () {
+	_loadTimeout(LOAD_TIMEOUT_LENGTH_03)
+	}, LOAD_TIMEOUT_LENGTH_03)
 
 // Create a global schedule object
 var schedule = {
@@ -50,7 +66,12 @@ var schedule = {
 	}
 }
 
+/*************************************************************************
+// 
 // DEBUG MODE
+//
+// ***********************************************************************/
+
 var DEBUG_MODE = false
 
 if (_getQueryStringParams('debug') == 1 ) {
@@ -171,9 +192,12 @@ $.when( $.ajax({
 	// Populate the app with data
 	putInData(locations, timeslots, vendors)
 
-	// INITIALISE!
+	// FINISH LOADING!
 	$('#vendor-head-now').click()
 	$('#loading').hide()
+	clearTimeout(LOAD_TIMEOUT_01)
+	clearTimeout(LOAD_TIMEOUT_02)
+	clearTimeout(LOAD_TIMEOUT_03)
 
 }, function () {
 	// On failure
@@ -652,7 +676,7 @@ function _doTimeslotData (timeslots) {
 			i--      // The array is affected, so change the value of i before re-looping
 		}
 		*/
-		
+
 		// Add some helpful information for start times
 		timeslots[i].day_of_week = startTime.format('ddd')
 		timeslots[i].month = startTime.format('MMMM')
@@ -979,6 +1003,19 @@ function _hideAttribution (point) {
 	if (foo.contains(point) == true || bar.contains(point) == true) {
 		$('.leaflet-control-attribution').hide()
 	}
+}
+
+/**
+ *   Log to Google Anaytics if it takes too long to load. Call from setTimeout()
+ */
+
+function _loadTimeout (seconds) {
+	if (seconds > 999) {
+		seconds = seconds / 1000
+	}
+	var message = 'The application took longer than ' + seconds + ' seconds to load.'
+	console.log(message)
+	ga('send', 'event', 'load', 'timeout', message)
 }
 
 /**
