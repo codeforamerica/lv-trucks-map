@@ -357,7 +357,12 @@
 								<span class='time later'>{{from}} - {{until}}</span>
 							{{/from}}
 							{{^from}}
-								<span class='time'>until {{until}}</span>
+								{{#until}}
+									<span class='time'>until {{until}}</span>
+								{{/until}}
+								{{^until}}
+									<span class='time'>open now</span>
+								{{/until}}
 							{{/from}}
 						{{/tomorrow}}
 

@@ -578,7 +578,18 @@ function putInData(locations, timeslots, vendors) {
 		// time slots starting later today
 		// with a 20-minute grace period
 		if (start.isSame(NOW, 'day') && start.clone().add('minutes', 21).isAfter(NOW)) {
-			schedule.later.entries.push(timeslots[i])
+
+			// need to make sure that this timeslot entry is not already on the "now" list.
+			for (var q = 0; q < schedule.now.entries.length; q++) {
+				if (timeslots[i].vendor.id === schedule.now.entries[q].vendor.id) {
+					timeslots[i].current = true
+				}
+			}
+
+			if (timeslots[i].current != true) {
+				schedule.later.entries.push(timeslots[i])
+			}
+
 		}
 
 		// time slots starting tomorrow
@@ -649,8 +660,8 @@ function _doLocationData (locations) {
 
 	// Inject dummy current vendor data
 	if (DEBUG_FAKE_METERS == 1) {
-		locations.features[2].properties.current_vendor_id = 14
-		locations.features[1].properties.current_vendor_id = 23                   
+		locations.features[1].properties.current_vendor_id = 10
+//		locations.features[2].properties.current_vendor_id = 6                   
 	}
 
 	return locations
