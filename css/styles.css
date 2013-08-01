@@ -961,7 +961,7 @@ div.footer-popup .footer-popup-content {
   background-color: #f8f8f8;
 }
 #feedback-sending {
-  background: #f8f8f8 url('../img/loading-lite.gif') center center no-repeat;
+  background: #f8f8f8 url('../img/loading-dark.gif') center center no-repeat;
 }
 #popup-leaflet {
   -webkit-user-select: none;
@@ -1048,7 +1048,19 @@ div.footer-popup .footer-popup-content {
   width: 100%;
   height: 100%;
   position: absolute;
-  background: rgba(0, 0, 0, 0.5) url('../img/loading-dark.gif') center center no-repeat;
+  background: rgba(0, 0, 0, 0.5) url('../img/loading.gif') center center no-repeat;
+}
+#loading p {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  height: 100px;
+  margin-top: 30px;
+  margin-left: -100px;
+  font-size: 20px;
+  color: white;
 }
 #pi {
   position: absolute;
