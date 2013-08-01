@@ -432,15 +432,15 @@ header #nav-logo img {
 }
 @media screen and (max-width: 529px), screen and (min-width: 530px) and (max-width: 767px), screen and (max-width: 767px) and (orientation: landscape) {
   header #nav-logo {
-    width: 80px;
-    height: 100px;
-    right: 5px;
-    background-size: 140px;
-    background-position: -55px -10px;
+    width: 70px;
+    height: 90px;
+    right: 10px;
+    background-size: 120px;
+    background-position: -47px -6px;
   }
   header #nav-logo img {
-    height: 65px;
-    width: 65px;
+    height: 60px;
+    width: 60px;
     margin: 10px auto;
   }
 }
