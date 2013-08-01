@@ -961,7 +961,7 @@ div.footer-popup .footer-popup-content {
   background-color: #f8f8f8;
 }
 #feedback-sending {
-  background: #f8f8f8 url('../img/loading-dark.gif') center center no-repeat;
+  background: #f8f8f8 url('../img/loading-lite.gif') center center no-repeat;
 }
 #popup-leaflet {
   -webkit-user-select: none;
