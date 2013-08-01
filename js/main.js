@@ -2,7 +2,8 @@
 
 /*************************************************************************
 // 
-// CONFIGURATION - User editable options
+// CONFIGURATION
+// User editable options (global variables)
 //
 // ***********************************************************************/
 
@@ -29,6 +30,7 @@ var MAP_INIT_LATLNG     = [36.1665, -115.1479],
 /*************************************************************************
 // 
 // APPLICATION INITIALIZING
+// You should not have to edit these global variables here
 //
 // ***********************************************************************/
 
@@ -44,14 +46,14 @@ var LOAD_TIMEOUT_LENGTH_01 = 3000
 var LOAD_TIMEOUT_LENGTH_02 = 5000
 var LOAD_TIMEOUT_LENGTH_03 = 10000
 var LOAD_TIMEOUT_01 = setTimeout(function () {
-	_loadTimeout(LOAD_TIMEOUT_LENGTH_01)
-	}, LOAD_TIMEOUT_LENGTH_01)
+						_loadTimeout(LOAD_TIMEOUT_LENGTH_01)
+						}, LOAD_TIMEOUT_LENGTH_01)
 var LOAD_TIMEOUT_02 = setTimeout(function () {
-	_loadTimeout(LOAD_TIMEOUT_LENGTH_02)
-	}, LOAD_TIMEOUT_LENGTH_02)
+						_loadTimeout(LOAD_TIMEOUT_LENGTH_02)
+						}, LOAD_TIMEOUT_LENGTH_02)
 var LOAD_TIMEOUT_03 = setTimeout(function () {
-	_loadTimeout(LOAD_TIMEOUT_LENGTH_03)
-	}, LOAD_TIMEOUT_LENGTH_03)
+						_loadTimeout(LOAD_TIMEOUT_LENGTH_03)
+						}, LOAD_TIMEOUT_LENGTH_03)
 
 // Create a global schedule object
 var schedule = {
@@ -137,6 +139,7 @@ if (_getQueryStringParams('debug') == 1 ) {
 /*************************************************************************
 // 
 // RETRIEVE DATA FROM BACK-END API
+// Done asynchronously
 //
 // ***********************************************************************/
 
@@ -204,6 +207,7 @@ $.when( $.ajax({
 	ga('send', 'event', 'load', 'error', 'Failure on jQuery.when for the three API sources')
 })
 
+
 /*************************************************************************
 // 
 // MAPBOX.JS HACKS
@@ -227,7 +231,8 @@ L.Map.prototype.panToOffset = function (latlng, offset, options) {
 // ***********************************************************************/
 
 var map = L.mapbox.map('map')
-	.setView(MAP_INIT_LATLNG, MAP_INIT_ZOOM)  // This will be overridden later when map bounds are set based on available markers.
+	.setView(MAP_INIT_LATLNG, MAP_INIT_ZOOM) 
+	// This will be overridden later when map bounds are set based on available markers.
 
 if (MAPBOX_ID_OVERRIDE) {
 	// If a custom map style is required for testing
@@ -242,13 +247,13 @@ else {
 }
 
 // Map imagery attribution
-// Note that mapbox.js provides its own separate attribution, which I don't know how to edit, so I've hidden it with CSS (super hacky!) 
+// Note that mapbox.js provides its own separate attribution, which I don't 
+// know how to edit, so I've hidden it with CSS (super hacky!) 
 var control = L.control.attribution({
 	prefix: 'Map imagery by <a href=\'http://www.mapbox.com/about/maps/\' target=\'_blank\'>MapBox</a>. Data &copy; <a href=\'http://www.openstreetmap.org/copyright\' target=\'_blank\'>OpenStreetMap contributors</a>.'
 }).addTo(map)
 
 // Set up icons for markers
-
 var markerIconSize =    [36, 62], // size of the icon
 	markerIconAnchor =  [18, 50], // point of the icon which will correspond to marker's location
 	markerPopupAnchor = [0, -55]  // point from which the popup should open relative to the iconAnchor
@@ -279,7 +284,6 @@ var hereMarker = L.icon({
 });
 
 
-
 /*************************************************************************
 // 
 // UI
@@ -288,57 +292,6 @@ var hereMarker = L.icon({
 // ***********************************************************************/
 
 $(document).ready( function () {
-
-	/*************************************************************************
-	// GEOLOCATE!
-	// This uses the HTML5 geolocation API, which is available on
-	// most mobile browsers and modern browsers, but not in Internet Explorer
-	//
-	// See this chart of compatibility for details:
-	// http://caniuse.com/#feat=geolocation
-	// ***********************************************************************/
-
-	if (navigator.geolocation) {
-		map.locate()
-	}
-
-	// Once we've got a position, add a marker.
-	map.on('locationfound', function (e) {
-
-		var pointLatLng = [e.latlng.lat, e.latlng.lng]
-		var pointLngLat = [e.latlng.lng, e.latlng.lat]
-
-		map.markerLayer.setGeoJSON({
-			type: 'Feature',
-			geometry: {
-				type: 'Point',
-				coordinates: pointLngLat
-			},
-			properties: {
-				'marker-size': 'large',
-				'marker-color': '#cd0000',
-				'marker-symbol': 'star-stroked',
-				'title': '<div class=\'popup-message\'>You are here</div>'
-			}
-		})
-
-		// SECRET!
-		// To disable, simply comment out or delete the following function.
-		_hideAttribution(pointLatLng)
-
-	})
-
-
-	/*************************************************************************
-	// 
-	// MISCELLANEOUS
-	//
-	// ***********************************************************************/
-
-	$(window).on('resize', function (e) {
-		// This is in case we need to do anything to the map if window gets resized.
-		map.invalidateSize()
-	})
 
 	// TRUCK HEADING - toggler for entries
 	$('.vendor-heading').click( function () {
@@ -417,17 +370,63 @@ $(document).ready( function () {
 		ga('send', 'event', 'click', 'vendor-muchlater')
 	})
 
+	// Recalc map-related things if window gets resized.
+	$(window).on('resize', function (e) {
+		map.invalidateSize()
+	})
+
+
+/*************************************************************************
+// GEOLOCATE!
+// This uses the HTML5 geolocation API, which is available on
+// most mobile browsers and modern browsers, but not in Internet Explorer
+//
+// See this chart of compatibility for details:
+// http://caniuse.com/#feat=geolocation
+// ***********************************************************************/
+
+	if (navigator.geolocation) {
+		map.locate()
+	}
+
+	// Once we've got a position, add a marker.
+	map.on('locationfound', function (e) {
+
+		var pointLatLng = [e.latlng.lat, e.latlng.lng]
+		var pointLngLat = [e.latlng.lng, e.latlng.lat]
+
+		map.markerLayer.setGeoJSON({
+			type: 'Feature',
+			geometry: {
+				type: 'Point',
+				coordinates: pointLngLat
+			},
+			properties: {
+				'marker-size': 'large',
+				'marker-color': '#cd0000',
+				'marker-symbol': 'star-stroked',
+				'title': '<div class=\'popup-message\'>You are here</div>'
+			}
+		})
+
+		// SECRET!
+		// To disable, simply comment out or delete the following function.
+		_hideAttribution(pointLatLng)
+
+	})
+
 })
 
 
 
 /*************************************************************************
 // 
-// HERE IS A PLACE WHERE I PUT FUNCTIONS
+// FUNCTIONS
 //
 // ***********************************************************************/
 
-
+// NOTE EVERYTHING BELOW HERE IS A PRETTY HUGE MESS
+// ***********************************************************************/
 
 function DoMapStuff (locations, timeslots, vendors) {
 // DISPLAY DATA ON MAP
@@ -577,13 +576,13 @@ function putInData(locations, timeslots, vendors) {
 		}
 
 		// time slots starting later today
-		if (start.isSame(NOW, 'day') && start.isAfter(NOW)) {
+		// with a 20-minute grace period
+		if (start.isSame(NOW, 'day') && start.clone().add('minutes', 21).isAfter(NOW)) {
 			schedule.later.entries.push(timeslots[i])
 		}
 
 		// time slots starting tomorrow
 		var compareday = moment(NOW).add('days', 1)
-//		if (start.isSame(compareday, 'week') && start.isAfter(compareday)) {
 		if (start.isSame(compareday, 'day')) {
 			timeslots[i].tomorrow = true
 
@@ -668,14 +667,6 @@ function _doTimeslotData (timeslots) {
 
 		var startTime = moment(timeslots[i].start_at)
 		var endTime = moment(timeslots[i].finish_at)
-
-		// Remove all timeslots that have ended yesterday
-		/*
-		if (endTime.isBefore(NOW, 'day')) {
-			timeslots.splice(i, 1)
-			i--      // The array is affected, so change the value of i before re-looping
-		}
-		*/
 
 		// Add some helpful information for start times
 		timeslots[i].day_of_week = startTime.format('ddd')
