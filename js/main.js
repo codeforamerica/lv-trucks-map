@@ -316,20 +316,28 @@ $(document).ready( function () {
 		map.invalidateSize()
 	})
 
-
 	// TRUCK HEADING - toggler for entries
 	$('.vendor-heading').click( function () {
 		toggleVendorEntries($(this))
 	})
 
-
 	// FOOTER POPUPS
 	// Open / toggle
-	$('.footer-vendors-link').click( function () { toggleFooterPopup('#vendors', $(this)) })
-	$('.footer-calendar-link').click( function () { toggleFooterPopup('#calendar', $(this)) })
-	$('.footer-about-link').click( function () { toggleFooterPopup('#about', $(this) ) })
+	$('.footer-vendors-link').click( function () { 
+		toggleFooterPopup('#vendors', $(this)) 
+		ga('send', 'event', 'click', 'footer-vendors')
+	})
+	$('.footer-calendar-link').click( function () {
+		toggleFooterPopup('#calendar', $(this))
+		ga('send', 'event', 'click', 'footer-calendar')
+	})
+	$('.footer-about-link').click( function () {
+		toggleFooterPopup('#about', $(this) ) 
+		ga('send', 'event', 'click', 'footer-about')
+	})
 	$('.footer-feedback-link').click( function () {
 		toggleFooterPopup('#feedback', $(this))
+		ga('send', 'event', 'click', 'footer-feedback')
 		_resetFeedbackForm()
 	})
 	// Close popups
@@ -341,7 +349,6 @@ $(document).ready( function () {
 	$('#map').on('click', function () {
 		$('.footer-popup').slideUp(200)
 	})
-
 
 	// Sneaky disabling of attribution link on small windows
 	$('.leaflet-control-attribution a').on('click', function() {
@@ -373,6 +380,17 @@ $(document).ready( function () {
 	$('#feedback-submit').on('click', function (e) {
 		// e.preventDefault()
 		_sendFeedback()
+	})
+
+	// Other event listening
+	$('#pi').on('click', function () {
+		ga('send', 'event', 'click', 'pi')
+	})
+	$('#vendor-head-later').on('click', function () {
+		ga('send', 'event', 'click', 'vendor-later')
+	})
+	$('#vendor-head-muchlater').on('click', function () {
+		ga('send', 'event', 'click', 'vendor-muchlater')
 	})
 
 })
