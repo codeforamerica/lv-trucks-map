@@ -671,11 +671,11 @@ function _doLocationData (locations) {
 		locations.features[1].properties.current_vendor_id = 10
 		console.log('Emergency meter injection enabled for location 1, vendor 10')
 	}
-*/
 	if (locations.features[0].properties.current_vendor_id == null) {
 		locations.features[0].properties.current_vendor_id = 12                  
 		console.log('Emergency meter injection enabled for location 0, vendor 12')
 	}
+*/
 
 	return locations
 
