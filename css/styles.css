@@ -1027,6 +1027,7 @@ div.footer-popup .footer-popup-content {
   padding: 0;
   font-size: 20px;
   font-weight: 200;
+  line-height: 20px;
 }
 #popup-leaflet .popup-info h3 a {
   color: black !important;
