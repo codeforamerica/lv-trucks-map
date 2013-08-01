@@ -538,16 +538,20 @@ header #nav-logo img {
   left: 10px;
   top: 10px;
   background: transparent url('../img/sprites.png') no-repeat;
-  background-position: -94px -141px;
+  background-size: 200px;
+  background-position: 0px -69px;
 }
 @media screen and (max-width: 529px), screen and (min-width: 530px) and (max-width: 767px), screen and (max-width: 767px) and (orientation: landscape) {
   #vendor-info .vendor-title h1 {
     line-height: 18px;
     font-size: 14px;
-    padding-left: 5px;
+    padding-left: 30px;
   }
   #vendor-info .vendor-title h1:before {
-    background: transparent;
+    width: 28px;
+    height: 18px;
+    background-size: 120px;
+    background-position: 0px -42px;
   }
 }
 #vendor-info .vendor-title p {
