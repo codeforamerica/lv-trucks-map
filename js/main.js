@@ -15,7 +15,7 @@ var API_SERVER          = 'http://lv-food-trucks.herokuapp.com/api/'
 var API_LOCATIONS       = API_SERVER + 'locations/search.geojson',
 	API_VENDORS         = API_SERVER + 'vendors.json',
 //	API_TIMESLOTS       = API_SERVER + 'locations/{id}/time_slots.json',
-	API_TIMESLOTS       = API_SERVER + 'locations/1/time_slots/search.json?q%5Bstart_at_gt%5D=2013-07-31T00:00:00Z'
+	API_TIMESLOTS       = API_SERVER + 'locations/1/time_slots/search.json?q%5Bstart_at_gt%5D='
 	API_FEEDBACK        = API_SERVER + 'feedbacks'
 
 var MAPBOX_ID           = 'codeforamerica.map-wzcm8dk0',
@@ -35,7 +35,8 @@ var MAP_INIT_LATLNG     = [36.1665, -115.1479],
 // ***********************************************************************/
 
 // Current date and time, from moment.js
-var NOW                 = moment()
+var NOW                 = moment(),
+	TODAY               = moment().startOf('day')
 
 // Map variables
 var MAP_CENTER_OFFSET   = _getCenterOffset(),
@@ -105,7 +106,8 @@ if (_getQueryStringParams('debug') == 1 ) {
 							 .year(DEBUG_DATE_YEAR)
 							 .hour(DEBUG_DATE_HOUR)
 							 .minute(DEBUG_DATE_MINUTES)
-		NOW = moment(DEBUG_DATE)
+		NOW        = moment(DEBUG_DATE)
+		TODAY      = moment(DEBUG_DATE).startOf('day')
 	}
 
 	// Display current application date
@@ -158,7 +160,7 @@ $.when( $.ajax({
 		showError('We couldn\'t retrieve vendor locations at this time.')
 	}
 }), $.ajax({
-	url: API_TIMESLOTS,
+	url: API_TIMESLOTS + TODAY.toJSON(),
 	cache: false,
 	dataType: 'json',
 	success: function (j) {
