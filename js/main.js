@@ -646,11 +646,13 @@ function _doTimeslotData (timeslots) {
 		var endTime = moment(timeslots[i].finish_at)
 
 		// Remove all timeslots that have ended yesterday
+		/*
 		if (endTime.isBefore(NOW, 'day')) {
 			timeslots.splice(i, 1)
 			i--      // The array is affected, so change the value of i before re-looping
 		}
-
+		*/
+		
 		// Add some helpful information for start times
 		timeslots[i].day_of_week = startTime.format('ddd')
 		timeslots[i].month = startTime.format('MMMM')
