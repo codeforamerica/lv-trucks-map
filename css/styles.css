@@ -421,9 +421,6 @@ header #nav-logo {
   background-size: 200px;
   background-position: -76px -10px;
 }
-header #nav-logo h2 {
-  display: none;
-}
 header #nav-logo img {
   display: block;
   width: 94px;

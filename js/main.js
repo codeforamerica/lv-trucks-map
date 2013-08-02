@@ -26,6 +26,8 @@ var MAP_INIT_LATLNG     = [36.1665, -115.1479],
 	MAP_FIT_PADDING     = 0.25,
 	MAP_MAX_PADDING     = 6
 
+var DEBUG_ALLOW         = true
+
 
 /*************************************************************************
 // 
@@ -76,9 +78,9 @@ var schedule = {
 // ***********************************************************************/
 
 var DEBUG_MODE = false
-var DEBUG_CONCIERGE_MODE = 1
+var DEBUG_CONCIERGE_MODE = 1  // delete this line to remove permanent concierge state
 
-if (_getQueryStringParams('debug') == 1 ) {
+if (_getQueryStringParams('debug') == 1 && DEBUG_ALLOW == true) {
 
 	// Activate debug mode
 	DEBUG_MODE = true
@@ -188,11 +190,10 @@ $.when( $.ajax({
 	}
 })).then( function () {
 	// On successful data loading
+	// Then do some data munging
 
-	// Data munge
-	DoMapStuff(locations, timeslots, vendors)
-
-	// actually we need to add vendors to timeslot data because the new API doesn't do it
+	// Add vendors to timeslot data because the new API doesn't do it
+	// (Was there a reason this was after DoMapStuff() ?)
 	for (var i = 0; i < timeslots.length; i++ ) {
 		for (var j = 0; j < vendors.length; j ++) {
 			if (timeslots[i].vendor_id === vendors[j].id) {
@@ -201,12 +202,34 @@ $.when( $.ajax({
 		}
 	}
 
-	// Populate the app with data
-	putInData(locations, timeslots, vendors)
+	// Debug mode data injection
+	if (DEBUG_CONCIERGE_MODE == 1) {
 
-	// FINISH LOADING!
-	$('#vendor-head-now').click()
+		// for each location, find out if a vendor is "supposed" to be there
+		for (var b = 0; b < locations.features.length; b++) {
+			for (var c = 0; c < timeslots.length; c++) {
+
+				var start = moment(timeslots[c].start_at)
+				var end = moment(timeslots[c].finish_at)
+
+				if (timeslots[c].location_id == locations.features[b].id && start < NOW && end > NOW) {
+					locations.features[b].properties.current_vendor_id = timeslots[c].vendor_id
+				}
+			}
+		}
+	}
+
+	// Hide loading screen
 	$('#loading').hide()
+
+	// Populate the map & app with this stuff
+	putInData(locations, timeslots, vendors)
+	DoMapStuff(locations, timeslots, vendors)
+
+	// Complete the loading process
+	$('#vendor-head-now').click()
+
+	// Clean up
 	clearTimeout(LOAD_TIMEOUT_01)
 	clearTimeout(LOAD_TIMEOUT_02)
 	clearTimeout(LOAD_TIMEOUT_03)
@@ -437,96 +460,98 @@ $(document).ready( function () {
 // NOTE EVERYTHING BELOW HERE IS A PRETTY HUGE MESS
 // ***********************************************************************/
 
-function DoMapStuff (locations, timeslots, vendors) {
-// DISPLAY DATA ON MAP
-// Plus various things to set up markers, popups, etc.
 
-	// Populate map with locations
-	var markers = L.mapbox.markerLayer(locations, {
-		filter: function (feature) {
-			return true
-			// disabled active filter
-			// return feature.properties.active === true
-		}
-	}).eachLayer(function (marker) {
 
-		// set options here directly on the marker object
-		marker.options.icon = vendorMarkerOff  // set this to be off by default
-		marker.options.riseOnHover = true
+function _doLocationData (locations) {
 
-		// Obtain truck information if there is a current vendor present, according to Locations API
-		// Note that marker.feature is a synonym for data.locations.features[x] - location
-		// data is now attached to the marker itself.
-		if (marker.feature.properties.current_vendor_id) {
+	// Data munging
+	for (var j = 0; j < locations.features.length; j ++) {
+		// Strip city name/state/zip from address
+		// assuming that the address format was entered properly, anyway....
+		locations.features[j].properties.addressShort = locations.features[j].properties.address.split(',')[0]
+		
+		// Inject marker styles for mapbox.js
+		// Disabled due to small icons... not good for retina
+		locations.features[j].properties['marker-symbol'] = 'restaurant'
+		locations.features[j].properties['marker-color'] = '#f93'
+		locations.features[j].properties['marker-size'] = 'large'
 
-			// Add vendor information for current vendor
-			for (var j =0; j < vendors.length; j++) {
-				if (vendors[j].id == marker.feature.properties.current_vendor_id) {
-					marker.vendor = vendors[j]
-					break
-				}
-			}
-
-			// Add time slot end for current location and time
-			// Important: do NOT base on vendor, because that may change.
-			// If there is NO time slot, leave this empty, since we don't have reports from
-			// the parking meter back-end about how long someone is paid through till.
-			for (var k = 0; k < timeslots.length; k++) {
-
-				var start = moment(timeslots[k].start_at)
-				var end = moment(timeslots[k].finish_at)
-
-				if (marker.feature.id == timeslots[k].location_id && NOW.isAfter(start) && NOW.isBefore(end)) {
-					marker.schedule = {}
-					until = moment(timeslots[k].finish_at)
-					marker.schedule.until = _formatTime(until)
-				}
-			}
-
+		if (DEBUG_FAKE_METERS == 1) {
+			locations.features[j].properties.current_vendor_id = ''
 		}
 
-		// Construct popup through Mustache template        
-		var mPopleaf = $('#mustache-popleaf').html()
-		var popupHTML = Mustache.render(mPopleaf, marker)
+	}
 
-		if (marker.vendor) {
-			// Turn on marker if the vendor is there
-			marker.options.icon = vendorMarker
-		}
+	// Inject dummy current vendor data
+	if (DEBUG_FAKE_METERS == 1) {
+		locations.features[1].properties.current_vendor_id = 10
+		locations.features[2].properties.current_vendor_id = 6
+	}
 
-		marker.bindPopup(popupHTML, {
-			closeButton: false,
-			minWidth: 200,
-			autoPanPadding: [30, 20]
-		})
-
-	}).addTo(map)
-
-	// Set the bounding area for the map
-	map.fitBounds(markers.getBounds().pad(MAP_FIT_PADDING), {
-		paddingTopLeft: MAP_CENTER_OFFSET
-	})
-	map.setMaxBounds(markers.getBounds().pad(MAP_MAX_PADDING))
-
-	// Center marker on click
-	markers.on('click', function (e) {
-		map.panToOffset(e.layer.getLatLng(), _getCenterOffset())
-	})
-
-	// TRUCK ENTRY - Activate marker on click
-	$('#vendor-info').on('click', '.vendor-entry', function () {
-		var locationId = $(this).data('locationId')
-		markers.eachLayer( function (marker) {
-			if (marker.feature.id === locationId) {
-
-				map.panToOffset(marker.getLatLng(), _getCenterOffset())
-
-				marker.openPopup()
-			}
-		})
-	})
+	return locations
 
 }
+
+function _doTimeslotData (timeslots) {
+
+	// Sort timeslots by time
+	timeslots = timeslots.sort(_sort_by('start_at', true))
+
+	// Actions
+	for (var i = 0; i < timeslots.length; i++) {
+
+		var start = moment(timeslots[i].start_at)
+		var end = moment(timeslots[i].finish_at)
+
+		// Add some helpful information for start times
+		timeslots[i].day_of_week = start.format('ddd')
+		timeslots[i].month = start.format('MMMM')
+		timeslots[i].day = start.date()
+		timeslots[i].year = start.year()
+
+		// Formatted strings
+		timeslots[i].from = _formatTime(start)
+		timeslots[i].until = _formatTime(end)
+
+	}
+
+	return timeslots
+}
+
+function _doVendorData (vendors) {
+
+	// Sort vendors by name
+	vendors = vendors.sort(_sort_by('name', true, function(a){return a.toUpperCase()}))
+
+	// Clean up website URLs if present
+	for (i = 0; i < vendors.length; i ++) {
+		if (vendors[i].website) {
+			vendors[i].website = _addHttp(vendors[i].website)
+		}
+	}
+
+	return vendors
+}
+
+
+function _sort_by (field, reverse, primer) {
+	var key = function (x) {return primer ? primer(x[field]) : x[field]};
+
+	return function (a,b) {
+		var A = key(a), B = key(b);
+		return ((A < B) ? -1 : (A > B) ? +1 : 0) * [-1,1][+!!reverse];                  
+	}
+}
+
+// Look at website string and add http:// if necessary
+function _addHttp (url) {
+	if (!url.match(/^(?:f|ht)tps?:\/\//)) {
+		url = 'http://' + url
+	}
+	return url
+}
+
+
 
 function putInData(locations, timeslots, vendors) {
 
@@ -571,36 +596,23 @@ function putInData(locations, timeslots, vendors) {
 			}
 		}
 
-		// format times for output
-		timeslots[i].from = _formatTime(start)
-		timeslots[i].until = _formatTime(end)
-
-		// time slots for current vendors - sure, why not.
+		// NOW OPEN - Timeslot processing
 		if (NOW > start && NOW < end) {
 			for (var k = 0; k < schedule.now.entries.length; k++) {
 				if (timeslots[i].location_id == schedule.now.entries[k].location_id) {
 					schedule.now.entries[k].until = timeslots[i].until
+					schedule.now.entries[k].id = timeslots[i].id
 				}
 			}
-
-			// CURRENT VENDORS - Hack to insert into schedule.now if in Emergency Concierge Mode
-			if (DEBUG_CONCIERGE_MODE == true) {
-
-				// Do the same code as the "later today" timeslots.
-				// But remove "from" so that the display looks right.
-				var z = schedule.now.entries.push(timeslots[i]) - 1
-				schedule.now.entries[z].from = null
-			}
-
 		}
 
-		// time slots starting later today
-		// with a 20-minute grace period
+		// OPEN LATER - Timeslot processing
+		// 20-minute grade period
 		if (start.isSame(NOW, 'day') && start.clone().add('minutes', 21).isAfter(NOW)) {
 
 			// need to make sure that this timeslot entry is not already on the "now" list.
 			for (var q = 0; q < schedule.now.entries.length; q++) {
-				if (timeslots[i].vendor.id === schedule.now.entries[q].vendor.id) {
+				if (timeslots[i].id === schedule.now.entries[q].id) {
 					timeslots[i].current = true
 				}
 			}
@@ -654,93 +666,120 @@ function putInData(locations, timeslots, vendors) {
 }
 
 
+/**
+ *  Displays markers on map and binds marker popups
+ */
+
+function DoMapStuff (locations, timeslots, vendors) {
+
+	// Populate map with locations
+	var markers = L.mapbox.markerLayer(locations, {
+		filter: function (feature) {
+			return true
+			// disabled active filter
+			// return feature.properties.active === true
+		}
+	}).eachLayer(function (marker) {
+
+		// Set options for marker (directly on the marker object itself)
+		marker.options.icon = vendorMarkerOff  // Off by default
+		marker.options.riseOnHover = true
 
 
 
-function _doLocationData (locations) {
+		// Obtain truck information if there is a current vendor present, according to Locations API
+		// Note that marker.feature is a synonym for data.locations.features[x] - location
+		// data is now attached to the marker itself.
+		if (marker.feature.properties.current_vendor_id) {
 
-	// Data munging
-	for (var j = 0; j < locations.features.length; j ++) {
-		// Strip city name/state/zip from address
-		// assuming that the address format was entered properly, anyway....
-		locations.features[j].properties.addressShort = locations.features[j].properties.address.split(',')[0]
-		
-		// Inject marker styles for mapbox.js
-		// Disabled due to small icons... not good for retina
-		locations.features[j].properties['marker-symbol'] = 'restaurant'
-		locations.features[j].properties['marker-color'] = '#f93'
-		locations.features[j].properties['marker-size'] = 'large'
+			// Add vendor information for current vendor
+			for (var j =0; j < vendors.length; j++) {
+				if (vendors[j].id == marker.feature.properties.current_vendor_id) {
+					marker.vendor = vendors[j]
+					break
+				}
+			}
 
-		if (DEBUG_FAKE_METERS == 1) {
-			locations.features[j].properties.current_vendor_id = ''
+			// Add time slot end for current location and time
+			// Important: do NOT base on vendor, because that may change.
+			// If there is NO time slot, leave this empty, since we don't have reports from
+			// the parking meter back-end about how long someone is paid through till.
+			for (var k = 0; k < timeslots.length; k++) {
+
+				var start = moment(timeslots[k].start_at)
+				var end = moment(timeslots[k].finish_at)
+
+				if (marker.feature.id == timeslots[k].location_id && NOW.isAfter(start) && NOW.isBefore(end)) {
+					marker.schedule = {}
+					until = moment(timeslots[k].finish_at)
+					marker.schedule.until = _formatTime(until)
+				}
+			}
+
 		}
 
-	}
+		// By now, the schedule object should be populated. Attach data to
+		// markers based on schedule object.
 
-	// Inject dummy current vendor data
-	if (DEBUG_FAKE_METERS == 1) {
-		locations.features[1].properties.current_vendor_id = 10
-		locations.features[2].properties.current_vendor_id = 6                   
-	}
+		// Add the next vendor ('ondeck') if there is one starting later today.
+		var later = schedule.later.entries
 
-	return locations
+		for (var m = 0; m < later.length; m++) {
 
-}
+			var start = moment(later[m].start_at)
 
-function _doTimeslotData (timeslots) {
+			if (marker.feature.id == later[m].location_id) {
+				marker.ondeck = later[m]
+				break
+			}
 
-	// Sort timeslots by time
-	timeslots = timeslots.sort(_sort_by('start_at', true))
-
-	// Actions
-	for (var i = 0; i < timeslots.length; i++) {
-
-		var startTime = moment(timeslots[i].start_at)
-		var endTime = moment(timeslots[i].finish_at)
-
-		// Add some helpful information for start times
-		timeslots[i].day_of_week = startTime.format('ddd')
-		timeslots[i].month = startTime.format('MMMM')
-		timeslots[i].day = startTime.date()
-		timeslots[i].year = startTime.year()
-
-	}
-
-	return timeslots
-}
-
-function _doVendorData (vendors) {
-
-	// Sort vendors by name
-	vendors = vendors.sort(_sort_by('name', true, function(a){return a.toUpperCase()}))
-
-	// Clean up website URLs if present
-	for (i = 0; i < vendors.length; i ++) {
-		if (vendors[i].website) {
-			vendors[i].website = _addHttp(vendors[i].website)
 		}
-	}
 
-	return vendors
+		// Construct popup through Mustache template        
+		var mPopleaf = $('#mustache-popleaf').html()
+		var popupHTML = Mustache.render(mPopleaf, marker)
+
+		if (marker.vendor) {
+			// Turn on marker if the vendor is there
+			marker.options.icon = vendorMarker
+		}
+
+		marker.bindPopup(popupHTML, {
+			closeButton: false,
+			minWidth: 200,
+			autoPanPadding: [30, 20]
+		})
+
+	}).addTo(map)
+
+	// Set the bounding area for the map
+	map.fitBounds(markers.getBounds().pad(MAP_FIT_PADDING), {
+		paddingTopLeft: MAP_CENTER_OFFSET
+	})
+	map.setMaxBounds(markers.getBounds().pad(MAP_MAX_PADDING))
+
+	// Center marker on click
+	markers.on('click', function (e) {
+		map.panToOffset(e.layer.getLatLng(), _getCenterOffset())
+	})
+
+	// TRUCK ENTRY - Activate marker on click
+	$('#vendor-info').on('click', '.vendor-entry', function () {
+		var locationId = $(this).data('locationId')
+		markers.eachLayer( function (marker) {
+			if (marker.feature.id === locationId) {
+
+				map.panToOffset(marker.getLatLng(), _getCenterOffset())
+
+				marker.openPopup()
+			}
+		})
+	})
+
 }
 
 
-function _sort_by (field, reverse, primer) {
-	var key = function (x) {return primer ? primer(x[field]) : x[field]};
 
-	return function (a,b) {
-		var A = key(a), B = key(b);
-		return ((A < B) ? -1 : (A > B) ? +1 : 0) * [-1,1][+!!reverse];                  
-	}
-}
-
-// Look at website string and add http:// if necessary
-function _addHttp (url) {
-	if (!url.match(/^(?:f|ht)tps?:\/\//)) {
-		url = 'http://' + url
-	}
-	return url
-}
 
 
 /**
