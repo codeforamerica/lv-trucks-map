@@ -78,7 +78,7 @@ var schedule = {
 // ***********************************************************************/
 
 var DEBUG_MODE = false
-// var DEBUG_CONCIERGE_MODE = 1  // delete this line to remove permanent concierge state
+var DEBUG_CONCIERGE_MODE = 1  // delete this line to remove permanent concierge state
 var DEBUG_CLV_VENDOR_IMAGE = 1
 
 if (_getQueryStringParams('debug') == 1 && DEBUG_ALLOW == true) {
@@ -89,7 +89,7 @@ if (_getQueryStringParams('debug') == 1 && DEBUG_ALLOW == true) {
 
 	// Get parameters from query string
 	var DEBUG_FAKE_METERS     = parseInt(_getQueryStringParams('t'))
-	var DEBUG_CONCIERGE_MODE  = parseInt(_getQueryStringParams('c'))
+//	var DEBUG_CONCIERGE_MODE  = parseInt(_getQueryStringParams('c'))
 	var DEBUG_DATE_OVERRIDE   = parseInt(_getQueryStringParams('d')),
 		DEBUG_DATE_MONTH      = parseInt(_getQueryStringParams('mm')),
 		DEBUG_DATE_DATE       = parseInt(_getQueryStringParams('dd')),
