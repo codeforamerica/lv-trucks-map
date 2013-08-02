@@ -79,6 +79,7 @@ var schedule = {
 
 var DEBUG_MODE = false
 var DEBUG_CONCIERGE_MODE = 1  // delete this line to remove permanent concierge state
+var DEBUG_CLV_VENDOR_IMAGE = 1
 
 if (_getQueryStringParams('debug') == 1 && DEBUG_ALLOW == true) {
 
@@ -526,9 +527,24 @@ function _doVendorData (vendors) {
 	vendors = vendors.sort(_sort_by('name', true, function(a){return a.toUpperCase()}))
 
 	// Clean up website URLs if present
-	for (i = 0; i < vendors.length; i ++) {
+	for (var i = 0; i < vendors.length; i ++) {
 		if (vendors[i].website) {
 			vendors[i].website = _addHttp(vendors[i].website)
+		}
+	}
+
+	// Inject MVP vendor images
+	if (DEBUG_CLV_VENDOR_IMAGE === 1) {
+
+		var imagePath = 'img/vendor-cache/'
+
+		for (var i = 0; i < vendors.length; i++){
+			if (vendors[i].id == 14) {
+				vendors[i].logo_url = imagePath + '14.jpg'
+			}
+			if (vendors[i].id == 17) {
+				vendors[i].logo_url = imagePath + '17.jpg'
+			}
 		}
 	}
 

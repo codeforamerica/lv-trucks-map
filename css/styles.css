@@ -618,7 +618,7 @@ header #nav-logo img {
   cursor: hand;
   cursor: pointer;
   position: relative;
-  padding-left: 80px;
+  padding-left: 84px;
   -webkit-user-select: text;
   -moz-user-select: text;
   -ms-user-select: text;
@@ -642,12 +642,11 @@ header #nav-logo img {
   height: 68px;
   width: 68px;
   position: absolute;
-  left: 5px;
+  left: 8px;
   top: 8px;
-  border-radius: 6px;
   background-image: url('../img/sprites.png');
   background-size: 200px;
-  background-position: 0px -86px;
+  background-position: 0px -87px;
 }
 #vendor-info .vendor-entries .vendor-entry .vendor-image img {
   width: 100%;
