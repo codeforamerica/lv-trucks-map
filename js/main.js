@@ -369,7 +369,9 @@ $(document).ready( function () {
 	// Make tapping truck info popups on mobile easier
 	if (window.screen.width < 767) {
 		$('.leaflet-popup-pane').on('click', '.popup-vendor', function () {
-			window.open($('.popup-vendor a').attr('href'), '_blank')
+			window.open($(this).find('a').attr('href'), '_blank')
+			// Note that $(this).find() is necessary in case the popup has more than one vendor on it,
+			// which can happen if it includes both current and scheduled vendors.
 		})
 		$('.leaflet-popup-pane').on('click', '.popup-location', function () {
 			window.open($('.popup-location a').attr('href'), '_blank')
@@ -720,6 +722,8 @@ function DoMapStuff (locations, timeslots, vendors) {
 
 		// By now, the schedule object should be populated. Attach data to
 		// markers based on schedule object.
+
+		// (at some point, code above should also just draw from schedule object?)
 
 		// Add the next vendor ('ondeck') if there is one starting later today.
 		var later = schedule.later.entries
