@@ -398,7 +398,11 @@
 								until {{schedule.until}}
 								{{/schedule.until}}
 							</div>
-							<!-- div class='vendor-image' style='background: #f1f1f1 url('{{vendor.logo_url}}') no-repeat'></div -->
+							{{#vendor.logo_url}}
+								<br><div class='popup-vendor-image'>
+									<img src='{{vendor.logo_url}}'>
+								</div>
+							{{/vendor.logo_url}}
 							<div>
 								<h3>
 									{{#vendor.website}}
@@ -422,7 +426,11 @@
 							<div class='popup-tag later'>
 								Scheduled{{#from}} for {{from}}{{/from}}
 							</div>
-							<!-- div class='vendor-image' style='background: #f1f1f1 url('{{vendor.logo_url}}') no-repeat'></div -->
+							{{#vendor.logo_url}}
+								<br><div class='popup-vendor-image'>
+									<img src='{{vendor.logo_url}}'>
+								</div>
+							{{/vendor.logo_url}}
 							<div>
 								<h3>
 									{{#vendor.website}}

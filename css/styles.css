@@ -1019,6 +1019,14 @@ div.footer-popup .footer-popup-content {
   line-height: 120%;
   padding: 8px 8px;
 }
+#popup-leaflet .popup-info .popup-vendor-image {
+  width: 20px;
+  display: none;
+}
+#popup-leaflet .popup-info .popup-vendor-image img {
+  width: 20px;
+  height: 20px;
+}
 #popup-leaflet .popup-info h3 {
   margin: 0 0 2px;
   padding: 0;
