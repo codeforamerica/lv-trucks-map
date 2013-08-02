@@ -76,6 +76,7 @@ var schedule = {
 // ***********************************************************************/
 
 var DEBUG_MODE = false
+var DEBUG_CONCIERGE_MODE = 1
 
 if (_getQueryStringParams('debug') == 1 ) {
 
@@ -85,6 +86,7 @@ if (_getQueryStringParams('debug') == 1 ) {
 
 	// Get parameters from query string
 	var DEBUG_FAKE_METERS     = parseInt(_getQueryStringParams('t'))
+//	var DEBUG_CONCIERGE_MODE  = parseInt(_getQueryStringParams('c'))
 	var DEBUG_DATE_OVERRIDE   = parseInt(_getQueryStringParams('d')),
 		DEBUG_DATE_MONTH      = parseInt(_getQueryStringParams('mm')),
 		DEBUG_DATE_DATE       = parseInt(_getQueryStringParams('dd')),
@@ -95,6 +97,11 @@ if (_getQueryStringParams('debug') == 1 ) {
 	// Override Parkeon API with fictional meter data
 	if (DEBUG_FAKE_METERS === 1) {
 		$('#debug-fake-meters').val(['1'])
+	}
+
+	// Override Parkeon API with fictional meter data
+	if (DEBUG_CONCIERGE_MODE === 1) {
+		$('#debug-concierge-mode').val(['1'])
 	}
 
 	// Override application date with debug selection
@@ -575,6 +582,16 @@ function putInData(locations, timeslots, vendors) {
 					schedule.now.entries[k].until = timeslots[i].until
 				}
 			}
+
+			// CURRENT VENDORS - Hack to insert into schedule.now if in Emergency Concierge Mode
+			if (DEBUG_CONCIERGE_MODE == true) {
+
+				// Do the same code as the "later today" timeslots.
+				// But remove "from" so that the display looks right.
+				var z = schedule.now.entries.push(timeslots[i]) - 1
+				schedule.now.entries[z].from = null
+			}
+
 		}
 
 		// time slots starting later today
@@ -663,19 +680,8 @@ function _doLocationData (locations) {
 	// Inject dummy current vendor data
 	if (DEBUG_FAKE_METERS == 1) {
 		locations.features[1].properties.current_vendor_id = 10
-//		locations.features[2].properties.current_vendor_id = 6                   
+		locations.features[2].properties.current_vendor_id = 6                   
 	}
-
-	// EMERGENCY FAKE METER DATA
-/*	if (locations.features[1].properties.current_vendor_id == null) {
-		locations.features[1].properties.current_vendor_id = 10
-		console.log('Emergency meter injection enabled for location 1, vendor 10')
-	}
-	if (locations.features[0].properties.current_vendor_id == null) {
-		locations.features[0].properties.current_vendor_id = 12                  
-		console.log('Emergency meter injection enabled for location 0, vendor 12')
-	}
-*/
 
 	return locations
 
