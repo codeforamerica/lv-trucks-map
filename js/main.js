@@ -920,7 +920,8 @@ function makeCalendar () {
 			name:     timeslots[i].vendor.name,
 			website:  timeslots[i].vendor.website,
 			location: timeslots[i].location.name,
-			from:     timeslots[i].from
+			from:     timeslots[i].from,
+			until:    timeslots[i].until
 		}
 
 		theHTML = theHTML + Mustache.render(mustacheCalendarList, item)
