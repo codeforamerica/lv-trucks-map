@@ -651,6 +651,7 @@ header #nav-logo img {
 #vendor-info .vendor-entries .vendor-entry .vendor-image img {
   width: 100%;
   height: 100%;
+  border-radius: 3px;
 }
 #vendor-info .vendor-entries .vendor-entry h3 {
   padding: 0;

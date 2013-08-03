@@ -58,18 +58,6 @@ var LOAD_TIMEOUT_03 = setTimeout(function () {
 						_loadTimeout(LOAD_TIMEOUT_LENGTH_03)
 						}, LOAD_TIMEOUT_LENGTH_03)
 
-// Create a global schedule object
-var schedule = {
-	'now': {
-		'entries': []
-	},
-	'later': {
-		'entries': []
-	},
-	'tomorrow': {
-		'entries': []
-	}
-}
 
 /*************************************************************************
 // 
@@ -155,10 +143,23 @@ if (_getQueryStringParams('debug') == 1 && DEBUG_ALLOW == true) {
 //
 // ***********************************************************************/
 
+// Create global data variables
 var locations,
 	timeslots,
-	vendors
+	vendors,
+	schedule = {
+	'now': {
+		'entries': []
+	},
+	'later': {
+		'entries': []
+	},
+	'tomorrow': {
+		'entries': []
+	}
+}
 
+// Load data from API asynchronously
 $.when( $.ajax({
 	url: API_LOCATIONS,
 	cache: false,
@@ -537,13 +538,13 @@ function _doVendorData (vendors) {
 	if (DEBUG_CLV_VENDOR_IMAGE === 1) {
 
 		var imagePath = 'img/vendor-cache/'
+		var imageIDs = [4, 6, 10, 11, 12, 13, 14, 17, 19, 20, 21, 22, 23, 24, 26]
 
-		for (var i = 0; i < vendors.length; i++){
-			if (vendors[i].id == 14) {
-				vendors[i].logo_url = imagePath + '14.jpg'
-			}
-			if (vendors[i].id == 17) {
-				vendors[i].logo_url = imagePath + '17.jpg'
+		for (var i = 0; i < imageIDs.length; i++) {
+			for (var j = 0; j < vendors.length; j++) {
+				if (vendors[j].id == imageIDs[i]) {
+					vendors[j].logo_url = imagePath + imageIDs[i] + '.jpg'
+				}
 			}
 		}
 	}
