@@ -611,7 +611,7 @@ header #nav-logo img {
 }
 #vendor-info .vendor-entries .vendor-entry,
 #vendor-info .vendor-entries .vendor-message {
-  padding: 8px 10px 16px;
+  padding: 14px 10px 14px;
 }
 #vendor-info .vendor-entries .vendor-entry {
   height: 60px;
@@ -656,7 +656,7 @@ header #nav-logo img {
 #vendor-info .vendor-entries .vendor-entry h3 {
   padding: 0;
   margin: 0;
-  line-height: 26px;
+  line-height: 18px;
   font-size: 26px;
   font-weight: 300;
   font-color: #222;
@@ -669,9 +669,10 @@ header #nav-logo img {
 }
 #vendor-info .vendor-entries .vendor-entry p.cuisine {
   color: #777;
+  margin-top: 3px;
 }
 #vendor-info .vendor-entries .vendor-entry p.location {
-  margin-top: 8px;
+  margin-top: 10px;
 }
 #vendor-info .vendor-entries .vendor-entry p .address {
   display: none;
