@@ -259,7 +259,7 @@
 					<h2>All participating trucks</h2>
 				</div>
 				<div class='footer-popup-content'>
-					<p>
+					<p class='insert'>
 						This information is currently not available.
 					</p>
 				</div>
@@ -451,7 +451,7 @@
 			<script id='mustache-footer-all-vendors' type='text/template'>
 				<ul>
 				{{#vendors}}
-					<li>
+					<li style='background-image: url({{logo_url}})'>
 					{{#website}}
 					<a href='{{website}}' target='_blank'>{{name}}</a>
 					{{/website}}
@@ -461,7 +461,9 @@
 					</li>
 				{{/vendors}}
 				</ul>
-				<p><strong>Note:</strong> Links will be opened in a new window.</p>
+				<p>
+					<small><strong>Note:</strong> Links will be opened in a new window.</small>
+				</p>
 			</script>
 
 			<script id='mustache-calendar-date' type='text/template'>
@@ -469,17 +471,15 @@
 			</script>
 
 			<script id='mustache-calendar-list' type='text/template'>
-				<li>
+				<li style='background-image: url({{logo_url}})'>
 				{{#website}}
 				<a href='{{website}}' target='_blank'>{{name}}</a>
 				{{/website}}
 				{{^website}}
-					{{name}}
+					<strong>{{name}}</strong>
 				{{/website}}
 
-				is at
-
-				{{location}}
+				&mdash; {{location}}
 
 				({{from}} - {{until}})
 

@@ -97,7 +97,7 @@ small {
 // LINKS
 
 a {
-	color: #7c7c7c;
+	color: lighten(@color-scheme, 25%);
 }
 
 // LAYOUT
@@ -515,7 +515,30 @@ div.footer-popup {
 		}
 	}
 }
-#vendors {
+#vendors, #calendar {
+	ul {
+		margin-left: 0;
+		padding-left: 0;
+		list-style: none;
+		li {
+			padding-left: 20px;
+			background-size: 16px;
+			background-repeat: no-repeat;
+			background-position: 0 2px;
+			line-height: 20px;
+			position: relative;
+			&:before {
+				width: 16px;
+				height: 16px;
+				content: '';
+				background-color: darken(@background, 10%);
+				position: absolute;
+				left: 0px;
+				top: 2px;
+				z-index: -20;
+			}
+		}
+	}
 }
 #calendar {
 	.footer-popup-content {

@@ -674,7 +674,7 @@ function putInData(locations, timeslots, vendors) {
 		var mustacheFooterAllVendors = $('#mustache-footer-all-vendors').html()
 		var data = {}
 		data.vendors = vendors
-		$('#vendors .footer-popup-content').html(Mustache.render(mustacheFooterAllVendors, data))        
+		$('#vendors .insert').html(Mustache.render(mustacheFooterAllVendors, data))        
 	}
 
 
@@ -919,6 +919,7 @@ function makeCalendar () {
 			name:     timeslots[i].vendor.name,
 			website:  timeslots[i].vendor.website,
 			location: timeslots[i].location.name,
+			logo_url: timeslots[i].vendor.logo_url,
 			from:     timeslots[i].from,
 			until:    timeslots[i].until
 		}

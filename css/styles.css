@@ -400,7 +400,7 @@ small {
   color: #888;
 }
 a {
-  color: #7c7c7c;
+  color: #4eb1d1;
 }
 header {
   width: 100%;
@@ -855,6 +855,32 @@ div.footer-popup .footer-popup-content {
     max-height: 240px;
     overflow-y: auto;
   }
+}
+#vendors ul,
+#calendar ul {
+  margin-left: 0;
+  padding-left: 0;
+  list-style: none;
+}
+#vendors ul li,
+#calendar ul li {
+  padding-left: 20px;
+  background-size: 16px;
+  background-repeat: no-repeat;
+  background-position: 0 2px;
+  line-height: 20px;
+  position: relative;
+}
+#vendors ul li:before,
+#calendar ul li:before {
+  width: 16px;
+  height: 16px;
+  content: '';
+  background-color: #dfdfdf;
+  position: absolute;
+  left: 0px;
+  top: 2px;
+  z-index: -20;
 }
 #calendar .footer-popup-content {
   max-height: 360px;
