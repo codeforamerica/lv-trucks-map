@@ -42,10 +42,14 @@
 
 // TYPOGRAPHY PRESETS
 
-@import url(http://fonts.googleapis.com/css?family=Fauna+One:400,700);
+//@import url(http://fonts.googleapis.com/css?family=Fauna+One:400,700);
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,900|Fauna+One);
 
 @display-font:          'Fauna One';
-@body-font:             'Helvetica Neue', Helvetica, Arial, sans-serif;
+@body-font:             'Lato', 'Helvetica Neue', sans-serif;
+@light:                 300;
+
+
 
 // GENERAL LAYOUT
 
@@ -287,7 +291,7 @@ header {
 			background-color: white;
 		}
 		.vendor-entry, .vendor-message {
-			padding: 12px 10px 12px;
+			padding: 8px 10px 16px;
 		}
 		.vendor-entry {
 			height: 60px;
@@ -326,7 +330,7 @@ header {
 				margin: 0;
 				line-height: 26px;
 				font-size: 26px;
-				font-weight: 100;
+				font-weight: @light;
 				font-color: #222;
 				white-space: nowrap;
 				text-overflow: ellipsis;
@@ -339,7 +343,7 @@ header {
 
 				}
 				&.location {
-					margin-top: 4px;
+					margin-top: 8px;
 				}
 				.address {
 					display: none;
@@ -620,7 +624,7 @@ div.footer-popup {
 			.location {
 				font-size: 14px;
 				line-height: 12px;
-				font-weight: 200;
+				font-weight: @light;
 			}
 			.address {
 				color: #888;
@@ -671,7 +675,7 @@ div.footer-popup {
 			margin: 0 0 2px;
 			padding: 0;
 			font-size: 20px;
-			font-weight: 200;
+			font-weight: @light;
 			line-height: 20px;
 			a {
 				color: black !important;
@@ -751,6 +755,10 @@ div.footer-popup {
 			color: #888 !important;
 		}
 	}
+}
+.leaflet-container {
+	// override general typography
+	font-family: @body-font !important
 }
 .leaflet-container a {
 	color: #777 !important;
