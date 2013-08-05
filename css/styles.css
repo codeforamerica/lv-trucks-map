@@ -419,7 +419,7 @@ header #nav-logo {
   position: fixed;
   background: transparent url('../img/sprites.png') center 0 no-repeat;
   background-size: 200px;
-  background-position: -76px -10px;
+  background-position: -77px -10px;
 }
 header #nav-logo img {
   display: block;
@@ -543,7 +543,7 @@ header #nav-logo img {
   top: 10px;
   background: transparent url('../img/sprites.png') no-repeat;
   background-size: 200px;
-  background-position: 0px -155px;
+  background-position: -2px -153px;
 }
 @media screen and (max-width: 529px), screen and (min-width: 530px) and (max-width: 767px), screen and (max-width: 767px) and (orientation: landscape) {
   #vendor-info .vendor-title h1 {
@@ -646,7 +646,7 @@ header #nav-logo img {
   top: 10px;
   background-image: url('../img/sprites.png');
   background-size: 200px;
-  background-position: 0px -87px;
+  background-position: -2px -87px;
 }
 #vendor-info .vendor-entries .vendor-entry .vendor-image img {
   width: 100%;
