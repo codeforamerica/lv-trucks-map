@@ -310,7 +310,9 @@ $(document).ready( function () {
 	// Make tapping truck info popups on mobile easier
 	if (window.screen.width < 767) {
 		$('.leaflet-popup-pane').on('click', '.popup-vendor', function () {
-			window.open($(this).find('a').attr('href'), '_blank')
+			if ($(this).find('a').attr('href').length > 0) {
+				window.open($(this).find('a').attr('href'), '_blank')
+			}
 			// Note that $(this).find() is necessary in case the popup has more than one vendor on it,
 			// which can happen if it includes both current and scheduled vendors.
 		})

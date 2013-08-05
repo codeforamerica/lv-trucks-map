@@ -685,6 +685,13 @@ div.footer-popup {
 			line-height: 120%;
 			padding: 8px 8px;
 		}
+		.popup-vendor, .popup-location {
+			// Tap color feedback
+			.transition(background-color 0s linear);
+			&:active {
+				background-color: #ffffdd;
+			}
+		}
 		.popup-vendor-image {
 			// buggy
 			width: 20px;

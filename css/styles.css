@@ -1047,6 +1047,17 @@ div.footer-popup .footer-popup-content {
   line-height: 120%;
   padding: 8px 8px;
 }
+#popup-leaflet .popup-info .popup-vendor,
+#popup-leaflet .popup-info .popup-location {
+  -webkit-transition: background-color 0s linear;
+  -moz-transition: background-color 0s linear;
+  -o-transition: background-color 0s linear;
+  transition: background-color 0s linear;
+}
+#popup-leaflet .popup-info .popup-vendor:active,
+#popup-leaflet .popup-info .popup-location:active {
+  background-color: #ffffdd;
+}
 #popup-leaflet .popup-info .popup-vendor-image {
   width: 20px;
   display: none;
