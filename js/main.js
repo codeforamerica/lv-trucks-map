@@ -66,72 +66,13 @@ var LOAD_TIMEOUT_03 = setTimeout(function () {
 // ***********************************************************************/
 
 var DEBUG_MODE = false
-var DEBUG_CONCIERGE_MODE = 1  // delete this line to remove permanent concierge state
+var DEBUG_CONCIERGE_MODE = 1,  // delete this line to remove permanent concierge state
+	DEBUG_FAKE_METERS
 var DEBUG_CLV_VENDOR_IMAGE = 1
 
-if (_getQueryStringParams('debug') == 1 && DEBUG_ALLOW == true) {
+if (_getQueryStringParams('debug') == 1) {
+	_debug()
 
-	// Activate debug mode
-	DEBUG_MODE = true
-	$('#debug').show()
-
-	// Get parameters from query string
-	var DEBUG_FAKE_METERS     = parseInt(_getQueryStringParams('t'))
-//	var DEBUG_CONCIERGE_MODE  = parseInt(_getQueryStringParams('c'))
-	var DEBUG_DATE_OVERRIDE   = parseInt(_getQueryStringParams('d')),
-		DEBUG_DATE_MONTH      = parseInt(_getQueryStringParams('mm')),
-		DEBUG_DATE_DATE       = parseInt(_getQueryStringParams('dd')),
-		DEBUG_DATE_YEAR       = parseInt(_getQueryStringParams('y')),
-		DEBUG_DATE_HOUR       = parseInt(_getQueryStringParams('h')),
-		DEBUG_DATE_MINUTES    = parseInt(_getQueryStringParams('m'))
-
-	// Override Parkeon API with fictional meter data
-	if (DEBUG_FAKE_METERS === 1) {
-		$('#debug-fake-meters').val(['1'])
-	}
-
-	// Override Parkeon API with fictional meter data
-	if (DEBUG_CONCIERGE_MODE === 1) {
-		$('#debug-concierge-mode').val(['1'])
-	}
-
-	// Override application date with debug selection
-	if (DEBUG_DATE_OVERRIDE === 1) {
-		$('#debug-change-date').val(['1'])
-
-		DEBUG_DATE = moment().month(DEBUG_DATE_MONTH)
-							 .date(DEBUG_DATE_DATE)
-							 .year(DEBUG_DATE_YEAR)
-							 .hour(DEBUG_DATE_HOUR)
-							 .minute(DEBUG_DATE_MINUTES)
-		NOW        = moment(DEBUG_DATE)
-		TODAY      = moment(DEBUG_DATE).startOf('day')
-	}
-
-	// Display current application date
-	$('#debug-date').html(NOW.format('ddd MMM D, YYYY HH:mm:ss ([UTC offset] Z)'))
-
-	// Populate correct time/date dropdowns
-	$('#debug-date-month').val([NOW.month()])
-	$('#debug-date-day').val([NOW.date()])
-	$('#debug-date-year').val([NOW.year()])
-	$('#debug-date-hour').val([NOW.hour()])
-	$('#debug-date-minute').val([Math.floor(NOW.minute() / 5) * 5])
-
-	// Hide or show the debug options
-	$('#debug-options-button').on('click', function () {
-		$('#debug-options').show()
-		$('#debug-options-button').hide()
-	})
-	$('#debug-options-hide').on('click', function () {
-		$('#debug-options').hide()
-		$('#debug-options-button').show()
-	})
-
-	// Auto check 'change date' option if user changes a select dropdown
-	$('#debug-menu select').on('change', function () {
-		$('#debug-change-date').val(['1'])
-	})
 
 }
 
@@ -409,6 +350,17 @@ $(document).ready( function () {
 	// Recalc map-related things if window gets resized.
 	$(window).on('resize', function (e) {
 		map.invalidateSize()
+	})
+
+	// Keybinding for debug menu & toggle
+	$(document).keydown(function (e) {
+		if (e.which == 68 && e.ctrlKey == false && e.metaKey == false) {    // key 'd' - opens debug menu
+			if ($('#debug').is(':visible')) {
+				$('#debug').hide()
+			} else {
+				_debug()
+			}
+		}
 	})
 
 
@@ -1128,4 +1080,79 @@ function _getQueryStringParams(sParam) {
 			return sParameterName[1];
 		}
 	}
+}
+
+
+/**
+*    Debug mode activation
+*/ 
+
+function _debug () {
+
+	if (DEBUG_ALLOW != true) {
+		return
+	}
+
+	// Activate debug mode
+	DEBUG_MODE = true
+	$('#debug').show()
+
+	// Get parameters from query string
+	var DEBUG_FAKE_METERS     = parseInt(_getQueryStringParams('t'))
+//	var DEBUG_CONCIERGE_MODE  = parseInt(_getQueryStringParams('c'))
+	var DEBUG_DATE_OVERRIDE   = parseInt(_getQueryStringParams('d')),
+		DEBUG_DATE_MONTH      = parseInt(_getQueryStringParams('mm')),
+		DEBUG_DATE_DATE       = parseInt(_getQueryStringParams('dd')),
+		DEBUG_DATE_YEAR       = parseInt(_getQueryStringParams('y')),
+		DEBUG_DATE_HOUR       = parseInt(_getQueryStringParams('h')),
+		DEBUG_DATE_MINUTES    = parseInt(_getQueryStringParams('m'))
+
+	// Override Parkeon API with fictional meter data
+	if (DEBUG_FAKE_METERS === 1) {
+		$('#debug-fake-meters').val(['1'])
+	}
+
+	// Override Parkeon API with fictional meter data
+	if (DEBUG_CONCIERGE_MODE === 1) {
+		$('#debug-concierge-mode').val(['1'])
+	}
+
+	// Override application date with debug selection
+	if (DEBUG_DATE_OVERRIDE === 1) {
+		$('#debug-change-date').val(['1'])
+
+		DEBUG_DATE = moment().month(DEBUG_DATE_MONTH)
+							 .date(DEBUG_DATE_DATE)
+							 .year(DEBUG_DATE_YEAR)
+							 .hour(DEBUG_DATE_HOUR)
+							 .minute(DEBUG_DATE_MINUTES)
+		NOW        = moment(DEBUG_DATE)
+		TODAY      = moment(DEBUG_DATE).startOf('day')
+	}
+
+	// Display current application date
+	$('#debug-date').html(NOW.format('ddd MMM D, YYYY HH:mm:ss ([UTC offset] Z)'))
+
+	// Populate correct time/date dropdowns
+	$('#debug-date-month').val([NOW.month()])
+	$('#debug-date-day').val([NOW.date()])
+	$('#debug-date-year').val([NOW.year()])
+	$('#debug-date-hour').val([NOW.hour()])
+	$('#debug-date-minute').val([Math.floor(NOW.minute() / 5) * 5])
+
+	// Hide or show the debug options
+	$('#debug-options-button').on('click', function () {
+		$('#debug-options').show()
+		$('#debug-options-button').hide()
+	})
+	$('#debug-options-hide').on('click', function () {
+		$('#debug-options').hide()
+		$('#debug-options-button').show()
+	})
+
+	// Auto check 'change date' option if user changes a select dropdown
+	$('#debug-menu select').on('change', function () {
+		$('#debug-change-date').val(['1'])
+	})
+
 }
