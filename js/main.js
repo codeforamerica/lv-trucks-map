@@ -66,14 +66,12 @@ var LOAD_TIMEOUT_03 = setTimeout(function () {
 // ***********************************************************************/
 
 var DEBUG_MODE = false
-var DEBUG_CONCIERGE_MODE = 1,  // delete this line to remove permanent concierge state
+var DEBUG_CONCIERGE_MODE = 0,  // delete this line to remove permanent concierge state
 	DEBUG_FAKE_METERS
 var DEBUG_CLV_VENDOR_IMAGE = 1
 
 if (_getQueryStringParams('debug') == 1) {
 	_debug()
-
-
 }
 
 
