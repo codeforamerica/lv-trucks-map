@@ -66,7 +66,7 @@ var LOAD_TIMEOUT_03 = setTimeout(function () {
 // ***********************************************************************/
 
 var DEBUG_MODE = false
-var DEBUG_CONCIERGE_MODE = 0,  // delete this line to remove permanent concierge state
+var DEBUG_CONCIERGE_MODE,  // delete this line to remove permanent concierge state
 	DEBUG_FAKE_METERS
 var DEBUG_CLV_VENDOR_IMAGE = 1
 
@@ -1099,7 +1099,7 @@ function _debug () {
 
 	// Get parameters from query string
 	var DEBUG_FAKE_METERS     = parseInt(_getQueryStringParams('t'))
-//	var DEBUG_CONCIERGE_MODE  = parseInt(_getQueryStringParams('c'))
+	var DEBUG_CONCIERGE_MODE  = parseInt(_getQueryStringParams('c'))
 	var DEBUG_DATE_OVERRIDE   = parseInt(_getQueryStringParams('d')),
 		DEBUG_DATE_MONTH      = parseInt(_getQueryStringParams('mm')),
 		DEBUG_DATE_DATE       = parseInt(_getQueryStringParams('dd')),
