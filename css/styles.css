@@ -1107,6 +1107,11 @@ div.footer-popup .footer-popup-content {
   font-size: 20px;
   color: white;
 }
+@media screen and (max-width: 529px), screen and (min-width: 530px) and (max-width: 767px) {
+  #loading {
+    display: none;
+  }
+}
 #pi {
   position: absolute;
   right: 10px;
