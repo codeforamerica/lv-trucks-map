@@ -1047,7 +1047,10 @@ function _loadTimeout (seconds) {
 		seconds = seconds / 1000
 	}
 	var message = 'The application took longer than ' + seconds + ' seconds to load.'
-	console.log(message)
+	if (seconds >= 3000) {
+		$('#loading').fadeIn(200)
+	}
+//	console.log(message)
 	ga('send', 'event', 'load', 'timeout', message)
 }
 
