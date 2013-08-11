@@ -1047,7 +1047,7 @@ function _loadTimeout (seconds) {
 		seconds = seconds / 1000
 	}
 	var message = 'The application took longer than ' + seconds + ' seconds to load.'
-	if (seconds >= 3000) {
+	if (seconds >= 2.5) {
 		$('#loading').fadeIn(200)
 	}
 //	console.log(message)
