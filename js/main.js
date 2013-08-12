@@ -1064,6 +1064,11 @@ function showError (message) {
 	$('#error').show(250)
 	$('#error .message').html(message)
 
+	// Clear loading timeouts
+	clearTimeout(LOAD_TIMEOUT_01)
+	clearTimeout(LOAD_TIMEOUT_02)
+	clearTimeout(LOAD_TIMEOUT_03)
+
 	// Send an event to GA
 	ga('send', 'event', 'load', 'error', message)
 
