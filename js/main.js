@@ -1,5 +1,9 @@
 // LAS VEGAS FOOD TRUCKS MAP - main application Javascript
 
+// Current date and time, from moment.js
+var NOW                 = moment(),
+	TODAY               = moment().startOf('day')
+
 /*************************************************************************
 // 
 // CONFIGURATION
@@ -15,7 +19,7 @@ var API_SERVER          = 'http://lv-food-trucks.herokuapp.com/api/'
 var API_LOCATIONS       = API_SERVER + 'locations/search.geojson',
 	API_VENDORS         = API_SERVER + 'vendors.json',
 //	API_TIMESLOTS       = API_SERVER + 'locations/{id}/time_slots.json',
-	API_TIMESLOTS       = API_SERVER + 'locations/1/time_slots/search.json?q%5Bstart_at_gt%5D='
+	API_TIMESLOTS       = API_SERVER + 'locations/1/time_slots/search.json?q%5Bstart_at_gt%5D=' + TODAY.toJSON()
 	API_FEEDBACK        = API_SERVER + 'feedbacks'
 
 var MAPBOX_ID           = 'codeforamerica.map-wzcm8dk0',
@@ -35,10 +39,6 @@ var DEBUG_ALLOW         = true
 // You should not have to edit these global variables here
 //
 // ***********************************************************************/
-
-// Current date and time, from moment.js
-var NOW                 = moment(),
-	TODAY               = moment().startOf('day')
 
 // Map variables
 var MAP_CENTER_OFFSET   = _getCenterOffset(),
@@ -110,7 +110,7 @@ $.when( $.ajax({
 		showError('We couldn\'t retrieve vendor locations at this time.')
 	}
 }), $.ajax({
-	url: API_TIMESLOTS + TODAY.toJSON(),
+	url: API_TIMESLOTS,
 	cache: false,
 	dataType: 'json',
 	success: function (j) {
