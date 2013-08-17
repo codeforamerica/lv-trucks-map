@@ -4,6 +4,17 @@
 var NOW                 = moment(),
 	TODAY               = moment().startOf('day')
 
+// Debug options
+var DEBUG_ALLOW = true
+var DEBUG_MODE = false
+var DEBUG_CONCIERGE_MODE,
+	DEBUG_FAKE_METERS
+var DEBUG_CLV_VENDOR_IMAGE = 1
+
+if (_getQueryStringParams('debug') == 1) {
+	_debug()
+}
+
 /*************************************************************************
 // 
 // CONFIGURATION
@@ -30,8 +41,6 @@ var MAP_INIT_LATLNG     = [36.1665, -115.1479],
 	MAP_FIT_PADDING     = 0.25,
 	MAP_MAX_PADDING     = 6
 
-var DEBUG_ALLOW         = true
-
 
 /*************************************************************************
 // 
@@ -57,22 +66,6 @@ var LOAD_TIMEOUT_02 = setTimeout(function () {
 var LOAD_TIMEOUT_03 = setTimeout(function () {
 						_loadTimeout(LOAD_TIMEOUT_LENGTH_03)
 						}, LOAD_TIMEOUT_LENGTH_03)
-
-
-/*************************************************************************
-// 
-// DEBUG MODE
-//
-// ***********************************************************************/
-
-var DEBUG_MODE = false
-var DEBUG_CONCIERGE_MODE,  // delete this line to remove permanent concierge state
-	DEBUG_FAKE_METERS
-var DEBUG_CLV_VENDOR_IMAGE = 1
-
-if (_getQueryStringParams('debug') == 1) {
-	_debug()
-}
 
 
 /*************************************************************************
@@ -813,15 +806,6 @@ function toggleFooterPopup(popup, clicked) {
 	}
 }
 
-/**
- *   Display vendor info panel with what's open now and upcoming
- */
-
-function showScheduleOverlay () {
-
-// NOT USED AT THE MOMENT
-
-}
 
 /**
  *   Display vendor schedule on footer / calendar popup
@@ -1106,8 +1090,8 @@ function _debug () {
 	$('#debug').show()
 
 	// Get parameters from query string
-	var DEBUG_FAKE_METERS     = parseInt(_getQueryStringParams('t'))
-	var DEBUG_CONCIERGE_MODE  = parseInt(_getQueryStringParams('c'))
+	DEBUG_FAKE_METERS         = parseInt(_getQueryStringParams('t'))
+	DEBUG_CONCIERGE_MODE      = parseInt(_getQueryStringParams('c'))
 	var DEBUG_DATE_OVERRIDE   = parseInt(_getQueryStringParams('d')),
 		DEBUG_DATE_MONTH      = parseInt(_getQueryStringParams('mm')),
 		DEBUG_DATE_DATE       = parseInt(_getQueryStringParams('dd')),
@@ -1142,11 +1126,11 @@ function _debug () {
 	$('#debug-date').html(NOW.format('ddd MMM D, YYYY HH:mm:ss ([UTC offset] Z)'))
 
 	// Populate correct time/date dropdowns
-	$('#debug-date-month').val([NOW.month()])
-	$('#debug-date-day').val([NOW.date()])
-	$('#debug-date-year').val([NOW.year()])
-	$('#debug-date-hour').val([NOW.hour()])
-	$('#debug-date-minute').val([Math.floor(NOW.minute() / 5) * 5])
+	$('#debug-date-month').val(NOW.month())
+	$('#debug-date-day').val(NOW.date())
+	$('#debug-date-year').val(NOW.year())
+	$('#debug-date-hour').val(NOW.hour())
+	$('#debug-date-minute').val(Math.floor(NOW.minute() / 5) * 5)
 
 	// Hide or show the debug options
 	$('#debug-options-button').on('click', function () {
