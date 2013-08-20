@@ -670,6 +670,9 @@ header #nav-logo img {
 #vendor-info .vendor-entries .vendor-entry p.cuisine {
   color: #777;
   margin-top: 3px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 #vendor-info .vendor-entries .vendor-entry p.location {
   margin-top: 10px;
