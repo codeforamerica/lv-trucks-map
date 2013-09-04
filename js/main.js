@@ -66,6 +66,11 @@ var LOAD_TIMEOUT_02 = setTimeout(function () {
 var LOAD_TIMEOUT_03 = setTimeout(function () {
 						_loadTimeout(LOAD_TIMEOUT_LENGTH_03)
 						}, LOAD_TIMEOUT_LENGTH_03)
+// Set a timeout to display a loading screen if API data takes too long to load.
+var SPINNER_TIMEOUT_LENGTH = 2000
+var SPINNER_TIMEOUT = setTimeout(function () {
+						_loadSpinner(SPINNER_TIMEOUT_LENGTH)
+						}, SPINNER_TIMEOUT_LENGTH)
 
 
 /*************************************************************************
@@ -80,16 +85,16 @@ var locations,
 	timeslots,
 	vendors,
 	schedule = {
-	'now': {
-		'entries': []
-	},
-	'later': {
-		'entries': []
-	},
-	'tomorrow': {
-		'entries': []
+		'now': {
+			'entries': []
+		},
+		'later': {
+			'entries': []
+		},
+		'tomorrow': {
+			'entries': []
+		}
 	}
-}
 
 // Load data from API asynchronously
 $.when( $.ajax({
@@ -167,6 +172,7 @@ $.when( $.ajax({
 	clearTimeout(LOAD_TIMEOUT_01)
 	clearTimeout(LOAD_TIMEOUT_02)
 	clearTimeout(LOAD_TIMEOUT_03)
+	clearTimeout(SPINNER_TIMEOUT)
 
 }, function () {
 	// On failure
@@ -1031,11 +1037,16 @@ function _loadTimeout (seconds) {
 		seconds = seconds / 1000
 	}
 	var message = 'The application took longer than ' + seconds + ' seconds to load.'
-	if (seconds >= 2.5) {
-		$('#loading').fadeIn(200)
-	}
 //	console.log(message)
 	ga('send', 'event', 'load', 'timeout', message)
+}
+
+/**
+ *   Show spinning wheel if API takes too long to load. Call from setTimeout()
+ */
+
+function _loadSpinner (milliseconds) {
+	$('#loading').fadeIn(200)
 }
 
 /**
