@@ -1,4 +1,5 @@
 // LAS VEGAS FOOD TRUCKS MAP - main application Javascript
+"use strict";
 
 // Current date and time, from moment.js
 var NOW                 = moment(),
@@ -30,7 +31,7 @@ var API_SERVER          = 'http://lv-food-trucks.herokuapp.com/api/'
 var API_LOCATIONS       = API_SERVER + 'locations/search.geojson',
 	API_VENDORS         = API_SERVER + 'vendors.json',
 //	API_TIMESLOTS       = API_SERVER + 'locations/{id}/time_slots.json',
-	API_TIMESLOTS       = API_SERVER + 'locations/1/time_slots/search.json?q%5Bstart_at_gt%5D=' + TODAY.toJSON()
+	API_TIMESLOTS       = API_SERVER + 'locations/1/time_slots/search.json?q%5Bstart_at_gt%5D=' + TODAY.toJSON(),
 	API_FEEDBACK        = API_SERVER + 'feedbacks'
 
 var MAPBOX_ID           = 'codeforamerica.map-wzcm8dk0',
@@ -679,7 +680,7 @@ function DoMapStuff (locations, timeslots, vendors) {
 
 				if (marker.feature.id == timeslots[k].location_id && NOW.isAfter(start) && NOW.isBefore(end)) {
 					marker.schedule = {}
-					until = moment(timeslots[k].finish_at)
+					var until = moment(timeslots[k].finish_at)
 					marker.schedule.until = _formatTime(until)
 				}
 			}
@@ -895,9 +896,9 @@ function _formatTime (date) {
 	// like '6am' or '6:30pm'
 
 	if (date.minutes() > 0) {
-		return string = date.format('h:mma')
+		return date.format('h:mma')
 	} else {
-		return string = date.format('ha')
+		return date.format('ha')
 	}
 
 }
@@ -1124,7 +1125,7 @@ function _debug () {
 	if (DEBUG_DATE_OVERRIDE === 1) {
 		$('#debug-change-date').val(['1'])
 
-		DEBUG_DATE = moment().month(DEBUG_DATE_MONTH)
+		var DEBUG_DATE = moment().month(DEBUG_DATE_MONTH)
 							 .date(DEBUG_DATE_DATE)
 							 .year(DEBUG_DATE_YEAR)
 							 .hour(DEBUG_DATE_HOUR)
