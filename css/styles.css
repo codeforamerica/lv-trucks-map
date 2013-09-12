@@ -1197,4 +1197,8 @@ div.footer-popup .footer-popup-content {
 .chromeframe {
   font-size: 36px;
   background-color: #ffffef;
+  z-index: 999999;
+  margin: 0;
+  padding: 5px 20px;
+  border-bottom: 1px solid lightgray;
 }
