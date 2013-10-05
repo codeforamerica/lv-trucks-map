@@ -30,8 +30,7 @@ var API_SERVER          = 'http://lv-food-trucks.herokuapp.com/api/'
 						// local environments use 'http://localhost:3000/'
 var API_LOCATIONS       = API_SERVER + 'locations/search.geojson',
 	API_VENDORS         = API_SERVER + 'vendors.json',
-//	API_TIMESLOTS       = API_SERVER + 'locations/{id}/time_slots.json',
-	API_TIMESLOTS       = API_SERVER + 'locations/1/time_slots/search.json?q%5Bstart_at_gt%5D=' + TODAY.toJSON(),
+	API_TIMESLOTS       = API_SERVER + 'time_slots.json',
 	API_FEEDBACK        = API_SERVER + 'feedbacks'
 
 var MAPBOX_ID           = 'codeforamerica.map-wzcm8dk0',
