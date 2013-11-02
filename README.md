@@ -1,7 +1,7 @@
 lv-trucks-map
 =============
 
-![Logo](https://raw.github.com/codeforamerica/lv-trucks-map/master/apple-touch-icon-114x144-precomposed.png)
+![Logo](https://raw.github.com/codeforamerica/lv-trucks-map/master/apple-touch-icon.png)
 
 Public-facing map for City of Las Vegas mobile food vendor app.
 
