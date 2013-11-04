@@ -353,7 +353,10 @@ $(document).ready( function () {
 
 	// Keybinding for debug menu & toggle
 	$(document).keydown(function (e) {
-		if (e.which == 68 && e.ctrlKey == false && e.metaKey == false) {    // key 'd' - opens debug menu
+		if (e.which == 68 && e.ctrlKey == true && e.metaKey == false) {    // key 'ctrl-d' - opens debug menu
+			if ($('#feedback').is(':visible')) {
+				return
+			}
 			if ($('#debug').is(':visible')) {
 				$('#debug').hide()
 			} else {
