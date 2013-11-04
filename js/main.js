@@ -357,6 +357,7 @@ $(document).ready( function () {
 			if ($('#feedback').is(':visible')) {
 				return
 			}
+			e.preventDefault()
 			if ($('#debug').is(':visible')) {
 				$('#debug').hide()
 			} else {
