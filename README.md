@@ -29,13 +29,14 @@ You can see a running version of the application [here][live].
 
 ## Usage / Installation
 
-This the front end is all Javascript and HTML5; just load into a browser and run. The back-end is a Rails server; see [that page][back-end] for details.
+This the front end is static HTML 5 and Javascript; just load into a browser and run. It was designed to run as-is on [GitHub Pages](http://pages.github.com/).
 
-If you need to customize the stylesheet, ```css/styles.css``` is auto-generated from ```css/styles.less```.  You can use a LESS compiler of choice.
+The application relies on a second part: a Rails-based server that publishes vendor and schedule data through a public API. See the [back-end code repository][back-end] for details.
+
+If you want to customize the stylesheet, this application reads from ```css/styles.css```, which is pre-compiled from ```css/styles.less```.  I use LiveReload to automatically generate the css file, but you can use a LESS compiler of choice.
 
 ## Contributing
-In the spirit of [free software][free-sw], **everyone** is encouraged to help
-improve this project.
+In the spirit of [free software][free-sw], **everyone** is encouraged to help improve this project.
 
 [free-sw]: http://www.fsf.org/licensing/essays/free-sw.html
 
