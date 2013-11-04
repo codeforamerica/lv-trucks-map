@@ -265,6 +265,12 @@ var hereMarker = L.icon({
 
 $(document).ready( function () {
 
+	// Close unsupported IE browser warning message
+	$('.dismiss-ie-browser').click( function (e) {
+		e.preventDefault()
+		$('.ie-browser').hide()
+	})
+
 	// TRUCK HEADING - toggler for entries
 	$('.vendor-heading').click( function () {
 		toggleVendorEntries($(this))
@@ -751,10 +757,6 @@ function DoMapStuff (locations, timeslots, vendors) {
 	})
 
 }
-
-
-
-
 
 /**
  *   Shows or hides trucks under each section of trucks data panel

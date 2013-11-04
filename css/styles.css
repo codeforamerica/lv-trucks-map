@@ -1194,8 +1194,8 @@ div.footer-popup .footer-popup-content {
 .typcn {
   font-size: 190%;
 }
-.chromeframe {
-  font-size: 24px;
+.ie-browser {
+  font-size: 14px;
   background-color: #ffffef;
   z-index: 999999;
   margin: 0;
