@@ -1,0 +1,33 @@
+/**
+ * Additional stylesheet for IE 8.
+ * There is no LESS version of this. It's only function is to overwrite the normal styles.css with styles that make IE8 look not broken.
+ * Images specially for this stylesheet will be placed in ./img/ie/
+ */
+
+/* Remove sprites and replace with un-sprited graphics */
+
+header #nav-logo {
+	background: transparent url('../img/ie/banner.png') center 0 no-repeat;
+}
+
+#vendor-info .vendor-title h1:before {
+	background: transparent url('../img/ie/truck-icon.png') no-repeat;
+}
+
+#vendor-info .vendor-entries .vendor-entry .vendor-image {
+	background: transparent url('../img/ie/vendor-icon.png') no-repeat;
+}
+
+/* Remove custom list icons from popup menus */
+
+#vendors ul, #calendar ul {
+	list-style: square;
+	margin-left: 20px;
+}
+
+#vendors li, #calendar li {
+	background-image: none !important;
+	padding-left: 0;
+}
+
+/* Note: IE8 does not support media queries, so no need to fix responsive screen styles */

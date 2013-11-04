@@ -874,8 +874,8 @@ div.footer-popup .footer-popup-content {
   line-height: 20px;
   position: relative;
 }
-#vendors ul li:before,
-#calendar ul li:before {
+#vendors ul li::before,
+#calendar ul li::before {
   width: 16px;
   height: 16px;
   content: '';
@@ -1195,7 +1195,7 @@ div.footer-popup .footer-popup-content {
   font-size: 190%;
 }
 .chromeframe {
-  font-size: 20px;
+  font-size: 24px;
   background-color: #ffffef;
   z-index: 999999;
   margin: 0;
