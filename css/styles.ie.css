@@ -30,4 +30,10 @@ header #nav-logo {
 	padding-left: 0;
 }
 
+/* Hide pi - svg is not supported, and neither is GitHub */
+#pi {
+	display: none;
+}
+
+
 /* Note: IE8 does not support media queries, so no need to fix responsive screen styles */

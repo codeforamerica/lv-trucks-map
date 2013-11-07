@@ -265,7 +265,8 @@ var hereMarker = L.icon({
 
 $(document).ready( function () {
 
-	// Close unsupported IE browser warning message
+	// INTERNET EXPLORER
+	// Bind a click to close unsupported IE browser warning message
 	$('.dismiss-ie-browser').click( function (e) {
 		e.preventDefault()
 		$('.ie-browser').hide()
@@ -990,6 +991,11 @@ function _sendFeedback () {
 
 function _resetFeedbackForm () {
 	document.getElementById('feedback-form').reset()
+
+	// Call placeholder for IE8
+	$('input, textarea').placeholder()
+
+	// Reset DOM
 	$('#feedback-sending').hide()
 	$('#feedback-success').hide()
 	$('#feedback-error').hide()
