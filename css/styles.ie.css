@@ -4,6 +4,11 @@
  * Images specially for this stylesheet will be placed in ./img/ie/
  */
 
+/* Prevent ie-browser message from creating a vertical scrollbar */
+html {
+	overflow-y: hidden;
+}
+
 /* Remove sprites and replace with un-sprited graphics */
 
 header #nav-logo {
@@ -33,6 +38,13 @@ header #nav-logo {
 /* Hide pi - svg is not supported, and neither is GitHub */
 #pi {
 	display: none;
+}
+
+/* Typicons icon content requires single colon before selector */
+.typcn-location-arrow-outline:before {
+	content: '\e092';
+	font-size: 18px;
+	margin-left: 1px;
 }
 
 /* Hide leaflet attribution - not an ideal solution, but there is a display bug because :last-of-type selector doesn't work  */
