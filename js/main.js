@@ -993,7 +993,9 @@ function _resetFeedbackForm () {
 	document.getElementById('feedback-form').reset()
 
 	// Call placeholder for IE8
-	$('input, textarea').placeholder()
+	if ($.prototype.placeholder) {
+		$('input, textarea').placeholder()
+	}
 
 	// Reset DOM
 	$('#feedback-sending').hide()
