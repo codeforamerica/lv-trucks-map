@@ -35,5 +35,11 @@ header #nav-logo {
 	display: none;
 }
 
+/* Hide leaflet attribution - not an ideal solution, but there is a display bug because :last-of-type selector doesn't work  */
+.leaflet-container .leaflet-control-attribution {
+	display: none;
+}
+
+
 
 /* Note: IE8 does not support media queries, so no need to fix responsive screen styles */
