@@ -409,7 +409,7 @@ $(document).ready( function () {
 
 		// SECRET!
 		// To disable, simply comment out or delete the following function.
-		_hideAttribution(pointLatLng)
+		// _hideAttribution(pointLatLng)
 
 	})
 
