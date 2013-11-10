@@ -1,6 +1,6 @@
-@import url('main.css');
+@import url('vendor/main.css');
 
-@import url('typicons.css');
+@import url('../fonts/foundation-icons.css');
 
 @import url(http://fonts.googleapis.com/css?family=Lato:300,400,900|Fauna+One);
 /*! normalize.css v2.1.3 | MIT License | git.io/normalize */
@@ -767,7 +767,6 @@ footer ul li {
   display: inline-block;
   margin: 0;
   padding: 0 30px;
-  height: 40px;
   line-height: 40px;
   cursor: hand;
   cursor: pointer;
@@ -779,6 +778,9 @@ footer ul li:after {
   margin-left: 15px;
   content: '\25B4';
   color: white;
+}
+footer ul li i {
+  font-size: 190%;
 }
 @media screen and (max-width: 529px) {
   footer ul li {
@@ -1031,11 +1033,8 @@ div.footer-popup .footer-popup-content {
 #popup-leaflet .popup-info .popup-location .address a:hover {
   text-decoration: underline;
 }
-#popup-leaflet .popup-info .popup-location .address .typcn {
-  font-size: 18px;
-  display: inline-block;
-  margin-top: -2px;
-  margin-left: -4px;
+#popup-leaflet .popup-info .popup-location .address i {
+  margin-right: 4px;
 }
 #popup-leaflet .popup-info .popup-tag {
   display: inline-block;
@@ -1198,9 +1197,6 @@ div.footer-popup .footer-popup-content {
   text-align: center;
   padding: 8px;
   line-height: 120%;
-}
-.typcn {
-  font-size: 190%;
 }
 .ie-browser {
   font-size: 14px;

@@ -1,7 +1,7 @@
-@import 'normalize.less';
-@import 'preboot.less';
-@import url('main.css'); // HTML5 Boilerplate default CSS file
-@import url('typicons.css');
+@import 'vendor/normalize.less';   // Note that this is not actually a LESS file, but renamed this way so that LiveReload's LESS compiler will import, rather than link to the css. LiveReload should be fixing this soon.
+@import 'vendor/preboot.less';
+@import url('vendor/main.css'); // HTML5 Boilerplate default CSS file
+@import url('../fonts/foundation-icons.css');
 
 // CONSTANTS
 
@@ -42,7 +42,6 @@
 
 // TYPOGRAPHY PRESETS
 
-//@import url(http://fonts.googleapis.com/css?family=Fauna+One:400,700);
 @import url(http://fonts.googleapis.com/css?family=Lato:300,400,900|Fauna+One);
 
 @display-font:          'Fauna One';
@@ -423,7 +422,7 @@ footer {
 			display: inline-block;
 			margin: 0;
 			padding: 0 30px;
-			height: @footer-height;
+			// height: @footer-height;
 			line-height: @footer-height;
 			cursor: hand;
 			cursor: pointer;
@@ -434,6 +433,10 @@ footer {
 				margin-left: 15px;
 				content: '\25B4';
 				color: white;
+			}
+			i {
+				// Foundation icon style
+				font-size: 190%;
 			}
 			@media @mobile {
 				padding: 0;
@@ -660,11 +663,9 @@ div.footer-popup {
 						text-decoration: underline;
 					}
 				}
-				.typcn {
-					font-size: 18px;
-					display: inline-block;
-					margin-top: -2px;
-					margin-left: -4px;
+				i {
+					// Foundation icon
+					margin-right: 4px;
 				}
 			}
 		}
@@ -822,13 +823,7 @@ div.footer-popup {
 	line-height: 120%;
 }
 
-// TYPICON SIZE OVERRIDE
-.typcn {
-	font-size: 190%;
-}
-
-// CHROME FRAME OVERRIDE
-// Chrome Frame is being discontinued; this is just a warning message now.
+// MESSAGE FOR IE 9 AND EARLIER
 .ie-browser {
 	font-size: 14px;
 	background-color: #ffffef;
