@@ -12,22 +12,18 @@
     <title>Food Trucks of Downtown Las Vegas</title>
     <meta name='description' content='App for officially designated mobile food vendor parking spots in Downtown Las Vegas. Find out when your favorite food trucks are downtown!'>
 
-    <link href='css/styles.css' rel='stylesheet' type='text/css' />
+    <link href='css/styles.css' rel='stylesheet' type='text/css'>
     <!--[if lte IE 8]>
       <link href='css/styles.ie.css' rel='stylesheet' type='text/css' />
     <![endif]-->
 
-    <link rel='icon' type='image/png' href='favicon.png' />
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <link rel='apple-touch-icon' href='apple-touch-icon.png' />
+    <link rel='icon' type='image/png' href='favicon.png'>
+    <link rel='apple-touch-icon' href='apple-touch-icon.png'>
 
     <script src='js/vendor/modernizr-2.6.2.min.js'></script>
 
-    <link href='http://api.tiles.mapbox.com/mapbox.js/v1.4.0/mapbox.css' rel='stylesheet' />
-    <!--[if lte IE 8]>
-      <link href='http://api.tiles.mapbox.com/mapbox.js/v1.4.0/mapbox.ie.css' rel='stylesheet' />
-    <![endif]-->
-    <script src='http://api.tiles.mapbox.com/mapbox.js/v1.4.0/mapbox.js'></script>    
+    <link href='http://api.tiles.mapbox.com/mapbox.js/v1.5.0/mapbox.css' rel='stylesheet'>
+    <script src='http://api.tiles.mapbox.com/mapbox.js/v1.5.0/mapbox.js'></script>    
   </head>
   <body>
     <!--[if lte IE 9]>
@@ -257,7 +253,7 @@
       </script>
 
       <script id='mustache-popleaf' type='text/template'>
-        <div id='popup-leaflet'>
+        <div class='popup'>
           <div class='popup-info'>
             <div class='popup-location'>
               <span class='location'>{{feature.properties.name}}</span>

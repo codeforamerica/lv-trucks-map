@@ -1000,14 +1000,16 @@ div.footer-popup .footer-popup-content {
 #feedback-sending {
   background: #f8f8f8 url('../img/loading-lite.gif') center center no-repeat;
 }
-#popup-leaflet {
+.popup {
+  font-size: 12px;
+  line-height: 20px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
 }
-#popup-leaflet .popup-info {
+.popup .popup-info {
   max-width: 180px;
   -webkit-user-select: text;
   -moz-user-select: text;
@@ -1015,83 +1017,80 @@ div.footer-popup .footer-popup-content {
   -o-user-select: text;
   user-select: text;
 }
-#popup-leaflet .popup-info .popup-location {
+.popup .popup-info .popup-location {
   padding: 8px;
   background-color: #f6f6f6;
 }
-#popup-leaflet .popup-info .popup-location .location {
+.popup .popup-info .popup-location .location {
   font-size: 14px;
-  line-height: 12px;
   font-weight: 300;
 }
-#popup-leaflet .popup-info .popup-location .address {
+.popup .popup-info .popup-location .address {
   color: #888;
 }
-#popup-leaflet .popup-info .popup-location .address a {
+.popup .popup-info .popup-location .address a {
   text-decoration: none;
 }
-#popup-leaflet .popup-info .popup-location .address a:hover {
+.popup .popup-info .popup-location .address a:hover {
   text-decoration: underline;
 }
-#popup-leaflet .popup-info .popup-location .address i {
+.popup .popup-info .popup-location .address i {
   margin-right: 4px;
 }
-#popup-leaflet .popup-info .popup-tag {
+.popup .popup-info .popup-tag {
   display: inline-block;
   position: relative;
-  height: 10px;
   line-height: 10px;
   background-color: #3ab000;
   color: white;
   font-size: 11px;
-  padding: 6px 8px;
+  padding: 6px 9px;
   top: -8px;
   left: -8px;
 }
-#popup-leaflet .popup-info .popup-tag.later {
+.popup .popup-info .popup-tag.later {
   background-color: #ff9933;
 }
-#popup-leaflet .popup-info .popup-vendor,
-#popup-leaflet .popup-info .popup-novendor {
+.popup .popup-info .popup-vendor,
+.popup .popup-info .popup-novendor {
   border-top: 1px solid #e9e9e9;
-  line-height: 120%;
   padding: 8px 8px;
 }
-#popup-leaflet .popup-info .popup-vendor,
-#popup-leaflet .popup-info .popup-location {
+.popup .popup-info .popup-vendor,
+.popup .popup-info .popup-location {
   -webkit-transition: background-color 0s linear;
   -moz-transition: background-color 0s linear;
   -o-transition: background-color 0s linear;
   transition: background-color 0s linear;
 }
-#popup-leaflet .popup-info .popup-vendor:active,
-#popup-leaflet .popup-info .popup-location:active {
+.popup .popup-info .popup-vendor:active,
+.popup .popup-info .popup-location:active {
   background-color: #ffffdd;
 }
-#popup-leaflet .popup-info .popup-vendor-image {
+.popup .popup-info .popup-vendor-image {
   width: 20px;
   display: none;
 }
-#popup-leaflet .popup-info .popup-vendor-image img {
+.popup .popup-info .popup-vendor-image img {
   width: 20px;
   height: 20px;
 }
-#popup-leaflet .popup-info h3 {
+.popup .popup-info h3 {
   margin: 0 0 2px;
   padding: 0;
   font-size: 20px;
   font-weight: 300;
   line-height: 20px;
 }
-#popup-leaflet .popup-info h3 a {
+.popup .popup-info h3 a {
   color: black !important;
   text-decoration: none;
 }
-#popup-leaflet .popup-info h3 a:hover {
+.popup .popup-info h3 a:hover {
   text-decoration: underline;
 }
 @media screen and (max-width: 529px), screen and (min-width: 530px) and (max-width: 767px) {
-  #popup-leaflet .popup-info {
+  .popup .popup-info {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -1141,6 +1140,12 @@ div.footer-popup .footer-popup-content {
   width: 100%;
   height: 100%;
 }
+.leaflet-container {
+  font-family: 'Lato', 'Helvetica Neue', sans-serif !important;
+}
+.leaflet-container a {
+  color: #777 !important;
+}
 .leaflet-top {
   margin-left: 385px;
   margin-top: 10px;
@@ -1159,9 +1164,6 @@ div.footer-popup .footer-popup-content {
   -o-user-select: none;
   user-select: none;
 }
-.map-legends {
-  display: none;
-}
 .leaflet-control-attribution {
   background-color: rgba(255, 255, 255, 0.7) !important;
   color: #888 !important;
@@ -1175,13 +1177,7 @@ div.footer-popup .footer-popup-content {
     color: #888 !important;
   }
 }
-.leaflet-container {
-  font-family: 'Lato', 'Helvetica Neue', sans-serif !important;
-}
-.leaflet-container a {
-  color: #777 !important;
-}
-.leaflet-control-attribution:last-of-type {
+.map-legends {
   display: none;
 }
 .leaflet-popup-content-wrapper {
@@ -1189,6 +1185,7 @@ div.footer-popup .footer-popup-content {
   max-width: 180px;
 }
 .leaflet-popup-content {
+  padding: 0 !important;
   margin: 0 !important;
   max-width: 180px;
   box-shadow: 0 1px 10px rgba(0, 0, 0, 0.25);
