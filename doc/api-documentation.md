@@ -85,8 +85,10 @@ The locations response adheres to the [GeoJSON specification](http://geojson.org
 The response above will cause the map to automatically zoom and pan to the bounding box of all the points that are returned. Administrators can add an arbitrary number of points and the map should still function correctly.
 
 ``id`` This is an ID number for the location. It is used by the Timeslots API to match vendors to their respective locations.
+
 ``geometry`` This is a required member of a GeoJSON feature object.
 - ``coordinates`` This must reside within the ``geometry`` member, as defined by the GeoJSON specification, and is an array containing a longitude (x) and latitude (y) pair. Note that the GeoJSON specification requires this data in a number format, but currently our back-end returns them as strings. Regardless, it is parsed correctly by our map library.
+
 ``properties`` This is a required member of a GeoJSON feature object. All other properties related to the location belongs here. The following are utilized by the Food Trucks Map:
 - ``name`` The name of the location to be displayed.
 - ``address`` The address of the location to be displayed. Although not required, this should be something that returns a result in Google Maps so people can obtain directions to it.
