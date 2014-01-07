@@ -93,8 +93,198 @@ The response above will cause the map to automatically zoom and pan to the bound
 - ``name`` The name of the location to be displayed.
 - ``address`` The address of the location to be displayed. Although not required, this should be something that returns a result in Google Maps so people can obtain directions to it.
 - ``current_vendor_id`` This is the ID of any vendors currently at the location, if any. It should correspond with the vendor ID returned by the Vendor API. The back-end server is responsible for checking with any real-time parking interface (in downtown Las Vegas, this is the Parkeon parking meter API) and reporting this information to the front end in this location. If there is no current vendor, the value returned is ``null``. If there is one vendor, only a single ID is necessary. If this is a location that allows multiple vendors, this can be returned as an array of IDs, eg. ``[3, 6, 9]``.
+- Additional properties can be provided in the back-end administration system, and then sent to the front-end, if needed.
+
+To make sure a GeoJSON response is valid, here is a [GeoJSON linter](http://geojsonlint.com/).
+
+### Vendors API
+
+The Vendors API is an array of hashes whose properties describe each vendor currently in the program.
+
+#### Sample response
+```
+[
+    {
+        "id": 16,
+        "name": "A1 Mobile Catering",
+        "cuisine": "",
+        "email": "a1mobilecatering@yahoo.com",
+        "phone": "702-452-5229",
+        "website": "https://www.facebook.com/pages/A1-Mobile-Catering/169430916432920",
+        "logo_url": null
+    },
+    {
+        "id": 6,
+        "name": "Sauced",
+        "cuisine": "New American Comfort Food",
+        "email": "mike@saucedvegas.com",
+        "phone": "702-539-3553",
+        "website": "www.saucedvegas.com/",
+        "logo_url": null
+    },
+    {
+        "id": 13,
+        "name": "ABreast of Vegas Chicken",
+        "cuisine": "Fresh All Breast Meat",
+        "email": "KvLucero@AOL.com",
+        "phone": "702-528-1878",
+        "website": "www.facebook.com/AbvChickentruck",
+        "logo_url": null
+    },
+    {
+        "id": 10,
+        "name": "Hawaiian Shaved Ice",
+        "cuisine": "Shaved Ice",
+        "email": "info@hawaiianshavedicelasvegas.com",
+        "phone": "702-296-0968",
+        "website": "www.hawaiianshavedicelasvegas.com",
+        "logo_url": null
+    }
+]
+```
+
+- Additional properties can be provided in the back-end administration system, and then sent to the front-end, if needed.
 
 
+### Timeslots API
+
+#### Sample response
+```
+[
+    {
+        "created_at": "2013-07-29T09:20:55-07:00",
+        "finish_at": "2014-01-23T14:00:00-08:00",
+        "id": 81,
+        "location_id": 3,
+        "start_at": "2014-01-23T10:00:00-08:00",
+        "updated_at": "2013-07-29T09:20:55-07:00",
+        "vendor_id": 6,
+        "vendor": {
+            "business_license_number": "M25-000240-4-160618",
+            "contact_name": "Mike Booth",
+            "created_at": "2013-06-26T21:36:35-07:00",
+            "cuisine": "New American Comfort Food",
+            "email": "mike@saucedvegas.com",
+            "id": 6,
+            "name": "Sauced ",
+            "phone": "702-539-3553",
+            "updated_at": "2013-07-29T07:52:23-07:00",
+            "website": "www.saucedvegas.com/"
+        }
+    },
+    {
+        "created_at": "2013-07-29T09:25:06-07:00",
+        "finish_at": "2014-01-10T14:00:00-08:00",
+        "id": 91,
+        "location_id": 3,
+        "start_at": "2014-01-10T10:00:00-08:00",
+        "updated_at": "2013-07-29T09:25:06-07:00",
+        "vendor_id": 16,
+        "vendor": {
+            "business_license_number": "M25-0070-4-083579",
+            "contact_name": "John Margaretis",
+            "created_at": "2013-07-24T06:25:45-07:00",
+            "cuisine": "",
+            "email": "a1mobilecatering@yahoo.com",
+            "id": 16,
+            "name": "A1 Mobile Catering",
+            "phone": "702-452-5229",
+            "updated_at": "2013-07-28T16:17:49-07:00",
+            "website": "https://www.facebook.com/pages/A1-Mobile-Catering/169430916432920"
+        }
+    },
+    {
+        "created_at": "2013-07-29T09:25:21-07:00",
+        "finish_at": "2014-01-24T14:00:00-08:00",
+        "id": 92,
+        "location_id": 3,
+        "start_at": "2014-01-24T10:00:00-08:00",
+        "updated_at": "2013-07-29T09:25:21-07:00",
+        "vendor_id": 16,
+        "vendor": {
+            "business_license_number": "M25-0070-4-083579",
+            "contact_name": "John Margaretis",
+            "created_at": "2013-07-24T06:25:45-07:00",
+            "cuisine": "",
+            "email": "a1mobilecatering@yahoo.com",
+            "id": 16,
+            "name": "A1 Mobile Catering",
+            "phone": "702-452-5229",
+            "updated_at": "2013-07-28T16:17:49-07:00",
+            "website": "https://www.facebook.com/pages/A1-Mobile-Catering/169430916432920"
+        }
+    },
+    {
+        "created_at": "2013-07-29T09:34:42-07:00",
+        "finish_at": "2014-01-29T14:00:00-08:00",
+        "id": 113,
+        "location_id": 3,
+        "start_at": "2014-01-29T10:00:00-08:00",
+        "updated_at": "2013-07-29T09:34:42-07:00",
+        "vendor_id": 22,
+        "vendor": {
+            "business_license_number": "M25-00258-4-165223",
+            "contact_name": "Ashley Hoff",
+            "created_at": "2013-07-24T06:38:26-07:00",
+            "cuisine": "Gourmet Hot Dogs",
+            "email": "Ashley@sincitydogs.com",
+            "id": 22,
+            "name": "Sin City Dogs",
+            "phone": "702-513-7699",
+            "updated_at": "2013-07-29T21:36:59-07:00",
+            "website": "www.sincitydogs.com/"
+        }
+    },
+    {
+        "created_at": "2013-07-29T09:37:11-07:00",
+        "finish_at": "2014-01-09T14:00:00-08:00",
+        "id": 118,
+        "location_id": 3,
+        "start_at": "2014-01-09T10:00:00-08:00",
+        "updated_at": "2013-07-29T09:37:11-07:00",
+        "vendor_id": 19,
+        "vendor": {
+            "business_license_number": "M25-00237-4-161739",
+            "contact_name": "JoAnn Bronson",
+            "created_at": "2013-07-24T06:31:15-07:00",
+            "cuisine": "Tex-Mex-Fresh",
+            "email": "jobron@aol.com",
+            "id": 19,
+            "name": "Señor Blues",
+            "phone": "702-610-4472",
+            "updated_at": "2013-07-29T21:36:19-07:00",
+            "website": "www.senorbluesmobile.com/"
+        }
+    },
+    {
+        "created_at": "2013-07-29T09:14:19-07:00",
+        "finish_at": "2014-01-07T14:00:00-08:00",
+        "id": 65,
+        "location_id": 3,
+        "start_at": "2014-01-07T10:00:00-08:00",
+        "updated_at": "2013-07-30T09:36:38-07:00",
+        "vendor_id": 22,
+        "vendor": {
+            "business_license_number": "M25-00258-4-165223",
+            "contact_name": "Ashley Hoff",
+            "created_at": "2013-07-24T06:38:26-07:00",
+            "cuisine": "Gourmet Hot Dogs",
+            "email": "Ashley@sincitydogs.com",
+            "id": 22,
+            "name": "Sin City Dogs",
+            "phone": "702-513-7699",
+            "updated_at": "2013-07-29T21:36:59-07:00",
+            "website": "www.sincitydogs.com/"
+        }
+    }
+]
+```
+
+### Feedback API
+
+#### Sample request
+```
+```
 
 
 
