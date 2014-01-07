@@ -2,14 +2,14 @@
 
 ### Working draft (Jan 6 2014)
 
-This repository contains the front-end user interface for the food trucks map. It is designed to be a static, single-page application that can be run from any server environment that serves web pages over HTTP (e.g. [GitHub Pages](http://pages.github.com/), where it is currently hosted). Program logic either happens on the client-side (particularly when it affects the view or presentation of data), or on a separate [back-end component](https://github.com/codeforamerica/food_trucks) (used primarily for data management and logging) that the front-end interacts with through a public API. This separation of concerns allows the different pieces of the application to be developed and maintained independently of each other, and each component can designed to best suit the technology available or target user group(s). 
+The front-end user interface for the Food Trucks Map is designed to be a static, single-page application that can be run from any server environment that serves web pages over HTTP (e.g. [GitHub Pages](http://pages.github.com/), where it is currently hosted). Program logic either happens on the client-side (particularly when it affects the presentation of information), or on a separate [back-end component](https://github.com/codeforamerica/food_trucks) (used primarily for data management and logging). The front-end interacts with the back-end through a public API over HTTP GET or POST protocols. This separation of concerns allows the different pieces of the application to be developed and maintained independently of each other, and each component can designed to best suit the technology available or target user group(s). 
 
-To ensure that the application system as a whole operates smoothly, communication between the front-end and back-end is essential. This documentation outlines how the front-end expects to communicate with the back-end.
+To ensure that the application system as a whole operates smoothly, we must define the the standards for communication between the front-end and back-end in the documentation here. 
 
 
 ## General specifications
 
-The back-end server location is set in a configuration variable ``API_SERVER``. By default, it is set to ``http://lv-food-trucks.herokuapp.com/api/``. It should include the ``http://`` portion, the full host name (e.g. ``lv-food-trucks.herokuapp.com``), and any portion of the path that is shared by the API (e.g. ``/api``) plus a trailing slash ``/``.
+The back-end server location is set in a configuration variable ``API_SERVER``. By default, it is set to ``http://lv-food-trucks.herokuapp.com/api/``. If modified, it should include the ``http://`` portion, the full host name (e.g. ``lv-food-trucks.herokuapp.com``), and any portion of the path that is shared by the API (e.g. ``/api``) plus a trailing slash ``/``.
 
 The front-end makes asynchronous HTTP GET requests to the back-end server location. (For more information about how this call is made, refer to the [jQuery documentation on its AJAX method](http://api.jquery.com/jquery.ajax/). We also [polyfill jQuery with the Microsoft-specific XDomainRequest functionality](https://github.com/MoonScript/jQuery-ajaxTransport-XDomainRequest) so that the application can successfully retrieve data in Internet Explorer 8 and 9.)
 
