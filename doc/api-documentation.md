@@ -1,5 +1,7 @@
 # Food trucks map data documention and API reference
 
+### NOTE: WORK IN PROGRESS DO NOT RELY ON THIS YET
+
 This repository contains the front-end user interface for the food trucks map. It is designed to be a static, single-page application that can be run from any server environment that serves web pages over HTTP (e.g. [GitHub Pages](http://pages.github.com/), where it is currently hosted). Program logic either happens on the client-side (particularly when it affects the view or presentation of data), or on a separate [back-end component](https://github.com/codeforamerica/food_trucks) (used primarily for data management and logging) that the front-end interacts with through a public API. This separation of concerns allows the different pieces of the application to be developed and maintained independently of each other, and each component can designed to best suit the technology available or target user group(s). 
 
 To ensure that the application system as a whole operates smoothly, communication between the front-end and back-end is essential. This documentation outlines how the front-end expects to communicate with the back-end.
