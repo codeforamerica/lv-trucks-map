@@ -199,11 +199,11 @@ The Timeslots API returns schedule information that the city sets up and maintai
 ]
 ```
 
-``id`` Unlike the Vendor or Location APIs, this ``id`` is not used in the front-end.
-``location_id`` (required) This specifies the location that a vendor is located at. It is associated with a matching ``id`` from the Location API.
-``vendor_id`` (required) This specifies the vendor. It is associated with a matching ``id`` from the Vendor API.
-``start_at`` (required) This is the beginning of the timeslot, with date, time, and time zone offset stored in a format corresponding to the [ISO 8601](http://en.wikipedia.org/wiki/ISO_8601) standard (see also: [W3C Note on Time and Date Formats (1997)](http://www.w3.org/TR/NOTE-datetime))
-``finish_at`` (required) This is the end of the timeslot, in the same ISO 8601 format as ``start_at``.
+* ``id`` Unlike the Vendor or Location APIs, this ``id`` is not used in the front-end.
+* ``location_id`` (required) This specifies the location that a vendor is located at. It is associated with a matching ``id`` from the Location API.
+* ``vendor_id`` (required) This specifies the vendor. It is associated with a matching ``id`` from the Vendor API.
+* ``start_at`` (required) This is the beginning of the timeslot, with date, time, and time zone offset stored in a format corresponding to the [ISO 8601](http://en.wikipedia.org/wiki/ISO_8601) standard (see also: [W3C Note on Time and Date Formats (1997)](http://www.w3.org/TR/NOTE-datetime))
+* ``finish_at`` (required) This is the end of the timeslot, in the same ISO 8601 format as ``start_at``.
 
 **NOTE:** The actual response can contain many more additional properties that are available from the current back-end administration system. Only the properties currently used by the Food Trucks Map is listed in the sample response above. Currently the API also returns the vendor information matching ``vendor_id`` automatically, but the front end should not assume that this behavior will continue to occur.
 
