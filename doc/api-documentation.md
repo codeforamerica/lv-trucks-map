@@ -86,15 +86,15 @@ The locations response adheres to the [GeoJSON specification](http://geojson.org
 
 The response above will cause the map to automatically zoom and pan to the bounding box of all the points that are returned. Administrators can add an arbitrary number of points and the map should still function correctly.
 
-``id`` This is an ID number for the location. It is used by the Timeslots API to match vendors to their respective locations.
+``id`` (required) This is an ID number for the location. It is used by the Timeslots API to match vendors to their respective locations.
 
-``geometry`` This is a required member of a GeoJSON feature object.
-- ``coordinates`` This must reside within the ``geometry`` member, as defined by the GeoJSON specification, and is an array containing a longitude (x) and latitude (y) pair. Note that the GeoJSON specification requires this data in a number format, but currently our back-end returns them as strings. Regardless, it is parsed correctly by our map library.
+``geometry`` (required) This is a required member of a GeoJSON feature object.
+- ``coordinates`` (required) This must reside within the ``geometry`` member, as defined by the GeoJSON specification, and is an array containing a longitude (x) and latitude (y) pair. Note that the GeoJSON specification requires this data in a number format, but currently our back-end returns them as strings. Regardless, it is parsed correctly by our map library.
 
-``properties`` This is a required member of a GeoJSON feature object. All other properties related to the location belongs here. The following are utilized by the Food Trucks Map:
-- ``name`` The name of the location to be displayed.
-- ``address`` The address of the location to be displayed. Although not required, this should be something that returns a result in Google Maps so people can obtain directions to it.
-- ``current_vendor_id`` This is the ID of any vendors currently at the location, if any. It should correspond with the vendor ID returned by the Vendor API. The back-end server is responsible for checking with any real-time parking interface (in downtown Las Vegas, this is the Parkeon parking meter API) and reporting this information to the front end in this location. If there is no current vendor, the value returned is ``null``. If there is one vendor, only a single ID is necessary. If this is a location that allows multiple vendors, this can be returned as an array of IDs, eg. ``[3, 6, 9]``.
+``properties`` (required) This is a required member of a GeoJSON feature object. All other properties related to the location belongs here. The following are utilized by the Food Trucks Map:
+- ``name`` (required) The name of the location to be displayed.
+- ``address`` (required) The address of the location to be displayed. Although not required, this should be something that returns a result in Google Maps so people can obtain directions to it.
+- ``current_vendor_id`` (required) This is the ID of any vendors currently at the location, if any. It should correspond with the vendor ID returned by the Vendor API. The back-end server is responsible for checking with any real-time parking interface (in downtown Las Vegas, this is the Parkeon parking meter API) and reporting this information to the front end in this location. If there is no current vendor, the value returned is ``null``. If there is one vendor, only a single ID is necessary. If this is a location that allows multiple vendors, this can be returned as an array of IDs, eg. ``[3, 6, 9]``.
 - Additional properties that should be exposed publicly will go here in side the ``properties`` object.
 
 To make sure a GeoJSON response is valid, here is a [GeoJSON linter](http://geojsonlint.com/).
@@ -141,13 +141,15 @@ The Vendors API is an array of hashes whose properties describe each vendor curr
 * ``name`` (required) The name of the vendor to display.
 * ``cuisine`` (optional) The type of food the vendor serves. 
 * ``website`` (optional) The website for the the vendor.
-* ``logo_url`` (optional) A URL to an image of the vendor's logo. It is used in an ``img`` tag and is valid as long as the browser is able to reach the location (either as a relative path, absolute path or a full URL). (SEE NOTE #2)
+* ``logo_url`` (optional) A URL to an image of the vendor's logo. It is used in an ``img`` tag and is valid as long as the browser is able to reach the location (either as a relative path, absolute path or a full URL). If no URL is provided, the front end automatically substitutes a placeholder. (ALSO SEE NOTE #2)
 
-**NOTE:** The actual response will contain many more additional properties that are available from the current back-end administration system, such as ``phone``, ``email``, ``contact_name``, or ``business_license_number``. Some of this is extremely handy for other functions, such as administrative tasks, and is used to create the e-mail list for the [daily schedule notification system](https://github.com/codeforamerica/lv-trucks-notifier). Only the properties currently used by the Food Trucks Map is listed in the sample response above.
+**NOTE:** The actual response will contain many more additional properties that are available from the current back-end administration system, such as ``phone``, ``email``, ``contact_name``, or ``business_license_number``. Some of this is extremely handy for other functions, such as administrative tasks. For instance, the [daily schedule notification system](https://github.com/codeforamerica/lv-trucks-notifier), an additional supporting component that is built on the API (it actually operates completely independently from the front-end component), relies on the ``email`` field to build its mailing list. Only the properties currently used by the Food Trucks Map is listed in the sample response above.
 
 **NOTE #2:** Currently, the image file for ``logo_url`` is not being maintained or stored by the back-end. Instead, a work-around / hack is utilized on the front-end. This was done to test this functionality before baking it into the data structure utilized on the back-end (which would also necessitate some infrastruture for file upload or basic image editing). Since this data is not being provided by the back-end, it is currently stored on the front-end site, with URL data being injected into the response as soon as it is retrieved from the API. Work will need to be done on both the front end and back end applications to improve this functionality.
 
 ### Timeslots API
+
+The Timeslots API returns schedule information that the city sets up and maintains at the start of each food truck program phase. Vendors are expected to stay up to date with the schedule, and the Food Truck Map will show the schedule until it is replaced by real-time information about currently open vendors.
 
 #### Sample response
 ```
@@ -158,18 +160,6 @@ The Vendors API is an array of hashes whose properties describe each vendor curr
         "vendor_id": 6,
         "start_at": "2014-01-23T10:00:00-08:00",
         "finish_at": "2014-01-23T14:00:00-08:00",
-        "vendor": {
-            "business_license_number": "M25-000240-4-160618",
-            "contact_name": "Mike Booth",
-            "created_at": "2013-06-26T21:36:35-07:00",
-            "cuisine": "New American Comfort Food",
-            "email": "mike@saucedvegas.com",
-            "id": 6,
-            "name": "Sauced ",
-            "phone": "702-539-3553",
-            "updated_at": "2013-07-29T07:52:23-07:00",
-            "website": "www.saucedvegas.com/"
-        }
     },
     {
         "id": 91,
@@ -177,17 +167,6 @@ The Vendors API is an array of hashes whose properties describe each vendor curr
         "vendor_id": 16,
         "start_at": "2014-01-10T10:00:00-08:00",
         "finish_at": "2014-01-10T14:00:00-08:00",
-        "vendor": {
-            "business_license_number": "M25-0070-4-083579",
-            "contact_name": "John Margaretis",
-            "created_at": "2013-07-24T06:25:45-07:00",
-            "cuisine": "",
-            "email": "a1mobilecatering@yahoo.com",
-            "id": 16,
-            "name": "A1 Mobile Catering",
-            "phone": "702-452-5229",
-            "updated_at": "2013-07-28T16:17:49-07:00",
-            "website": "https://www.facebook.com/pages/A1-Mobile-Catering/169430916432920"
         }
     },
     {
@@ -196,17 +175,6 @@ The Vendors API is an array of hashes whose properties describe each vendor curr
         "vendor_id": 16,
         "start_at": "2014-01-24T10:00:00-08:00",
         "finish_at": "2014-01-24T14:00:00-08:00",
-        "vendor": {
-            "business_license_number": "M25-0070-4-083579",
-            "contact_name": "John Margaretis",
-            "created_at": "2013-07-24T06:25:45-07:00",
-            "cuisine": "",
-            "email": "a1mobilecatering@yahoo.com",
-            "id": 16,
-            "name": "A1 Mobile Catering",
-            "phone": "702-452-5229",
-            "updated_at": "2013-07-28T16:17:49-07:00",
-            "website": "https://www.facebook.com/pages/A1-Mobile-Catering/169430916432920"
         }
     },
     {
@@ -215,18 +183,6 @@ The Vendors API is an array of hashes whose properties describe each vendor curr
         "vendor_id": 22,
         "start_at": "2014-01-29T10:00:00-08:00",
         "created_at": "2013-07-29T09:34:42-07:00",
-        "vendor": {
-            "business_license_number": "M25-00258-4-165223",
-            "contact_name": "Ashley Hoff",
-            "created_at": "2013-07-24T06:38:26-07:00",
-            "cuisine": "Gourmet Hot Dogs",
-            "email": "Ashley@sincitydogs.com",
-            "id": 22,
-            "name": "Sin City Dogs",
-            "phone": "702-513-7699",
-            "updated_at": "2013-07-29T21:36:59-07:00",
-            "website": "www.sincitydogs.com/"
-        }
     },
     {
         "id": 118,
@@ -234,18 +190,6 @@ The Vendors API is an array of hashes whose properties describe each vendor curr
         "vendor_id": 19,
         "start_at": "2014-01-09T10:00:00-08:00",
         "finish_at": "2014-01-09T14:00:00-08:00",
-        "vendor": {
-            "business_license_number": "M25-00237-4-161739",
-            "contact_name": "JoAnn Bronson",
-            "created_at": "2013-07-24T06:31:15-07:00",
-            "cuisine": "Tex-Mex-Fresh",
-            "email": "jobron@aol.com",
-            "id": 19,
-            "name": "Señor Blues",
-            "phone": "702-610-4472",
-            "updated_at": "2013-07-29T21:36:19-07:00",
-            "website": "www.senorbluesmobile.com/"
-        }
     },
     {
         "id": 65,
@@ -253,24 +197,17 @@ The Vendors API is an array of hashes whose properties describe each vendor curr
         "vendor_id": 22,
         "start_at": "2014-01-07T10:00:00-08:00",
         "finish_at": "2014-01-07T14:00:00-08:00",
-        "vendor": {
-            "business_license_number": "M25-00258-4-165223",
-            "contact_name": "Ashley Hoff",
-            "created_at": "2013-07-24T06:38:26-07:00",
-            "cuisine": "Gourmet Hot Dogs",
-            "email": "Ashley@sincitydogs.com",
-            "id": 22,
-            "name": "Sin City Dogs",
-            "phone": "702-513-7699",
-            "updated_at": "2013-07-29T21:36:59-07:00",
-            "website": "www.sincitydogs.com/"
-        }
     }
 ]
 ```
 
+``id`` Unlike the Vendor or Location APIs, this ``id`` is not used in the front-end.
+``location_id`` (required) This specifies the location that a vendor is located at. It is associated with a matching ``id`` from the Location API.
+``vendor_id`` (required) This specifies the vendor. It is associated with a matching ``id`` from the Vendor API.
+``start_at`` (required) This is the beginning of the timeslot, with date, time, and time zone offset stored in a format corresponding to the [ISO 8601](http://en.wikipedia.org/wiki/ISO_8601) standard (see also: [W3C Note on Time and Date Formats (1997)](http://www.w3.org/TR/NOTE-datetime))
+``finish_at`` (required) This is the end of the timeslot, in the same ISO 8601 format as ``start_at``.
 
-
+**NOTE:** The actual response can contain many more additional properties that are available from the current back-end administration system. Only the properties currently used by the Food Trucks Map is listed in the sample response above. Currently the API also returns the vendor information matching ``vendor_id`` automatically, but the front end should not assume that this behavior will continue to occur.
 
 ### Feedback API
 
