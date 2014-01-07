@@ -25,7 +25,7 @@ The following describes the schema of each JSON request that is either received 
 
 ### Locations API
 
-The locations response adheres to the [GeoJSON specification](http://geojson.org/). This allows any open-source map-based application, not just the Food Trucks Map, to make use of the response returned by the API. We will only cover portions of this response that the Food Trucks Map requires.
+The locations response adheres to the [GeoJSON specification](http://geojson.org/). This allows any open-source map-based application, not just the Food Trucks Map, to make use of the response returned by the API. We will not describe all the points of the GeoJSON specification but cover only portions of the response that the Food Trucks Map requires.
 
 #### Sample response
 ```
@@ -84,7 +84,7 @@ The locations response adheres to the [GeoJSON specification](http://geojson.org
 }
 ```
 
-The response above will cause the map to automatically zoom and pan to the bounding box of all the points that are returned. Administrators can add an arbitrary number of points and the map should still function correctly.
+The map will automatically zoom and pan to the bounding box of all the points.
 
 ``id`` (required) This is an ID number for the location. It is used by the Timeslots API to match vendors to their respective locations.
 
@@ -93,11 +93,11 @@ The response above will cause the map to automatically zoom and pan to the bound
 
 ``properties`` (required) This is a required member of a GeoJSON feature object. All other properties related to the location belongs here. The following are utilized by the Food Trucks Map:
 - ``name`` (required) The name of the location to be displayed.
-- ``address`` (required) The address of the location to be displayed. Although not required, this should be something that returns a result in Google Maps so people can obtain directions to it.
-- ``current_vendor_id`` (required) This is the ID of any vendors currently at the location, if any. It should correspond with the vendor ID returned by the Vendor API. The back-end server is responsible for checking with any real-time parking interface (in downtown Las Vegas, this is the Parkeon parking meter API) and reporting this information to the front end in this location. If there is no current vendor, the value returned is ``null``. If there is one vendor, only a single ID is necessary. If this is a location that allows multiple vendors, this can be returned as an array of IDs, eg. ``[3, 6, 9]``.
-- Additional properties that should be exposed publicly will go here in side the ``properties`` object.
+- ``address`` (required) The address of the location to be displayed. Although not required, this should be something that has a valid search result in Google Maps so people can obtain directions to it from the front-end interface.
+- ``current_vendor_id`` (required) This is the ID of any vendors currently at the location, if any. It should correspond with the vendor ID returned by the Vendor API. The back-end server is responsible for checking with any real-time parking interface (in downtown Las Vegas, this is the Parkeon parking meter API) and reporting this via this property. If there is no current vendor, the value should be ``null``. If there is one vendor present, the value should be a number, e.g. ``2``. If this is a location that has multiple vendors present, this can be returned as an array of IDs, e.g. ``[3, 6, 9]``.
+- Additional properties that should be exposed publicly will go here inside the ``properties`` object.
 
-To make sure a GeoJSON response is valid, here is a [GeoJSON linter](http://geojsonlint.com/).
+A [GeoJSON linter](http://geojsonlint.com/) should be used to ensure compatibility with the GeoJSON specification.
 
 ### Vendors API
 
@@ -140,16 +140,16 @@ The Vendors API is an array of hashes whose properties describe each vendor curr
 * ``id`` (required) The ID of the vendor. This is used to associate with the ``current_vendor_id`` provided by the Locations API as well as ``vendor_id`` in the Timeslots API.
 * ``name`` (required) The name of the vendor to display.
 * ``cuisine`` (optional) The type of food the vendor serves. 
-* ``website`` (optional) The website for the the vendor.
+* ``website`` (optional) The website for the the vendor. The front-end will attach ``http://`` to any URL that does not already have it, since the back-end currently does not validate this data entry.
 * ``logo_url`` (optional) A URL to an image of the vendor's logo. It is used in an ``img`` tag and is valid as long as the browser is able to reach the location (either as a relative path, absolute path or a full URL). If no URL is provided, the front end automatically substitutes a placeholder. (ALSO SEE NOTE #2)
 
 **NOTE:** The actual response will contain many more additional properties that are available from the current back-end administration system, such as ``phone``, ``email``, ``contact_name``, or ``business_license_number``. Some of this is extremely handy for other functions, such as administrative tasks. For instance, the [daily schedule notification system](https://github.com/codeforamerica/lv-trucks-notifier), an additional supporting component that is built on the API (it actually operates completely independently from the front-end component), relies on the ``email`` field to build its mailing list. Only the properties currently used by the Food Trucks Map is listed in the sample response above.
 
-**NOTE #2:** Currently, the image file for ``logo_url`` is not being maintained or stored by the back-end. Instead, a work-around / hack is utilized on the front-end. This was done to test this functionality before baking it into the data structure utilized on the back-end (which would also necessitate some infrastruture for file upload or basic image editing). Since this data is not being provided by the back-end, it is currently stored on the front-end site, with URL data being injected into the response as soon as it is retrieved from the API. Work will need to be done on both the front end and back end applications to improve this functionality.
+**NOTE #2:** Currently, the image file for ``logo_url`` is not being maintained or stored by the back-end. Instead, a work-around / hack is utilized on the front-end. This was done to test this functionality before baking it into the data structure utilized on the back-end (which could necessitate building some infrastructure for file upload or basic image editing). Since this data is not being provided by the back-end, it is currently stored on the front-end site, with URL data being injected into the response as soon as it is retrieved from the API. Work will need to be done on both the front end and back end applications to improve this functionality.
 
 ### Timeslots API
 
-The Timeslots API returns schedule information that the city sets up and maintains at the start of each food truck program phase. Vendors are expected to stay up to date with the schedule, and the Food Truck Map will show the schedule until it is replaced by real-time information about currently open vendors.
+The Timeslots API returns schedule information that is set up and maintained by the city at the start of each food truck program phase. Vendors are expected to appear according to the schedule, and the Food Truck Map will show the pre-set schedule until it is replaced by real-time information about currently open vendors.
 
 #### Sample response
 ```
