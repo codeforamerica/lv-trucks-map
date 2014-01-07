@@ -19,7 +19,7 @@ The front-end needs to know three things: (1) the locations of food truck spots,
 
 Lastly, a fourth API is needed for submitting the feedback form. Unlike the first three, this is not a request made on page load, but rather a POST request that occurs when a user submits a form. It does not receive any information from the back-end server.
 
-The following describes the schema of each JSON request that is either received from, or sent to, the back-end API. The path to each request is set in configuration variables in accordance with the back-end API.
+The following describes the schema of each JSON request that is either received from, or sent to, the back-end API. The path to each request is set in configuration variables in accordance with the back-end API. Because JSON responses can contain additional information (e.g. other properties), the actual responses returned by the API may appear different than the sample responses below. We will only describe the properties that are absolutely required by the front-end to ensure a good user experience.
 
 ### Locations API
 
