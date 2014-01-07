@@ -137,13 +137,15 @@ The Vendors API is an array of hashes whose properties describe each vendor curr
 ]
 ```
 
-``id`` (required) The ID of the vendor. This is used to associate with the ``current_vendor_id`` provided by the Locations API as well as ``vendor_id`` in the Timeslots API.
-``name`` (required) The name of the vendor to display.
-``cuisine`` (optional) The type of food it serves. Helpful to be displayed if it's not apparent from the name of the vendor.
-``website`` (optional)
-``logo_url`` (optional)
+* ``id`` (required) The ID of the vendor. This is used to associate with the ``current_vendor_id`` provided by the Locations API as well as ``vendor_id`` in the Timeslots API.
+* ``name`` (required) The name of the vendor to display.
+* ``cuisine`` (optional) The type of food the vendor serves. 
+* ``website`` (optional) The website for the the vendor.
+* ``logo_url`` (optional) A URL to an image of the vendor's logo. It is used in an ``img`` tag and is valid as long as the browser is able to reach the location (either as a relative path, absolute path or a full URL). (SEE NOTE #2)
 
 **NOTE:** The actual response will contain many more additional properties that are available from the current back-end administration system, such as ``phone``, ``email``, ``contact_name``, or ``business_license_number``. Some of this is extremely handy for other functions, such as administrative tasks, and is used to create the e-mail list for the [daily schedule notification system](https://github.com/codeforamerica/lv-trucks-notifier). Only the properties currently used by the Food Trucks Map is listed in the sample response above.
+
+**NOTE #2:** Currently, the image file for ``logo_url`` is not being maintained or stored by the back-end. Instead, a work-around / hack is utilized on the front-end. This was done to test this functionality before baking it into the data structure utilized on the back-end (which would also necessitate some infrastruture for file upload or basic image editing). Since this data is not being provided by the back-end, it is currently stored on the front-end site, with URL data being injected into the response as soon as it is retrieved from the API. Work will need to be done on both the front end and back end applications to improve this functionality.
 
 ### Timeslots API
 
@@ -151,13 +153,11 @@ The Vendors API is an array of hashes whose properties describe each vendor curr
 ```
 [
     {
-        "created_at": "2013-07-29T09:20:55-07:00",
-        "finish_at": "2014-01-23T14:00:00-08:00",
         "id": 81,
         "location_id": 3,
-        "start_at": "2014-01-23T10:00:00-08:00",
-        "updated_at": "2013-07-29T09:20:55-07:00",
         "vendor_id": 6,
+        "start_at": "2014-01-23T10:00:00-08:00",
+        "finish_at": "2014-01-23T14:00:00-08:00",
         "vendor": {
             "business_license_number": "M25-000240-4-160618",
             "contact_name": "Mike Booth",
@@ -172,13 +172,11 @@ The Vendors API is an array of hashes whose properties describe each vendor curr
         }
     },
     {
-        "created_at": "2013-07-29T09:25:06-07:00",
-        "finish_at": "2014-01-10T14:00:00-08:00",
         "id": 91,
         "location_id": 3,
-        "start_at": "2014-01-10T10:00:00-08:00",
-        "updated_at": "2013-07-29T09:25:06-07:00",
         "vendor_id": 16,
+        "start_at": "2014-01-10T10:00:00-08:00",
+        "finish_at": "2014-01-10T14:00:00-08:00",
         "vendor": {
             "business_license_number": "M25-0070-4-083579",
             "contact_name": "John Margaretis",
@@ -193,13 +191,11 @@ The Vendors API is an array of hashes whose properties describe each vendor curr
         }
     },
     {
-        "created_at": "2013-07-29T09:25:21-07:00",
-        "finish_at": "2014-01-24T14:00:00-08:00",
         "id": 92,
         "location_id": 3,
-        "start_at": "2014-01-24T10:00:00-08:00",
-        "updated_at": "2013-07-29T09:25:21-07:00",
         "vendor_id": 16,
+        "start_at": "2014-01-24T10:00:00-08:00",
+        "finish_at": "2014-01-24T14:00:00-08:00",
         "vendor": {
             "business_license_number": "M25-0070-4-083579",
             "contact_name": "John Margaretis",
@@ -214,13 +210,11 @@ The Vendors API is an array of hashes whose properties describe each vendor curr
         }
     },
     {
-        "created_at": "2013-07-29T09:34:42-07:00",
-        "finish_at": "2014-01-29T14:00:00-08:00",
         "id": 113,
         "location_id": 3,
-        "start_at": "2014-01-29T10:00:00-08:00",
-        "updated_at": "2013-07-29T09:34:42-07:00",
         "vendor_id": 22,
+        "start_at": "2014-01-29T10:00:00-08:00",
+        "created_at": "2013-07-29T09:34:42-07:00",
         "vendor": {
             "business_license_number": "M25-00258-4-165223",
             "contact_name": "Ashley Hoff",
@@ -235,13 +229,11 @@ The Vendors API is an array of hashes whose properties describe each vendor curr
         }
     },
     {
-        "created_at": "2013-07-29T09:37:11-07:00",
-        "finish_at": "2014-01-09T14:00:00-08:00",
         "id": 118,
         "location_id": 3,
-        "start_at": "2014-01-09T10:00:00-08:00",
-        "updated_at": "2013-07-29T09:37:11-07:00",
         "vendor_id": 19,
+        "start_at": "2014-01-09T10:00:00-08:00",
+        "finish_at": "2014-01-09T14:00:00-08:00",
         "vendor": {
             "business_license_number": "M25-00237-4-161739",
             "contact_name": "JoAnn Bronson",
@@ -256,13 +248,11 @@ The Vendors API is an array of hashes whose properties describe each vendor curr
         }
     },
     {
-        "created_at": "2013-07-29T09:14:19-07:00",
-        "finish_at": "2014-01-07T14:00:00-08:00",
         "id": 65,
         "location_id": 3,
-        "start_at": "2014-01-07T10:00:00-08:00",
-        "updated_at": "2013-07-30T09:36:38-07:00",
         "vendor_id": 22,
+        "start_at": "2014-01-07T10:00:00-08:00",
+        "finish_at": "2014-01-07T14:00:00-08:00",
         "vendor": {
             "business_license_number": "M25-00258-4-165223",
             "contact_name": "Ashley Hoff",
@@ -279,6 +269,9 @@ The Vendors API is an array of hashes whose properties describe each vendor curr
 ]
 ```
 
+
+
+
 ### Feedback API
 
 This is a POST request sent to the back-end server's Feedback API. It should be formatted like so:
@@ -294,9 +287,9 @@ This is a POST request sent to the back-end server's Feedback API. It should be 
 }
 ```
 
-``category`` (required) The type of feedback provided, so that the back-end can determine whether this is application feedback (for the developers) or food truck program feedback (for the city). The valid values are ``app`` or ``city``. It is possible for the front-end to provide extra values; it will be the responsibility of the back-end to validate and sort appropriately.
-``body`` (required) A string containing the text of the feedback. The front-end currently limits the length of this string to 2048 characters to prevent responses that are egregiously large.
-``email`` (optional) A string containing the e-mail of the user. The front-end uses HTML5 form validation to check for a valid e-mail address.
+* ``category`` (required) The type of feedback provided, so that the back-end can determine whether this is application feedback (for the developers) or food truck program feedback (for the city). The valid values are ``app`` or ``city``. It is possible for the front-end to provide extra values; it will be the responsibility of the back-end to validate and sort appropriately.
+* ``body`` (required) A string containing the text of the feedback. The front-end currently limits the length of this string to 2048 characters to prevent responses that are egregiously large.
+* ``email`` (optional) A string containing the e-mail of the user. The front-end uses HTML5 form validation to check for a valid e-mail address.
 
 When POSTed, it is the responsibility of the back-end server to validate the request and accept or reject. The server does not return anything except for an HTTP status code which the front end relies on to determine whether the request has succeeded or failed.
 
