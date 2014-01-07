@@ -1,4 +1,4 @@
-# Food trucks map data documention and API reference
+# Back-end interaction / API reference
 
 ### NOTE: WORK IN PROGRESS DO NOT RELY ON THIS YET
 
@@ -95,13 +95,13 @@ The response above will cause the map to automatically zoom and pan to the bound
 - ``name`` The name of the location to be displayed.
 - ``address`` The address of the location to be displayed. Although not required, this should be something that returns a result in Google Maps so people can obtain directions to it.
 - ``current_vendor_id`` This is the ID of any vendors currently at the location, if any. It should correspond with the vendor ID returned by the Vendor API. The back-end server is responsible for checking with any real-time parking interface (in downtown Las Vegas, this is the Parkeon parking meter API) and reporting this information to the front end in this location. If there is no current vendor, the value returned is ``null``. If there is one vendor, only a single ID is necessary. If this is a location that allows multiple vendors, this can be returned as an array of IDs, eg. ``[3, 6, 9]``.
-- Additional properties can be provided in the back-end administration system, and then sent to the front-end, if needed.
+- Additional properties that should be exposed publicly will go here in side the ``properties`` object.
 
 To make sure a GeoJSON response is valid, here is a [GeoJSON linter](http://geojsonlint.com/).
 
 ### Vendors API
 
-The Vendors API is an array of hashes whose properties describe each vendor currently in the program.
+The Vendors API is an array of hashes whose properties describe each vendor currently in the program. Any number of vendors can be provided.
 
 #### Sample response
 ```
@@ -110,8 +110,6 @@ The Vendors API is an array of hashes whose properties describe each vendor curr
         "id": 16,
         "name": "A1 Mobile Catering",
         "cuisine": "",
-        "email": "a1mobilecatering@yahoo.com",
-        "phone": "702-452-5229",
         "website": "https://www.facebook.com/pages/A1-Mobile-Catering/169430916432920",
         "logo_url": null
     },
@@ -119,8 +117,6 @@ The Vendors API is an array of hashes whose properties describe each vendor curr
         "id": 6,
         "name": "Sauced",
         "cuisine": "New American Comfort Food",
-        "email": "mike@saucedvegas.com",
-        "phone": "702-539-3553",
         "website": "www.saucedvegas.com/",
         "logo_url": null
     },
@@ -128,8 +124,6 @@ The Vendors API is an array of hashes whose properties describe each vendor curr
         "id": 13,
         "name": "ABreast of Vegas Chicken",
         "cuisine": "Fresh All Breast Meat",
-        "email": "KvLucero@AOL.com",
-        "phone": "702-528-1878",
         "website": "www.facebook.com/AbvChickentruck",
         "logo_url": null
     },
@@ -137,16 +131,19 @@ The Vendors API is an array of hashes whose properties describe each vendor curr
         "id": 10,
         "name": "Hawaiian Shaved Ice",
         "cuisine": "Shaved Ice",
-        "email": "info@hawaiianshavedicelasvegas.com",
-        "phone": "702-296-0968",
         "website": "www.hawaiianshavedicelasvegas.com",
         "logo_url": null
     }
 ]
 ```
 
-- Additional properties can be provided in the back-end administration system, and then sent to the front-end, if needed.
+``id`` (required) The ID of the vendor. This is used to associate with the ``current_vendor_id`` provided by the Locations API as well as ``vendor_id`` in the Timeslots API.
+``name`` (required) The name of the vendor to display.
+``cuisine`` (optional) The type of food it serves. Helpful to be displayed if it's not apparent from the name of the vendor.
+``website`` (optional)
+``logo_url`` (optional)
 
+**NOTE:** The actual response will contain many more additional properties that are available from the current back-end administration system, such as ``phone``, ``email``, ``contact_name``, or ``business_license_number``. Some of this is extremely handy for other functions, such as administrative tasks, and is used to create the e-mail list for the [daily schedule notification system](https://github.com/codeforamerica/lv-trucks-notifier). Only the properties currently used by the Food Trucks Map is listed in the sample response above.
 
 ### Timeslots API
 
@@ -284,9 +281,26 @@ The Vendors API is an array of hashes whose properties describe each vendor curr
 
 ### Feedback API
 
+This is a POST request sent to the back-end server's Feedback API. It should be formatted like so:
+
 #### Sample request
 ```
+{
+    "feedback": {
+        "category": "app",
+        "body": "This is the content of the feedback to be sent.",
+        "email": "user@domain.com"
+    }
+}
 ```
+
+``category`` (required) The type of feedback provided, so that the back-end can determine whether this is application feedback (for the developers) or food truck program feedback (for the city). The valid values are ``app`` or ``city``. It is possible for the front-end to provide extra values; it will be the responsibility of the back-end to validate and sort appropriately.
+``body`` (required) A string containing the text of the feedback. The front-end currently limits the length of this string to 2048 characters to prevent responses that are egregiously large.
+``email`` (optional) A string containing the e-mail of the user. The front-end uses HTML5 form validation to check for a valid e-mail address.
+
+When POSTed, it is the responsibility of the back-end server to validate the request and accept or reject. The server does not return anything except for an HTTP status code which the front end relies on to determine whether the request has succeeded or failed.
+
+### The end
 
 
 
