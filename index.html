@@ -222,26 +222,24 @@
           <p class='cuisine'>{{vendor.cuisine}}</p>
           <p class='location'>
             <strong>{{location.name}}</strong>
-
-            {{#tomorrow}}
-              <span class='time later'>{{day_of_week}} {{from}}</span>
-            {{/tomorrow}}
-            {{^tomorrow}}
-              {{#from}}
-                <span class='time later'>{{from}} - {{until}}</span>
-              {{/from}}
-              {{^from}}
-                {{#until}}
-                  <span class='time'>until {{until}}</span>
-                {{/until}}
-                {{^until}}
-                  <span class='time'>open now</span>
-                {{/until}}
-              {{/from}}
-            {{/tomorrow}}
-
-            <br><span class='address'>{{location.addressShort}}</span>
           </p>
+
+          {{#tomorrow}}
+            <span class='time later'>{{day_of_week}} {{from}}</span>
+          {{/tomorrow}}
+          {{^tomorrow}}
+            {{#from}}
+              <span class='time later'>{{from}} - {{until}}</span>
+            {{/from}}
+            {{^from}}
+              {{#until}}
+                <span class='time'>until {{until}}</span>
+              {{/until}}
+              {{^until}}
+                <span class='time'>open now</span>
+              {{/until}}
+            {{/from}}
+          {{/tomorrow}}
           
           <span class='links'>
             {{#website}}

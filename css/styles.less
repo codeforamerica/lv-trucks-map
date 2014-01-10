@@ -293,11 +293,11 @@ header {
       padding: 14px 10px 14px;
     }
     .vendor-entry {
-      height: 60px;
+      height: 48px;
       cursor: hand;
       cursor: pointer;
       position: relative;
-      padding-left: 84px;
+      padding-left: 72px;
       .user-select(text);
       .transition(background-color 0s linear);
       &:not(:last-child) {
@@ -310,14 +310,14 @@ header {
         background-color: #ffffdd;
       }
       .vendor-image {
-        height: 68px;
-        width: 68px;
+        height: 56px;
+        width: 56px;
         position: absolute;
         left: 8px;
         top: 10px;
         background-image: url('../img/sprites.png');
-        background-size: 200px;
-        background-position: -2px -87px;
+        background-size: 156px;
+        background-position: 0px -66px;
         img {
           width: 100%;
           height: 100%;
@@ -326,9 +326,9 @@ header {
       }
       h3 {
         padding: 0;
-        margin: 0;
-        line-height: 18px;
-        font-size: 26px;
+        margin: 0 0 10px;
+        line-height: 12px;
+        font-size: 24px;
         font-weight: @light;
         font-color: #222;
         white-space: nowrap;
@@ -339,24 +339,19 @@ header {
         margin: 0;
         &.cuisine {
           color: #777;
-          margin-top: 3px;
           overflow: hidden;
           white-space: nowrap;
           text-overflow: ellipsis;
         }
         &.location {
-          margin-top: 10px;
-        }
-        .address {
-          display: none;
-          color: #555;
-          font-size: 11px;
         }
       }
       span.time {
+        position: absolute;
+        bottom: 8px;
+        right: 8px;
         background-color: @time-background;
         border-radius: 2px;
-        margin-left: 2px;
         color: white;
         padding: 3px 5px;
       }
@@ -707,9 +702,9 @@ div.footer-popup {
     h3 {
       margin: 0 0 2px;
       padding: 0;
-      font-size: 20px;
+      font-size: 18px;
       font-weight: @light;
-      line-height: 20px;
+      line-height: 18px;
       a {
         color: black !important;
         text-decoration: none;
