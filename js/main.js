@@ -676,7 +676,6 @@
           for (var m = 0; m < currentVendorId.length; m++) {
             for (var j = 0; j < vendors.length; j++) {
               if (vendors[j].id === currentVendorId[m]) {
-                console.log(currentVendorId[m])
                 marker.vendor.push(vendors[j])
               }
             }
