@@ -1164,19 +1164,6 @@ div.footer-popup .footer-popup-content {
   -o-user-select: none;
   user-select: none;
 }
-.leaflet-control-attribution {
-  background-color: rgba(255, 255, 255, 0.7) !important;
-  color: #888 !important;
-  box-shadow: none !important;
-}
-@media screen and (max-width: 529px) {
-  .leaflet-control-attribution {
-    font-size: 10px !important;
-  }
-  .leaflet-control-attribution a {
-    color: #888 !important;
-  }
-}
 .map-legends {
   display: none;
 }
