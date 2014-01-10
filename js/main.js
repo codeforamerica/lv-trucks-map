@@ -3,8 +3,8 @@
   // LAS VEGAS FOOD TRUCKS MAP - main application Javascript
 
   // Current date and time, from moment.js
-  var NOW               = moment(),
-      TODAY             = moment().startOf('day')
+  var NOW   = moment(),
+      TODAY = moment().startOf('day')
 
   // Debug options
   var DEBUG_ALLOW = true
@@ -50,6 +50,19 @@
 
   /*************************************************************************
   // 
+  // POLYFILLS
+  // Usually for IE8 unless otherwise specified
+  //
+  // ***********************************************************************/
+
+  if (!Array.isArray) {
+    Array.isArray = function (vArg) {
+      return Object.prototype.toString.call(vArg) === '[object Array]'
+    }
+  }
+
+  /*************************************************************************
+  // 
   // RETRIEVE DATA FROM BACK-END API
   // Done asynchronously
   //
@@ -73,7 +86,7 @@
 
   // Load data from API asynchronously
   $.when( $.ajax({
-    url: API_LOCATIONS,
+    url: API_SERVER + API_LOCATIONS,
     cache: false,
     dataType: 'json',
     success: function (i) {
@@ -83,7 +96,7 @@
       showError('We couldn\'t retrieve vendor locations at this time.')
     }
   }), $.ajax({
-    url: API_TIMESLOTS,
+    url: API_SERVER + API_TIMESLOTS,
     cache: false,
     dataType: 'json',
     success: function (j) {
@@ -93,7 +106,7 @@
       showError('We couldn\'t retrieve vendor schedule at this time.')
     }
   }), $.ajax({
-    url: API_VENDORS,
+    url: API_SERVER + API_VENDORS,
     cache: false,
     dataType: 'json',
     success: function (k) {
@@ -414,7 +427,7 @@
 
     // Inject dummy current vendor data
     if (DEBUG_FAKE_METERS == 1) {
-      locations.features[1].properties.current_vendor_id = 10
+      locations.features[1].properties.current_vendor_id = [4, 18, 26]
       locations.features[2].properties.current_vendor_id = 6
     }
 
@@ -514,15 +527,30 @@
     // Current vendor id is stored in the location object.
     // Use this to create the schedule.now list
     for (var i = 0; i < locations.features.length; i++) {
-      if (locations.features[i].properties.current_vendor_id) {
-        for (var j =0; j < vendors.length; j++) {
-          if (vendors[j].id == locations.features[i].properties.current_vendor_id) {
-            var temp = {}
-            temp.vendor = vendors[j]
-            var k = schedule.now.entries.push(temp) - 1
+
+      var currentVendorId = locations.features[i].properties.current_vendor_id
+
+      // If current_vendor_id is an array of vendors
+      if (Array.isArray(currentVendorId)) {
+        for (var m = 0; m < currentVendorId.length; m++) {
+          for (var j = 0; j < vendors.length; j++) {
+            if (vendors[j].id == currentVendorId[m]) {
+              var k = schedule.now.entries.push( { vendor: vendors[j] } ) - 1
+              schedule.now.entries[k].location_id = locations.features[i].id
+              schedule.now.entries[k].location = locations.features[i].properties
+            }
+          }
+        }
+      }
+
+      // If single number
+      // This duplicates some of the functionality of above
+      else if (currentVendorId) {
+        for (var j = 0; j < vendors.length; j++) {
+          if (vendors[j].id == currentVendorId) {
+            var k = schedule.now.entries.push( { vendor: vendors[j] } ) - 1
             schedule.now.entries[k].location_id = locations.features[i].id
             schedule.now.entries[k].location = locations.features[i].properties
-
           }
         }
       }
@@ -637,11 +665,29 @@
       // data is now attached to the marker itself.
       if (marker.feature.properties.current_vendor_id) {
 
+        var currentVendorId = marker.feature.properties.current_vendor_id
+
+        if (!marker.vendor) {
+          marker.vendor = []
+        }
+
         // Add vendor information for current vendor
-        for (var j =0; j < vendors.length; j++) {
-          if (vendors[j].id == marker.feature.properties.current_vendor_id) {
-            marker.vendor = vendors[j]
-            break
+        if (Array.isArray(currentVendorId)) {
+          for (var m = 0; m < currentVendorId.length; m++) {
+            for (var j = 0; j < vendors.length; j++) {
+              if (vendors[j].id === currentVendorId[m]) {
+                console.log(currentVendorId[m])
+                marker.vendor.push(vendors[j])
+              }
+            }
+          }
+        }
+        else if (currentVendorId) {
+          for (var j = 0; j < vendors.length; j++) {
+            if (vendors[j].id === currentVendorId) {
+              marker.vendor.push(vendors[j])
+              break
+            }
           }
         }
 
@@ -934,7 +980,7 @@
 
     $.ajax({
       type: "POST",
-      url: API_FEEDBACK,
+      url: API_SERVER + API_FEEDBACK,
       data: feedbackData,
       success: function (i) {
         $('#feedback-sending').hide()

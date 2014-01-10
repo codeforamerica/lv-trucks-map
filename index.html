@@ -268,21 +268,21 @@
                 until {{schedule.until}}
                 {{/schedule.until}}
               </div>
-              {{#vendor.logo_url}}
+              {{#logo_url}}
                 <br><div class='popup-vendor-image'>
-                  <img src='{{vendor.logo_url}}'>
+                  <img src='{{logo_url}}'>
                 </div>
-              {{/vendor.logo_url}}
+              {{/logo_url}}
               <div>
                 <h3>
-                  {{#vendor.website}}
-                    <a href='{{vendor.website}}' target='_blank'>{{vendor.name}}</a>
-                  {{/vendor.website}}
-                  {{^vendor.website}}
-                    {{vendor.name}}
-                  {{/vendor.website}}
+                  {{#website}}
+                    <a href='{{website}}' target='_blank'>{{name}}</a>
+                  {{/website}}
+                  {{^website}}
+                    {{name}}
+                  {{/website}}
                 </h3>
-                <small>{{vendor.cuisine}}</small>
+                <small>{{cuisine}}</small>
               </div>
             </div>
             {{/vendor}}

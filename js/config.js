@@ -11,10 +11,10 @@ var DATE_PROGRAM_START  = 'August 1, 2013',
 var API_SERVER          = 'http://lv-food-trucks.herokuapp.com/api/'
                           // local environments use 'http://localhost:3000/'
 
-var API_LOCATIONS       = API_SERVER + 'locations/search.geojson',
-    API_VENDORS         = API_SERVER + 'vendors.json',
-    API_TIMESLOTS       = API_SERVER + 'time_slots.json',
-    API_FEEDBACK        = API_SERVER + 'feedbacks'
+var API_LOCATIONS       = 'locations/search.geojson',
+    API_VENDORS         = 'vendors.json',
+    API_TIMESLOTS       = 'time_slots.json',
+    API_FEEDBACK        = 'feedbacks'
 
 var MAPBOX_ID           = 'codeforamerica.map-wzcm8dk0',
     MAPBOX_ID_RETINA    = 'codeforamerica.map-dfs3qfso'

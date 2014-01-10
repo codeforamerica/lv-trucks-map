@@ -1074,10 +1074,12 @@ div.footer-popup .footer-popup-content {
   font-size: 18px;
   font-weight: 300;
   line-height: 18px;
+  color: black !important;
 }
 .popup .popup-info h3 a {
   color: black !important;
   text-decoration: none;
+  font-weight: 300;
 }
 .popup .popup-info h3 a:hover {
   text-decoration: underline;
