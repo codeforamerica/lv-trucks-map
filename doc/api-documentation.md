@@ -8,7 +8,7 @@ This page defines the standards for communication between the front-end and back
 
 ## General specifications
 
-Currently, all front-end application Javascript is in ``js/main.js``. In the future, it may be desirable to split up the file into separate parts (but is not currently the case).
+Currently, all front-end application Javascript is in ``main.js`` while configuration variables are set in ``config.js``.
 
 The back-end server location is set in a configuration variable ``API_SERVER``. Currently, this is set to ``http://lv-food-trucks.herokuapp.com/api/``. It expects it to be in a format that includes the ``http://`` portion, the full host name (e.g. ``lv-food-trucks.herokuapp.com``), and any portion of the path that is shared by the API (e.g. ``/api``) plus a trailing slash ``/``.
 
