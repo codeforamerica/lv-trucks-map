@@ -4,28 +4,31 @@
 
 The front-end user interface for the Food Trucks Map is designed to be a static, single-page application that can be run from any server environment that serves web pages over HTTP (e.g. [GitHub Pages](http://pages.github.com/), where it is currently hosted). Program logic either happens on the client-side (particularly when it affects the presentation of information), or on a separate [back-end component](https://github.com/codeforamerica/food_trucks) (used primarily for data management and logging). The front-end interacts with the back-end through a public API over HTTP GET or POST protocols. This separation of concerns allows the different pieces of the application to be developed and maintained independently of each other, and each component can designed to best suit the technology available or target user group(s). 
 
-To ensure that the application system as a whole operates smoothly, we must define the the standards for communication between the front-end and back-end in the documentation here. 
-
+This page defines the standards for communication between the front-end and back-end to ensure that the application ecosystem as a whole operates smoothly.
 
 ## General specifications
 
-The back-end server location is set in a configuration variable ``API_SERVER``. By default, it is set to ``http://lv-food-trucks.herokuapp.com/api/``. If modified, it should include the ``http://`` portion, the full host name (e.g. ``lv-food-trucks.herokuapp.com``), and any portion of the path that is shared by the API (e.g. ``/api``) plus a trailing slash ``/``.
+Currently, all front-end application Javascript is in ``js/main.js``. In the future, it may be desirable to split up the file into separate parts (but is not currently the case).
 
-The front-end makes asynchronous HTTP GET requests to the back-end server location. (For more information about how this call is made, refer to the [jQuery documentation on its AJAX method](http://api.jquery.com/jquery.ajax/). We also [polyfill jQuery with the Microsoft-specific XDomainRequest functionality](https://github.com/MoonScript/jQuery-ajaxTransport-XDomainRequest) so that the application can successfully retrieve data in Internet Explorer 8 and 9.)
+The back-end server location is set in a configuration variable ``API_SERVER``. Currently, this is set to ``http://lv-food-trucks.herokuapp.com/api/``. It expects it to be in a format that includes the ``http://`` portion, the full host name (e.g. ``lv-food-trucks.herokuapp.com``), and any portion of the path that is shared by the API (e.g. ``/api``) plus a trailing slash ``/``.
 
-The data is returned from the back-end in [JSON format](http://www.json.org/). We do not support data returned as JSONP ([JSON with padding](http://en.wikipedia.org/wiki/JSONP)), which was a necessity on Internet Explorer 8, but the XDomainRequest polyfill takes care of this issue for us. We will go into more detail on the data schema of these JSON responses in the _Data model_ section below.
+The front-end makes asynchronous HTTP GET requests to the back-end server. (For more information about how this call is made, refer to the [jQuery documentation on its AJAX method](http://api.jquery.com/jquery.ajax/). We also [polyfill jQuery with the Microsoft-specific XDomainRequest functionality](https://github.com/MoonScript/jQuery-ajaxTransport-XDomainRequest) so that the application can successfully retrieve data in Internet Explorer 8 and 9.)
+
+The data is returned from the back-end in [JSON format](http://www.json.org/). We do not support data returned as JSONP ([JSON with padding](http://en.wikipedia.org/wiki/JSONP)), which was a necessity on Internet Explorer 8, but the XDomainRequest polyfill takes care of this issue for us. 
 
 ## Data model
 
-The front-end needs to know three things: (1) the locations of food truck spots, (2) the food truck vendors themselves, and (3) the schedule of which vendors are at which spots and when. To obtain this information, it asks for each from the back-end using separate API calls when the application is first loaded into the browser.
+Here, we will go into more detail on the data schema of these JSON responses.
+
+The front-end needs to know three things: (1) the locations of food truck spots, (2) the food truck vendors themselves, and (3) the schedule of which vendors are at which spots and when. To obtain this information, it asks for each from the back-end API using three separate asynchronous AJAX calls when the application is first loaded by the client.
 
 Lastly, a fourth API is needed for submitting the feedback form. Unlike the first three, this is not a request made on page load, but rather a POST request that occurs when a user submits a form. It does not receive any information from the back-end server.
 
-The following describes the schema of each JSON request that is either received from, or sent to, the back-end API. The path to each request is set in configuration variables in accordance with the back-end API. Because JSON responses can contain additional information (e.g. other properties), the actual responses returned by the API may appear different than the sample responses below. We will only describe the properties that are absolutely required by the front-end to ensure a good user experience.
+The following describes the schema of each JSON request that is either received from, or sent to, the back-end API. The path to each request is set in configuration variables in accordance with the back-end API - be sure to update these if the back-end API paths change. Because JSON responses can contain additional information (e.g. other properties), the actual responses returned by the API may appear different than the sample responses below. We will only describe the properties that are currently used by the front-end.
 
 ### Locations API
 
-The locations response adheres to the [GeoJSON specification](http://geojson.org/). This allows any open-source map-based application, not just the Food Trucks Map, to make use of the response returned by the API. We will not describe all the points of the GeoJSON specification but cover only portions of the response that the Food Trucks Map requires.
+The locations response adheres to the [GeoJSON specification](http://geojson.org/). This allows any open-source map-based application, not just the Food Trucks Map, to make use of the response returned by the API. We will not discuss all of the GeoJSON specification but cover only portions of the response that the Food Trucks Map requires.
 
 #### Sample response
 ```
@@ -143,7 +146,7 @@ The Vendors API is an array of hashes whose properties describe each vendor curr
 * ``website`` (optional) The website for the the vendor. The front-end will attach ``http://`` to any URL that does not already have it, since the back-end currently does not validate this data entry.
 * ``logo_url`` (optional) A URL to an image of the vendor's logo. It is used in an ``img`` tag and is valid as long as the browser is able to reach the location (either as a relative path, absolute path or a full URL). If no URL is provided, the front end automatically substitutes a placeholder. (ALSO SEE NOTE #2)
 
-**NOTE:** The actual response will contain many more additional properties that are available from the current back-end administration system, such as ``phone``, ``email``, ``contact_name``, or ``business_license_number``. Some of this is extremely handy for other functions, such as administrative tasks. For instance, the [daily schedule notification system](https://github.com/codeforamerica/lv-trucks-notifier), an additional supporting component that is built on the API (it actually operates completely independently from the front-end component), relies on the ``email`` field to build its mailing list. Only the properties currently used by the Food Trucks Map is listed in the sample response above.
+**NOTE:** The actual response will contain many more additional properties that are available from the current back-end administration system, such as ``phone``, ``email``, ``contact_name``, or ``business_license_number``. Some of this is extremely handy for other functions, such as administrative tasks. For instance, the [daily schedule notification system](https://github.com/codeforamerica/lv-trucks-notifier), another component that is built on the API (this is a good example of a component that uses the API but operates completely independently from the front-end component), relies on the ``email`` field to build its mailing list. Only the properties currently used by the Food Trucks Map is listed in the sample response above.
 
 **NOTE #2:** Currently, the image file for ``logo_url`` is not being maintained or stored by the back-end. Instead, a work-around / hack is utilized on the front-end. This was done to test this functionality before baking it into the data structure utilized on the back-end (which could necessitate building some infrastructure for file upload or basic image editing). Since this data is not being provided by the back-end, it is currently stored on the front-end site, with URL data being injected into the response as soon as it is retrieved from the API. Work will need to be done on both the front end and back end applications to improve this functionality.
 
@@ -222,7 +225,7 @@ This is a POST request sent to the back-end server's Feedback API. It should be 
 }
 ```
 
-* ``category`` (required) The type of feedback provided, so that the back-end can determine whether this is application feedback (for the developers) or food truck program feedback (for the city). The valid values are ``app`` or ``city``. It is possible for the front-end to provide extra values; it will be the responsibility of the back-end to validate and sort appropriately.
+* ``category`` (required) The type of feedback provided, so that the back-end can determine whether this is application feedback (for the developers) or food truck program feedback (for the city). The valid values are ``app`` or ``city``. It is possible for the front-end to provide extra values; it will be the responsibility of the back-end to validate and handle these values.
 * ``body`` (required) A string containing the text of the feedback. The front-end currently limits the length of this string to 2048 characters to prevent responses that are egregiously large.
 * ``email`` (optional) A string containing the e-mail of the user. The front-end uses HTML5 form validation to check for a valid e-mail address.
 
