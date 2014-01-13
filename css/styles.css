@@ -435,7 +435,7 @@ header #nav-logo img {
   height: 94px;
   margin: 18px auto;
 }
-@media screen and (max-width: 529px), screen and (min-width: 530px) and (max-width: 767px), screen and (max-width: 767px) and (orientation: landscape) {
+@media screen and (min-width: 530px) and (max-width: 767px), screen and (max-width: 767px) and (orientation: landscape) {
   header #nav-logo {
     width: 70px;
     height: 90px;
@@ -447,6 +447,20 @@ header #nav-logo img {
     height: 60px;
     width: 60px;
     margin: 10px auto;
+  }
+}
+@media screen and (max-width: 529px) {
+  header #nav-logo {
+    width: 40px;
+    height: 38px;
+    right: 0;
+    background-size: 120px;
+    background-position: -60px -20px;
+  }
+  header #nav-logo img {
+    height: 30px;
+    width: 30px;
+    margin: 4px auto;
   }
 }
 #error {
@@ -533,14 +547,15 @@ header #nav-logo img {
 }
 #vendor-info .vendor-title {
   background-color: #319abc;
-  height: 60px;
-  padding: 10px 10px 15px;
+  padding: 10px;
 }
 #vendor-info .vendor-title h1 {
-  margin: 0;
+  margin: 0 0 6px 0;
   padding: 0 0 0 50px;
   font-size: 24px;
   font-weight: normal;
+  line-height: 28px;
+  z-index: 9020;
 }
 #vendor-info .vendor-title h1:before {
   content: '';
@@ -548,7 +563,7 @@ header #nav-logo img {
   height: 30px;
   position: absolute;
   left: 10px;
-  top: 10px;
+  top: 8px;
   background: transparent url('../img/sprites.png') no-repeat;
   background-size: 200px;
   background-position: -2px -153px;
@@ -562,14 +577,14 @@ header #nav-logo img {
   #vendor-info .vendor-title h1:before {
     width: 28px;
     height: 18px;
+    margin-top: 4px;
     background-size: 120px;
     background-position: 0px -94px;
   }
 }
 #vendor-info .vendor-title p {
-  margin-left: 50px;
+  margin: 0 0 0 50px;
   line-height: 130%;
-  margin-top: 0;
   color: #dfdfdf;
 }
 @media screen and (max-width: 529px), screen and (min-width: 530px) and (max-width: 767px), screen and (max-width: 767px) and (orientation: landscape) {
@@ -786,9 +801,6 @@ footer ul li i {
     margin-left: 0;
     content: '';
   }
-}
-@media screen and (min-width: 530px) and (max-width: 767px), screen and (min-width: 768px) and (max-width: 900px) {
-  
 }
 #footer-elements {
   position: absolute;

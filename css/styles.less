@@ -120,7 +120,7 @@ header {
       height: 94px;
       margin: 18px auto;
     }
-    @media @mobile, @tablet, @landscape {
+    @media @tablet, @landscape {
       width: 70px;
       height: 90px;
       right: 10px;
@@ -130,6 +130,18 @@ header {
         height: 60px;
         width: 60px;
         margin: 10px auto;
+      }
+    }
+    @media @mobile {
+      width: 40px;
+      height: 38px;
+      right: 0;
+      background-size: 120px;
+      background-position: -60px -20px;
+      img {
+        height: 30px;
+        width: 30px;
+        margin: 4px auto;
       }
     }
   }
@@ -213,20 +225,21 @@ header {
   }
   .vendor-title {
     background-color: darken(@vendor-heading-color, 10%);
-    height: 60px;
-    padding: 10px 10px 15px;
+    padding: 10px;
     h1 {
-      margin: 0;
+      margin: 0 0 6px 0;
       padding: 0 0 0 50px;
       font-size: 24px;
       font-weight: normal;
+      line-height: 28px;
+      z-index: @ui-index + 20;
       &:before {
         content: '';
         width: 40px;
         height: 30px;
         position: absolute;
         left: 10px;
-        top: 10px;
+        top: 8px;
         background: transparent url('../img/sprites.png') no-repeat;
         background-size: 200px;
         background-position: -2px -153px;
@@ -238,15 +251,15 @@ header {
         &:before {
           width: 28px;
           height: 18px;
+          margin-top: 4px;
           background-size: 120px;
           background-position: 0px -94px;
         }
       }
     }
     p {
-      margin-left: 50px;
+      margin: 0 0 0 50px;
       line-height: 130%;
-      margin-top: 0;
       color: #dfdfdf;
       @media @mobile, @tablet, @landscape {
         display: none;
@@ -441,11 +454,6 @@ footer {
         &:after {
           margin-left: 0;
           content: '';
-        }
-      }
-      @media @tablet, @desktop-small {
-        &:first-of-type {
-//                    border-left: 1px solid @footer-divider;
         }
       }
     }

@@ -2,27 +2,16 @@
   'use strict';
   // LAS VEGAS FOOD TRUCKS MAP - main application Javascript
 
-  // Current date and time, from moment.js
-  var NOW   = moment(),
-      TODAY = moment().startOf('day')
-
-  // Debug options
-  var DEBUG_ALLOW = true
-  var DEBUG_MODE = false
-  var DEBUG_CONCIERGE_MODE,
-      DEBUG_FAKE_METERS
-  var DEBUG_CLV_VENDOR_IMAGE = 1
-
-  if (_getQueryStringParams('debug') == 1) {
-    _debug()
-  }
-
   /*************************************************************************
   // 
   // APPLICATION INITIALIZING
   // You should not have to edit these global variables here
   //
   // ***********************************************************************/
+
+  // Current date and time, from moment.js
+  var NOW   = moment(),
+      TODAY = moment().startOf('day')
 
   // Map variables
   var MAP_CENTER_OFFSET   = _getCenterOffset(),
@@ -41,11 +30,23 @@
   var LOAD_TIMEOUT_03 = setTimeout(function () {
                           _loadTimeout(LOAD_TIMEOUT_LENGTH_03)
                         }, LOAD_TIMEOUT_LENGTH_03)
+
   // Set a timeout to display a loading screen if API data takes too long to load.
   var SPINNER_TIMEOUT_LENGTH = 2000
   var SPINNER_TIMEOUT = setTimeout(function () {
                           _loadSpinner(SPINNER_TIMEOUT_LENGTH)
                         }, SPINNER_TIMEOUT_LENGTH)
+
+  // Debug options
+  var DEBUG_ALLOW = true
+  var DEBUG_MODE = false
+  var DEBUG_CONCIERGE_MODE,
+      DEBUG_FAKE_METERS
+  var DEBUG_CLV_VENDOR_IMAGE = 1
+
+  if (_getQueryStringParams('debug') == 1) {
+    _debug()
+  }
 
 
   /*************************************************************************
@@ -63,64 +64,178 @@
 
   /*************************************************************************
   // 
+  // TRUCKS MAP LOGIC
+  // An object that has all the logic for creating the trucks map
+  //
+  // ***********************************************************************/
+
+  var trucks = {
+
+    // Placeholder for data retrieved from back-end API
+    data: {
+      'locations': null,
+      'timeslots': null,
+      'vendors':   null
+    },
+
+    // Placeholder for schedule object for the front end
+    schedule: {
+      'now': {
+        'entries': []
+      },
+      'later': {
+        'entries': []
+      },
+      'tomorrow': {
+        'entries': []
+      }
+    },
+
+    _transformLocationsResponse: function (response) {
+
+      var locations = response
+
+      // Data munging
+      for (var j = 0; j < locations.features.length; j ++) {
+        // Strip city name/state/zip from address
+        // assuming that the address format was entered properly, anyway....
+        locations.features[j].properties.addressShort = locations.features[j].properties.address.split(',')[0]
+        
+        // Inject marker styles for mapbox.js
+        // Disabled due to small icons... not good for retina
+        locations.features[j].properties['marker-symbol'] = 'restaurant'
+        locations.features[j].properties['marker-color'] = '#f93'
+        locations.features[j].properties['marker-size'] = 'large'
+
+        if (DEBUG_FAKE_METERS == 1) {
+          locations.features[j].properties.current_vendor_id = ''
+        }
+
+      }
+
+      // Inject dummy current vendor data
+      if (DEBUG_FAKE_METERS == 1) {
+        locations.features[1].properties.current_vendor_id = [4, 18, 26]
+        locations.features[2].properties.current_vendor_id = 6
+      }
+
+      return locations
+    },
+
+    _transformVendorsResponse: function (response) {
+
+      var vendors = response
+
+      // Sort vendors by name
+      vendors = vendors.sort(_sort_by('name', true, function(a){return a.toUpperCase()}))
+
+      // Clean up website URLs if present
+      for (var i = 0; i < vendors.length; i ++) {
+        if (vendors[i].website) {
+          vendors[i].website = _addHttp(vendors[i].website)
+        }
+      }
+
+      // Inject MVP vendor images
+      if (DEBUG_CLV_VENDOR_IMAGE === 1) {
+
+        var imagePath = 'img/vendor-cache/'
+        var imageIDs = [4, 6, 10, 11, 12, 13, 14, 17, 19, 20, 21, 22, 23, 24, 26]
+
+        for (var i = 0; i < imageIDs.length; i++) {
+          for (var j = 0; j < vendors.length; j++) {
+            if (vendors[j].id == imageIDs[i]) {
+              if (!vendors[j].logo_url) {
+                vendors[j].logo_url = imagePath + imageIDs[i] + '.jpg'
+              }
+            }
+          }
+        }
+      }
+
+      return vendors
+    },
+
+    _transformTimeslotsResponse: function (response) {
+
+      var timeslots = response
+
+      // Sort timeslots by time
+      timeslots = timeslots.sort(_sort_by('start_at', true))
+
+      // Actions
+      for (var i = 0; i < timeslots.length; i++) {
+        var start = moment(timeslots[i].start_at)
+        var end = moment(timeslots[i].finish_at)
+
+        // Add some helpful information for start times
+        timeslots[i].day_of_week = start.format('ddd')
+        timeslots[i].month = start.format('MMMM')
+        timeslots[i].day = start.date()
+        timeslots[i].year = start.year()
+
+        // Formatted strings
+        timeslots[i].from = _formatTime(start)
+        timeslots[i].until = _formatTime(end)
+      }
+
+      return timeslots
+    },
+
+
+
+  }
+
+
+  /*************************************************************************
+  // 
   // RETRIEVE DATA FROM BACK-END API
   // Done asynchronously
   //
   // ***********************************************************************/
 
-  // Create global data variables
-  var locations,
-      timeslots,
-      vendors,
-      schedule = {
-        'now': {
-          'entries': []
-        },
-        'later': {
-          'entries': []
-        },
-        'tomorrow': {
-          'entries': []
-        }
+  $.when(
+    $.ajax({
+      url: API_SERVER + API_LOCATIONS,
+      cache: false,
+      dataType: 'json',
+      success: function (response) {
+        trucks.data.locations = trucks._transformLocationsResponse(response)
+      },
+      error: function (jqhxr) {
+        showError('We couldn\'t retrieve vendor locations at this time.')
       }
+    }),
+      $.ajax({
+      url: API_SERVER + API_VENDORS,
+      cache: false,
+      dataType: 'json',
+      success: function (response) {
+        trucks.data.vendors = trucks._transformVendorsResponse(response)
+       },
+      error: function (jqhxr) {
+        showError('We couldn\'t retrieve vendor information at this time.')
+      }
+    }),
+    $.ajax({
+      url: API_SERVER + API_TIMESLOTS,
+      cache: false,
+      dataType: 'json',
+      success: function (response) {
+        trucks.data.timeslots = trucks._transformTimeslotsResponse(response)
+      },
+      error: function (jqhxr) {
+        showError('We couldn\'t retrieve vendor schedule at this time.')
+      }
+    })
+  ).then( function () {
+    // Actions to perform after all APIs have responded
 
-  // Load data from API asynchronously
-  $.when( $.ajax({
-    url: API_SERVER + API_LOCATIONS,
-    cache: false,
-    dataType: 'json',
-    success: function (i) {
-      locations = _doLocationData(i)
-    },
-    error: function (x) {
-      showError('We couldn\'t retrieve vendor locations at this time.')
-    }
-  }), $.ajax({
-    url: API_SERVER + API_TIMESLOTS,
-    cache: false,
-    dataType: 'json',
-    success: function (j) {
-      timeslots = _doTimeslotData(j)
-    },
-    error: function (x) {
-      showError('We couldn\'t retrieve vendor schedule at this time.')
-    }
-  }), $.ajax({
-    url: API_SERVER + API_VENDORS,
-    cache: false,
-    dataType: 'json',
-    success: function (k) {
-      vendors = _doVendorData(k)
-     },
-    error: function (x) {
-      showError('We couldn\'t retrieve vendor information at this time.')
-    }
-  })).then( function () {
-    // On successful data loading
-    // Then do some data munging
+    var timeslots = trucks.data.timeslots,
+        vendors   = trucks.data.vendors,
+        locations = trucks.data.locations
 
     // Add vendors to timeslot data because the new API doesn't do it
-    // (Was there a reason this was after doMapStuff() ?)
     for (var i = 0; i < timeslots.length; i++ ) {
       for (var j = 0; j < vendors.length; j ++) {
         if (timeslots[i].vendor_id === vendors[j].id) {
@@ -166,7 +281,6 @@
     // On failure
     ga('send', 'event', 'load', 'error', 'Failure on jQuery.when for the three API sources')
   })
-
 
   /*************************************************************************
   // 
@@ -355,14 +469,14 @@
     })
 
 
-  /*************************************************************************
-  // GEOLOCATE!
-  // This uses the HTML5 geolocation API, which is available on
-  // most mobile browsers and modern browsers, but not in Internet Explorer
-  //
-  // See this chart of compatibility for details:
-  // http://caniuse.com/#feat=geolocation
-  // ***********************************************************************/
+    /*************************************************************************
+    // GEOLOCATE!
+    // This uses the HTML5 geolocation API, which is available on
+    // most mobile browsers and modern browsers, but not in Internet Explorer
+    //
+    // See this chart of compatibility for details:
+    // http://caniuse.com/#feat=geolocation
+    // ***********************************************************************/
 
     if (navigator.geolocation) {
       map.locate()
@@ -405,114 +519,6 @@
 
 
 
-  function _doLocationData (locations) {
-
-    // Data munging
-    for (var j = 0; j < locations.features.length; j ++) {
-      // Strip city name/state/zip from address
-      // assuming that the address format was entered properly, anyway....
-      locations.features[j].properties.addressShort = locations.features[j].properties.address.split(',')[0]
-      
-      // Inject marker styles for mapbox.js
-      // Disabled due to small icons... not good for retina
-      locations.features[j].properties['marker-symbol'] = 'restaurant'
-      locations.features[j].properties['marker-color'] = '#f93'
-      locations.features[j].properties['marker-size'] = 'large'
-
-      if (DEBUG_FAKE_METERS == 1) {
-        locations.features[j].properties.current_vendor_id = ''
-      }
-
-    }
-
-    // Inject dummy current vendor data
-    if (DEBUG_FAKE_METERS == 1) {
-      locations.features[1].properties.current_vendor_id = [4, 18, 26]
-      locations.features[2].properties.current_vendor_id = 6
-    }
-
-    return locations
-
-  }
-
-  function _doTimeslotData (timeslots) {
-
-    // Sort timeslots by time
-    timeslots = timeslots.sort(_sort_by('start_at', true))
-
-    // Actions
-    for (var i = 0; i < timeslots.length; i++) {
-
-      var start = moment(timeslots[i].start_at)
-      var end = moment(timeslots[i].finish_at)
-
-      // Add some helpful information for start times
-      timeslots[i].day_of_week = start.format('ddd')
-      timeslots[i].month = start.format('MMMM')
-      timeslots[i].day = start.date()
-      timeslots[i].year = start.year()
-
-      // Formatted strings
-      timeslots[i].from = _formatTime(start)
-      timeslots[i].until = _formatTime(end)
-
-    }
-
-    return timeslots
-  }
-
-  function _doVendorData (vendors) {
-
-    // Sort vendors by name
-    vendors = vendors.sort(_sort_by('name', true, function(a){return a.toUpperCase()}))
-
-    // Clean up website URLs if present
-    for (var i = 0; i < vendors.length; i ++) {
-      if (vendors[i].website) {
-        vendors[i].website = _addHttp(vendors[i].website)
-      }
-    }
-
-    // Inject MVP vendor images
-    if (DEBUG_CLV_VENDOR_IMAGE === 1) {
-
-      var imagePath = 'img/vendor-cache/'
-      var imageIDs = [4, 6, 10, 11, 12, 13, 14, 17, 19, 20, 21, 22, 23, 24, 26]
-
-      for (var i = 0; i < imageIDs.length; i++) {
-        for (var j = 0; j < vendors.length; j++) {
-          if (vendors[j].id == imageIDs[i]) {
-            if (!vendors[j].logo_url) {
-              vendors[j].logo_url = imagePath + imageIDs[i] + '.jpg'
-            }
-          }
-        }
-      }
-    }
-
-    return vendors
-  }
-
-
-  function _sort_by (field, reverse, primer) {
-    var key = function (x) {return primer ? primer(x[field]) : x[field]};
-
-    return function (a,b) {
-      var A = key(a), B = key(b);
-      return ((A < B) ? -1 : (A > B) ? +1 : 0) * [-1,1][+!!reverse];
-    }
-  }
-
-  // Look at website string and add http:// if necessary
-  function _addHttp (url) {
-    if (!url.match(/^(?:f|ht)tps?:\/\//)) {
-      url = 'http://' + url
-    }
-    return url
-  }
-
-
-
   function putInData(locations, timeslots, vendors) {
 
   // Populate schedule
@@ -523,6 +529,8 @@
     var $panelMuchLater = $('#vendor-info-muchlater .vendor-entry-list')
 
     var mustacheScheduleEntry = $('#mustache-schedule-entry').html()
+
+    var schedule = trucks.schedule
 
     // Current vendor id is stored in the location object.
     // Use this to create the schedule.now list
@@ -646,6 +654,8 @@
    */
 
   function doMapStuff (locations, timeslots, vendors) {
+
+    var schedule = trucks.schedule
 
     // Populate map with locations
     var markers = L.mapbox.featureLayer(locations, {
@@ -844,6 +854,7 @@
     var theHTML = ''
     var mustacheCalendarDate = $('#mustache-calendar-date').html()
     var mustacheCalendarList = $('#mustache-calendar-list').html()
+    var timeslots = trucks.data.timeslots
 
     for (var i = 0; i < timeslots.length; i++) {
 
@@ -915,6 +926,31 @@
     } else {
       return date.format('ha')
     }
+  }
+
+
+  /*************************************************************************
+  // 
+  // UTILITY FUNCTIONS
+  //
+  // ***********************************************************************/
+
+
+  function _sort_by (field, reverse, primer) {
+    var key = function (x) {return primer ? primer(x[field]) : x[field]};
+
+    return function (a,b) {
+      var A = key(a), B = key(b);
+      return ((A < B) ? -1 : (A > B) ? +1 : 0) * [-1,1][+!!reverse];
+    }
+  }
+
+  // Look at website string and add http:// if necessary
+  function _addHttp (url) {
+    if (!url.match(/^(?:f|ht)tps?:\/\//)) {
+      url = 'http://' + url
+    }
+    return url
   }
 
 
