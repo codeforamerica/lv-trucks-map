@@ -3,7 +3,7 @@
   // LAS VEGAS FOOD TRUCKS MAP - main application Javascript
 
   /*************************************************************************
-  // 
+  //
   // APPLICATION INITIALIZING
   // You should not have to edit these global variables here
   //
@@ -50,7 +50,7 @@
 
 
   /*************************************************************************
-  // 
+  //
   // POLYFILLS
   // Usually for IE8 unless otherwise specified
   //
@@ -63,7 +63,7 @@
   }
 
   /*************************************************************************
-  // 
+  //
   // TRUCKS MAP LOGIC
   // An object that has all the logic for creating the trucks map
   //
@@ -100,7 +100,7 @@
         // Strip city name/state/zip from address
         // assuming that the address format was entered properly, anyway....
         locations.features[j].properties.addressShort = locations.features[j].properties.address.split(',')[0]
-        
+
         // Inject marker styles for mapbox.js
         // Disabled due to small icons... not good for retina
         locations.features[j].properties['marker-symbol'] = 'restaurant'
@@ -140,7 +140,7 @@
       if (DEBUG_CLV_VENDOR_IMAGE === 1) {
 
         var imagePath = 'img/vendor-cache/'
-        var imageIDs = [4, 6, 10, 11, 12, 13, 14, 17, 19, 20, 21, 22, 23, 24, 26]
+        var imageIDs = [4, 6, 10, 11, 12, 13, 14, 17, 19, 20, 21, 22, 23, 24, 26, 30, 32, 34, 35, 36, 39]
 
         for (var i = 0; i < imageIDs.length; i++) {
           for (var j = 0; j < vendors.length; j++) {
@@ -188,7 +188,7 @@
 
 
   /*************************************************************************
-  // 
+  //
   // RETRIEVE DATA FROM BACK-END API
   // Done asynchronously
   //
@@ -283,7 +283,7 @@
   })
 
   /*************************************************************************
-  // 
+  //
   // MAPBOX.JS HACKS
   // Extend map with a variant of map.panTo() method to accept center offset
   //
@@ -298,14 +298,14 @@
 
 
   /*************************************************************************
-  // 
+  //
   // INITIALIZE MAP
   // Sets initial location, view, attribution, marker types
   //
   // ***********************************************************************/
 
   var map = L.mapbox.map('map')
-    .setView(MAP_INIT_LATLNG, MAP_INIT_ZOOM) 
+    .setView(MAP_INIT_LATLNG, MAP_INIT_ZOOM)
     // This will be overridden later when map bounds are set based on available markers.
 
   if (MAPBOX_ID_OVERRIDE) {
@@ -352,7 +352,7 @@
 
 
   /*************************************************************************
-  // 
+  //
   // UI
   // Makes liberal use of jQuery to do things
   //
@@ -509,7 +509,7 @@
 
 
   /*************************************************************************
-  // 
+  //
   // FUNCTIONS
   //
   // ***********************************************************************/
@@ -737,7 +737,7 @@
 
       }
 
-      // Construct popup through Mustache template        
+      // Construct popup through Mustache template
       var mPopleaf = $('#mustache-popleaf').html()
       var popupHTML = Mustache.render(mPopleaf, marker)
 
@@ -930,7 +930,7 @@
 
 
   /*************************************************************************
-  // 
+  //
   // UTILITY FUNCTIONS
   //
   // ***********************************************************************/
@@ -1103,7 +1103,7 @@
 
   /**
   *    Debug mode activation
-  */ 
+  */
 
   function _debug () {
 
