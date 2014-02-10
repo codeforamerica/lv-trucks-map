@@ -1,0 +1,30 @@
+{
+  "name": "lv-trucks-map",
+  "homepage": "https://github.com/codeforamerica/lv-trucks-map",
+  "authors": [
+    "Lou Huang <lou@codeforamerica.org>"
+  ],
+  "license": "BSD",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "fastclick": "~0.6.11",
+    "jquery": "~1.11.0",
+    "jQuery.XDomainRequest": "*",
+    "html5-boilerplate": "~4.3.0",
+    "mapbox.js": "~1.6.0",
+    "modernizr": "~2.7.1",
+    "mustache": "~0.8.1",
+    "momentjs": "~2.5.0",
+    "offCanvasMenu": "*"
+  },
+  "resolutions": {
+    "jquery": "~1.11.0"
+  }
+}
