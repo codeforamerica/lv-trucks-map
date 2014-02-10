@@ -1,47 +1,105 @@
 {
-    "type": "FeatureCollection",
-    "features": [
-        {
-            "id": 1,
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [-115.147866,36.167866]
-            },
-            "properties": {
-                "name": "City Hall",
-                "address": "495 S. Main Street",
-                "location": "Lewis Avenue, between 1st and Main",
-                "status": "active"
-            }
-        },
-        {
-            "id": 2,
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [-115.148048,36.164973]
-            },
-            "properties": {
-                "name": "Bonneville Transit Center",
-                "address": "101 E. Bonneville Ave.",
-                "location": "Bonneville and Casino Center",
-                "status": "active"
-            }
-        },
-        {
-            "id": 3,
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [-115.145667,36.166047]
-            },
-            "properties": {
-                "name": "Regional Juice Center",
-                "address": "200 Lewis Ave.",
-                "location": "South 3rd Street, between Clark and Lewis",
-                "status": "active"
-            }
-        }
-    ]
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "id": 1,
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-115.147866,36.167866]
+      },
+      "properties": {
+        "name": "City Hall",
+        "address": "495 S. Main Street",
+        "location": "Lewis Avenue, between 1st and Main",
+        "status": "inactive"
+      }
+    },
+    {
+      "id": 2,
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-115.148048,36.164973]
+      },
+      "properties": {
+        "name": "Bonneville Transit Center",
+        "address": "101 E. Bonneville Ave.",
+        "location": "Bonneville and Casino Center",
+        "status": "inactive"
+      }
+    },
+    {
+      "id": 3,
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.145667,
+          36.166047
+        ]
+      },
+      "properties": {
+        "name": "Regional Justice Center",
+        "address": "200 Lewis Ave.",
+        "location": "South 3rd Street, between Clark and Lewis",
+        "spots": "1",
+        "status": "active"
+      }
+    },
+    {
+      "id": 4,
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.15650272369385,
+          36.14456351252233
+        ]
+      },
+      "properties": {
+        "name": "100 Cincinnati",
+        "address": "100 W Cincinnati Ave, Las Vegas, NV",
+        "location": "",
+        "spots": "5",
+        "status": "active"
+      }
+    },
+    {
+      "id": 5,
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.1676070690155,
+          36.16160349693731
+        ]
+      },
+      "properties": {
+        "name": "Hospital District",
+        "address": "1900 Goldring Ave",
+        "location": "",
+        "spots": "2",
+        "status": "active"
+      }
+    },
+    {
+      "id": 6,
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.1531660556793,
+          36.168896552681424
+        ]
+      },
+      "properties": {
+        "name": "Children's Museum",
+        "address": "388 Promenade Place",
+        "location": "",
+        "spots": "2",
+        "status": "active"
+      }
+    }
+  ]
 }
