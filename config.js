@@ -1,5 +1,5 @@
 /*************************************************************************
-// 
+//
 // CONFIGURATION
 // User editable options (global variables)
 //
