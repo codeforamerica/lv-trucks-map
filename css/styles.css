@@ -1080,6 +1080,13 @@ div.footer-popup .footer-popup-content {
   width: 20px;
   height: 20px;
 }
+.popup .popup-info .popup-vendor-cuisine {
+  height: 20px;
+  color: #888;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .popup .popup-info h3 {
   margin: 0 0 2px;
   padding: 0;

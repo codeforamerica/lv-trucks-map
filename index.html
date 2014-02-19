@@ -309,7 +309,9 @@
                     {{vendor.name}}
                   {{/vendor.website}}
                 </h3>
-                <small>{{vendor.cuisine}}</small>
+                {{#vendor.cuisine}}
+                  <div class='popup-vendor-cuisine'><small>{{vendor.cuisine}}</small></div>
+                {{/vendor.cuisine}}
               </div>
             </div>
             {{/ondeck}}
